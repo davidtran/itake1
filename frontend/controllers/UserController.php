@@ -1,0 +1,215 @@
+<?php
+
+class UserController extends Controller {
+
+    protected $_user;
+    
+    public function actions(){
+        return array(
+            'captcha'=>array(
+                'class'=>'CCaptchaAction',
+                'backColor'=>'0xFFFFFF',
+                'transparent'=>true,
+                'testLimit'=>5
+            )
+        );
+    }
+    public function actionLogout() {
+        Yii::app()->user->logout();
+        $this->redirect(array('/site'));
+    }
+
+    public function actionLogin() {
+        $loginForm = new LoginForm();
+        $facebookRedirectUrl = $this->createAbsoluteUrl('/user/register');        
+        if (isset($_POST['LoginForm'])) {
+            $loginForm->username = $_POST['LoginForm']['username'];
+            $loginForm->password = $_POST['LoginForm']['password'];
+            if ($loginForm->validate() && $loginForm->login()) {
+                $this->redirectToReturnUrl();
+            }
+            $loginForm->password = '';
+        }
+        $this->render('login', array(
+            'model' => $loginForm,
+            'facebookRedirectUrl'=>$facebookRedirectUrl
+        ));
+    }
+        
+
+    public function actionFbProfile($returnUrl = null) {
+        
+    }
+
+    public function actionRegister() {                
+        if(isset($_GET['code'])){
+            try{
+                $profile = Yii::app()->facebook->getProfile();
+                if (isset($profile['email'])) {
+                    $user = UserUtil::getUserByEmail($profile['email']);
+                    if ($user == null) {
+                        $user = new User();
+                        $user->email = $profile['email'];
+                
+                        $original = $profile['first_name'] . ' ' . $profile['last_name'];
+                        $username = $original;
+                        $increment = 1;
+                        while (UserUtil::isUserNameExist($username)) {
+                            $username = $original . '.' . $increment;
+                            $increment++;
+                        }
+                        $user->username = $username;
+                        //render login form/ redirect to returnUrl
+                        Yii::app()->session['LastFbId'] = $profile['id'];    
+                        Yii::app()->user->setFlash('success','Kết nối với Facebook thành công. Bạn có thể tiếp tục hoàn tất đăng ký.');
+                    } else {
+                        if($user->fbId == null){
+                            $user->fbid = $profile['id'];
+                        }
+                        $user->isFbUser = 1;
+                        $user->save();
+                        $loginForm = new FacebookLoginForm();
+                        $loginForm->username = $user->email;
+                        $loginForm->validate();
+                        $loginForm->login();                        
+                        $this->redirectToReturnUrl();
+                        
+                    }
+                }
+            }
+            catch(FacebookApiException $e){
+                //do nothing
+            }
+            
+        }else{
+            $user = new User();
+        }
+        
+        if (isset($_POST['User'])) {
+            $user->attributes = $_POST['User'];
+            if(isset(Yii::app()->session['LastFbId'])){
+                $user->fbId = Yii::app()->session['LastFbId'];                
+            }
+            $password = $_POST['User']['password'];
+            if ($user->save()) {
+                Yii::app()->user->setFlash('success', 'Chúc mừng bạn đã đăng ký thành công');
+                $loginForm = new LoginForm();
+                $loginForm->username = $user->email;
+                $loginForm->password = $password;
+                $loginForm->validate();
+                $loginForm->login();
+                $this->redirectToReturnUrl();
+            }
+        }
+
+        $this->render('register', array(
+            'user' => $user
+        ));
+    }
+
+    public function actionProfile($id) {
+        $user = $this->loadUser($id);
+        //load product,sort by time
+        $productDataProvider = $user->searchProduct(null, 20, 0);
+        $this->render('profile', array(
+            'productDataProvider' => $productDataProvider,
+            'page' => 0,
+            'category' => null,
+            'user' => $user
+        ));
+    }
+
+    public function actionUserProductList($userId, $page = 0) {
+        $user = $this->loadUser($userId);
+        $dataProvider = $user->searchProduct(null, 20, $page);
+        $productList = $dataProvider->getData();
+        $empty = $page >= $dataProvider->pagination->pageCount;
+        if (!$empty) {
+            echo $this->renderPartial('_userProductBoard', array(
+                'user' => $user,
+                'page' => $page,
+                'productList' => $productList
+            ));
+            Yii::app()->end();
+        }
+    }
+
+    protected function loadUser($id) {
+        if ($this->_user == null) {
+            $this->_user = User::model()->findByPk($id);
+            if ($this->_user == null) {
+                throw new CHttpException(404, 'User not found');
+            }
+        }
+        return $this->_user;
+    }
+    
+    public function actionUploadProfileImage(){
+        if(Yii::app()->user->isGuest == false){
+            $user = Yii::app()->user->model;
+            $result = UserUtil::uploadProfile($user);
+            if($result){
+                $this->renderAjaxResult(true,Yii::app()->baseUrl.'/'.$user->image);
+            }
+            $this->renderAjaxResult(false,array('error'=>$user->getError('image')));
+        }        
+    }
+    
+    public function actionUploadBannerImage(){
+        if(Yii::app()->user->isGuest == false){
+            $user = Yii::app()->user->model;
+            if(UserUtil::uploadBanner($user)){
+                $this->renderAjaxResult(true,Yii::app()->baseUrl.'/'.$user->getBanner());
+            }else{
+                $this->renderAjaxResult(false,array('errors'=>$user->getError('banner')));
+            }
+        }
+    }
+
+    public function actionForgetPassword(){
+        $model = new ForgetPassword();        
+        if(isset($_POST['ForgetPassword'])){
+            
+            $model->attributes = $_POST['ForgetPassword'];
+            if($model->resolveForgetPassword()){                       
+                Yii::app()->user->setFlash('forgetPasswordEmail',$model->email);
+           
+            }            
+        }
+        $this->render('forgetPassword',array(
+            'model'=>$model
+        ));
+    }
+    
+    public function actionSuccessSendForgetPassword(){
+        if(Yii::app()->user->hasFlash('forgetPasswordEmail')){          
+            $email    = Yii::app()->user->getFlash('forgetPasswordEmail');
+            $this->render('successSendForgetPassword',array(
+                'username'=>$username,
+                'email'=>$email
+            ));
+        }
+    }
+    public function actionUpdateContactInfo()
+    {
+        if(Yii::app()->user->isGuest == false){
+            $user = Yii::app()->user->model;
+            if(isset ($_POST['phone'])&&isset ($_POST['locationText'])&&$_POST['lon']&&$_POST['lat']&&$_POST['city'])
+            {
+                $user->phone = $_POST['phone'];
+                $user->locationText = $_POST['locationText'];
+                $user->lon = $_POST['lon'];
+                $user->lat = $_POST['lat'];
+                $user->city = $_POST['city'];           
+                if($user->save())
+                {
+                    echo 'save success';                    
+                }                
+                else 
+                   echo 'save fail'; 
+            }
+            else
+                echo 'save fail';
+        }
+    }
+}

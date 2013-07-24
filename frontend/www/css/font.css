@@ -1,0 +1,10 @@
+@font-face{
+font-family:'MNBTitleBold';
+src:url('mnbtitlefont.eot');
+src:url('mnbtitlefont.eot?iefix') format('eot'),
+url('mnbtitlefont.woff') format('woff'),
+url('mnbtitlefont.ttf') format('truetype'),
+url('mnbtitlefont.svg') format('svg');
+font-weight:normal;font-style:normal}
+@font-face{font-family:'Segoe UI Light';src:url("segoeuil_0.eot")}
+@font-face{font-family:'Segoe UI Light';src:url("segoeuil_0.ttf")}

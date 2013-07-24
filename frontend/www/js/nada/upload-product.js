@@ -1,0 +1,393 @@
+var map;
+var maker;
+var locationData = null;
+defaultLat = 21.022983;
+defaultLng = 105.831878;
+var $addressField;
+if (typeof product != "undefined" && product.lat != null && product.lon != null) {
+    defaultLat = product.lat;
+    defaultLng = product.lon;
+}
+//if (typeof contactInfo != "undefined") {
+//    $('#Product_city').val(contactInfo.city);
+//    defaultLat = contactInfo.lat != null ? contactInfo.lat : defaultLat;
+//    defaultLng = contactInfo.lon != null ? contactInfo.lon : defaultLng;
+//    $('#Product_locationText').val(contactInfo.locationText);
+//    $('#Product_phone').val(contactInfo.phone);
+//}
+//defaultLat = contactInfo.lat!=null?contactInfo.lat:defaultLat;
+//defaultLng = contactInfo.lon!=null?contactInfo.lon:defaultLng;
+$(document).ready(function() {
+    $('.fileupload').fileupload({
+        uploadtype: 'image'
+    });
+    $('#Product_city').change(function(e) {
+        onCityChange($(this).val());
+    });
+    $('#Product_hasLocation').click(function() {
+        val = $(this).val();
+        onShowMapClick(val)
+    });
+    $addressField = $('#Product_locationText');
+    $('#btnSearchLocation').click(function(e) {
+        e.preventDefault();
+        searchMapByAddress($addressField.val())
+        return false;
+    });
+//    if($('#Product_category_id').attr('value')!="0")
+//        {
+//            
+//        }
+    $addressField.keydown(function(e) {
+
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            searchMapByAddress($addressField.val());
+
+            return false;
+        }
+
+    });
+    updatePreview();
+    //$('#Product_category_id').val(getUrlQuery(location.href,'category'));
+
+    //init step function
+
+});
+function updatePreview() {
+    $('div.productImageTitle').html($('#Product_title').val());
+    $('div.productImagePrice').html($('#Product_price').val());
+    $('div.productDescription').html($('#Product_description').val());
+    $('img.productImage').attr('src', $('.fileupload-preview img').attr('src'));
+    setTimeout(function() {
+        updatePreview();
+    }, 1000);
+}
+function selectCategoryAt(idxCat, icontext, catName, styleName) {
+    $('#listCategory a.btn.dropdown-toggle').html('<span class="label ' + styleName + '"><i class="' + icontext + '"/>' + catName + '</i></span><span class="caret"></span>');
+    $('#Product_category_id').attr('value', idxCat);
+}
+function searchMapByAddress(address) {
+    GMaps.geocode({
+        address: getMapSearchQuery(address),
+        callback: function(results, status) {
+            if (status == 'OK') {
+                var latlng = results[0].geometry.location;
+                map.setCenter(latlng.lat(), latlng.lng());
+                placeMarker(latlng.lat(), latlng.lng());
+            } else {
+                alert('Không tìm thấy kết quả cho địa chỉ bạn nhập, vui lòng nhập lại.');
+            }
+        }
+    });
+}
+function getMapSearchQuery(address) {
+    //get selected city, vietnam
+    var cityId = $('#Product_city').val();
+    address = address.trim();
+
+    return address + getCityNameFromId(cityId) + ', Vietnam';
+}
+
+function getCityNameFromId(id) {
+    if (cityList[id] != undefined) {
+        return cityList[id].name;
+    }
+    return '';
+}
+function addMap(lat, lng) {
+    map = new GMaps({
+        div: '#map',
+        lat: lat,
+        lng: lng,
+        width: 500,
+        height: 400,
+        zoom: 15,
+        click: function(e) {
+            placeMarker(e.latLng.lat(), e.latLng.lng());
+        }
+    });
+    map.addControl({
+        position: 'top_right',
+        text: 'Nơi bán hàng',
+        style: {
+            margin: '5px',
+            padding: '1px 6px',
+            border: 'solid 1px #717B87',
+            background: '#fff'
+        },
+        events: {
+            click: function() {
+                GMaps.geolocate({
+                    success: function(position) {
+                        map.setCenter(position.coords.latitude, position.coords.longitude);
+                    },
+                    error: function(error) {
+                        alert('Không thể đặt vị trí: ' + error.message);
+                    },
+                    not_supported: function() {
+                        alert("Trình duyệt của bạn không cho phép sử dụng bản đồ");
+                    }
+                });
+            }
+        }
+    });
+
+
+    map.addMarker({
+        lat: lat,
+        lng: lng,
+        icon: 'http://i.imgur.com/jfx5t.png',
+    });
+}
+function placeMarker(lat, lng) {
+    map.removeMarkers();
+    $('#Product_lat').val(lat);
+    $('#Product_lon').val(lng);
+
+
+    GMaps.geocode({
+        lat: lat,
+        lng: lng,
+        callback: function(results, status) {
+            if (status == 'OK') {
+                var formatAddress = results[0].formatted_address;
+                console.log(results[0]);
+                
+                addressComponents = results[0].address_components;
+
+                var latlng = results[0].geometry.location;
+                map.setCenter(latlng.lat(), latlng.lng());
+                map.addMarker({
+                    lat: latlng.lat(),
+                    lng: latlng.lng()
+                });
+            }
+        }
+    });
+}
+
+function onShowMapClick(value) {
+    if (value == 1) {
+        //fill lat long data      
+        $('#Product_lat').val(locationData.latitude);
+        $('#Product_lon').val(locationData.longitude);
+        $('#mapContainer').slideDown('slow');
+    } else {
+        //remove lat lng
+        $('#Product_lat').val(null);
+        $('#Product_lon').val(null);
+        $('#mapContainer').slideUp('slow');
+    }
+}
+function onCityChange(value) {
+    $.ajax({
+        url: BASE_URL + '/upload/getGeoData',
+        data: {
+            cityId: value
+        },
+        type: 'get',
+        success: function(json) {
+            console.log(json);
+            
+            if (json.success) {
+                addMap(json.msg.latitude, json.msg.longitude);
+                placeMarker(json.msg.latitude, json.msg.longitude);
+
+                locationData = json.msg;
+            }
+        }
+    });
+}
+function onProductItemClick() {
+    $('.productItem .deleteBtn').on('click', function(e) {
+        e.preventDefault();
+        var $parent = $(this).parent('.productItem');
+        var productId = $parent.attr('data-product-id');
+
+        deleteItem(productId, $parent);
+
+    });
+}
+function deleteItem(productId, productItem) {
+    startLoadingBackground(productItem);
+    $.ajax({
+        url: BASE_URL + '/upload/delete',
+        type: 'post',
+        success: function(json) {
+            var data = $.parseJSON(json);
+            if (data.success) {
+                productItem.fadeOut('slow', function() {
+                    $('.productBoard').isotope('reLayout');
+                });
+
+            }
+        },
+        complete: function() {
+            stopLoadingBackground(productItem);
+        }
+
+    })
+}
+
+var UploadForm = {
+    step1Selector: '#uploadStep1',
+    step2Selector: '#uploadStep2',
+    finishStep1Selector: '#btnFinishStep1',
+    finishStep2Selector: '#btnFinishStep2',
+    backToStep1Selector: '#btnBackToStep1',
+    startChecking: false,
+    fieldList: '#Product_title, #Product_price, #Product_description, #Product_category_id',
+    numberField: '#Product_phone',
+    imageField: '#productImage',
+    init: function() {
+        UploadForm.initForm();
+        UploadForm.initValidateStep1();
+        UploadForm.initFinishStep1();
+        UploadForm.initBackToStep1();
+        UploadForm.initFinishStep2();
+        if (false == isNewRecord) {
+            UploadForm.setFinishStep1ButtonState(true);
+        }
+        UploadForm.initPriceField();
+    },
+    initPriceField:function(){
+        var priceDisplayValue = $('#Product_priceDisplay').val();
+        $('#Product_price').keyup(function(event){
+            
+            if(event.which >= 37 && event.which <= 40){
+                event.preventDefault();
+            }
+
+            $(this).val(function(index, value) {
+                var number = value.replace(/\D/g, '');
+                
+                return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    
+                ;
+            });
+        });
+    },
+    initForm: function() {
+        $(UploadForm.step1Selector).show();
+        $(UploadForm.step2Selector).hide();
+        $(UploadForm.finishStep1Selector).addClass('disabled');
+    },
+    initFinishStep1: function() {
+        $(UploadForm.finishStep1Selector).click(function(e) {
+            e.preventDefault();
+            if (UploadForm.validateStep1Form()) {
+                $(UploadForm.step1Selector).slideUp('300', function() {
+                    $(UploadForm.step2Selector).slideDown('300', function() {
+                        addMap(defaultLat, defaultLng);
+                    });
+                });
+            }
+            return false;
+        });
+    },
+    initValidateStep1: function() {
+        //check all field in step1
+        $(UploadForm.imageField).each(function() {
+            $(this).change(function() {
+                valid = UploadForm.validateStep1Form();
+                UploadForm.setFinishStep1ButtonState(valid);
+            });
+        });
+        $(UploadForm.fieldList).each(function() {
+            $(this).keyup(function() {
+                valid = UploadForm.validateStep1Form();
+                UploadForm.setFinishStep1ButtonState(valid);
+            });
+        });
+
+
+        $(UploadForm.numberField).each(function() {
+            $(this).keyup(function() {
+                valid = UploadForm.validateStep1Form();
+                UploadForm.setFinishStep1ButtonState(valid);
+            });
+        })
+
+
+
+    },
+    validateStep1Form: function() {
+        var valid = true;
+        if ($('#productImageHolder').attr('src') != null) {
+            $('#productImageHolder').removeClass('error').addClass('valid');
+        } else {
+            $('#productImageHolder').removeClass('valid').addClass('error');
+        }
+        
+
+        $(UploadForm.numberField).each(function() {
+            UploadForm.startChecking = true;
+            if ($(this).val().trim() != '' && $.isNumeric($(this).val()) == false) {
+              
+                $(this).addClass('error');
+                $(this).removeClass('valid');
+                valid = false;
+            } else {
+                $(this).addClass('valid');
+                $(this).removeClass('error');
+            }
+        });
+        
+        $(UploadForm.fieldList).each(function() {
+            UploadForm.startChecking = true;
+            fieldValue = $(this).val();
+            if (fieldValue.trim() == '') {
+                $(this).addClass('error');
+                $(this).removeClass('valid');
+                valid = false;
+            } else {
+
+                $(this).addClass('valid');
+                $(this).removeClass('error');
+            }
+        });
+        var result;
+        if (UploadForm.startChecking == false) {
+            result = false;
+        } else if (valid) {
+            result = true;
+        }
+
+        return result;
+    },
+   
+    setFinishStep1ButtonState: function(valid) {
+        if (valid) {
+            $(UploadForm.finishStep1Selector).removeClass('disabled');
+            $('#step1ThongTin').removeClass('current');
+            $('#step1ThongTin').addClass('disabled');
+            $('#step2DiaDiem').removeClass('disabled');
+            $('#step2DiaDiem').addClass('current');
+        } else {
+            $('#step1ThongTin').removeClass('class', 'disabled');
+            $('#step1ThongTin').addClass('class', 'current');
+            $(UploadForm.finishStep1Selector).addClass('disabled');
+            $('#step2DiaDiem').removeClass('current');
+            $('#step2DiaDiem').addClass('disable');
+        }
+    },
+    initBackToStep1: function() {
+        $(UploadForm.backToStep1Selector).click(function(e) {
+            e.preventDefault();
+            $(UploadForm.step2Selector).slideUp('300', function() {
+                $(UploadForm.step1Selector).slideDown('300');
+            });
+            return false;
+        })
+    },
+    initFinishStep2: function() {
+        $(UploadForm.finishStep2Selector).click(function(e) {
+            $(this).button('loading');
+        });
+    }
+}
+
+$(document).ready(function() {
+    UploadForm.init();
+})
