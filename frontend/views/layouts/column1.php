@@ -7,7 +7,7 @@
                 </div>
                 <div class="frmSearch_wrapper">                          
                     <div class="frmSearch">     
-                        <div class="locations">
+                        <div class="locations hidden-phone">
                             <div class="btn-group">                                   
                                 <Button class="btn flat dropdown-toggle" data-toggle="dropdown"> 
                                    <i class="icon-sort-by-attributes"></i>                     
@@ -70,7 +70,7 @@
                             <button id="ndsearch_btn" class="submit" type="submit">Tìm kiếm</button>
                         </form>
                     </div>   
-                    <div class="user-controls">
+                    <div class="user-controls hidden-phone">
                         <?php if( Yii::app()->user->isGuest == false ) :?>       
 <!--                            <a style="margin-top:-5px;" href="<?php echo $this->createUrl('/upload'); ?>" class="btn btn-info" ><i class="icon-upload icon-white"></i>  Đăng bán</a>-->
                             <?php

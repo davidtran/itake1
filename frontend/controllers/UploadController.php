@@ -25,6 +25,13 @@ class UploadController extends Controller
         {
             $product->attributes = $_POST['Product'];
             $product->user_id = Yii::app()->user->getId();
+            $user = Yii::app()->user->model;
+            $user->lon = $product->lon;
+            $user->lat = $product->lat;
+            $user->locationText = $product->locationText;
+            $user->city = $product->city;
+            $user->phone = $product->phone;
+            $user->save();
             $this->handleUploadImage($product);
             if ($product->validate(null,false) && $product->save(false))
             {                
@@ -115,6 +122,7 @@ class UploadController extends Controller
                 $this->render('success', array(
                     'product' => $product
                 ));
+                $this->redirect($product->getDetailUrl());                
             }
             else
             {

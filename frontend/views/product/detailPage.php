@@ -3,7 +3,7 @@ $this->pageTitle = $product->title;
 $cs = Yii::app()->clientScript;
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.js', CClientScript::POS_HEAD);
 ?>
-<div class="modal-scrollable" style="z-index: 1050;margin-top: 50px;">
+<div class="modal-scrollable" style="z-index: 1;margin-top: 50px;">
     <div class="close_tag" style="top:50px;"> <a style="padding:20px;" class="close"  href="../../"><i class="icon-home"></i></a></div>
     <div id="productDialog" class="modal hide fade modal-overflow in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: block; margin-top: 0px;">                    
         <div class="modal-body"  id="productDialogBody" style="">
@@ -27,7 +27,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                     <a class="addthis_button_tweet"></a>
                                     <a class="addthis_button_pinterest_pinit"></a>
                                     </div>
-                                    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+                                    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
                                     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5165a11f04e5f961"></script>
                                     <!-- AddThis Button END -->
                                 </div>                                   

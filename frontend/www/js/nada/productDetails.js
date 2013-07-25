@@ -220,6 +220,6 @@ function loadUserProduct(product) {
     });
     setTimeout(function() {
         $('#userProductList').isotope('reLayout');
-    }, 500);
+    }, 1000);   
 
 }
