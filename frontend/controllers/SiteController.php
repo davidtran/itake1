@@ -27,14 +27,8 @@ class SiteController extends Controller
         //change city
         //redirect to index with selected category
         Yii::app()->session['LastCity'] = $id;
-        $category = null;
-        if (isset(Yii::app()->session['LastCategory']))
-        {
-            $category = Yii::app()->session['LastCategory'];
-        }
-        $redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/index', array(
-            'category' => $category,
-        ));
+        $category = null;        
+        $redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/index');
         $this->redirect($redirectUrl);
     }
 
@@ -49,7 +43,7 @@ class SiteController extends Controller
     public function actionSortType($type)
     {
         SolrSortTypeUtil::getInstance()->setSortType($type);
-        $city = 0;
+        
         if (isset(Yii::app()->session['LastCity']))
         {
             $city = Yii::app()->session['LastCity'];
@@ -74,6 +68,8 @@ class SiteController extends Controller
     {
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber']=$page;
+        Yii::app()->session['LastCategory'] = $category;
+        Yii::app()->session['LastKeyword']=$keyword;
         $categoryModel = null;
         if ($category != null)
         {
@@ -81,12 +77,11 @@ class SiteController extends Controller
         }
         if ($keyword != '')
         {
-            Yii::app()->session['LastKeyword']=$keyword;
+            
             $this->pageTitle = Yii::app()->name . ' - Kết quả tìm kiếm cho từ khóa ' . $keyword;
         }
         else if ($categoryModel != null)
-        {
-            Yii::app()->session['LastCategory'] = $category;
+        {            
             $this->pageTitle = Yii::app()->name . ' - Danh mục ' . $categoryModel->name;
         }
         else if ($facebook)
@@ -99,6 +94,7 @@ class SiteController extends Controller
         {
             $city = Yii::app()->session['LastCity'];
         }
+        
         $solrAdapter = new SolrSearchAdapter();
         $solrAdapter->setSortType(SolrSortTypeUtil::getInstance()->getCurrentSortType());
         $solrAdapter->categoryId = $category;

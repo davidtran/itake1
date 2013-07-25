@@ -99,7 +99,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1',
                                             </div>
                                         </div>
                                         <div class="alert alert-info" style="text-align: justify;margin-left: 5px;margin-right: 5px;">
-                                            <b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn 640px và bề cao ảnh phải lớn hơn 480px
+                                            <b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn <?php echo Yii::app()->params['image.minWidth']; ?>px và bề cao ảnh phải lớn hơn <?php echo Yii::app()->params['image.minHeight']; ?>px
                                         </div>
                                     </div>
                                 </div>

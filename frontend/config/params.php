@@ -33,7 +33,12 @@ return CMap::mergeArray(
 			),
 			// add here all frontend-specific parameters
             'webFolder'=>'frontend/wwww',
-            'email.viewPath'=>'frontend.views.mail',
+            'email.viewPath'=>'frontend.views.mail',        
+            
+            'image.minWidth'=>420,
+            'image.minHeight'=>420,
+            'image.maxWidth'=>762,
+            'image.maxHeight'=>1024
 		),
         
 		// merge environment parameters with local *override by local
