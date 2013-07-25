@@ -13,7 +13,7 @@ $cs->registerScript('product info', "
     var product = $productInfo;
     var cityList = $cityList;
     var isNewRecord = $isNewRecord;
-        var contactInfo = $contactInfo;
+    var contactInfo = $contactInfo;
         "
         , CClientScript::POS_HEAD);
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1', CClientScript::POS_END);
