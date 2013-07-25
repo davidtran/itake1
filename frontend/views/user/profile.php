@@ -11,23 +11,26 @@
 ?>
 <div class='nd_profile'>
     <div class="top" style="background-image: url('<?php echo Yii::app()->baseUrl.'/'.$user->getBanner();?>');background-repeat: no-repeat; background-size:100% 100%;">
-        <div class="avatar">
+        <div class="row-fluid">            
+            <div class="span6 profile-name">
+                <div class="avatar">
             <?php echo CHtml::image($user->getProfileImageUrl(),$user->username,array(
                 'width'=>120,
-                'height'=>180,
+                'height'=>120,
                 'style'=>'width: 120px;
-                            height: 120px;',
-                'class'=>'img-polaroid',
+                          height: 120px;',
+                'class'=>'img-circle',
             )); ?>
             <?php if(UserUtil::canEdit($user)):?>
                 <div id="avatarChanger">
-                    Đổi avatar
+                    <i class="icon-edit-sign icon-2x"></i> 
                 </div>
             <?php endif; ?>
-        </div> 
-        <div>
-            <h3><?php echo $user->username;?></h3>
-        </div>
+        </div>   
+                <h3><?php echo $user->username;?></h3>
+            </div>
+            <div class="span6"></div>
+        </div>         
         <?php if(UserUtil::canEdit($user)):?>
 <!--            <div id="bannerChanger">Đổi banner</div>-->
         <?php endif; ?>
