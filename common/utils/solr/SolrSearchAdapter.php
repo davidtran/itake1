@@ -46,7 +46,7 @@ class SolrSearchAdapter
             'product(1.1,view)'
         );
         $params['defType'] = 'edismax';
-        $params['qf'] = 'title^6 description^20';
+        $params['qf'] = 'title^60 description^20';
         $params['q.alt'] = '*:*';
         if($this->latitude !=null && $this->longitude != null){
             $params['fq'][] = '{!geofilt}';

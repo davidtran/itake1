@@ -35,8 +35,8 @@ return array(
     'email.port'=>465,
     'email.adminEmail'=>'rubickweb@gmail.com',
     
-    'facebook.appId'=>'620447237967845',
-    'facebook.secret'=>'5b14e9c48eaf0da3ead75e49df09c882',
+    'facebook.appId'=>'343485335785351',
+    'facebook.secret'=>'e77260e49968b3d74b2efe8577893d66',
     
     'solr.port'=>'8983',
     'solr.host'=>'localhost',
