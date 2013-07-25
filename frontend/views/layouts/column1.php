@@ -3,7 +3,7 @@
 <div class="nav-bar-top">
                 <div class="nd_logo">
                     <a class="logo" href="<?php echo $this->createUrl('/site'); ?>"><h1>ITAKE.ME</h1></a>
-                    <small>Take the favourites</small>               
+                    <small class="visible-desktop">Take the favourites</small>               
                 </div>
                 <div class="frmSearch_wrapper">                          
                     <div class="frmSearch">     
@@ -118,8 +118,8 @@
                                 </ul>
                             </div>
                         <?php else: ?>
-                            <a href="<?php echo $this->createUrl('/user/register'); ?>" class="btn btn-info" ><i class="icon-user icon-white"></i>  Đăng ký</a>
-                            <a class="btn" href="<?php echo $this->createUrl('/user/login'); ?>"><i class="icon-lock"></i>  Đăng nhập</a>
+<!--                            <a href="<?php echo $this->createUrl('/user/register'); ?>" class="btn btn-info" ><i class="icon-user icon-white"></i>  Đăng ký</a>-->
+                            <a class="btn btn-info" href="<?php echo $this->createUrl('/user/login'); ?>"><i class="icon-user"></i>  Thành viên</a>
                         <?php endif; ?>
                     </div>     
                 </div>

@@ -5,7 +5,9 @@ $this->pageTitle = 'Tạo tài khoản vào '.Yii::app()->name;
 ?>
 
 
-
+<div class="container-fluid" style="margin-top: 74px;">
+    <div class="row-fluid">
+        <div class="span4 login-panel offset4">
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'type'=>'inline',
@@ -14,7 +16,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     )
 ));
 ?>
-<h2 class="form-signin-heading">Tạo tài khoản</h2>  
+<h2 class="form-signin-heading"><i class="icon-group"></i>  Gia nhập itake</h2>  
 <hr/>
 <?php
 $this->widget('bootstrap.widgets.TbAlert', array(
@@ -43,7 +45,7 @@ echo $form->passwordFieldRow($user, 'password', array(
     'class' => 'input-block-level'
 ));
 ?>
-<button class="btn btn-primary login" type="submit" style="width:100%;height:50px;font-size:1.3em;">Tạo tài khoản</button>
+<button class="btn btn-success login" type="submit" style="width:100%;height:50px;font-size:1.3em;">Tạo tài khoản</button>
 <br/>
 <div style="float:right;width:100%;">
 <hr/>
@@ -84,3 +86,6 @@ echo $form->passwordFieldRow($user, 'password', array(
       height: 35px;      
     } 
 </style>
+ </div>        
+    </div>
+</div>

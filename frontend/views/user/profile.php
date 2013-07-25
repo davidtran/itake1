@@ -25,6 +25,9 @@
                 </div>
             <?php endif; ?>
         </div> 
+        <div>
+            <h3><?php echo $user->username;?></h3>
+        </div>
         <?php if(UserUtil::canEdit($user)):?>
 <!--            <div id="bannerChanger">Đổi banner</div>-->
         <?php endif; ?>

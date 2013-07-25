@@ -689,8 +689,7 @@ form.form-signin
 {
     width: 30%;
     min-width: 350px;
-    margin: 0 auto;
-    margin-top: 70px;
+    margin: 0 auto;    
 }
 h2.form-signin-heading
 {
@@ -722,7 +721,7 @@ form.form-signin input[type="text"],form.form-signin input[type="password"]{
     font-size:1em;
     font-family: "Arial";
     font-weight: 400;
-    padding-left: 20px;   
+    padding-left: 20px;       
 }
 hr{
     background-color: #bababa;
@@ -1426,8 +1425,9 @@ span.btn.fileinput-button.btn-large{
 font-size: 0.9em;
 position: fixed;
 bottom: 0;
-width: 100%;
-z-index: 10;
+left:0;
+right:0;
+z-index: 9999;
 background: rgba(0,0,0,0.7);
 padding-top: 3px;
 height: 30px;
@@ -1497,4 +1497,9 @@ div.productControl{
     position: absolute;
     top:10px;
     right: 1px;
+}
+div.span4.login-panel{    
+margin-bottom: 20px;
+min-width: 400px;
+display: inline-block;
 }
