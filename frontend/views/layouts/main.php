@@ -25,7 +25,7 @@
         Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/js/modal2/css/bootstrap-modal.css');
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/modal2/js/bootstrap-modal.js', CClientScript::POS_HEAD);
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/modal2/js/bootstrap-modalmanager.js', CClientScript::POS_HEAD);
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery-ui-1.10.3.custom.min.js', CClientScript::POS_HEAD);        
+        Yii::app()->clientScript->registerCoreScript('jqueryui');
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.scrollUp.min.js', CClientScript::POS_HEAD);        
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.slimscroll.min.js', CClientScript::POS_HEAD);        
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.history.js', CClientScript::POS_HEAD);       
