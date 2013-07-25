@@ -19,7 +19,7 @@ $cs->registerScript('product info', "
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1', CClientScript::POS_END);
 ?>
 <div class="row-fluid upload">
-    <div class="span12">
+    <div class="container-fluid">
         <div class="customupload">
 <!--        <center>
             <?php if ($product->isNewRecord): ?>
@@ -75,13 +75,13 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1',
                                 <h3 style="text-align: center;"><i class="icon-hand-right"></i>  Đăng tin <?php echo $product->category->name ?></h3>
                                 </div>
                             <div class="row-fluid">                               
-                                <div class="span6">                                    
-                                    <div class="rb-form-part">                          
+                                <div class="span6" style="min-width:250px;">                                    
+                                    <div class="rb-form-part" style="text-align:center;">                          
                                         <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>
                                         <div class="fileupload fileupload-new" data-provides="fileupload">
-                                            <div class="fileupload-new thumbnail" style="width: 300px; height: 300px;">
+                                            <div class="fileupload-new thumbnail" style="max-width: 200px; max-height: 200px;">
                                                 <?php if ($product->image == null): ?>
-                                                    <img src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP" />
+                                                    <img src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP"  style="max-width: 200px; max-height: 200px;"/>
                                                 <?php else: ?>
                                                     <?php
                                                     echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image, '', array(
@@ -90,15 +90,15 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1',
                                                     ?>
                                                 <?php endif; ?>
                                             </div>
-                                            <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 300px; line-height: 20px;"></div>
-                                            <div style="text-align: center;width:300px;">
+                                            <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 200px; line-height: 20px;"></div>
+                                            <div>
                                                 <span class="btn btn-file">
                                                     <span class="fileupload-new">Chọn hình từ máy tính</span><span class="fileupload-exists">Đổi lại</span>
                                                     <input type="file" name="productImage" id='productImage'/></span>
                                                 <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Xóa</a>                                                                
                                             </div>
                                         </div>
-                                        <div class="alert alert-info" style="width:260px;">
+                                        <div class="alert alert-info" style="text-align: justify;margin-left: 5px;margin-right: 5px;">
                                             <b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn 640px và bề cao ảnh phải lớn hơn 480px
                                         </div>
                                     </div>
@@ -115,7 +115,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1',
                                 </div>
                             </div>
                         </div>
-                        <div class="span4" style="border-left: dashed 1px #ccc;"> 
+                        <div class="span4" style="border-left: dashed 1px #ccc;min-width: 250px;"> 
                             <h3 style="text-align: right;"><i class="icon-eye-open"></i>  Xem trước</h3>
                             <div class="productItem <?php echo $product->category->getStyleName(); ?>" style="width: 80%;float:right;">
                                 <div class="row-fluid">

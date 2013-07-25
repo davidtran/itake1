@@ -1072,7 +1072,7 @@ div.span8.upload{
 div.fileupload.fileupload-new,div.fileupload.fileupload-exists
 {
 /*    text-align: center; */
-    width: 400px;   
+/*    width: 400px;   */
 }
 input#productImage{
     margin-left: 50px;
@@ -1086,8 +1086,8 @@ div.rb-form-part
     margin: 0 auto;
     overflow:hidden;
     margin: 0 auto;
-    margin-bottom: 20px;
-    margin-left: 50px;
+    margin-bottom: 20px;    
+    min-width: 285px;
 }
 div.rb-form-part input
 {
