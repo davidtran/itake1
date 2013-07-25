@@ -55,7 +55,13 @@ class SiteController extends Controller
             $city = Yii::app()->session['LastCity'];
         }
         $category = Yii::app()->session->get('LastCategory',null);
-        $this->actionIndex(null,$category,false,0);
+        $keyword= Yii::app()->session->get('LastKeyword',null);
+        
+        $this->redirect($this->createUrl('index',array(
+            'keyword'=>$keyword,
+            'category'=>$category,
+            'page'=>0
+        )));
     }
 
     public function actionCategory($category)
@@ -67,6 +73,7 @@ class SiteController extends Controller
     public function actionIndex($keyword = null, $category = null, $facebook = false, $page = 0)
     {
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
+        Yii::app()->session['LastPageNumber']=$page;
         $categoryModel = null;
         if ($category != null)
         {
@@ -74,6 +81,7 @@ class SiteController extends Controller
         }
         if ($keyword != '')
         {
+            Yii::app()->session['LastKeyword']=$keyword;
             $this->pageTitle = Yii::app()->name . ' - Kết quả tìm kiếm cho từ khóa ' . $keyword;
         }
         else if ($categoryModel != null)
