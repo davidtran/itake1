@@ -254,6 +254,9 @@ Detail page
     width:97%;
     margin-bottom: 10px;
 }
+#userProductList {
+margin:0 auto !important;
+}
 #map{
     height:300px;
 }
@@ -1152,7 +1155,7 @@ div#mapContainer,div#map
 }
 div#productContainer
 {
-    width: 100%;
+     margin: 0 auto !important;
 }
 .scrollbar-measure {
 	width: 100px;
@@ -1190,7 +1193,7 @@ div.btn-group.user-bar.avatar-bar
     margin-left:20px;
 }
 div#userProductBoard{
-    width:100%;
+    margin:0 auto !important;
 }
 
 .productImageLink2{
