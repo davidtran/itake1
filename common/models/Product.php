@@ -121,7 +121,8 @@ class Product extends CActiveRecord
         if ($this->isNewRecord)
         {
             $this->create_date = date('Y-m-d H:i:s');
-        }
+            $this->view = 0;
+        }        
         $this->price = intval(StringUtil::removeSpecialCharacter($this->price));
         return parent::beforeValidate();
     }
