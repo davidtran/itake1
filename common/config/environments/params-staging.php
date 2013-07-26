@@ -25,16 +25,16 @@ return array(
 	'env.code' => 'prod',
 	// DB connection configurations
 	'db.name' => '',
-	'db.connectionString' => 'mysql:host=localhost;dbname=itake',
-	'db.username' => 'root',
-	'db.password' => 'itake1234',
+	'db.connectionString' => 'mysql:host=localhost;dbname=test',
+	'db.username' => 'test',
+	'db.password' => 'test',
     'db.tablePrefix'=>'mp_',
     
-    'email.host'=>'smtp.gmail.com',
+    'email.host'=>'localhost',
     'email.username'=>'rubickweb',
     'email.password'=>'goodmorning2013',
-    'email.port'=>465,
-    'email.adminEmail'=>'rubickweb@gmail.com',
+    'email.port'=>25,
+    'email.adminEmail'=>'norely@itake.me',
     
     'facebook.appId'=>'343485335785351',
     'facebook.secret'=>'e77260e49968b3d74b2efe8577893d66',
