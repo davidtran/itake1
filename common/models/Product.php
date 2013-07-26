@@ -50,7 +50,7 @@ class Product extends CActiveRecord
             array('description','length','max'=>500),
             array('phone','length','max'=>11),
             array('phone','numerical'),
-            array('phone,lat,lon', 'safe'),
+            array('phone,lat,lon,locationText', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, title, description, price, user_id, image, create_date', 'safe', 'on' => 'search'),

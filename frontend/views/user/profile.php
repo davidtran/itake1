@@ -39,8 +39,7 @@
 <!--        <button type="button" class="btn btn-success">
             <span class="buttonText">Dõi theo</span> 
         </button>-->
-        <ul class="userStats" style="float:right;">          
-<!--            <li> <a href="/incion/boards/" class="active"> 92 Sản phẩm </a> </li>       -->
+        <ul class="userStats" style="float:right;">                     
             <li> <a href="#"><?php echo count($productDataProvider->getData());?> sản phẩm </a> </li>
 <!--            <li> <a href="#"> 272 dõi theo </a> </li>-->
         </ul>

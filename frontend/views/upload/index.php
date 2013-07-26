@@ -67,7 +67,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1',
                     )
                         ));
                 ?>
-                <?php echo $form->errorSummary($product); ?>       
+                <?php //echo $form->errorSummary($product); ?>       
                 <div id="uploadStep1">
                     <div class="row-fluid">
                         <div class="span8">    
@@ -140,12 +140,24 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1',
                                 </div>
                             </div>
                                   <?php
-                                    echo CHtml::link('<i class="icon-arrow-right"></i>   Tiếp tục', '#', array(
-                                        'class' => 'btn btn-info btn-large flat pull-right',                                        
-                                        'id' => 'btnFinishStep1',
-                                        'style'=>'margin-top:10px;'
-                                    ));
-                                    ?>
+                                  if(!$hasContactInfo)
+                                  {
+                                        echo CHtml::link('<i class="icon-arrow-right"></i>   Tiếp tục', '#', array(
+                                            'class' => 'btn btn-info btn-large flat pull-right',                                        
+                                            'id' => 'btnFinishStep1',
+                                            'style'=>'margin-top:10px;'
+                                        ));           
+                                  }
+                                  else
+                                  {
+                                        echo CHtml::submitButton('Hoàn tất', array(
+                                            'id' => 'btnFinishStep2',
+                                            'class' => 'btn btn-success pull-right btn-large flat',
+                                            'data-loading-text' => 'Đang tải...',
+                                             'style'=>'margin-top:10px;'
+                                        ));
+                                  }
+                                ?>
                         </div>                          
                     </div>                           
                 </div>    
