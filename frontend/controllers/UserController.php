@@ -221,6 +221,7 @@ class UserController extends Controller
                     'model' => $model,
                     'sent' => true
                 ));
+                Yii::app()->end();
             }
         }
         $this->render('forgetPassword', array(
