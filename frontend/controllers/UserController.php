@@ -51,7 +51,7 @@ class UserController extends Controller
         ));
     }
 
-    public function actionFbProfile($returnUrl = null)
+    public function actionFbProfile()
     {
         
     }
@@ -285,5 +285,6 @@ class UserController extends Controller
             $this->redirect(array('login'));
         }
     }
+        
 
 }

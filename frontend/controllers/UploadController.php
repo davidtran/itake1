@@ -40,7 +40,7 @@ class UploadController extends Controller
                 {
                     try
                     {
-                        FacebookUtil::shareProductToFacebook($product);
+                        FacebookUtil::getInstance()->shareProductToFacebook($product);
                         $postedToFacebook = true;
                     }
                     catch (FacebookApiException $e)
@@ -50,7 +50,7 @@ class UploadController extends Controller
                     }
                 }
                 Yii::app()->session['PostedProductId'] = $product->id;
-                $this->redirect($this->createUrl('/upload/success'));
+                $this->redirect($product->getDetailUrl());
             }else{
                 if(file_exists($product->image)){
                     unlink($product->image);
@@ -117,29 +117,6 @@ class UploadController extends Controller
         ));
     }
 
-    public function actionSuccess()
-    {
-        if (isset(Yii::app()->session['PostedProductId']))
-        {
-            $id = Yii::app()->session['PostedProductId'];
-            $product = Product::model()->findByPk($id);
-            if ($product != null)
-            {
-                $this->render('success', array(
-                    'product' => $product
-                ));
-                $this->redirect($product->getDetailUrl());                
-            }
-            else
-            {
-                throw new CHttpException(404, 'Sản phẩm bạn tìm hiện không tồn tại');
-            }
-        }
-        else
-        {
-            $this->redirect(array('/site'));
-        }
-    }
 
     protected function createUploadCategorySelect($category)
     {

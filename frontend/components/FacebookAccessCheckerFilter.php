@@ -5,24 +5,17 @@ class FacebookAccessCheckerFilter extends CFilter
 
     public function preFilter($filterChain)
     {
-        if ($this->isCheckedRoute() && Yii::app()->user->isFacebookUser)
+        if ($this->isCheckedRoute() 
+                && Yii::app()->user->isFacebookUser
+                &&  $this->isSaved())
         {
 
             try
             {
                 $fbUtil = FacebookUtil::getInstance();
-                $lastToken = $fbUtil->getSavedUserToken(Yii::app()->user->getId());
-                if ($lastToken != null)
-                {
-
-                    $fbUtil->setAccessToken($lastToken);
-                    
-                }
-                else
-                {
-                    $this->redirectToFacebookLoginPage();
-                }
-                //redirect
+                $accessToken = Yii::app()->facebook->getAccessToken();
+                $fbUtil->setAccessToken($accessToken);                
+                Yii::app()->session['CheckedFacebookAccessToken'] = true;
             }
             catch (Exception $e)
             {
@@ -32,12 +25,21 @@ class FacebookAccessCheckerFilter extends CFilter
 
         $filterChain->run();
     }
+    
+    
+    
+    protected function isSaved(){
+        if(Yii::app()->session->get('CheckedFacebookAccessToken',false)!==false){
+            return true;
+        }
+        return false;
+    }
 
     protected function redirectToFacebookLoginPage()
     {
         $currentUrl = UrlUtil::getAbsoluteUrl();
         Yii::app()->controller->setRedirectUrl($currentUrl);
-        $loginUrl = UserUtil::makeFacebookLoginUrl();       
+        $loginUrl = FacebookUtil::makeFacebookLoginUrl();       
         Yii::app()->controller->redirect($loginUrl);
     }
 
@@ -45,9 +47,7 @@ class FacebookAccessCheckerFilter extends CFilter
     {
         $checkList = array(
             'site/index',
-            'video/view',
-            'site/category',
-            'site/home',
+            'upload/index',            
         );
         $route = Yii::app()->controller->route;
         if (in_array($route, $checkList, true))
