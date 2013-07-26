@@ -15,6 +15,10 @@
             $message->view = $view;
             $message->setBody($params, 'text/html');
             $message->subject = $subject;
+            $toEmailList = $to;
+            if(is_array($to)){
+                $toEmailList = implode(',', $to);
+            }
             if (is_array($to))
             {
                 foreach ($to as $toAddress)
@@ -35,7 +39,7 @@
             }
             catch(Exception $e)
             {
-                $msg = 'Send email fail from '.$from.' to '.implode(',', $to);
+                $msg = 'Send email fail from '.$from.' to '.$toEmailList;
                 Yii::log($msg);
                 return false;
             }
