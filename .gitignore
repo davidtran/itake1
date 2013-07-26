@@ -24,18 +24,23 @@ index
 # configuration files created locally by post deployment script or by a developer
 /backend/config/*-env.php
 /backend/config/*-local.php
+/backend/config/environments/*
 
 /frontend/config/*-env.php
 /frontend/config/*-local.php
+/frontend/config/environments/*
 
 /common/config/*-env.php
 /common/config/*-local.php
+/common/config/environments/*
 
 /console/config/*-env.php
 /console/config/*-local.php
+/console/config/environments/*
 
 /frontend/runtime
 /frontend/www/assets
+/frontend/www/images/content/*
 
 /console/runtime
 
