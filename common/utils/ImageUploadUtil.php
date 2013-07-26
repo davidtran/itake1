@@ -37,10 +37,15 @@ class ImageUploadUtil{
     public function handleUploadImage(            
             $destinationFolder,
             $destinationName,            
-            $minWidth,
-            $minHeight,
+            $minWidth = null,
+            $minHeight = null,
             $resizeWidth = null,
             $resizeHeight = null){
+        
+        if($minWidth == null) $minWidth = Yii::app()->params['image.minWidth'];
+        if($minHeight == null) $minHeight = Yii::app()->params['image.minHeight'];
+        if($resizeWidth == null) $resizeWidth = Yii::app()->params['image.maxWidth']; 
+        if($resizeHeight == null) $resizeHeight = Yii::app()->params['image.maxHeight'];
         $uploadImage = CUploadedFile::getInstanceByName($this->uploadName);        
         $this->error = '';
     

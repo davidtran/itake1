@@ -30,10 +30,11 @@ class SolrSortTypeUtil
     public function getCurrentSortType()
     {
         $value = $this->getCookieValue();
-        if ($value == null)
+        if ($value != null)
         {
-            return $this->getDefaultValue();
+            return $value;
         }
+        return $this->getDefaultValue();
     }
     
     public function setSortType($value){

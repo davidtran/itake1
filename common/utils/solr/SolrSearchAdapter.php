@@ -55,13 +55,13 @@ class SolrSearchAdapter
             $params['d'] = 50;
             $params['bf'][] = 'recip(geodist(),2,200,20)';
         }
+     
         if($this->sortType == SolrSortTypeUtil::TYPE_CREATE_DATE){
             $params['sort'] = 'create_date desc';
         }else{
             $params['sort'] = 'score desc';
         }
-                
-        $params['sort'] = 'score desc';
+                       
         return $params;
     }
   

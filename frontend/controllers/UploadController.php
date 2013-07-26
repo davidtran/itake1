@@ -160,7 +160,7 @@ class UploadController extends Controller
                 rand(0, 999);
 
 
-        $rs = $upload->handleUploadImage('images/content', $filename, 640, 480, 1024, 768)  ;
+        $rs = $upload->handleUploadImage('images/content', $filename)  ;
         if ($rs == false)
         {
             $product->addError('image', $upload->getError());
@@ -170,7 +170,7 @@ class UploadController extends Controller
         {
             
             $raw = 'images/content/' . $filename . '.' . $upload->getExtension();
-            $product->image_thumbnail = ImageUtil::resize($raw, 400, 400);
+            $product->image_thumbnail = ImageUtil::resize($raw, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);
             $processed = 'images/content/processed/' . $filename . '.' . $upload->getExtension();
             $product->image = $raw;
             ProductImageUtil::drawImage($product, $raw, $processed);
