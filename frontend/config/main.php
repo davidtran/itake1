@@ -83,7 +83,7 @@ return CMap::mergeArray(
                         'host' => $params['email.host'],
                         'username' => $params['email.username'],
                         'password' => $params['email.password'],
-                        'port' => $params['port'],
+                        'port' => $params['email.port'],
                         'encryption' => 'ssl',
                     )
                 ),
