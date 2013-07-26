@@ -40,7 +40,7 @@ class UploadController extends Controller
                 {
                     try
                     {
-                        //FacebookUtil::shareProductToFacebook($product);
+                        FacebookUtil::shareProductToFacebook($product);
                         $postedToFacebook = true;
                     }
                     catch (FacebookApiException $e)
