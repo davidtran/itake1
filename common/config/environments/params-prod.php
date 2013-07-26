@@ -11,30 +11,31 @@
 /**
  * Replace following tokens for correspondent configuration data
  *
- * {DATABASE-NAME} ->   database name
+ * {DATABASE-NAME} ->   database name
  * {DATABASE-HOST} -> database server host name or ip address
  * {DATABASE-USERNAME} -> user name access
  * {DATABASE-PASSWORD} -> user password
  *
- * {DATABASE-TEST-NAME} ->   Test database name
+ * {DATABASE-TEST-NAME} ->   Test database name
  * {DATABASE-TEST-HOST} -> Test database server host name or ip address
  * {DATABASE-USERNAME} -> Test user name access
  * {DATABASE-PASSWORD} -> Test user password
  */
 return array(
-	'env.code' => 'prod',
-	// DB connection configurations
-	'db.name' => '',
-	'db.connectionString' => 'mysql:host=127.0.0.1;dbname=itake',
-	'db.username' => 'itake',
-	'db.password' => 'itake',
+        'env.code' => 'prod',
+        // DB connection configurations
+        'db.name' => '',
+        'db.connectionString' => 'mysql:host=localhost;dbname=itake',
+        'db.username' => 'root',
+        'db.password' => 'itake1234',
     'db.tablePrefix'=>'mp_',
     
-    'email.host'=>'localhost',
+    'email.host'=>'smtp.gmail.com',
     'email.username'=>'norely',
     'email.password'=>'goodmorning2013',
-    'email.port'=>25,
-    'email.adminEmail'=>'norely@itake.me',
+    'email.port'=>465,
+    'email.adminEmail'=>'norely@gmail.me',
+    'email.encryption'=>false,
     
     'facebook.appId'=>'620447237967845',
     'facebook.secret'=>'5b14e9c48eaf0da3ead75e49df09c882',

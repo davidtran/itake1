@@ -54,7 +54,7 @@ class ImageUploadUtil{
             $this->extension = $uploadImage->extensionName;
             if (in_array(mb_strtolower($uploadImage->extensionName),self::getAllowedExtension(), true) == false)
             {
-                $allowedExtensionString = implode(self::getAllowedExtension());
+                $allowedExtensionString = implode(', ',self::getAllowedExtension());
                 $this->error = 'Định dạng ảnh phải là một trong các loại sau đây: '.$allowedExtensionString;
                 return false;
             }

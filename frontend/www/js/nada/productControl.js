@@ -19,12 +19,11 @@ $(document).ready(function(){
                     id:productId
                 },
                 type:'post',
-                success:function(json){
-                    var data = $.parseJSON(json);
-                    if(data.success){
+                success:function(json){                    
+                    if(json.success){
                         removeProductItemFromBoard(productItem);
                     }else{
-                        alert(data.msg);
+                        alert(json.msg);
                     }
                 }
             });
@@ -38,5 +37,6 @@ function removeProductItemFromBoard(productItem){
     productItem.fadeOut(100,function(){
         board.isotope('reLayout');
     });
+    location.reload();
 }
 

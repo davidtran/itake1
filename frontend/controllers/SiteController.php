@@ -26,8 +26,7 @@ class SiteController extends Controller
     {
         //change city
         //redirect to index with selected category
-        Yii::app()->session['LastCity'] = $id;
-        $category = null;        
+        Yii::app()->session['LastCity'] = $id;        
         $redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/index');
         $this->redirect($redirectUrl);
     }

@@ -23,7 +23,7 @@ return CMap::mergeArray(
 	// merge console specific with resulting env-local merge *override by local
 	CMap::mergeArray(
 		array(
-            'email.viewPath'=>'frontend.views.mail',
+            'email.viewPath'=>'frontend.views.mail',     
 			// add here all console-specific parameters
 		),
 		// merge environment parameters with local *override by local

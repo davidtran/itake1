@@ -37,10 +37,7 @@ $(document).ready(function() {
 
     commentWidth = $('#commentContainer').width();
 
-    setTimeout(function() {
-        $('.fb-comments span').width('100%');
-        $('.fb-comments').attr('width', commentWidth);
-    }, 1000);
+    setCommentFullWidth();
 });
 
 
@@ -166,13 +163,16 @@ function loadProduct(href, htmlProductId)
             stopLoadingBackground(productItem);
             setTimeout(function() {
                 initZoomProduct();
-            }, 1000);
-            FB.XFBML.parse(document.getElementById('productDialog'),function(){
-                $('.fb-comments iframe,.fb-comments span:first-child').css({'width':$('.fb-comments').width()});
-            });
+            }, 1000);            
             
-
+            setCommentFullWidth();
         }
+    });
+}
+
+function setCommentFullWidth(){
+    FB.XFBML.parse(document.getElementById('productDialog'),function(){
+        $('.fb-comments iframe,.fb-comments span:first-child').css({'width':$('.fb-comments').width()});
     });
 }
 function loadRelateProduct(product) {
@@ -208,8 +208,6 @@ function loadProductMap(product) {
 }
 
 function loadUserProduct(product) {
-
-
     $('#userProductList').isotope({
         columnWidth: 28,
         itemSelector: '.productItem',

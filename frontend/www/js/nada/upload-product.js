@@ -8,13 +8,13 @@ if (typeof product != "undefined" && product.lat != null && product.lon != null)
     defaultLat = product.lat;
     defaultLng = product.lon;
 }
-//if (typeof contactInfo != "undefined") {
-//    $('#Product_city').val(contactInfo.city);
-//    defaultLat = contactInfo.lat != null ? contactInfo.lat : defaultLat;
-//    defaultLng = contactInfo.lon != null ? contactInfo.lon : defaultLng;
-//    $('#Product_locationText').val(contactInfo.locationText);
-//    $('#Product_phone').val(contactInfo.phone);
-//}
+if (typeof contactInfo != "undefined") {
+    $('#Product_city').val(contactInfo.city);
+    defaultLat = contactInfo.lat != null ? contactInfo.lat : defaultLat;
+    defaultLng = contactInfo.lon != null ? contactInfo.lon : defaultLng;
+    $('#Product_locationText').val(contactInfo.locationText);
+    $('#Product_phone').val(contactInfo.phone);
+}
 //defaultLat = contactInfo.lat!=null?contactInfo.lat:defaultLat;
 //defaultLng = contactInfo.lon!=null?contactInfo.lon:defaultLng;
 $(document).ready(function() {
@@ -153,7 +153,7 @@ function placeMarker(lat, lng) {
             if (status == 'OK') {
                 var formatAddress = results[0].formatted_address;
                 console.log(results[0]);
-                
+                $addressField.val(results[0].formatted_address);
                 addressComponents = results[0].address_components;
 
                 var latlng = results[0].geometry.location;
@@ -215,12 +215,10 @@ function deleteItem(productId, productItem) {
         url: BASE_URL + '/upload/delete',
         type: 'post',
         success: function(json) {
-            var data = $.parseJSON(json);
-            if (data.success) {
+            if (json.success) {
                 productItem.fadeOut('slow', function() {
                     $('.productBoard').isotope('reLayout');
                 });
-
             }
         },
         complete: function() {

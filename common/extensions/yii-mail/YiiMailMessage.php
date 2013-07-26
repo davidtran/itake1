@@ -139,7 +139,8 @@ class YiiMailMessage extends CComponent {
 			// renderPartial won't work with CConsoleApplication, so use 
 			// renderInternal - this requires that we use an actual path to the 
 			// view rather than the usual alias
-			$viewPath = Yii::getPathOfAlias(Yii::app()->mail->viewPath.'.'.$this->view).'.php';
+			$viewPath = Yii::getPathOfAlias(Yii::app()->mail->viewPath.'.'.$this->view).'.php';            
+           
 			$body = $controller->renderInternal($viewPath, array_merge($body, array('mail'=>$this)), true);	
 		}
 		return $this->message->setBody($body, $contentType, $charset);
