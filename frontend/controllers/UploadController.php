@@ -28,7 +28,7 @@ class UploadController extends Controller
             $user = Yii::app()->user->model;
             $user->lon = $product->lon;
             $user->lat = $product->lat;
-            $user->locationText = $product->locationText;
+            $user->locationText = $product->locationText;            
             $user->city = $product->city;
             $user->phone = $product->phone;
             $user->save();
@@ -60,8 +60,14 @@ class UploadController extends Controller
                 }
             }
         }
+        $hasContactInfo = false;
+        if(UserUtil::hasContactInfo())
+        {
+            $hasContactInfo = true;
+        }
         $this->render('index', array(
-            'product' => $product,            
+            'product' => $product,      
+            'hasContactInfo'=>$hasContactInfo,
         ));
     }
    

@@ -5,19 +5,6 @@ if (urlHome.indexOf('localhost') != -1)
 }
 var urlHomeSite = urlHome + "site";
 var viewCounter = 0;
-function initZoomProduct() {
-    if ($('#imagePreview').size() > 0)
-    {
-        console.log('initZoomProduct');
-        $("#imagePreview").elevateZoom({
-            zoomWindowWidth: $('.bs-docs-example').width(),
-            zoomWindowHeight: $('.bs-docs-example').height(),
-            borderSize: 1,
-            borderColor: "#fff",
-            zoomWindowOffetx: ($('.bs-docs-example').position().left - $('.bs-docs-example').width()) / 3
-        });
-    }
-}
 $(window).resize(function() {
     alignDiv();
 });
@@ -30,7 +17,6 @@ $(document).ready(function() {
         });
     });
     alignDiv();
-    initZoomProduct();
     (function ($) {
   $.Isotope.prototype._getCenteredMasonryColumns = function() {
     this.width = this.element.width();
@@ -103,16 +89,12 @@ function alignDiv()
     var marginLeftContainer3 = ($('body').width() - $('#categories-bar').width()) / 2;
     if (marginLeftContainer * 2 != $('body').width())
     {
-//        $('#productContainer').css('margin-left', marginLeftContainer + 'px');
         $('#categories-bar').css('margin-left', (marginLeftContainer3) + 'px');
     }
     if (marginLeftContainer2 * 2 != $('body').width()) {
-//        $('#userProductBoard').css('margin-left', marginLeftContainer2 + 'px');
         $(".nd_profile").css('margin-left', marginLeftContainer2 + 'px');
         $(".nd_profile").css('margin-right', (marginLeftContainer2 - 15) + 'px');
     }
-//     $('#productContainer').isotope('reLayout');
-//     $('.nav-bar-top').css('width', $('body').width() + 'px');
 }
 $(function() {
     // Create the measurement node
@@ -121,8 +103,7 @@ $(function() {
     document.body.appendChild(scrollDiv);
 
 // Get the scrollbar width
-    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-    console.warn(scrollbarWidth); // Mac:  15
+    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;    
 // Delete the DIV 
     document.body.removeChild(scrollDiv);
     // Prepare

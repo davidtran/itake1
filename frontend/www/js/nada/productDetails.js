@@ -208,8 +208,6 @@ function loadProductMap(product) {
 }
 
 function loadUserProduct(product) {
-
-
     $('#userProductList').isotope({
         columnWidth: 28,
         itemSelector: '.productItem',
