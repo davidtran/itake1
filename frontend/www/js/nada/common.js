@@ -17,66 +17,66 @@ $(document).ready(function() {
         });
     });
     alignDiv();
-    (function ($) {
-  $.Isotope.prototype._getCenteredMasonryColumns = function() {
-    this.width = this.element.width();
-    
-    var parentWidth = this.element.parent().width();
-    
-                  // i.e. options.masonry && options.masonry.columnWidth
-    var colW = this.options.masonry && this.options.masonry.columnWidth ||
-                  // or use the size of the first item
-                  this.$filteredAtoms.outerWidth(true) ||
-                  // if there's no items, use size of container
-                  parentWidth;
-    
-    var cols = Math.floor( parentWidth / colW );
-    cols = Math.max( cols, 1 );
+    (function($) {
+        $.Isotope.prototype._getCenteredMasonryColumns = function() {
+            this.width = this.element.width();
 
-    // i.e. this.masonry.cols = ....
-    this.masonry.cols = cols;
-    // i.e. this.masonry.columnWidth = ...
-    this.masonry.columnWidth = colW;
-  };
-  
-  $.Isotope.prototype._masonryReset = function() {
-    // layout-specific props
-    this.masonry = {};
-    // FIXME shouldn't have to call this again
-    this._getCenteredMasonryColumns();
-    var i = this.masonry.cols;
-    this.masonry.colYs = [];
-    while (i--) {
-      this.masonry.colYs.push( 0 );
-    }
-  };
+            var parentWidth = this.element.parent().width();
 
-  $.Isotope.prototype._masonryResizeChanged = function() {
-    var prevColCount = this.masonry.cols;
-    // get updated colCount
-    this._getCenteredMasonryColumns();
-    return ( this.masonry.cols !== prevColCount );
-  };
-  
-  $.Isotope.prototype._masonryGetContainerSize = function() {
-    var unusedCols = 0,
-        i = this.masonry.cols;
-    // count unused columns
-    while ( --i ) {
-      if ( this.masonry.colYs[i] !== 0 ) {
-        break;
-      }
-      unusedCols++;
-    }
-    
-    return {
-          height : Math.max.apply( Math, this.masonry.colYs ),
-          // fit container to columns that have been used;
-          width : (this.masonry.cols - unusedCols) * this.masonry.columnWidth
+            // i.e. options.masonry && options.masonry.columnWidth
+            var colW = this.options.masonry && this.options.masonry.columnWidth ||
+                    // or use the size of the first item
+                    this.$filteredAtoms.outerWidth(true) ||
+                    // if there's no items, use size of container
+                    parentWidth;
+
+            var cols = Math.floor(parentWidth / colW);
+            cols = Math.max(cols, 1);
+
+            // i.e. this.masonry.cols = ....
+            this.masonry.cols = cols;
+            // i.e. this.masonry.columnWidth = ...
+            this.masonry.columnWidth = colW;
         };
-  };
-  
-})(jQuery);  
+
+        $.Isotope.prototype._masonryReset = function() {
+            // layout-specific props
+            this.masonry = {};
+            // FIXME shouldn't have to call this again
+            this._getCenteredMasonryColumns();
+            var i = this.masonry.cols;
+            this.masonry.colYs = [];
+            while (i--) {
+                this.masonry.colYs.push(0);
+            }
+        };
+
+        $.Isotope.prototype._masonryResizeChanged = function() {
+            var prevColCount = this.masonry.cols;
+            // get updated colCount
+            this._getCenteredMasonryColumns();
+            return (this.masonry.cols !== prevColCount);
+        };
+
+        $.Isotope.prototype._masonryGetContainerSize = function() {
+            var unusedCols = 0,
+                    i = this.masonry.cols;
+            // count unused columns
+            while (--i) {
+                if (this.masonry.colYs[i] !== 0) {
+                    break;
+                }
+                unusedCols++;
+            }
+
+            return {
+                height: Math.max.apply(Math, this.masonry.colYs),
+                // fit container to columns that have been used;
+                width: (this.masonry.cols - unusedCols) * this.masonry.columnWidth
+            };
+        };
+
+    })(jQuery);
 });
 function alignDiv()
 {
@@ -103,7 +103,7 @@ $(function() {
     document.body.appendChild(scrollDiv);
 
 // Get the scrollbar width
-    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;    
+    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
 // Delete the DIV 
     document.body.removeChild(scrollDiv);
     // Prepare
@@ -171,7 +171,7 @@ $(function() {
                 height: $this.data('height') || 100,
                 railVisible: true
             });
-        });       
+        });
         if (!isProductDetailUrl(location.href))
         {
             History.replaceState({}, document.title, location.href);
@@ -341,13 +341,32 @@ function render() {
     });
 }
 
-Number.prototype.formatMoney = function(c, d, t){
-var n = this, 
-    c = isNaN(c = Math.abs(c)) ? 2 : c, 
-    d = d == undefined ? "." : d, 
-    t = t == undefined ? "," : t, 
-    s = n < 0 ? "-" : "", 
-    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
-    j = (j = i.length) > 3 ? j % 3 : 0;
-   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+Number.prototype.formatMoney = function(c, d, t) {
+    var n = this,
+            c = isNaN(c = Math.abs(c)) ? 2 : c,
+            d = d == undefined ? "." : d,
+            t = t == undefined ? "," : t,
+            s = n < 0 ? "-" : "",
+            i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+            j = (j = i.length) > 3 ? j % 3 : 0;
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
+
+
+$(document).ready(function() {
+    function facebookReady() {
+        FB.init({
+            appId: '620447237967845',
+            status: true,
+            cookie: true,
+            xfbml: true
+        });
+        $(document).trigger("facebook:ready");
+    }
+
+    if (window.FB) {
+        facebookReady();
+    } else {
+        window.fbAsyncInit = facebookReady;
+    }
+});

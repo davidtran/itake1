@@ -50,13 +50,14 @@
             </div>
         </div>
         <div id="fb-root"></div>
-        <script type="text/javascript">(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/vi_VN/all.js#xfbml=1&appId=620447237967845";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>          
+        <script>
+          (function() {
+            var e = document.createElement('script');
+            e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+            e.async = true;
+            document.getElementById('fb-root').appendChild(e);
+          }());
+        </script>         
         <script type="text/javascript">
           (function() {
            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
