@@ -37,9 +37,11 @@ $(document).ready(function() {
 
     commentWidth = $('#commentContainer').width();
 
-    setCommentFullWidth();
+    
 });
-
+$(document).live("facebook:ready", function(){
+    setCommentFullWidth();  
+});
 
 function productClick() {
 

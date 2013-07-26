@@ -51,6 +51,10 @@ Từng lời đắm say in đắm mãi trong tim từng phút giây';
         FacebookUtil::shareProductToFacebook($product);
     }
     
+    public function actionShareProduct(){
+        $product = Product::model()->findByPk(116);        
+        FacebookUtil::getInstance()->shareProductToFacebook($product);      
+    }
     public function actionLimitText($text){
         echo StringUtil::smartLimit($text);
     }

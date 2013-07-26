@@ -21,6 +21,14 @@ class SiteController extends Controller
             ),
         );
     }
+    
+    public function filters(){
+        return array(
+            array(
+                'frontend.components.FacebookAccessCheckerFilter + index'
+            )
+        );
+    }
 
     public function actionCity($id)
     {
