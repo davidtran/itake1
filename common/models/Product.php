@@ -15,7 +15,8 @@
  * @property string $location
  */
 class Product extends CActiveRecord
-{    
+{
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -23,6 +24,7 @@ class Product extends CActiveRecord
      */
     public $facebookPost;
     public $priceDisplay;
+
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -46,10 +48,10 @@ class Product extends CActiveRecord
         return array(
             array('title, description, price, city,category_id', 'required'),
             array('view,price,category_id,city', 'numerical', 'integerOnly' => true),
-            array('title', 'length', 'max' => 50),           
-            array('description','length','max'=>500),
-            array('phone','length','max'=>11),
-            array('phone','numerical'),
+            array('title', 'length', 'max' => 50),
+            array('description', 'length', 'max' => 500),
+            array('phone', 'length', 'max' => 11),
+            array('phone', 'numerical'),
             array('phone,lat,lon,locationText', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -66,9 +68,10 @@ class Product extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-            'category'=>array(self::BELONGS_TO,'Category','category_id'),
+            'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
         );
     }
+
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -82,12 +85,11 @@ class Product extends CActiveRecord
             'price' => 'Giá',
             'user_id' => 'Người dùng',
             'image' => 'Hình',
-            'phone' => 'Điện thoại liên hệ',         
+            'phone' => 'Điện thoại liên hệ',
             'create_date' => 'Ngày tạo',
-            'locationText'=>'Địa chỉ',
-            'city'=>'Thành phố',
-            'category_id'=>'Danh mục',
-        
+            'locationText' => 'Địa chỉ',
+            'city' => 'Thành phố',
+            'category_id' => 'Danh mục',
         );
     }
 
@@ -122,7 +124,7 @@ class Product extends CActiveRecord
         {
             $this->create_date = date('Y-m-d H:i:s');
             $this->view = 0;
-        }        
+        }
         $this->price = intval(StringUtil::removeSpecialCharacter($this->price));
         return parent::beforeValidate();
     }
@@ -133,10 +135,10 @@ class Product extends CActiveRecord
         if ($file != null)
         {
             $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($this->title)) .
-            '_' .
-            rand(0, 999) .
-            '.' .
-            'png';
+                    '_' .
+                    rand(0, 999) .
+                    '.' .
+                    'png';
             $filename = 'images/content/' . $filename;
             if ($file->saveAs($filename, true))
             {
@@ -154,34 +156,35 @@ class Product extends CActiveRecord
         {
             $binary = base64_decode($_REQUEST['image']);
             $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($this->title)) .
-            '_' .
-            rand(0, 999) .
-            '.' .
-            'png';
+                    '_' .
+                    rand(0, 999) .
+                    '.' .
+                    'png';
             $filename = 'images/content/' . $filename;
             $processed = 'images/content/processed/' . $filename;
             $f = fopen($filename, 'wb');
-            
-            if ($f !== false )
+
+            if ($f !== false)
             {
-                fwrite($f, $binary);                                
-                fclose($f); 
-                if(ProductImageUtil::drawImage($this, $filename, $processed)){
+                fwrite($f, $binary);
+                fclose($f);
+                if (ProductImageUtil::drawImage($this, $filename, $processed))
+                {
                     $this->image = $filename;
                     $this->processed_image = $processed;
                     return true;
-                }else{
+                }
+                else
+                {
                     $this->addError('image', 'Draw image failed');
                 }
-                
-                
             }
         }
         else
         {
             $this->addError('image', 'Image is not found');
         }
-    }           
+    }
 
     public function getDistance($lat, $lon)
     {
@@ -191,34 +194,36 @@ class Product extends CActiveRecord
     public function getDetailUrl()
     {
         return Yii::app()->controller->createUrl(
-                '/product/details', 
-                array(
-                    'id' => $this->id, 
+                        '/product/details', array(
+                    'id' => $this->id,
                     'title' => StringUtil::makeSlug($this->title)
-                )
-            );
+                        )
+        );
     }
-    
-    public function getAbsoluteDetailUrl(){
+
+    public function getAbsoluteDetailUrl()
+    {
         return Yii::app()->controller->createAbsoluteUrl('/product/details', array('id' => $this->id, 'title' => $this->title));
     }
-    public function renderHtml($prefix="")
+
+    public function renderHtml($prefix = "")
     {
         //like, comment
         $html = Yii::app()->controller->renderPartial('/site/_productItem', array(
             'product' => $this,
-            'prefix'=>$prefix,
-        ), true, false);
+            'prefix' => $prefix,
+                ), true, false);
         return $html;
     }
-    
-    public function renderImageLink(){             
-        return Yii::app()->controller->renderPartial('/site/_productImage',array(
-            'product'=>$this
-        ),true,false);
+
+    public function renderImageLink()
+    {
+        return Yii::app()->controller->renderPartial('/site/_productImage', array(
+                    'product' => $this
+                        ), true, false);
     }
 
-    public function searchRelateProduct($pageSize = 5,$page = 0)
+    public function searchRelateProduct($pageSize = 5, $page = 0)
     {
         $criteria = new CDbCriteria();
         $criteria->compare('category_id', $this->category_id);
@@ -231,41 +236,45 @@ class Product extends CActiveRecord
             )
         ));
     }
-    
+
     public function displayDateTime()
-    {   
+    {
         $day = 3600 * 24;
         $threeDays = $day * 3;
         $elapseTime = time() - strtotime($this->create_date);
         $week = $day * 7;
-        $year = $day *365;
-        $dateFormatter = new CDateFormatter(Yii::app()->getLocale('vi'));        
-        if($elapseTime < $day || $elapseTime > $year){
-            return DateUtil::elapseTime($this->create_date).' trước';
+        $year = $day * 365;
+        $dateFormatter = new CDateFormatter(Yii::app()->getLocale('vi'));
+        if ($elapseTime < $day || $elapseTime > $year)
+        {
+            return DateUtil::elapseTime($this->create_date) . ' trước';
         }
-        else if ($elapseTime < $day * 2){
-            return Yii::t('Default','Yesterday at {time}',array(
-                    '{time}'=>$dateFormatter->format('HH:m',  strtotime($this->create_date)
-                )
+        else if ($elapseTime < $day * 2)
+        {
+            return Yii::t('Default', 'Yesterday at {time}', array(
+                        '{time}' => $dateFormatter->format('HH:mm', strtotime($this->create_date)
+                        )
             ));
         }
-        else{            
-            
-            
+        else
+        {
+
+
             $pattern = null;
-            if($elapseTime < $week){
+            if ($elapseTime < $week)
+            {
                 $pattern = 'EEEE';
-            }else{
-                $pattern = 'd MMMM';
             }
-            return Yii::t('Default','{date} at {time}',array(
-                '{date}'=>$dateFormatter->format($pattern, strtotime($this->create_date)),
-                '{time}'=>$dateFormatter->format('HH:m',  strtotime($this->create_date))
+            else
+            {
+                $pattern = 'd, MMMM';
+            }
+
+            return Yii::t('Default', '{date} at {time}', array(
+                        '{date}' => $dateFormatter->format($pattern, strtotime($this->create_date)),
+                        '{time}' => $dateFormatter->format('HH:mm', strtotime($this->create_date))
             ));
         }
     }
-    
-    
-    
 
 }

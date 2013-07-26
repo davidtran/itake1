@@ -40,10 +40,11 @@
                 $this->_user->email,
                 'forgetPassword',
                 array(
-                    'user'=>$this->_user,
+                    'username'=>$this->_user->username,
+                    'email'=>$this->_user->email,
                     'newPassword'=>$newPassword
                 ),
-                'Bạn có yêu cầu mật khẩu mới tại ListenToMe.vn'
+                'Bạn có yêu cầu mật khẩu mới tại '.Yii::app()->name
             );
         }
     }

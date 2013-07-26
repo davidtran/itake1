@@ -18,6 +18,7 @@ $params = require_once($consoleConfigDir . DIRECTORY_SEPARATOR . 'params.php');
 Yii::setPathOfAlias('root', $root);
 Yii::setPathOfAlias('common', $root . DIRECTORY_SEPARATOR . 'common');
 Yii::setPathOfAlias('console', $root . DIRECTORY_SEPARATOR . 'console');
+Yii::setPathOfAlias('frontend', $root . DIRECTORY_SEPARATOR . 'frontend');
 /* uncomment if the following aliases are required */
 //Yii::setPathOfAlias('frontend', $root . DIRECTORY_SEPARATOR . 'frontend');
 //Yii::setPathOfAlias('backend', $root . DIRECTORY_SEPARATOR . 'backend');
@@ -66,16 +67,7 @@ return CMap::mergeArray(
 				// @see http://www.yiiframework.com/doc/api/1.1/CErrorHandler#errorAction-detail
 				'errorAction'=>'site/error'
 			),
-            'bootstrap' => array(
-                'class' => 'common.extensions.bootstrap.components.Bootstrap',
-                'responsiveCss' => true,
-            ),
-            'clientScript' => array(
-                'scriptMap' => array(
-                    'jquery.js' => false,
-                    'jquery.min.js' => false,                    
-                )
-            ),
+           
             'user' => array(
                 // enable cookie-based authentication
                 'allowAutoLogin' => true,
@@ -99,7 +91,7 @@ return CMap::mergeArray(
                     'username'=>$params['email.username'],
                     'password'=>$params['email.password'],
                     'port'=>$params['email.port'],
-                    
+                    'encryption' => $params['email.encryption'],
                 )
             ),
             'solrProduct'=>array(

@@ -71,6 +71,8 @@ return CMap::mergeArray(
                         'danh-muc/<category:\d+>/<name:.*?>' => '/site/category',
                         'chon-thanh-pho/<id:\d+>/<name:.*?>' => 'site/city',
                         'dang-tin/<category:\d+>/<name:.*?>' => '/upload/uploadNew',
+                        'quen-mat-khau'=>'user/forgetPassword',
+                        'doi-mat-khau'=>'user/changePassword'
                     ),
                 ),
                 'mail' => array(
@@ -84,7 +86,7 @@ return CMap::mergeArray(
                         'username' => $params['email.username'],
                         'password' => $params['email.password'],
                         'port' => $params['email.port'],
-                        'encryption' => 'ssl',
+                        'encryption' => $params['email.encryption'],
                     )
                 ),
                 'solrProduct' => array(

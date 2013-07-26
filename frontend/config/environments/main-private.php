@@ -6,4 +6,11 @@
  * Date: 7/22/12
  * Time: 5:48 PM
  */
-return array();
+return array(
+    'modules'=>array(
+        'gii'=>array(
+            'class'=>'system.gii.GiiModule',
+            'password'=>'123',
+        )
+    )
+);
