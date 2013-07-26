@@ -36,7 +36,7 @@
 
         protected function sendEmail($newPassword){
             EmailUtil::sendEmail(
-                Yii::app()->params['adminEmail'], 
+                Yii::app()->params['email.adminEmail'], 
                 $this->_user->email,
                 'forgetPassword',
                 array(
