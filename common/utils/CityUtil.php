@@ -48,7 +48,10 @@ class CityUtil{
         foreach(self::$cityList as $id=>$cityInfo){            
             $rs[$id] = $cityInfo['name'];
         }
-        if($excludeAllSelect) unset($rs[self::ALL_ID]);
+        if($excludeAllSelect) {
+            $rs[self::ALL_ID] = '(Tinh thanh)';
+        }
+        
         return $rs;
     }
     public static function getCityName($id){

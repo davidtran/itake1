@@ -28,13 +28,11 @@ class EmailCommand extends ConsoleCommand
                 $queueItem->attempts = $queueItem->attempts + 1;
                 $queueItem->success = 1;
                 $queueItem->last_attempt = new CDbExpression('NOW()');
-                $queueItem->send_date = new CDbExpression('NOW()');
- 
+                $queueItem->send_date = new CDbExpression('NOW()'); 
                 $queueItem->save();
             }else{
                 $queueItem->attempts = $queueItem->attempts + 1;
-                $queueItem->last_attempt = new CDbExpression('NOW()');
- 
+                $queueItem->last_attempt = new CDbExpression('NOW()'); 
                 $queueItem->save();
             }   
         }

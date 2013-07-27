@@ -17,6 +17,7 @@ $cs->registerScript('product info', "
         "
         , CClientScript::POS_HEAD);
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1', CClientScript::POS_END);
+$cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1', CClientScript::POS_END);
 ?>
 <div class="row-fluid upload">
     <div class="container-fluid">
@@ -114,6 +115,26 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1',
                                     </div>                                     
                                 </div>
                             </div>
+                            <div class="row-fluid">
+                                <h4 style="text-align: center;"><i class="icon-hand-right"></i>  Noi ban</h4>
+                                </div>
+                            <div class='row-fluid'>
+                                
+                                <div class='span12'>
+                                    <?php echo $form->error($product,'address_id'); ?>
+                                    <?php echo $form->hiddenField($product,'address_id'); ?>
+                                    <?php echo CHtml::link('Thêm địa chỉ','#',array(
+                                        'class'=>'btnAddressDialog btn btn-success',
+                                    )); ?>
+                                    <?php 
+                                    $addressList = $this->getAddressList();
+                                    $this->renderPartial('partial/addressList',array(
+                                        'addressList'=>$addressList
+                                    ));
+                                    ?>
+                                    
+                                </div>
+                            </div>
                         </div>
                         <div class="span4" style="border-left: dashed 1px #ccc;min-width: 250px;"> 
                             <h3 style="text-align: right;"><i class="icon-eye-open"></i>  Xem trước</h3>
@@ -140,79 +161,23 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1',
                                 </div>
                             </div>
                                   <?php
-                                  if(!$hasContactInfo)
-                                  {
-                                        echo CHtml::link('<i class="icon-arrow-right"></i>   Tiếp tục', '#', array(
-                                            'class' => 'btn btn-info btn-large flat pull-right',                                        
-                                            'id' => 'btnFinishStep1',
-                                            'style'=>'margin-top:10px;'
-                                        ));           
-                                  }
-                                  else
-                                  {
+                              
                                         echo CHtml::submitButton('Hoàn tất', array(
                                             'id' => 'btnFinishStep2',
                                             'class' => 'btn btn-success pull-right btn-large flat',
                                             'data-loading-text' => 'Đang tải...',
                                              'style'=>'margin-top:10px;'
                                         ));
-                                  }
+                                  
                                 ?>
                         </div>                          
                     </div>                           
                 </div>    
-                <div id="uploadStep2">
-                    <div class="row-fluid">
-                        <div class='span12'>                
-                            <div class="rb-form-part">                    
-                                <?php echo $form->dropDownListRow($product, 'city', CityUtil::getCityListData(true),array('style'=>'min-width:300px;')); ?>
-
-                                <div id="advanceFeature">                    
-                                    <?php
-                                    echo $form->textFieldRow($product, 'locationText', array(
-                                        'placeholder' => 'Nhập vào địa chỉ và bấm enter',
-                                        'style'=>'min-width:260px;'
-                                    ));
-                                    ?>                               
-                                    <?php
-                                    echo CHtml::link('<i class="icon-map-marker"></i>', '#', array(
-                                        'class' => 'btn btn-success',
-                                        'id' => 'btnSearchLocation'
-                                    ));
-                                    ?>
-                                </div>
-
-
-                                <label><span  class="label label-info"><i class="icon-info"></i></span>  Bạn có thể nhập vào địa chỉ và bấm Enter hoặc chọn trực tiếp trên bản đồ bằng cách nhấp chuột lên địa điểm trên bản đồ</label>
-                            </div>
-                            <div id='mapContainer'>
-                                <div id="map"></div>
-                                <?php echo $form->hiddenField($product, 'lat'); ?>
-                                <?php echo $form->hiddenField($product, 'lon'); ?>
-                            </div>
-                            <div class="row-fluid" style="margin-top: 10px;">
-                                <?php
-                                echo CHtml::submitButton('Hoàn tất', array(
-                                    'id' => 'btnFinishStep2',
-                                    'class' => 'btn btn-success pull-right btn-large flat',
-                                    'data-loading-text' => 'Đang tải...'
-                                ));
-                                ?>
-                                <?php
-                                echo CHtml::link('<i class="icon-arrow-left"></i>   Quay lại', '#', array(
-                                    'class' => 'btn btn-info pull-left btn-large flat',
-                                    'id' => 'btnBackToStep1',
-                                ));
-                                ?>                   
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
+               
             </div>       
             <?php $this->endWidget(); ?>
         </div>
     </div>
 </div>
 </div>
+<?php $this->renderPartial('partial/addressDialog'); ?>

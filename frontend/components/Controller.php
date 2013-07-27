@@ -84,8 +84,7 @@ class Controller extends CController
     public function renderAjaxResult($success = false, $message = '')
     {
         assert('is_bool($success)');
-        //$message = Yii::app()->sanitizer->sanitize($message);        
-        header('Content-Type: application/x-json');
+        //$message = Yii::app()->sanitizer->sanitize($message);               
         echo json_encode(
         array(
             'success' => $success,

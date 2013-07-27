@@ -21,37 +21,9 @@ $(document).ready(function() {
     $('.fileupload').fileupload({
         uploadtype: 'image'
     });
-    $('#Product_city').change(function(e) {
-        onCityChange($(this).val());
-    });
-    $('#Product_hasLocation').click(function() {
-        val = $(this).val();
-        onShowMapClick(val)
-    });
-    $addressField = $('#Product_locationText');
-    $('#btnSearchLocation').click(function(e) {
-        e.preventDefault();
-        searchMapByAddress($addressField.val())
-        return false;
-    });
-//    if($('#Product_category_id').attr('value')!="0")
-//        {
-//            
-//        }
-    $addressField.keydown(function(e) {
-
-        if (e.keyCode == 13) {
-            e.preventDefault();
-            searchMapByAddress($addressField.val());
-
-            return false;
-        }
-
-    });
+ 
     updatePreview();
-    //$('#Product_category_id').val(getUrlQuery(location.href,'category'));
-
-    //init step function
+ 
 
 });
 function updatePreview() {
@@ -67,20 +39,7 @@ function selectCategoryAt(idxCat, icontext, catName, styleName) {
     $('#listCategory a.btn.dropdown-toggle').html('<span class="label ' + styleName + '"><i class="' + icontext + '"/>' + catName + '</i></span><span class="caret"></span>');
     $('#Product_category_id').attr('value', idxCat);
 }
-function searchMapByAddress(address) {
-    GMaps.geocode({
-        address: getMapSearchQuery(address),
-        callback: function(results, status) {
-            if (status == 'OK') {
-                var latlng = results[0].geometry.location;
-                map.setCenter(latlng.lat(), latlng.lng());
-                placeMarker(latlng.lat(), latlng.lng());
-            } else {
-                alert('Không tìm thấy kết quả cho địa chỉ bạn nhập, vui lòng nhập lại.');
-            }
-        }
-    });
-}
+
 function getMapSearchQuery(address) {
     //get selected city, vietnam
     var cityId = $('#Product_city').val();
@@ -95,110 +54,8 @@ function getCityNameFromId(id) {
     }
     return '';
 }
-function addMap(lat, lng) {
-    map = new GMaps({
-        div: '#map',
-        lat: lat,
-        lng: lng,
-        width: 500,
-        height: 400,
-        zoom: 15,
-        click: function(e) {
-            placeMarker(e.latLng.lat(), e.latLng.lng());
-        }
-    });
-    map.addControl({
-        position: 'top_right',
-        text: 'Nơi bán hàng',
-        style: {
-            margin: '5px',
-            padding: '1px 6px',
-            border: 'solid 1px #717B87',
-            background: '#fff'
-        },
-        events: {
-            click: function() {
-                GMaps.geolocate({
-                    success: function(position) {
-                        map.setCenter(position.coords.latitude, position.coords.longitude);
-                    },
-                    error: function(error) {
-                        alert('Không thể đặt vị trí: ' + error.message);
-                    },
-                    not_supported: function() {
-                        alert("Trình duyệt của bạn không cho phép sử dụng bản đồ");
-                    }
-                });
-            }
-        }
-    });
 
 
-    map.addMarker({
-        lat: lat,
-        lng: lng,
-        icon: 'http://i.imgur.com/jfx5t.png',
-    });
-}
-function placeMarker(lat, lng) {
-    map.removeMarkers();
-    $('#Product_lat').val(lat);
-    $('#Product_lon').val(lng);
-
-
-    GMaps.geocode({
-        lat: lat,
-        lng: lng,
-        callback: function(results, status) {
-            if (status == 'OK') {
-                var formatAddress = results[0].formatted_address;
-                console.log(results[0]);
-                $addressField.val(results[0].formatted_address);
-                addressComponents = results[0].address_components;
-
-                var latlng = results[0].geometry.location;
-                map.setCenter(latlng.lat(), latlng.lng());
-                map.addMarker({
-                    lat: latlng.lat(),
-                    lng: latlng.lng()
-                });
-            }
-        }
-    });
-}
-
-function onShowMapClick(value) {
-    if (value == 1) {
-        //fill lat long data      
-        $('#Product_lat').val(locationData.latitude);
-        $('#Product_lon').val(locationData.longitude);
-        $('#mapContainer').slideDown('slow');
-    } else {
-        //remove lat lng
-        $('#Product_lat').val(null);
-        $('#Product_lon').val(null);
-        $('#mapContainer').slideUp('slow');
-    }
-}
-function onCityChange(value) {
-    $.ajax({
-        url: BASE_URL + '/upload/getGeoData',
-        data: {
-            cityId: value
-        },
-        type: 'get',
-        success: function(json) {
-            console.log(json);
-            
-            if (json.success) {
-                addMap(json.msg.latitude, json.msg.longitude);
-                placeMarker(json.msg.latitude, json.msg.longitude);
-
-                locationData = json.msg;
-            }
-        }
-    });
-}
 function onProductItemClick() {
     $('.productItem .deleteBtn').on('click', function(e) {
         e.preventDefault();
@@ -248,7 +105,7 @@ var UploadForm = {
             UploadForm.setFinishStep1ButtonState(true);
         }
         UploadForm.initPriceField();
-    },
+    },    
     initPriceField:function(){
         var priceDisplayValue = $('#Product_priceDisplay').val();
         $('#Product_price').keyup(function(event){
@@ -305,7 +162,7 @@ var UploadForm = {
                 valid = UploadForm.validateStep1Form();
                 UploadForm.setFinishStep1ButtonState(valid);
             });
-        })
+        });
 
 
 
@@ -345,12 +202,17 @@ var UploadForm = {
                 $(this).removeClass('error');
             }
         });
+        if(UploadAddress.addressList.find('.radio-address-item:checked').length == 0){
+            valid = false;
+        }
         var result;
         if (UploadForm.startChecking == false) {
             result = false;
         } else if (valid) {
             result = true;
         }
+        
+        
 
         return result;
     },
