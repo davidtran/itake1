@@ -39,9 +39,10 @@ class Address extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('city, lat, lon', 'required'),
+			array('city,phone, lat, lon', 'required'),
 			array('city', 'numerical', 'integerOnly'=>true),
 			array('lat, lon', 'numerical'),
+            array('phone','length','max'=>20),
 			array('address', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
