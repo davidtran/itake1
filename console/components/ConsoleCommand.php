@@ -17,7 +17,15 @@
                 {
                     $methodArgs = array_slice($args, 1);
                     Yii::log("Run console method: $method ");
-                    call_user_func_array(array($this,$method),$methodArgs);
+                    try{
+                        call_user_func_array(array($this,$method),$methodArgs);
+                        echo 'OK';
+                    }
+                    catch(Exception $e){
+                        echo 'FAILED';
+                        Yii::log("Failed console method: $method at ".date('Y-m-d H:i:s'));
+                    }
+                    
                     //$this->$method($methodArgs);
                 }
                 else

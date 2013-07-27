@@ -47,7 +47,7 @@
 
             <div class="container-fluid" >
                 <?php echo $content ?>
-            </div>
+            </div>  
         </div>
         <div id="fb-root"></div>
         <script>

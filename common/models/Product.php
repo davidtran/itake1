@@ -52,8 +52,8 @@ class Product extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title, description, price, city,category_id', 'required'),
-            array('view,price,category_id,city', 'numerical', 'integerOnly' => true),
+            array('title, description,address_id,price, city,category_id', 'required'),
+            array('address_id, view,price,category_id,city', 'numerical', 'integerOnly' => true),
             array('title', 'length', 'max' => 50),
             array('description', 'length', 'max' => 500),
             array('phone', 'length', 'max' => 11),
@@ -96,6 +96,7 @@ class Product extends CActiveRecord
             'locationText' => 'Địa chỉ',
             'city' => 'Thành phố',
             'category_id' => 'Danh mục',
+            'address_id'=>'Địa chỉ bán hàng'
         );
     }
 

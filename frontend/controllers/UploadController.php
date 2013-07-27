@@ -110,13 +110,7 @@ class UploadController extends Controller
         }
     }
 
-    public function actionUploadImage()
-    {
-        Yii::import('application.utils.ajaxupload.UploadHandler');
-        $uploadHandler = new UploadHandler(array(
-        ));
-    }
-
+   
 
     protected function createUploadCategorySelect($category)
     {
@@ -188,24 +182,7 @@ class UploadController extends Controller
         }
         $this->renderAjaxResult(false);
     }
-    public function actionUploadNew($category = null, $danhmuc = null){
-         Yii::import("ext.xupload.models.XUploadForm");
-        $model = new XUploadForm;
-        $this -> render('uploadNew', array('model' => $model, ));        
-    }
-    public function actionUploadNew2(){         
-        $this -> render('uploadNew2');        
-    }
-    public function actions()
-    {
-        return array(
-            'upload'=>array(
-                'class'=>'ext.xupload.actions.XUploadAction',
-                'path' =>Yii::app() -> getBasePath() . "/../images/uploads",
-                'publicPath' => Yii::app() -> getBaseUrl() . "/images/uploads",
-            ),
-        );
-    }
+ 
     public function actionUploadItem(){
         $product = new Product;
         if(isset ($_POST['title'])&&isset ($_POST['price'])&&isset ($_POST['description'])&&isset ($_POST['link'])&&isset ($_POST['imageLink'])&&isset ($_POST['category']))
@@ -250,4 +227,43 @@ class UploadController extends Controller
             echo 'save fail' ;
         }
     }
+    
+    protected function getAddressList()
+    {
+        $addressList = Address::model()->findAll(array(
+            'condition'=>'user_id = :id',
+            'params'=>array(
+                'id'=>Yii::app()->user->id
+            ),
+            'order'=>'create_date desc'
+        ));        
+        return $addressList;
+    }
+    
+    public function actionAddAddress(){
+        $address = new Address();
+        if(isset($_POST['Address'])){
+            $address->attributes = $_POST['Address'];
+            $address->create_date = date('Y-m-d H:i:s');
+            $address->user_id = Yii::app()->user->id;
+            if($address->save()){
+                $this->renderAjaxResult(true,array(
+                    'html'=>$this->renderPartial('partial/addressItem',array(
+                        'address'=>$address
+                    ),true,false)
+                ));
+            }
+        }
+        $this->renderAjaxResult(false,"Can't save address");        
+    }
+    public function actionDeleteAddress(){
+        $addressId = Yii::app()->request->getPost('addressId');
+        $model = Address::model()->findByPk($addressId);
+        if($model) {
+            $model->delete();
+            $this->renderAjaxResult(true);
+        }
+        $this->renderAjaxResult(false);
+    }
+        
 }
