@@ -29,6 +29,12 @@ class Product extends CActiveRecord
     {
         return parent::model($className);
     }
+    
+    public function init()
+    {
+        $this->view = 0;
+        return parent::init();
+    }
 
     /**
      * @return string the associated database table name
