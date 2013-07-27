@@ -451,7 +451,7 @@
         <field name="phone" type="phonetic" indexed="true" stored="true"/>
         <field name="city_id" type="int" indexed="true" stored="false"/>
         <field name="city_name" type="text_general" indexed="true" stored="true"/>
-        <field name="view" type="tint" indexed="true" stored="true"/>
+        <field name="view" type="tint" indexed="true" stored="true" default="0"/>
         <field name="suggest_terms" type="suggest_term_tokenized" indexed="true"
 	   multiValued="true" stored="false" omitNorms="true"/>
         <field name="suggestions" type="suggest_term" indexed="true" multiValued="true"
