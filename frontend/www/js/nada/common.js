@@ -1,10 +1,6 @@
-var urlHome = 'http://' + document.location.hostname;
-if (urlHome.indexOf('localhost') != -1)
-{
-    urlHome += "/nada/";
-}
-var urlHomeSite = urlHome + "site";
 var viewCounter = 0;
+var pageContextUrl ="";
+var pageContextTitle="";
 $(window).resize(function() {
     alignDiv();
 });
@@ -16,6 +12,9 @@ $(document).ready(function() {
             railVisible: true
         });
     });
+    pageContextUrl = location.href;
+    pageContextTitle = document.title;
+    History.pushState({}, document.title, pageContextUrl);
     alignDiv();
     (function($) {
         $.Isotope.prototype._getCenteredMasonryColumns = function() {
@@ -112,41 +111,48 @@ $(function() {
         // History.js is disabled for this browser.
         // This is because we can optionally choose to support HTML4 browsers or not.
         return false;
-    }
-    window.onpopstate = function(event) {
-        console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
-    };
+    }    
     // Bind to StateChange Event
+    var lastUrl;
     History.Adapter.bind(window, 'statechange', function() { // Note: We are using statechange instead of popstate
         var State = History.getState();
-        History.log(State.data, State.title, State.url);
-        if (isProductDetailUrl(State.url))
-        {
-            if ($dialog == null)
-            {
-                location.href = State.url;
-            }
-            if ($dialog.css('display') == 'none' && State.data.productIdHtml != undefined
-                    && $dialog.find('#userProductList') != undefined && $dialog.attr('data-item-id') == State.data.productIdHtml) {
-                $dialog.modal({
-                    show: true,
-                    modalOverflow: true
-                });
-            }
-            return false;
-        }
-        if (location.href == urlHomeSite || location.href == urlHome || location.href.indexOf('user/profile/') != -1)
-        {
-            if ($dialog.css('display') != 'none' && State.data.productIdHtml == undefined) {
+        History.log(State.data, State.title, State.url);        
+        if(State.url==pageContextUrl){            
+            if ($dialog.css('display') != 'none') {
                 viewCounter--;
                 $dialog.modal('hide');
             }
+            return;
+        }       
+        if ($dialog == null)
+        {
+            location.href = State.url;
         }
         else
         {
+            if (lastUrl != State.url&&State.data.productIdHtml == undefined)
+            {
+                if ($dialog.css('display') != 'none' && State.data.productIdHtml == undefined) {
+                    viewCounter--;
+                    $dialog.modal('hide');
+                }
+            }
+            else if (State.data.productIdHtml != undefined)
+            {
+                viewCounter++;
+                loadProduct(location.href,State.data.productIdHtml);
+            }          
+            $dialog.on('shown', function() {
 
-        }
-        //$('#content').load(State.url);
+            });
+            $dialog.on('hidden', function() {
+                var tempCounter = viewCounter;
+                viewCounter = 0;
+                if (tempCounter != 0)
+                    History.pushState({}, pageContextTitle, pageContextUrl);
+            });
+        }            
+        lastUrl = State.url;
     });
 
     $('.productLink').live('click', function(e) {
@@ -159,46 +165,10 @@ $(function() {
         History.pushState({
             productIdHtml: productIdHtml,
             dlgPush: true
-        }, getUrlQuery(link, 'title'), link);
-        viewCounter++;
+        }, getProductTitle(link), link);        
         return false;
     });
-
-    $(document).ready(function() {
-        $('.slim-scroll').each(function() {
-            var $this = $(this);
-            $this.slimScroll({
-                height: $this.data('height') || 100,
-                railVisible: true
-            });
-        });
-        if (!isProductDetailUrl(location.href))
-        {
-            History.replaceState({}, document.title, location.href);
-
-        }
-        $dialog = $('#productDialog');
-        if ($dialog != undefined)
-        {
-            $dialog.on('shown', function() {
-
-            });
-            $dialog.on('hidden', function() {
-                var tempCounter = viewCounter;
-                viewCounter = 0;
-                if (tempCounter != 0)
-                    History.go(-tempCounter);
-            });
-        }
-        // scrollables        
-    });
 });
-function isProductDetailUrl(s)
-{
-    var regexPatterns = /product\/details\/\d*\?title=/i;
-    return s.match(regexPatterns) != null && s.match(regexPatterns).length > 0;
-}
-
 
 function facebookCommentsAttachment()
 {
@@ -219,7 +189,10 @@ function facebookCommentsAttachment()
         }(document, 'script', 'facebook-jssdk'));
     }
 }
-
+function getProductTitle(link){
+    var arrStr = link.split('/',20);
+    return arrStr[arrStr.length-1];
+}
 
 function getUrlQuery(href, qr)
 {

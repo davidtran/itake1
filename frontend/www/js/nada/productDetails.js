@@ -5,7 +5,6 @@ var $side;
 var $dialog;
 var $relateProductContainer;
 var isIE = /*@cc_on!@*/false;
-var viewCount = 0;
 var justLoadProduct = false;
 var noReloadProduct = false;
 requestHide = false;
@@ -28,7 +27,7 @@ $(document).ready(function() {
         //productId = productItem.attr('data-product-id');
         productIdHtml = productItem.attr('id');
         loadedMap = false;
-        loadProduct(link, productIdHtml);
+        //loadProduct(link, productIdHtml);
 
         return false;
     });
@@ -72,11 +71,7 @@ function loadProduct(href, htmlProductId)
     //load html
     //load product data
     //show dialog   
-    productItem = $('#' + htmlProductId);
-    if ($dialog.attr('data-item-id') == htmlProductId)
-    {
-        return;
-    }
+    productItem = $('#' + htmlProductId);    
     startLoadingBackground(productItem);
     $('#special').show();
     $.ajax({
@@ -116,11 +111,7 @@ function loadProduct(href, htmlProductId)
 
                 //  loadRelateProduct(product);         
 
-                $dialog.on('shown', function() {
-                    if ($('#imagePreview').size() > 0)
-                    {
-                        $("#imagePreview").elevateZoom();
-                    }
+                $dialog.on('shown', function() {                   
                     $('.slim-scroll').each(function() {
                         var $this = $(this);
                         $this.slimScroll({
@@ -146,27 +137,16 @@ function loadProduct(href, htmlProductId)
 
 
                 });
-                $dialog.on('hidden', function(e) {
-                    $(".zoomContainer").remove();
+                $dialog.on('hidden', function(e) {     
+                    $(".zoomContainer").remove();                           
                     $('#special').hide();
                     $dialog.find('#productDialogBody').empty();
-                    console.log('ON HIDE');
-                    var State = History.getState();
-                    console.log('<--');
-                    History.log(State.data, State.title, State.url);
-                    console.log('-->');
-
-
                 });
             }
         },
         complete: function() {
 
-            stopLoadingBackground(productItem);
-            setTimeout(function() {
-                initZoomProduct();
-            }, 1000);            
-            
+            stopLoadingBackground(productItem);                       
             setCommentFullWidth();
         }
     });
