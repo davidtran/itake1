@@ -56,7 +56,7 @@ class SolrSortTypeUtil
     {
         if (isset(Yii::app()->request->cookies[self::COOKIE_NAME]))
         {
-            return Yii::app()->request->cookies[self::COOKIE_NAME];
+            return Yii::app()->request->cookies[self::COOKIE_NAME]->value;
         }
         return null;
     }

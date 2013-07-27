@@ -57,20 +57,7 @@ class FacebookUtil
             return false;
         }
     }
-
-    public function postRegisterInfo()
-    {
-        $attachment = array(
-            'name' => 'ListenToMe.vn - Trò chơi luyện nghe tiếng Anh qua video',
-            'link' => 'http://listentome.vn',
-            'description' => "Luyện nghe tiếng anh qua cách các video, tìm từ chính xác và ghi điểm để vượt qua các người chơi khác",
-            'caption' => "ListenToMe.vn",
-            'picture' => 'http://listentome.vn/images/logo-small.jpg',
-            'message' => 'Tự nhiên tìm ra được một trang web làm bài tập tiếng anh hay ghê . Vừa xem video , vừa luyện nghe , vừa điền vào phụ đề bằng từ gợi ý . Bá đạo trên từng hạt gạo :v',
-        );
-        $attachment['access_token'] = $this->getAccessToken();
-        Yii::app()->facebook->api("/me/feed", 'POST', $attachment);
-    }
+   
 
     public function getFacebookFriendList()
     {
@@ -141,23 +128,24 @@ class FacebookUtil
         UserMetaUtil::setMeta($userId, 'FacebookAccessToken', $token);
     }
     public function shareProductToFacebook(Product $product,$accessToken = null){     
-        $args = array('message' => $this->makePostDescription($product));
+        $args = array();
+        
         $args['image'] = '@' . realpath($product->image);
         if($accessToken!=null){
             $args['access_token'] = $accessToken;
         }        
-        return Yii::app()->facebook->api('/me/photos', 'post', $args);
+        return Yii::app()->facebook->api('/me/photos?message='.($this->makePostDescription($product)), 'post', $args);
     }
     
     protected function makePostDescription(Product $product){
         $html = '';
-        $html .= "Tên sản phẩm: $product->title".self::FB_LINE_BREAK;
-        $html .= "Giá: ".number_format($product->price,0).' VNĐ'.self::FB_LINE_BREAK;
-        $html .= "Người bán: ".$product->user->username.self::FB_LINE_BREAK;
-        $html .= "Số điện thoại: ".$product->phone.self::FB_LINE_BREAK;
+        $html .= "Tên sản phẩm- $product->title".self::FB_LINE_BREAK;
+        $html .= "Giá- ".number_format($product->price,0).' VNĐ'.self::FB_LINE_BREAK;
+        $html .= "Người bán- ".$product->user->username.self::FB_LINE_BREAK;
+        $html .= "Số điện thoại- ".$product->phone.self::FB_LINE_BREAK;
         $html .= $product->description.self::FB_LINE_BREAK;
         $html .= self::FB_LINE_BREAK;
-        $html .= $product->getAbsoluteDetailUrl();
+        
         return $html;
     }
     

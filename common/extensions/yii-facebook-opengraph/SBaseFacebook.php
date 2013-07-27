@@ -181,6 +181,7 @@ class SBaseFacebook extends BaseFacebook
     // @codeCoverageIgnoreStart
     if (php_sapi_name() != 'cli') {
       //error_log($msg);
+        echo $msg;
       Yii::log($msg,CLogger::LEVEL_ERROR,'ext.SBaseFacebook');
     }
     // uncomment this if you want to see the errors on the page
