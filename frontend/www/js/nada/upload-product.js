@@ -71,7 +71,8 @@ function deleteItem(productId, productItem) {
     $.ajax({
         url: BASE_URL + '/upload/delete',
         type: 'post',
-        success: function(json) {
+        success: function(jsons) {
+            var json = $.parseJSON(jsons);
             if (json.success) {
                 productItem.fadeOut('slow', function() {
                     $('.productBoard').isotope('reLayout');

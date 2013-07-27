@@ -19,7 +19,8 @@ $(document).ready(function(){
                     id:productId
                 },
                 type:'post',
-                success:function(json){                    
+                success:function(jsons){                    
+                    var json = $.parseJSON(jsons);
                     if(json.success){
                         removeProductItemFromBoard(productItem);
                     }else{
