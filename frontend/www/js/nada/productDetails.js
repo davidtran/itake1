@@ -81,9 +81,9 @@ function loadProduct(href, htmlProductId)
         {
 
         },
-        success: function(json)
+        success: function(jsons)
         {
-//            var data = $.parseJSON(json);
+            var json = $.parseJSON(jsons);
             if (json.success)
             {
                 noReloadProduct = true;
