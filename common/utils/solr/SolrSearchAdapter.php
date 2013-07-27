@@ -1,17 +1,17 @@
 <?php
+
 //researching
 //http://dev.solr:8983/solr/select/?q=laptop&defType=dismax&fl=id,title,city_name,create_date,view,category_name,score&qf=title^60%20category_name^10%20description^30&bf=product(1.1,view)&bf=recip(ms(NOW,create_date),3.16e-11,1,1)
 class SolrSearchAdapter
 {
-    
-        
+
     protected $result;
     public $page;
     public $pageSize = 10;
     public $cityId = null;
     public $keyword = null;
     public $categoryId = null;
-    protected $latitude =null;
+    protected $latitude = null;
     protected $longitude = null;
     protected $sortType;
 
@@ -21,10 +21,10 @@ class SolrSearchAdapter
     {
         $this->page = 0;
         $this->cityId = null;
-        
     }
-    
-    public function setSortType($value){
+
+    public function setSortType($value)
+    {
         $this->sortType = $value;
     }
 
@@ -32,7 +32,7 @@ class SolrSearchAdapter
     {
         $fq = '';
         $params = array();
-        if ($this->cityId != null && $this->cityId!=CityUtil::ALL_ID)
+        if ($this->cityId != null && $this->cityId != CityUtil::ALL_ID)
         {
             $fq[] = 'city_id:' . $this->cityId;
         }
@@ -48,33 +48,41 @@ class SolrSearchAdapter
         $params['defType'] = 'edismax';
         $params['qf'] = 'title^60 description^20';
         $params['q.alt'] = '*:*';
-        if($this->latitude !=null && $this->longitude != null){
+        if ($this->latitude != null && $this->longitude != null)
+        {
             $params['fq'][] = '{!geofilt}';
             $params['sfield'] = 'store';
-            $params['pt'] = $this->latitude.','.$this->longitude;
+            $params['pt'] = $this->latitude . ',' . $this->longitude;
             $params['d'] = 50;
             $params['bf'][] = 'recip(geodist(),2,200,20)';
         }
-     
-        if($this->sortType == SolrSortTypeUtil::TYPE_CREATE_DATE){
+
+        if ($this->sortType == SolrSortTypeUtil::TYPE_CREATE_DATE)
+        {
             $params['sort'] = 'create_date desc';
-        }else{
+        }
+        else
+        {
             $params['sort'] = 'score desc';
         }
-                       
+
         return $params;
     }
-  
-    public function getLocation($lat, $lng){
+
+    public function getLocation($lat, $lng)
+    {
         $this->latitude = floatval($lat);
         $this->longitude = floatval($lng);
     }
-    public function makeQuery(){
-        
-        if(trim($this->keyword) == '') $this->keyword = self::DEFAULT_KEYWORD;
+
+    public function makeQuery()
+    {
+
+        if (trim($this->keyword) == '')
+            $this->keyword = self::DEFAULT_KEYWORD;
         return $this->keyword;
     }
-    
+
     protected function getOffset()
     {
         return $this->page * $this->pageSize;
@@ -82,7 +90,7 @@ class SolrSearchAdapter
 
     public function search()
     {
-        $solr = Yii::app()->solrProduct->getClient();     
+        $solr = Yii::app()->solrProduct->getClient();
         try
         {
             $response = $solr->search($this->makeQuery(), $this->getOffset(), $this->pageSize, $this->makeParam());
