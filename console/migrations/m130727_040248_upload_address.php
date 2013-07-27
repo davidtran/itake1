@@ -5,7 +5,7 @@ class m130727_040248_upload_address extends CDbMigration
 	public function up()
 	{
         $this->execute("
-            DROP TABLE {{address}};
+            DROP TABLE IF EXISTS {{address}};
             CREATE TABLE IF NOT EXISTS `{{address}}` (
   `id` int(11) NOT NULL AUTO_INCREMENT,  
   `city` int(11) NOT NULL,
