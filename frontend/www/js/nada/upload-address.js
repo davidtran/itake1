@@ -11,7 +11,7 @@ var UploadAddress = {
         UploadAddress.initDeleteButton();
         UploadAddress.initDialog();
         UploadAddress.initSaveButton();
-        
+        UploadAddress.initRadioButton();
         
     },
     initRadioButton:function(){
@@ -46,6 +46,8 @@ var UploadAddress = {
                 UploadAddress.addressList.prepend(msg.html);
                 UploadAddress.addressList.find('.radio-address-item:eq(0)').attr('checked',true);
                 UploadAddress.addAddressDialog.modal('hide');
+            },function(msg){
+                bootbox.alert(msg);
             });
             return false;
         });

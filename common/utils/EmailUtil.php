@@ -93,7 +93,7 @@ class EmailUtil extends CWidget
         }
         else
         {
-            $uniqueParams = "{$emailQueue->from_email}-{$emailQueue->to_email}-{$emailQueue->subject}-{$mail_queue->view}";
+            $uniqueParams = "{$emailQueue->from_email}-{$emailQueue->to_email}-{$emailQueue->subject}-{$emailQueue->view}";
         }
         $hash = md5($uniqueParams);
         return $hash;

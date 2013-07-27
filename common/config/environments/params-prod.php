@@ -11,23 +11,23 @@
 /**
  * Replace following tokens for correspondent configuration data
  *
- * {DATABASE-NAME} ->   database name
+ * {DATABASE-NAME} ->   database name
  * {DATABASE-HOST} -> database server host name or ip address
  * {DATABASE-USERNAME} -> user name access
  * {DATABASE-PASSWORD} -> user password
  *
- * {DATABASE-TEST-NAME} ->   Test database name
+ * {DATABASE-TEST-NAME} ->   Test database name
  * {DATABASE-TEST-HOST} -> Test database server host name or ip address
  * {DATABASE-USERNAME} -> Test user name access
  * {DATABASE-PASSWORD} -> Test user password
  */
 return array(
-	'env.code' => 'prod',
-	// DB connection configurations
-	'db.name' => '',
-	'db.connectionString' => 'mysql:host=localhost;dbname=itake',
-	'db.username' => 'root',
-	'db.password' => 'itake1234',
+        'env.code' => 'prod',
+        // DB connection configurations
+        'db.name' => '',
+        'db.connectionString' => 'mysql:host=localhost;dbname=itake',
+        'db.username' => 'root',
+        'db.password' => 'itake1234',
     'db.tablePrefix'=>'mp_',
     
     'email.host'=>'smtp.gmail.com',

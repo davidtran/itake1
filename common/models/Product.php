@@ -59,6 +59,7 @@ class Product extends CActiveRecord
             array('phone', 'length', 'max' => 11),
             array('phone', 'numerical'),
             array('phone,lat,lon,locationText', 'safe'),
+            array('address_id','exist','className'=>'Address','attributeName'=>'id'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, title, description, price, user_id, image, create_date', 'safe', 'on' => 'search'),
@@ -75,6 +76,7 @@ class Product extends CActiveRecord
         return array(
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
             'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
+            'address'=>array(self::BELONGS_TO,'Address','address_id'),
         );
     }
 
@@ -131,6 +133,13 @@ class Product extends CActiveRecord
         {
             $this->create_date = date('Y-m-d H:i:s');
             $this->view = 0;
+        }
+        if($this->address!=null){
+            $this->locationText = $this->address->address;
+            $this->phone = $this->address->phone;
+            $this->city = $this->address->city;
+            $this->lat = $this->address->lat;
+            $this->lon = $this->address->lon;
         }
         $this->price = intval(StringUtil::removeSpecialCharacter($this->price));
         return parent::beforeValidate();

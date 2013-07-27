@@ -20,6 +20,11 @@
                     <?php echo $form->dropDownListRow($address, 'city', CityUtil::getCityListData(true), array('style' => 'min-width:300px;')); ?>
 
                     <div id="advanceFeature">                    
+                        <?php echo $form->textFieldRow($address,'phone',array(
+                            'placeholder'=>'Điện thoại liên hệ',
+                            'style' => 'min-width:260px;'
+                        )); ?>
+                        
                         <?php
                         echo $form->textFieldRow($address, 'address', array(
                             'placeholder' => 'Nhập vào địa chỉ và bấm enter',

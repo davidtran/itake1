@@ -2,17 +2,21 @@
 
 class UploadController extends Controller
 {
-    protected function solrImportProduct($product){        
+
+    protected function solrImportProduct($product)
+    {
         $solrImporter = new ProductModelSolrImporter();
         $solrImporter->addProduct($product);
-        try{
+        try
+        {
             $solrImporter->importProduct();
         }
-        catch(Exception $e){
-            throw new CHttpException(500,'Có lỗi trong khi đăng tin, chúng tôi đang khắc phục điều này');
+        catch (Exception $e)
+        {
+            throw new CHttpException(500, 'Có lỗi trong khi đăng tin, chúng tôi đang khắc phục điều này');
         }
-        
     }
+
     public function actionIndex($category)
     {
         $returnUrl = $this->createUrl('/upload/index');
@@ -28,13 +32,13 @@ class UploadController extends Controller
             $user = Yii::app()->user->model;
             $user->lon = $product->lon;
             $user->lat = $product->lat;
-            $user->locationText = $product->locationText;            
+            $user->locationText = $product->locationText;
             $user->city = $product->city;
             $user->phone = $product->phone;
             $user->save();
             $this->handleUploadImage($product);
-            if ($product->validate(null,false) && $product->save(false))
-            {                
+            if ($product->validate(null, false) && $product->save(false))
+            {
                 $this->solrImportProduct($product);
                 if (Yii::app()->user->isFacebookUser)
                 {
@@ -51,39 +55,43 @@ class UploadController extends Controller
                 }
                 Yii::app()->session['PostedProductId'] = $product->id;
                 $this->redirect($product->getDetailUrl());
-            }else{
-                if(file_exists($product->image)){
+            }
+            else
+            {
+                if (file_exists($product->image))
+                {
                     unlink($product->image);
                 }
-                if(file_exists($product->processed_image)){
+                if (file_exists($product->processed_image))
+                {
                     unlink($product->processed_image);
                 }
             }
         }
         $hasContactInfo = false;
-        if(UserUtil::hasContactInfo())
+        if (UserUtil::hasContactInfo())
         {
             $hasContactInfo = true;
         }
         $this->render('index', array(
-            'product' => $product,      
-            'hasContactInfo'=>$hasContactInfo,
+            'product' => $product,
+            'hasContactInfo' => $hasContactInfo,
         ));
     }
-   
-    public function setupDefaultCity($product){
-        
-        if($product->lat == NULL && $product->lon == NULL){
+
+    public function setupDefaultCity($product)
+    {
+
+        if ($product->lat == NULL && $product->lon == NULL)
+        {
             $cityList = CityUtil::getCityList(true);
-            $firstCity = current($cityList);            
+            $firstCity = current($cityList);
             $product->lat = $firstCity['latitude'];
             $product->lon = $firstCity['longitude'];
         }
         return $product;
-        
-        
     }
-            
+
     public function actionEdit($id)
     {
         $product = Product::model()->findByPk($id);
@@ -110,8 +118,6 @@ class UploadController extends Controller
         }
     }
 
-   
-
     protected function createUploadCategorySelect($category)
     {
         return $this->createUrl('step2', array('category' => $category->id, 'name' => $category->name));
@@ -131,7 +137,7 @@ class UploadController extends Controller
                 rand(0, 999);
 
 
-        $rs = $upload->handleUploadImage('images/content', $filename)  ;
+        $rs = $upload->handleUploadImage('images/content', $filename);
         if ($rs == false)
         {
             $product->addError('image', $upload->getError());
@@ -139,7 +145,7 @@ class UploadController extends Controller
         }
         else
         {
-            
+
             $raw = 'images/content/' . $filename . '.' . $upload->getExtension();
             $product->image_thumbnail = ImageUtil::resize($raw, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);
             $processed = 'images/content/processed/' . $filename . '.' . $upload->getExtension();
@@ -182,10 +188,11 @@ class UploadController extends Controller
         }
         $this->renderAjaxResult(false);
     }
- 
-    public function actionUploadItem(){
+
+    public function actionUploadItem()
+    {
         $product = new Product;
-        if(isset ($_POST['title'])&&isset ($_POST['price'])&&isset ($_POST['description'])&&isset ($_POST['link'])&&isset ($_POST['imageLink'])&&isset ($_POST['category']))
+        if (isset($_POST['title']) && isset($_POST['price']) && isset($_POST['description']) && isset($_POST['link']) && isset($_POST['imageLink']) && isset($_POST['category']))
         {
             $product->title = $_POST['title'];
             $product->price = $_POST['price'];
@@ -197,16 +204,16 @@ class UploadController extends Controller
             $product->locationText = $user->locationText;
             $product->city = $user->city;
             $product->phone = $user->phone;
-            
-            
+
+
             $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($product->title)) .
-                '_' .
-                rand(0, 999);
+                    '_' .
+                    rand(0, 999);
             $extension = pathinfo($_POST['imageLink'], PATHINFO_EXTENSION);
-            $fileLink = basename($_POST['imageLink']); 
+            $fileLink = basename($_POST['imageLink']);
             $raw = 'images/content/' . $filename . '.' . $extension;
-            copy('images/uploads/'.date( "mdY" ).'/'.$fileLink,$raw);         
-            unlink('images/uploads/'.date( "mdY" ).'/'.$fileLink);
+            copy('images/uploads/' . date("mdY") . '/' . $fileLink, $raw);
+            unlink('images/uploads/' . date("mdY") . '/' . $fileLink);
             $product->image_thumbnail = ImageUtil::resize($raw, 400, 400);
             $processed = 'images/content/processed/' . $filename . '.' . $extension;
             $product->image = $raw;
@@ -214,56 +221,70 @@ class UploadController extends Controller
             $product->processed_image = $processed;
             $product->category_id = $_POST['category'];
             $product->user_id = $user->id;
-            if($product->save())
+            if ($product->save())
             {
-               echo 'save success' ;
+                echo 'save success';
             }
             else
             {
-                echo 'save fail' ;
+                echo 'save fail';
             }
         }
-        else{
-            echo 'save fail' ;
+        else
+        {
+            echo 'save fail';
         }
     }
-    
+
     protected function getAddressList()
     {
         $addressList = Address::model()->findAll(array(
-            'condition'=>'user_id = :id',
-            'params'=>array(
-                'id'=>Yii::app()->user->id
+            'condition' => 'user_id = :id',
+            'params' => array(
+                'id' => Yii::app()->user->id
             ),
-            'order'=>'create_date desc'
-        ));        
+            'order' => 'create_date desc'
+        ));
         return $addressList;
     }
-    
-    public function actionAddAddress(){
+
+    public function actionAddAddress()
+    {
         $address = new Address();
-        if(isset($_POST['Address'])){
+        if (isset($_POST['Address']))
+        {
             $address->attributes = $_POST['Address'];
             $address->create_date = date('Y-m-d H:i:s');
             $address->user_id = Yii::app()->user->id;
-            if($address->save()){
-                $this->renderAjaxResult(true,array(
-                    'html'=>$this->renderPartial('partial/addressItem',array(
-                        'address'=>$address
-                    ),true,false)
+            if ($address->save())
+            {
+                $this->renderAjaxResult(true, array(
+                    'html' => $this->renderPartial(
+                        'partial/addressItem', 
+                        array(
+                            'address' => $address
+                        ), 
+                        true, 
+                        false
+                    )
                 ));
+            }else{
+                $this->renderAjaxResult(false,'Vui lòng nhập đầy đủ thông yêu cầu'); 
             }
         }
-        $this->renderAjaxResult(false,"Can't save address");        
+        $this->renderAjaxResult(false, "Không thể lưu địa chỉ");
     }
-    public function actionDeleteAddress(){
+
+    public function actionDeleteAddress()
+    {
         $addressId = Yii::app()->request->getPost('addressId');
         $model = Address::model()->findByPk($addressId);
-        if($model) {
+        if ($model)
+        {
             $model->delete();
             $this->renderAjaxResult(true);
         }
         $this->renderAjaxResult(false);
     }
-        
+
 }
