@@ -6,11 +6,9 @@
         <meta name="language" content="en" />
 
         
-        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'/>        
-        <link href='http://fonts.googleapis.com/css?family=Roboto:700,700italic,900,500italic,500,400,400italic' rel='stylesheet' type='text/css'/>
-        
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-combined.no-icons.min.css" />
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/font-awesome.min.css" />
+       <!--  <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'/>        
+        <link href='http://fonts.googleapis.com/css?family=Roboto:700,700italic,900,500italic,500,400,400italic' rel='stylesheet' type='text/css'/> -->
+                
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/font.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" />
         
@@ -31,8 +29,11 @@
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.history.js', CClientScript::POS_HEAD);       
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/common.js', CClientScript::POS_HEAD);
         ?>
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"/>
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-combined.no-icons.min.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/font-awesome.min.css" />
+        <!--[if IE 7]>
+          <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome-ie7.min.css">
+        <![endif]-->
         <?php
         Yii::app()->controller->widget('ext.seo.widgets.SeoHead', array(
             'defaultDescription' => 'iTake.me - Take the favorite. Chợ mua bán những sản phẩm nhanh trên smartphone',
