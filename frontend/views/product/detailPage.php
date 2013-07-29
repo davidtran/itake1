@@ -20,17 +20,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                     <?php echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image,$product->title,array('data-zoom-image'=>Yii::app()->baseUrl . '/' . $product->image,'id'=>'imagePreview')); ?>
                                 </div>
                                 <div class="row-fluid" style="margin-top: 20px;">
-                                    <span class="badge" style="margin-bottom:10px;"><?php echo $product->view; ?>lượt xem</span>
-                                     <!-- AddThis Button BEGIN -->
-                                    <div class="addthis_toolbox addthis_default_style">
-                                    <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-                                    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-                                    <a class="addthis_button_tweet"></a>
-                                    <a class="addthis_button_pinterest_pinit"></a>
-                                    </div>
-                                    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
-                                    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5165a11f04e5f961"></script>
-                                    <!-- AddThis Button END -->
+                                    <div class="fb-like" data-href="<?php echo $canonicalUrl; ?>" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+                                     <br/>
+                                     <span class="badge" style="margin-bottom:10px;"><?php echo $product->view; ?>lượt xem</span>
                                 </div>                                   
                             </div>
                             <div class="span6 custom">

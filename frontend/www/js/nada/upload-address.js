@@ -15,8 +15,12 @@ var UploadAddress = {
         
     },
     initRadioButton:function(){
-        if(product != undefined){
-            UploadAddress.addressList.find('.radio-address-item[value='+product.address_id+']').attr('checked',true);
+        if(product != undefined && product.address_id != null){
+            UploadAddress.addressList.find('.radio-address-item[value='+product.address_id+']').click();
+        }else{
+            if($('.radio-address-item').length > 0){
+                $('.radio-address-item:eq(0)').click();
+            }
         }
         $('.radio-address-item').live('click',function(){
             $('#Product_address_id').val($(this).val());
