@@ -61,7 +61,17 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                         <h4 class="product-detail-tag">Ngày đăng</h4>
                                                         <i class="icon-calendar"></i>  <?php echo DateUtil::convertDate('d-m-Y H:i:s', $product->create_date); ?>
                                                     </div>
-                                                </div>                                                
+                                                </div>  
+                                                  <?php if ($product->lat != null && $product->lon != null): ?>
+                                                    <div class="row-fluid">                                                                                                                                                        
+                                                                                              
+                                                        <?php if (trim($product->locationText) != ''): ?>
+                                                            <h4 class="product-detail-tag">Địa chỉ:</h4> 
+                                                            <?php echo $product->locationText ; ?>                    
+                                                        <?php endif; ?>                                         
+                                                        
+                                                    </div>
+                                                <?php endif; ?>
                                                  <div class="row-fluid">     
                                                      <div class="span12">
                                                     <h4 class="product-detail-tag"> Mô tả sản phẩm</h4>
@@ -75,10 +85,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                 <?php if ($product->lat != null && $product->lon != null): ?>
                                                     <div class="row-fluid">                                                                                                                                                        
                                                         <h4 class="product-detail-tag">Thành phố <?php echo CityUtil::getCityName($product->city); ?></h4>                                        
-                                                        <?php if (trim($product->locationText) != ''): ?>
-                                                            <h4 class="product-detail-tag">Địa chỉ</h4>
-                                                            <?php echo $product->locationText; ?>                    
-                                                        <?php endif; ?>                                         
+                                                                                               
                                                         <div id='map'></div>  
                                                         <script>
                                                             $('a[href="#bando"]').on('shown', function (e) {  
