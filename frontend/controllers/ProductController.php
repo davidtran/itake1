@@ -17,12 +17,8 @@ class ProductController extends Controller
 
     public function actionDetails($id)
     {
-        $product = $this->loadProduct($id);
-        if($product->view ==null){
-            $product->view = 0;
-        }
-        $product->view++;
-        ProductViewCounterUtil::getInstance($product->id)->increaseView();
+        ProductViewCounterUtil::getInstance($id)->increaseView();
+        $product = $this->loadProduct($id);              
         $canonicalUrl = $this->createAbsoluteUrl('/product/details',array('id'=>$id));      
         $userProductDataProvider = $product->user->searchProduct(null, 10, 0);
         if(Yii::app()->request->isAjaxRequest){            

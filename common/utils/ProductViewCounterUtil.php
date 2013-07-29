@@ -18,7 +18,8 @@ class ProductViewCounterUtil{
     
     public function increaseView(){
         $lastViewTime = $this->getLastViewTime();
-        if($lastViewTime == null || (time() - $lastViewTime) > self::INCREASE_TIME_DISTANCE){
+   
+        if($lastViewTime === false || (time() - $lastViewTime) > self::INCREASE_TIME_DISTANCE){
             $this->doIncreaseViewBySql();
             $this->setLastViewTime(time());
         }
@@ -32,7 +33,7 @@ class ProductViewCounterUtil{
     }
     
     protected function getLastViewTime(){
-        return Yii::app()->session->get($this->getSessionName(),null);
+        return Yii::app()->session->get($this->getSessionName(),false);
     }
     
     protected function setLastViewTime($datetime){
