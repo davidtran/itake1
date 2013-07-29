@@ -7,7 +7,7 @@ class FacebookAccessCheckerFilter extends CFilter
     {
         if ($this->isCheckedRoute() 
                 && Yii::app()->user->isFacebookUser
-                &&  $this->isSaved())
+                &&  ! $this->isSaved())
         {
 
             try
@@ -15,14 +15,13 @@ class FacebookAccessCheckerFilter extends CFilter
                 $fbUtil = FacebookUtil::getInstance();
                 $accessToken = Yii::app()->facebook->getAccessToken();
                 $fbUtil->setAccessToken($accessToken);                
-                Yii::app()->session['CheckedFacebookAccessToken'] = true;
+                Yii::app()->session['CheckedFacebookAccessToken'] = true;          
             }
             catch (Exception $e)
             {
                 $this->redirectToFacebookLoginPage();
             }
-        }
-
+        }          
         $filterChain->run();
     }
     
@@ -38,7 +37,8 @@ class FacebookAccessCheckerFilter extends CFilter
     protected function redirectToFacebookLoginPage()
     {
         $currentUrl = UrlUtil::getAbsoluteUrl();
-        Yii::app()->controller->setRedirectUrl($currentUrl);
+        Yii::app()->controller->setReturnUrl($currentUrl);
+        
         $loginUrl = FacebookUtil::makeFacebookLoginUrl();       
         Yii::app()->controller->redirect($loginUrl);
     }
@@ -49,7 +49,7 @@ class FacebookAccessCheckerFilter extends CFilter
             'site/index',
             'upload/index',            
         );
-        $route = Yii::app()->controller->route;
+        $route = Yii::app()->controller->route;        
         if (in_array($route, $checkList, true))
         {
             return true;

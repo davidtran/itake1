@@ -2,6 +2,11 @@
 $this->pageTitle = $product->title;
 $cs = Yii::app()->clientScript;
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.js', CClientScript::POS_HEAD);
+$this->addMetaProperty('og:title',$product->title); 
+$this->addMetaProperty('og:description',StringUtil::limitByWord($product->description, 100));
+$this->addMetaProperty('og:image',$product->image); 
+$this->metaDescription = StringUtil::limitByWord($product->description, 100);
+$this->metaKeywords = str_replace(' ',',',preg_replace('/[^0-9a-Z\s]/', '', $product->title));
 ?>
 <div class="modal-scrollable" style="z-index: 1;margin-top: 50px;">
     <div class="close_tag" style="top:50px;"> <a style="padding:20px;" class="close"  href="../../"><i class="icon-home"></i></a></div>
@@ -17,20 +22,12 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                         <div class="row-fluid">                            
                             <div class="span6">
                                 <div class="row-fluid">
-                                    <?php echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image,$product->title,array('data-zoom-image'=>Yii::app()->baseUrl . '/' . $product->image,'id'=>'imagePreview')); ?>
+                                    <?php echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image,$product->title,array('data-zoom-image'=>Yii::app()->baseUrl . '/' . $product->image_thumbnail,'id'=>'imagePreview')); ?>
                                 </div>
                                 <div class="row-fluid" style="margin-top: 20px;">
-                                    <span class="badge" style="margin-bottom:10px;"><?php echo $product->view; ?>lượt xem</span>
-                                     <!-- AddThis Button BEGIN -->
-                                    <div class="addthis_toolbox addthis_default_style">
-                                    <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-                                    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-                                    <a class="addthis_button_tweet"></a>
-                                    <a class="addthis_button_pinterest_pinit"></a>
-                                    </div>
-                                    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
-                                    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5165a11f04e5f961"></script>
-                                    <!-- AddThis Button END -->
+                                    <div class="fb-like" data-href="<?php echo $canonicalUrl; ?>" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+                                     <br/>
+                                     <span class="badge" style="margin-bottom:10px;"><?php echo $product->view; ?>lượt xem</span>
                                 </div>                                   
                             </div>
                             <div class="span6 custom">
@@ -61,7 +58,17 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                         <h4 class="product-detail-tag">Ngày đăng</h4>
                                                         <i class="icon-calendar"></i>  <?php echo DateUtil::convertDate('d-m-Y H:i:s', $product->create_date); ?>
                                                     </div>
-                                                </div>                                                
+                                                </div>  
+                                                  <?php if ($product->lat != null && $product->lon != null): ?>
+                                                    <div class="row-fluid">                                                                                                                                                        
+                                                                                     
+                                                        <?php if (trim($product->locationText) != ''): ?>
+                                                            <h4 class="product-detail-tag">Địa chỉ:  <?php echo CityUtil::getCityName($product->city); ?>    </h4> 
+                                                            <?php echo $product->locationText ; ?>                    
+                                                        <?php endif; ?>                                         
+                                                        
+                                                    </div>
+                                                <?php endif; ?>
                                                  <div class="row-fluid">     
                                                      <div class="span12">
                                                     <h4 class="product-detail-tag"> Mô tả sản phẩm</h4>
@@ -75,10 +82,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                 <?php if ($product->lat != null && $product->lon != null): ?>
                                                     <div class="row-fluid">                                                                                                                                                        
                                                         <h4 class="product-detail-tag">Thành phố <?php echo CityUtil::getCityName($product->city); ?></h4>                                        
-                                                        <?php if (trim($product->locationText) != ''): ?>
-                                                            <h4 class="product-detail-tag">Địa chỉ</h4>
-                                                            <?php echo $product->locationText; ?>                    
-                                                        <?php endif; ?>                                         
+                                                                                               
                                                         <div id='map'></div>  
                                                         <script>
                                                             $('a[href="#bando"]').on('shown', function (e) {  
