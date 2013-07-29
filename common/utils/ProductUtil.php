@@ -113,6 +113,13 @@ class ProductUtil
         }
         throw new CException('User is not login');
     }
+    
+    public static function increaseProductViewByProductId($productId){
+        $sql = 'update {{product}} set view = view + 1 where id=:productId';
+        Yii::app()->db->createCommand($sql)->bindValues(array(
+            'productId'=>$productId
+        ))->query();
+    }
 
 }
 

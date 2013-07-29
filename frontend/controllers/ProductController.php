@@ -18,6 +18,11 @@ class ProductController extends Controller
     public function actionDetails($id)
     {
         $product = $this->loadProduct($id);
+        if($product->view ==null){
+            $product->view = 0;
+        }
+        $product->view++;
+        ProductUtil::increaseProductViewByProductId($product->id);
         $canonicalUrl = $this->createAbsoluteUrl('/product/details',array('id'=>$id));      
         $userProductDataProvider = $product->user->searchProduct(null, 10, 0);
         if(Yii::app()->request->isAjaxRequest){            
@@ -37,7 +42,8 @@ class ProductController extends Controller
            
             $this->renderAjaxResult(true,array(
                 'html'=>$html,            
-                'product'=>$product->attributes
+                'product'=>$product->attributes,
+                'canonicalUrl'=>$canonicalUrl
             ));
         }else{
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/masonry.pkgd.min.js',CClientScript::POS_HEAD);
@@ -56,8 +62,7 @@ class ProductController extends Controller
                 
             ",  CClientScript::POS_END);
             $this->render('detailPage', array(
-                'product' => $product,
-              
+                'product' => $product,              
                 'userProductDataProvider' => $userProductDataProvider,
                 'canonicalUrl'=>$canonicalUrl
             ));
