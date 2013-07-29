@@ -56,9 +56,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                 </div>  
                                                   <?php if ($product->lat != null && $product->lon != null): ?>
                                                     <div class="row-fluid">                                                                                                                                                        
-                                                                                              
+                                                                                     
                                                         <?php if (trim($product->locationText) != ''): ?>
-                                                            <h4 class="product-detail-tag">Địa chỉ:</h4> 
+                                                            <h4 class="product-detail-tag">Địa chỉ:  <?php echo CityUtil::getCityName($product->city); ?>    </h4> 
                                                             <?php echo $product->locationText ; ?>                    
                                                         <?php endif; ?>                                         
                                                         
