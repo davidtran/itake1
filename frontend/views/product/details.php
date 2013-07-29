@@ -11,7 +11,7 @@ $this->pageTitle = $product->title;
                         <div class="row-fluid">                            
                             <div class="span6">
                                 <div class="row-fluid">
-                                    <?php echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image,$product->title,array('data-zoom-image'=>Yii::app()->baseUrl . '/' . $product->image,'id'=>'imagePreview')); ?>
+                                    <?php echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image,$product->title,array('data-zoom-image'=>Yii::app()->baseUrl . '/' . $product->image_thumbnail,'id'=>'imagePreview')); ?>
                                 </div>
                                 <div class="row-fluid" style="margin-top: 20px;">         
                                     
