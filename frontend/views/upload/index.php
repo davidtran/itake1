@@ -25,12 +25,12 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
             <div class="row-fluid" style="margin-bottom:20px;"> 
                 <div class="span8">    
                      <div class="row-fluid">
-                        <h3 style="text-align: center;"><i class="icon-hand-right"></i>  Đăng tin <?php echo $product->category->name ?>
+                        <h3 style="text-align: center;" class="title_font"><i class="icon-hand-right"></i>  Đăng tin <?php echo $product->category->name ?>
                         </h3>
                     </div>                    
                 </div>
                 <div class="span4">
-                        <h3 style="text-align: right;"><i class="icon-eye-open"></i>  Xem trước</h3>
+                        <h3 style="text-align: right;" class="title_font"><i class="icon-eye-open"></i>  Xem trước</h3>
                 </div>
             </div>
             <div class="row-fluid">
@@ -70,6 +70,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                                     <span class="fileupload-new">Chọn hình từ máy tính</span><span class="fileupload-exists">Đổi lại</span>
                                                     <input type="file" name="productImage" id='productImage'/></span>
                                                 <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Xóa</a>                                                                
+                                            </div>
+                                            <div class="alert alert-info" style="text-align: justify;background:transparent;border:none;max-width:180px;margin:0 auto;">
+                                                <b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn <?php echo Yii::app()->params['image.minWidth']; ?>px và bề cao ảnh phải lớn hơn <?php echo Yii::app()->params['image.minHeight']; ?>px
                                             </div>
                                         </div>                                    
                                     </div>
@@ -137,9 +140,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                     ));
                   
                 ?>
-                <div class="alert alert-info pull-left" style="text-align: justify;">
-                                            <b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn <?php echo Yii::app()->params['image.minWidth']; ?>px và bề cao ảnh phải lớn hơn <?php echo Yii::app()->params['image.minHeight']; ?>px
-                                        </div>
+              
                 </div>
                 <?php $this->endWidget(); ?>
         </div>        

@@ -482,6 +482,10 @@ h2.form-signin-heading
     color: #194675;
     text-align:center;
 }
+.title_font{
+    font-family: "MNBTitleBold";
+    font-weight: 300;
+}
 a.facebook-login
 {
     background: url('../images/fb_btn.png') no-repeat;    

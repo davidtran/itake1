@@ -20,6 +20,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                     <?php echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image,$product->title,array('data-zoom-image'=>Yii::app()->baseUrl . '/' . $product->image,'id'=>'imagePreview')); ?>
                                 </div>
                                 <div class="row-fluid" style="margin-top: 20px;">
+                                    <span class="badge" style="margin-bottom:10px;"><?php echo $product->view; ?>lượt xem</span>
                                      <!-- AddThis Button BEGIN -->
                                     <div class="addthis_toolbox addthis_default_style">
                                     <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
