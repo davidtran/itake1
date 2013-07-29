@@ -87,7 +87,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         <?php echo $form->textAreaRow($product, 'description'); ?>                                       
 
                                         <?php echo $form->hiddenField($product,'address_id'); ?>
-                                        <?php echo CHtml::link('<i class="icon-check-empty"></i>  Chọn địa chỉ liên hệ','#',array(
+                                        <?php echo CHtml::link('<i class="icon-map-marker"></i>  Chọn địa chỉ liên hệ','#',array(
                                             'class'=>'btnAddressDialog flat btn btn-warning',
                                         )); ?>
                                          <?php echo $form->error($product,'address_id'); ?>
