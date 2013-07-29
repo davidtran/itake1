@@ -21,10 +21,7 @@ class ProductController extends Controller
         $product = $this->loadProduct($id);              
         $canonicalUrl = $this->createAbsoluteUrl('/product/details',array('id'=>$id));      
         $userProductDataProvider = $product->user->searchProduct(null, 10, 0);
-        if(Yii::app()->request->isAjaxRequest){            
-            //load ajax sao đây,
-            //bên trong có các javascript nữa.
-            //phải làm 1 file riêng hết
+        if(Yii::app()->request->isAjaxRequest){                   
             $html = '';
             $html = $this->renderPartial('details',array(
                 'product'=>$product,
@@ -33,9 +30,7 @@ class ProductController extends Controller
                 'canonicalUrl'=>$canonicalUrl
                 ),true,false);      
            $html = utf8_encode($html);       
-           $html = iconv('utf-8','utf-8',$html);
-           
-           
+           $html = iconv('utf-8','utf-8',$html);                      
             $this->renderAjaxResult(true,array(
                 'html'=>$html,            
                 'product'=>$product->attributes,
