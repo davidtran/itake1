@@ -88,7 +88,7 @@ function alignDiv()
     var marginLeftContainer3 = ($('body').width() - $('#categories-bar').width()) / 2;
     if (marginLeftContainer * 2 != $('body').width())
     {
-        $('#categories-bar').css('margin-left', (marginLeftContainer3) + 'px');
+        // $('#categories-bar').css('margin-left', (marginLeftContainer3) + 'px');
     }
     if (marginLeftContainer2 * 2 != $('body').width()) {
         $(".nd_profile").css('margin-left', marginLeftContainer2 + 'px');

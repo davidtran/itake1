@@ -27,7 +27,7 @@ box-shadow: 1px 1px 2px 0 #d0d0d0;
     overflow: hidden;
     font-family: "Arial";
     cursor: pointer;
-    min-width: 250px;
+    min-width: 240px;
 /*    background-image: url('../images/item-bg.png');
     background-repeat: no-repeat;
     background-position: bottom;
@@ -154,7 +154,7 @@ div.nav-bar-top div.frmSearch
 }
 div.nav-bar-top div.frmSearch div.categories
 {
-    float: left;
+    float: left;    
 }
 div.nav-bar-top div.frmSearch div.locations
 {
@@ -772,22 +772,31 @@ div#categories-bar
 {
     min-height: 20px;
     overflow: hidden;
-    margin-top: 60px;    
+    margin-top: 44px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: #fff;   
+    padding-top: 20px;
+    border-right: 1px solid #ccc;
 }
 div#categories-bar ul{
     list-style:none;
+    margin-left: 10px;
 }
 div#categories-bar ul li{
     display: block;
     min-width: 50px;
-    height: 40px;
-    float:left;
+    height: 40px;    
     cursor:pointer;
     margin-right: 10px;
 }
 div#categories-bar ul li span.badge,div#listCategory span.label{
     min-height: 20px;
-    padding-top:4px;     
+    padding-top:4px;    
+    text-align: right;
+    float: right; 
 }
 div#listCategory span.label{    
     width: 100%;    
@@ -856,6 +865,82 @@ div.btn-group.user-bar ul li{
 }
 .category_color.id_9{
     background-color: #E6C9BB;
+}
+.nav-text>>a{
+    cursor: pointer;
+    text-decoration: none;
+}
+.nav-text{
+    font-size: 1.1em;
+    color:#3d3d3d; 
+}
+.nav-text small{
+    width: 35px;
+    text-align: center;
+    display: block;
+    float: left;
+    font-size: 1em;
+}
+.nav-text.selected {    
+    font-weight: bold;
+}
+.nav-text.category_color.id_1{
+   background: transparent;    
+}
+.nav-text.category_color.id_1 i{
+    color: #D54E88;     
+}
+.nav-text.category_color.id_2{
+    background: transparent;    
+}
+.nav-text.category_color.id_2 i{
+    color: #f98a6e;     
+}
+.nav-text.category_color.id_3{
+    background: transparent;
+    
+}
+.nav-text.category_color.id_3 i{    
+    color: #DFAF4B;
+}
+
+.nav-text.category_color.id_4{
+    background: transparent;    
+}
+.nav-text.category_color.id_4 i{    
+    color: #008C72;
+}
+
+.nav-text.category_color.id_5{
+    background: transparent;
+}
+.nav-text.category_color.id_5 i{    
+    color: #B4CD3D;
+}
+
+.nav-text.category_color.id_6{
+    background: transparent;
+}
+.nav-text.category_color.id_6 i{    
+    color: #006AA8;
+}
+.nav-text.category_color.id_7{
+    background: transparent;
+}
+.nav-text.category_color.id_7 i{    
+    color: #7D7B7E;
+}
+.nav-text.category_color.id_8{
+    background: transparent;
+}
+.nav-text.category_color.id_8 i{    
+    color: #8344b8;
+}
+.nav-text.category_color.id_9{
+    background: transparent;
+}
+.nav-text.category_color.id_9 i{    
+    color: #E6C9BB;
 }
 /* --end category style -- */
 
