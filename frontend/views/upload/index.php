@@ -21,42 +21,18 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
 ?>
 <div class="row-fluid upload">
     <div class="container-fluid">
-        <div class="customupload">
-<!--        <center>
-            <?php if ($product->isNewRecord): ?>
-                        <h1>Đăng sản phẩm</h1>
-
-            <?php else: ?>
-                        <h1>Chỉnh sửa sản phẩm</h1>
-                        <h3><?php echo $product->title; ?></h3>
-            <?php endif; ?>
-        </center>-->        
-            <div class="row-fluid" style="display: none;">
-                <div class="progress_nav">
-                    <ul class="">
-                        <li id="step1ThongTin" class="first-child current">
-                            <a class="" href="javascript:void(0);">
-                                <strong>1. Nhập thông tin đơn giản</strong>
-                                <small>Nhanh &amp; dễ dàng</small>
-                                <span class="arrow-right"><span></span></span>
-                            </a> 	
-                        </li>
-                        <li id="step2DiaDiem" class="disable">
-                            <a class="" href="javascript:void(0);">
-                                <strong>2. Chọn địa điểm bán</strong>
-                                <small>Đánh dấu địa chỉ trên bản đồ</small>
-                                <span class="arrow-right"><span></span></span>
-                            </a> 	
-                        </li>
-                        <li class="disable last-child">
-                            <a href="javascript:void(0);">
-                                <strong>3. Đăng bán ngay</strong>
-                                <small>Tải tin đăng lên</small>  
-                            </a>                                 
-                        </li>
-                    </ul>
-                </div>                    
-            </div>  
+        <div class="customupload">    
+            <div class="row-fluid" style="margin-bottom:20px;"> 
+                <div class="span8">    
+                     <div class="row-fluid">
+                        <h3 style="text-align: center;"><i class="icon-hand-right"></i>  Đăng tin <?php echo $product->category->name ?>
+                        </h3>
+                    </div>                    
+                </div>
+                <div class="span4">
+                        <h3 style="text-align: right;"><i class="icon-eye-open"></i>  Xem trước</h3>
+                </div>
+            </div>
             <div class="row-fluid">
 
                 <?php
@@ -71,13 +47,10 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                 <?php //echo $form->errorSummary($product); ?>       
                 <div id="uploadStep1">
                     <div class="row-fluid">
-                        <div class="span8">    
-                             <div class="row-fluid">
-                                <h3 style="text-align: center;"><i class="icon-hand-right"></i>  Đăng tin <?php echo $product->category->name ?></h3>
-                                </div>
+                        <div class="span8">                                
                             <div class="row-fluid">                               
                                 <div class="span6" style="min-width:250px;">                                    
-                                    <div class="rb-form-part" style="text-align:center;">                          
+                                    <div class="rb-form-part" style="text-align:center;margin-top:15%;">                          
                                         <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>
                                         <div class="fileupload fileupload-new" data-provides="fileupload">
                                             <div class="fileupload-new thumbnail" style="max-width: 200px; max-height: 200px;">
@@ -98,10 +71,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                                     <input type="file" name="productImage" id='productImage'/></span>
                                                 <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Xóa</a>                                                                
                                             </div>
-                                        </div>
-                                        <div class="alert alert-info" style="text-align: justify;margin-left: 5px;margin-right: 5px;">
-                                            <b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn <?php echo Yii::app()->params['image.minWidth']; ?>px và bề cao ảnh phải lớn hơn <?php echo Yii::app()->params['image.minHeight']; ?>px
-                                        </div>
+                                        </div>                                    
                                     </div>
                                 </div>
                                 <div class="span6">
@@ -110,34 +80,25 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         
                                         <?php echo $form->textFieldRow($product, 'price', array('append' => 'VNĐ')); ?>
                                         
-                                        <?php echo $form->textFieldRow($product, 'phone'); ?>
-                                        <?php echo $form->textAreaRow($product, 'description'); ?>
+                                        <?php //echo $form->textFieldRow($product, 'phone'); ?>
+                                        <?php echo $form->textAreaRow($product, 'description'); ?>                                       
+
+                                        <?php echo $form->hiddenField($product,'address_id'); ?>
+                                        <?php echo CHtml::link('<i class="icon-check-empty"></i>  Chọn địa chỉ liên hệ','#',array(
+                                            'class'=>'btnAddressDialog flat btn btn-warning',
+                                        )); ?>
+                                         <?php echo $form->error($product,'address_id'); ?>
+                                        <?php 
+                                        $addressList = $this->getAddressList();
+                                        $this->renderPartial('partial/addressList',array(
+                                            'addressList'=>$addressList
+                                        ));
+                                        ?>
                                     </div>                                     
                                 </div>
-                            </div>
-                            <div class="row-fluid">
-                                <h4 style="text-align: center;"><i class="icon-hand-right"></i>  Noi ban</h4>
-                                </div>
-                            <div class='row-fluid'>
-                                
-                                <div class='span12'>
-                                    <?php echo $form->error($product,'address_id'); ?>
-                                    <?php echo $form->hiddenField($product,'address_id'); ?>
-                                    <?php echo CHtml::link('Thêm địa chỉ','#',array(
-                                        'class'=>'btnAddressDialog btn btn-success',
-                                    )); ?>
-                                    <?php 
-                                    $addressList = $this->getAddressList();
-                                    $this->renderPartial('partial/addressList',array(
-                                        'addressList'=>$addressList
-                                    ));
-                                    ?>
-                                    
-                                </div>
-                            </div>
+                            </div>                           
                         </div>
-                        <div class="span4" style="border-left: dashed 1px #ccc;min-width: 250px;"> 
-                            <h3 style="text-align: right;"><i class="icon-eye-open"></i>  Xem trước</h3>
+                        <div class="span4" style="border-left: dashed 1px #ccc;min-width: 250px;">                             
                             <div class="productItem <?php echo $product->category->getStyleName(); ?>" style="width: 80%;float:right;">
                                 <div class="row-fluid">
                                     <div class="product-detail">
@@ -159,24 +120,29 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                     </div>
 
                                 </div>
-                            </div>
-                                  <?php
-                              
-                                        echo CHtml::submitButton('Hoàn tất', array(
-                                            'id' => 'btnFinishStep2',
-                                            'class' => 'btn btn-success pull-right btn-large flat',
-                                            'data-loading-text' => 'Đang tải...',
-                                             'style'=>'margin-top:10px;'
-                                        ));
-                                  
-                                ?>
+                            </div>                                
                         </div>                          
                     </div>                           
                 </div>    
                
-            </div>       
-            <?php $this->endWidget(); ?>
-        </div>
+            </div>                       
+                <div class="row-fluid">
+                <hr/>                
+                <?php                            
+                    echo CHtml::submitButton('Đăng bán', array(
+                        'id' => 'btnFinishStep2',
+                        'encode'=>false,
+                        'class' => 'btn btn-success pull-right btn-large flat',
+                        'data-loading-text' => 'Đang tải...',                         
+                    ));
+                  
+                ?>
+                <div class="alert alert-info pull-left" style="text-align: justify;">
+                                            <b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn <?php echo Yii::app()->params['image.minWidth']; ?>px và bề cao ảnh phải lớn hơn <?php echo Yii::app()->params['image.minHeight']; ?>px
+                                        </div>
+                </div>
+                <?php $this->endWidget(); ?>
+        </div>        
     </div>
 </div>
 </div>

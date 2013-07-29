@@ -49,7 +49,7 @@ class CityUtil{
             $rs[$id] = $cityInfo['name'];
         }
         if($excludeAllSelect) {
-            $rs[self::ALL_ID] = '(Tinh thanh)';
+            $rs[self::ALL_ID] = '(Thành phố)';
         }
         
         return $rs;

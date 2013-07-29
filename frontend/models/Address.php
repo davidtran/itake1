@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * This is the model class for table "{{address}}".
@@ -68,11 +68,12 @@ class Address extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'city' => 'City',
-			'address' => 'Address',
+			'city' => 'Thành phố',
+			'address' => 'Địa chỉ',
 			'lat' => 'Lat',
 			'lon' => 'Lon',
 			'create_date' => 'Create Date',
+			'phone'=>'Số ĐT'
 		);
 	}
 

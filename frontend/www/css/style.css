@@ -534,13 +534,11 @@ form.form-signin label{
     max-height: none;
     overflow: hidden;
 }
-#selectDiaDiemModal{
+#addAddressDialog{
      position:absolute;
     left:35%;
     width:70% !important; 
-    background: transparent;
 border: none;
-position: fixed;
 -webkit-border-radius: 0px;
 -moz-border-radius: 0px;
 border-radius: 0px;
@@ -552,7 +550,7 @@ box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
 background-clip: padding-box;
 outline: none;
 }
- #selectDiaDiemModal .modal-body {
+ #addAddressDialog .modal-body {
 max-height: none;
 overflow: hidden;
 }
@@ -949,7 +947,7 @@ div#productDialogBody.modal-body div.row-fluid div.span12 h3{
     text-transform: uppercase;
     margin-bottom: -20px;
 }
-div#selectDiaDiemModal div.modal-body div.row-fluid div.span12 h3{
+div#addAddressDialog div.modal-body div.row-fluid div.span12 h3{
     font-family: "MNBTitleBold";
     font-weight: 300;
     font-size:1.5em;
