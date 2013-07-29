@@ -22,7 +22,7 @@ class ProductController extends Controller
             $product->view = 0;
         }
         $product->view++;
-        ProductUtil::increaseProductViewByProductId($product->id);
+        ProductViewCounterUtil::getInstance($product->id)->increaseView();
         $canonicalUrl = $this->createAbsoluteUrl('/product/details',array('id'=>$id));      
         $userProductDataProvider = $product->user->searchProduct(null, 10, 0);
         if(Yii::app()->request->isAjaxRequest){            
