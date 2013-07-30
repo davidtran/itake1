@@ -63,7 +63,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/produ
    <div style="float: left; width: 100%;margin-top: -10px;"><b>Có <?php echo $numFound; ?> kết quả với từ khóa <?php echo $keyword; ?></b></div>
 <?php endif; ?>
 </div>
-  <div class="row-fluid">       
+  <div class="row-fluid" style="margin-top:80px;">       
     <?php $this->renderPartial('/site/_board',array(
         'productList'=>$productList,
         'nextPageLink'=>$nextPageLink
