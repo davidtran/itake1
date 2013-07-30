@@ -17,7 +17,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                         <div class="row-fluid">                            
                             <div class="span6">
                                 <div class="row-fluid">
-                                    <?php echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image,$product->title,array('data-zoom-image'=>Yii::app()->baseUrl . '/' . $product->image,'id'=>'imagePreview')); ?>
+                                    <?php echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image_thumbnail,$product->title,array('data-zoom-image'=>Yii::app()->baseUrl . '/' . $product->image,'id'=>'imagePreview')); ?>
                                 </div>
                                 <div class="row-fluid" style="margin-top: 20px;">
                                     <div class="fb-like" data-href="<?php echo $canonicalUrl; ?>" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
