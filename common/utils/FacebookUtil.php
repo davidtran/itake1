@@ -1,5 +1,4 @@
 <?php
-
 class FacebookUtil
 {
     const FB_LINE_BREAK = '%0D%0A';
@@ -128,8 +127,7 @@ class FacebookUtil
         UserMetaUtil::setMeta($userId, 'FacebookAccessToken', $token);
     }
     public function shareProductToFacebook(Product $product,$accessToken = null){     
-        $args = array();
-        
+        $args = array();        
         $args['image'] = '@' . realpath($product->image);
         if($accessToken!=null){
             $args['access_token'] = $accessToken;
