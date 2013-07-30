@@ -25,7 +25,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/produ
         </div>    
          <div class="row-fluid">     
             <ul>
-                <li><a href="<?php echo Yii::app()->createUrl('site/index')?>" tooltip="Xem tất cả"><span class="nav-text all-cat-wrap selected mark"><small class="all-cat"></small><em></em></span></a></li>                                                      
+                <li><a href="<?php echo Yii::app()->createUrl('site/index')?>" title="Xem tất cả"><span class="nav-text all-cat-wrap selected mark"><small class="all-cat"></small><em></em></span></a></li>                                                      
                 <?php foreach (CategoryUtil::getCategoryList() as $category): ?>
                 <li><a href="<?php echo  $category->getUrl(); ?>" title='Xem tin rao vặt <?php echo $category->name; ?>'><span class="nav-text <?php echo $category->getStyleName(); ?>"><small><i class="<?php echo  $category->icon; ?> icon-large"></i> <em></em></small>  <?php //echo $category->name; ?></span></a></li>
             <?php endforeach; ?>                    
@@ -47,15 +47,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/produ
                 $(this).removeClass("mark");
               }
               counter++;
-            });       
-      var counter2 = 0;
-      $("#categories-bar ul li a").hover(function(){                
-        if(!$(this).find('span').hasClass("mark"))
-          $(this).find('span').addClass("selected"); 
-     },function(){
-      if(!$(this).find('span').hasClass("mark"))
-        $(this).find('span').removeClass("selected");
-     });
+            });             
     });
     </script>
 <?php endif; ?>

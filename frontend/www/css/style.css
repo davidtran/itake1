@@ -875,7 +875,9 @@ div.btn-group.user-bar ul li{
     font-size: 1.1em;
     color:#3d3d3d; 
 }
-
+a:hover .nav-text small{
+    zoom:1.1;
+}
 .nav-text small{
     color: #fff;
     width: 35px;
@@ -887,8 +889,8 @@ div.btn-group.user-bar ul li{
     border:solid 1px rgba(0,0,0,0.2);
 }
 .nav-text .all-cat{
-    background: url('../images/all-cat.jpg');
-    border:solid 1px #ccc;
+    background: url('../images/all-cat.png');
+    border:solid 1px rgba(0,0,0,0.3);
 }
 
 .nav-text small i{   
@@ -896,8 +898,7 @@ div.btn-group.user-bar ul li{
 }
 .nav-text.selected em {    
     width: 5px;
-    height: 35px;   
-    margin-top: -1px;
+    height: 35px;       
   display: block;
     float: right;
     display: block;
@@ -905,7 +906,8 @@ div.btn-group.user-bar ul li{
     border:solid 1px rgba(0,0,0,0.2);
 }
 .nav-text.all-cat-wrap.selected em{
-    background: #ff0000;
+    background: url('../images/all-cat.png');
+    background-position: right;
     margin-right: 0px;
 }
 .nav-text.category_color.id_1{
