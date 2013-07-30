@@ -43,9 +43,7 @@
     </head>
 
     <body class="ostyle">                        
-        <div class="page-container">
-            
-
+        <div class="page-container">            
             <div class="container-fluid" >
                 <?php echo $content ?>
             </div>  

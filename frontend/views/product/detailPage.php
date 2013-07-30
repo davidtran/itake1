@@ -2,6 +2,11 @@
 $this->pageTitle = $product->title;
 $cs = Yii::app()->clientScript;
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.js', CClientScript::POS_HEAD);
+$this->addMetaProperty('og:title',$product->title); 
+$this->addMetaProperty('og:description',StringUtil::limitByWord($product->description, 100));
+$this->addMetaProperty('og:image',$product->image); 
+$this->metaDescription = StringUtil::limitByWord($product->description, 100);
+$this->metaKeywords = str_replace(' ',',',preg_replace('/[^0-9a-Z\s]/', '', $product->title));
 ?>
 <div class="modal-scrollable" style="z-index: 1;margin-top: 50px;">
     <div class="close_tag" style="top:50px;"> <a style="padding:20px;" class="close"  href="../../"><i class="icon-home"></i></a></div>
@@ -17,7 +22,11 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                         <div class="row-fluid">                            
                             <div class="span6">
                                 <div class="row-fluid">
+
                                     <?php echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image_thumbnail,$product->title,array('data-zoom-image'=>Yii::app()->baseUrl . '/' . $product->image,'id'=>'imagePreview')); ?>
+
+                               
+
                                 </div>
                                 <div class="row-fluid" style="margin-top: 20px;">
                                     <div class="fb-like" data-href="<?php echo $canonicalUrl; ?>" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>

@@ -12,7 +12,7 @@ var UploadAddress = {
         UploadAddress.initDialog();
         UploadAddress.initSaveButton();
         UploadAddress.initRadioButton();
-        
+        UploadAddress.initAddressField();
     },
     initRadioButton:function(){
         if(product != undefined && product.address_id != null){
@@ -94,7 +94,7 @@ var UploadAddress = {
             UploadAddress.onCityChange($(this).val());
         });
         UploadAddress.addAddressDialog.on('shown', function() {
-            MapUtils.addMap(UploadAddress.map,defaultLat, defaultLng);
+            UploadAddress.map = MapUtils.addMap(UploadAddress.map,defaultLat,defaultLng);
         });
     },
     onCityChange: function(value) {
@@ -110,8 +110,8 @@ var UploadAddress = {
                 if (data.success) {
                     UploadAddress.setFormLatLon(data.msg.latitude, data.msg.longitude);
                     UploadAddress.map = MapUtils.addMap(UploadAddress.map,data.msg.latitude, data.msg.longitude);
-                    MapUtils.placeMarker(UploadAddress.map,data.msg.latitude, data.msg.longitude,function(address){
-                        UploadAddress.addressField.val(address);
+                    
+                    MapUtils.placeMarker(UploadAddress.map,data.msg.latitude, data.msg.longitude,function(address){                 
                     });
                     locationData = data.msg;
                 }
@@ -123,13 +123,13 @@ var UploadAddress = {
         $('#Address_lon').val(lon);
     },
     initAddressField: function() {
-        UploadAddress.addressField.keyup(function(e){
+        UploadAddress.addressField.keydown(function(e){
+            console.log(e.keycode);
             if (e.keyCode == 13) {
                 e.preventDefault();
-                MapUtils.searchMapByAddress($addressField.val(),function(lat,lon){
+                MapUtils.searchMapByAddress(UploadAddress.addressField.val(),function(lat,lon){
                     UploadAddress.setFormLatLon(lat,lon);
-                    UploadAddress.map = MapUtils.addMap(lat,lon);
-                    MapUtils.placeMarker(lat,lon);
+                    UploadAddress.map = MapUtils.addMap(UploadAddress.map,lat,lon);                  
                 });
                 return false;
             }
@@ -138,7 +138,7 @@ var UploadAddress = {
             
     showDialog: function() {
         UploadAddress.addAddressDialog.modal('show');
-    },
+    }
     
 };
 
@@ -173,6 +173,7 @@ var MapUtils = {
             height: 400,
             zoom: 15,
             click: function(e) {
+               
                 MapUtils.placeMarker(selector,e.latLng.lat(), e.latLng.lng());
             }
         });
@@ -202,12 +203,13 @@ var MapUtils = {
             }
         });
 
-
+        
         selector.addMarker({
             lat: lat,
             lng: lng,
             icon: 'http://i.imgur.com/jfx5t.png',
         });
+        callback();
         return selector;
     },
     placeMarker: function(selector,lat, lng,callback) {
