@@ -10,7 +10,6 @@ var noReloadProduct = false;
 requestHide = false;
 requestShow = false;
 var currentHref;
-var commentWidth;
 var currentProduct;
 var loadedMap = false;
 var product;

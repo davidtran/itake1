@@ -7,7 +7,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/gmaps.js',
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/site.js',CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/productDetails.js',CClientScript::POS_END);
 ?>
-<div class="container-fluid">
+<div class="container-fluid" style="margin-left:50px;">
   <div class="row-fluid">
       <div id="categories-bar">
         <div class="row-fluid">
@@ -39,12 +39,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/produ
       var styleName = '<?php echo $categoryModel->styleName?>';
       $('#categories-bar ul li a span').each(function() {      
         var strClass="category_color id_"+counter;                                       
-        $(this).addClass("selected");            
-        $(this).addClass("mark"); 
-        if(styleName!=strClass){
-                //$(this).removeClass(strClass);  
-                $(this).removeClass("selected");              
-                $(this).removeClass("mark");
+        $(this).addClass("selected");                    
+        if(styleName!=strClass){                
+                $(this).removeClass("selected");                              
               }
               counter++;
             });             

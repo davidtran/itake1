@@ -94,6 +94,7 @@ function alignDiv()
         $(".nd_profile").css('margin-left', marginLeftContainer2 + 'px');
         $(".nd_profile").css('margin-right', (marginLeftContainer2 - 15) + 'px');
     }
+    $('.frmSearch_wrapper').css('width',$('.nav-bar-top').width());
 }
 $(function() {
     // Create the measurement node

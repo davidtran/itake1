@@ -875,10 +875,16 @@ div.btn-group.user-bar ul li{
     font-size: 1.1em;
     color:#3d3d3d; 
 }
-a:hover .nav-text small{
-    zoom:1.1;
+a:hover .nav-text small{    
+    background-position: 20px 50%;
+padding-left: 15px;
 }
 .nav-text small{
+        -webkit-transition: all 0.2s linear;
+-moz-transition: all 0.2s linear;
+-ms-transition: all 0.2s linear;
+-o-transition: all 0.2s linear;
+transition: all 0.2s linear;
     color: #fff;
     width: 35px;
     height: 35px;
@@ -909,6 +915,9 @@ a:hover .nav-text small{
     background: url('../images/all-cat.png');
     background-position: right;
     margin-right: 0px;
+}
+a:hover .nav-text.all-cat-wrap.selected em {
+    display: none;
 }
 .nav-text.category_color.id_1{
    background: transparent;    
@@ -1009,27 +1018,27 @@ a:hover .nav-text small{
 
 .isotope,
 .isotope .isotope-item {
-    -webkit-transition-duration: 0.8s;
+/*    -webkit-transition-duration: 0.8s;
     -moz-transition-duration: 0.8s;
     -ms-transition-duration: 0.8s;
     -o-transition-duration: 0.8s;
-    transition-duration: 0.8s;
+    transition-duration: 0.8s;*/
 }
 
 .isotope {
-    -webkit-transition-property: height, width;
+/*    -webkit-transition-property: height, width;
     -moz-transition-property: height, width;
     -ms-transition-property: height, width;
     -o-transition-property: height, width;
-    transition-property: height, width;
+    transition-property: height, width;*/
 }
 
 .isotope .isotope-item {
-    -webkit-transition-property: -webkit-transform, opacity;
+/*    -webkit-transition-property: -webkit-transform, opacity;
     -moz-transition-property:    -moz-transform, opacity;
     -ms-transition-property:     -ms-transform, opacity;
     -o-transition-property:      -o-transform, opacity;
-    transition-property:         transform, opacity;
+    transition-property:         transform, opacity;*/
 }
 
 /**** disabling Isotope CSS3 transitions ****/
@@ -1037,11 +1046,11 @@ a:hover .nav-text small{
 .isotope.no-transition,
 .isotope.no-transition .isotope-item,
 .isotope .isotope-item.no-transition {
-    -webkit-transition-duration: 0s;
+/*    -webkit-transition-duration: 0s;
     -moz-transition-duration: 0s;
     -ms-transition-duration: 0s;
     -o-transition-duration: 0s;
-    transition-duration: 0s;
+    transition-duration: 0s;*/
 }
 div.close_tag
 {
