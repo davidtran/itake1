@@ -16,7 +16,7 @@ if (YII_DEBUG) {
 //	ini_set('display_errors', true);
 }
 
-date_default_timezone_set('UTC');
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 chdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
 
