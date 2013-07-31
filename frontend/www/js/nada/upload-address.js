@@ -15,6 +15,11 @@ var UploadAddress = {
         UploadAddress.initAddressField();
     },
     initRadioButton:function(){
+        $('.radio-address-item').live('click',function(){
+            value = $(this).val();
+            $('#Product_address_id').val(value);
+        });
+        
         if(product != undefined && product.address_id != null){
             UploadAddress.addressList.find('.radio-address-item[value='+product.address_id+']').click();
         }else{
@@ -22,9 +27,7 @@ var UploadAddress = {
                 $('.radio-address-item:eq(0)').click();
             }
         }
-        $('.radio-address-item').live('click',function(){
-            $('#Product_address_id').val($(this).val());
-        });
+        
     },
     
     initShowDialogButton: function() {
@@ -38,8 +41,13 @@ var UploadAddress = {
         $('.btnDeleteAddress').click(function(e) {
             var that = $(this);
             addressId = that.attr('data-address-id');
-            UploadAddress.deleteAddress(addressId, function() {
-                that.parents('.addressItem').fadeOut();
+            productId = product.id;
+            UploadAddress.deleteAddress(addressId,productId, function(data) {
+                if(data.success){
+                    that.parents('.addressItem').fadeOut();
+                }else{
+                    bootbox.alert(data.msg);
+                }
             });
         });
     },
@@ -75,17 +83,21 @@ var UploadAddress = {
             }
         })
     },
-    deleteAddress: function(addressId, callback) {
+    deleteAddress: function(addressId,productId, callback) {
         callback = callback || function() {
         };
         $.ajax({
             url: BASE_URL + '/upload/deleteAddress',
             data: {
-                addressId: addressId
+                addressId: addressId,
+                productId:productId
             },
             type: 'post',
-            success: function() {
-                callback();
+            success: function(jsons) {
+                var json = $.parseJSON(jsons);
+                
+                callback(json);
+                
             }
         });
     },

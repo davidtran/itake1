@@ -72,7 +72,7 @@ return CMap::mergeArray(
                         'chon-thanh-pho/<id:\d+>/<name:.*?>' => 'site/city',
                         'dang-tin/<category:\d+>/<name:.*?>' => '/upload/uploadNew',
                         'quen-mat-khau'=>'user/forgetPassword',
-                        'doi-mat-khau'=>'user/changePassword'
+                        'doi-mat-khau'=>'user/changePassword',                        
                     ),
                 ),
                 'mail' => array(

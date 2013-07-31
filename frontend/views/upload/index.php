@@ -52,6 +52,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                 <div class="span6" style="min-width:250px;">                                    
                                     <div class="rb-form-part" style="text-align:center;margin-top:15%;">                          
                                         <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>
+                                        
                                         <div class="fileupload fileupload-new" data-provides="fileupload">
                                             <div class="fileupload-new thumbnail" style="max-width: 200px; max-height: 200px;">
                                                 <?php if ($product->image == null): ?>
@@ -69,6 +70,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                                 <span class="btn btn-file">
                                                     <span class="fileupload-new">Chọn hình từ máy tính</span><span class="fileupload-exists">Đổi lại</span>
                                                     <input type="file" name="productImage" id='productImage'/></span>
+                                                 
                                                 <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Xóa</a>                                                                
                                             </div>
                                             <div class="alert alert-info" style="text-align: justify;background:transparent;border:none;max-width:180px;margin:0 auto;">

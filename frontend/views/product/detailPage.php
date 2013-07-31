@@ -6,7 +6,7 @@ $this->addMetaProperty('og:title',$product->title);
 $this->addMetaProperty('og:description',StringUtil::limitByWord($product->description, 100));
 $this->addMetaProperty('og:image',$product->image); 
 $this->metaDescription = StringUtil::limitByWord($product->description, 100);
-$this->metaKeywords = str_replace(' ',',',preg_replace('/[^0-9a-Z\s]/', '', $product->title));
+$this->metaKeywords = str_replace(' ',',',  strtolower(preg_replace('/[^0-9a-z\s]/', '', $product->title)));
 ?>
 <div class="modal-scrollable" style="z-index: 1;margin-top: 50px;">
     <div class="close_tag" style="top:50px;"> <a style="padding:20px;" class="close"  href="../../"><i class="icon-home"></i></a></div>

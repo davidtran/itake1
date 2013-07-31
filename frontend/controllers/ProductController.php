@@ -14,6 +14,15 @@ class ProductController extends Controller
 {
 
     protected $_product;
+    
+    public function behaviors()
+    {
+        return array(
+            array(
+                'class'=>'frontend.extensions.seo.components.SeoControllerBehavior'
+            )
+        );
+    }
 
     public function actionDetails($id)
     {
