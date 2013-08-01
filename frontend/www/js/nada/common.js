@@ -18,7 +18,7 @@ if(!isIE)
             var State = History.getState();
             // History.log(State.data, State.title, State.url);        
             if(State.url==itakeHistoryHandler.pageContextUrl){            
-                if (typeof $dialog!==undefined&&$dialog.css('display') != 'none') {                
+                if (typeof $dialog!==undefined&&$dialog!=undefined&&$dialog.css('display') != 'none') {                
                     $dialog.modal('hide');
                 }
                 return;
