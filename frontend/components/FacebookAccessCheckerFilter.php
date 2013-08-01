@@ -5,8 +5,7 @@ class FacebookAccessCheckerFilter extends CFilter
 
     public function preFilter($filterChain)
     {
-        if ($this->isCheckedRoute() 
-                && Yii::app()->user->isFacebookUser
+        if (Yii::app()->user->isFacebookUser
                 &&  ! $this->isSaved())
         {
 
@@ -41,20 +40,6 @@ class FacebookAccessCheckerFilter extends CFilter
         
         $loginUrl = FacebookUtil::makeFacebookLoginUrl();       
         Yii::app()->controller->redirect($loginUrl);
-    }
-
-    protected function isCheckedRoute()
-    {
-        $checkList = array(
-            'site/index',
-            'upload/index',            
-        );
-        $route = Yii::app()->controller->route;        
-        if (in_array($route, $checkList, true))
-        {
-            return true;
-        }
-        return false;
     }
 
 }

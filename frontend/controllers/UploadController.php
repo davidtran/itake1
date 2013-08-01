@@ -28,14 +28,7 @@ class UploadController extends Controller
         if (isset($_POST['Product']))
         {
             $product->attributes = $_POST['Product'];
-            $product->user_id = Yii::app()->user->getId();
-            $user = Yii::app()->user->model;
-            $user->lon = $product->lon;
-            $user->lat = $product->lat;
-            $user->locationText = $product->locationText;
-            $user->city = $product->city;
-            $user->phone = $product->phone;
-            $user->save();
+            $product->user_id = Yii::app()->user->getId();            
             $this->handleUploadImage($product);
             if ($product->validate(null, false) && $product->save(false))
             {
@@ -101,7 +94,7 @@ class UploadController extends Controller
             {
                 $product->attributes = $_POST['Product'];
                 $this->handleUploadImage($product);
-                if ($product->save())
+                if ($product->validate(null, false) && $product->save(false))
                 {
                     $this->solrImportProduct($product);
                     $this->redirect($product->getDetailUrl());
@@ -277,14 +270,30 @@ class UploadController extends Controller
 
     public function actionDeleteAddress()
     {
+        $this->checkLogin();
         $addressId = Yii::app()->request->getPost('addressId');
-        $model = Address::model()->findByPk($addressId);
-        if ($model)
-        {
-            $model->delete();
-            $this->renderAjaxResult(true);
+        $productId = Yii::app()->request->getPost('productId');
+        $product = Product::model()->findByPk($productId);
+        $address = Address::model()->findByPk($addressId);
+        $userId = Yii::app()->user->getId();        
+        if($address!=null && $product != null){
+            if($product->user_id == $userId && $address->user_id == $userId){
+                if($product->address_id != $address->id){
+                    $address->delete();
+                    $this->renderAjaxResult(true);
+                }else{
+                    $this->renderAjaxResult(false,'Không thể xóa địa chỉ đang được sử dụng');
+                }
+            }else{
+                $this->renderAjaxResult(false,'Không thể xóa địa chỉ này');
+            }
+        }else{
+            if($address!=null && $product == null){
+                $address->delete();
+                $this->renderAjaxResult(true);
+            }
         }
-        $this->renderAjaxResult(false);
+        
     }
 
 }

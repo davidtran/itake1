@@ -31,7 +31,7 @@ class WebUser extends CWebUser
         {
             
         }
-        parent::init();
+        return parent::init();
     }
 
 }
