@@ -33,21 +33,25 @@ class UserController extends Controller
 
     public function actionLogin()
     {
-        $loginForm = new LoginForm();
-        $facebookRedirectUrl = $this->createAbsoluteUrl('/user/register');
+        $loginForm = new LoginForm();        
         if (isset($_POST['LoginForm']))
         {
             $loginForm->username = $_POST['LoginForm']['username'];
             $loginForm->password = $_POST['LoginForm']['password'];
             if ($loginForm->validate() && $loginForm->login())
             {
-                $this->redirectToReturnUrl();
+                $siteUrl = $this->createUrl('/site/index');
+                if($this->hasReturnUrl()){
+                    $this->redirectToReturnUrl();
+                }else{
+                    $this->redirect($siteUrl);
+                }                
             }
             $loginForm->password = '';
         }
         $this->render('login', array(
             'model' => $loginForm,
-            'facebookRedirectUrl' => $facebookRedirectUrl
+            
         ));
     }
 
@@ -126,10 +130,11 @@ class UserController extends Controller
                 $loginForm->password = $password;
                 $loginForm->validate();
                 $loginForm->login();
-                $this->redirectToReturnUrl();
+                $siteUrl = $this->createUrl('/site/index');         
+                $this->redirect($siteUrl);                
             }
         }
-
+        $user->password = '';
         $this->render('register', array(
             'user' => $user
         ));

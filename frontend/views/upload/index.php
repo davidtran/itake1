@@ -105,7 +105,13 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                     <div class="product-detail">
                                         <div class="productImageLink fileupload" data-provides="fileupload">
                                             <a target="_blank" href="#" class="productLink" title="Laptop think pad">
-                                                <img class="productImage" src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP" alt="Laptop think pad">                                                         
+                                                <?php if($product->image == null):?>
+                                                    <img class="productImage" src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP">                                                         
+                                                <?php else:?>
+                                                    <?php echo CHtml::image(Yii::app()->baseUrl.'/'.$product->image,'',array(
+                                                        'class'=>'productImage'
+                                                    ));?>
+                                                <?php endif; ?>
                                             </a>
                                         </div>                
                                         <div class="productImageInfo">
