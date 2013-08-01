@@ -44,7 +44,8 @@
         </ul>
     </div>        
 </div>
-<div class="row-fluid"  style="margin-top:20px;">       
+<div class="row-fluid" id="fixWidthMasory"></div>
+<div class="row-fluid" id="wrapper_productContainer" style="margin-top:20px;">       
          <?php 
         if(count($productDataProvider->getData())>0)
         {

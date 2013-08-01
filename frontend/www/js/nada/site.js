@@ -27,7 +27,7 @@ $(document).ready(function() {
         console.log('loaded image');
         masoryCenterAlign();
         $container.show('fade');
-          $('#productContainer').isotope('reLayout');            
+        $('#productContainer').isotope('reLayout');            
     });
     $container.infinitescroll(
         {

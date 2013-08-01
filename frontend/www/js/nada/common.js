@@ -1,4 +1,8 @@
-var itakeHistoryHandler = {
+var isIE = /*@cc_on!@*/false;
+var itakeHistoryHandler;
+if(!isIE)
+{
+    itakeHistoryHandler = {
     pageContextUrl:location.href,
     pageContextTitle:document.title,   
     init:function(){
@@ -12,9 +16,9 @@ var itakeHistoryHandler = {
         var lastUrl;
         History.Adapter.bind(window, 'statechange', function() { // Note: We are using statechange instead of popstate
             var State = History.getState();
-            History.log(State.data, State.title, State.url);        
+            // History.log(State.data, State.title, State.url);        
             if(State.url==itakeHistoryHandler.pageContextUrl){            
-                if ($dialog!==undefined&&$dialog.css('display') != 'none') {                
+                if ($dialog!=null&&$dialog!==undefined&&$dialog.css('display') != 'none') {                
                     $dialog.modal('hide');
                 }
                 return;
@@ -43,12 +47,17 @@ var itakeHistoryHandler = {
         });
     } 
 }
+}
 var scrollbarWidth;
 $(window).resize(function() {
     alignDiv();
 });
 $(document).ready(function() {
-    itakeHistoryHandler.init();
+    if(!isIE)
+    {
+        itakeHistoryHandler.init();
+        History.pushState({}, document.title, itakeHistoryHandler.pageContextUrl);
+    }
       // Create the measurement node
     var scrollDiv = document.createElement("div");
     scrollDiv.className = "scrollbar-measure";
@@ -65,13 +74,12 @@ $(document).ready(function() {
             height: $this.data('height') || 100,
             railVisible: true
         });
-    });
-    History.pushState({}, document.title, itakeHistoryHandler.pageContextUrl);
+    });    
     alignDiv();
 });
 function alignDiv()
 {
-    console.log('Align....');
+    $('.page-container').css('min-height',$(window).height()-70); 
     $('.fb-comments span').width('100%');
     commentWidth = $('.fb-comments span').width();
     $('.fb-comments').attr('data-width', commentWidth);
@@ -291,4 +299,19 @@ function masoryCenterAlign()
                 };
             };          
         })(jQuery);    
+}
+function detectmob() { 
+   if( navigator.userAgent.match(/Android/i)
+       || navigator.userAgent.match(/webOS/i)
+       || navigator.userAgent.match(/iPhone/i)
+       || navigator.userAgent.match(/iPad/i)
+       || navigator.userAgent.match(/iPod/i)
+       || navigator.userAgent.match(/BlackBerry/i)
+       || navigator.userAgent.match(/Windows Phone/i)
+       ){
+    return true;
+    }
+    else {
+        return false;
+    }
 }

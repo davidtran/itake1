@@ -68,28 +68,19 @@
          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5165a11f04e5f961">
                 addthis.toolbox('.addthis_toolbox');
         </script>
-        <div id="footer">
-            <div class="row-fluid">
-                <div class="span4">
-                    
-                </div>
-                <div class="span4">
-                    <div id="viewTypeDisplay">
-<!--                        <label><i class="icon-sort-by-attributes"></i> Sắp xếp</label>-->
-<!--                        <select>
-                            <option>Thời gian</option>
-                            <option>Xu hướng</option>
-                            <option>Khoảng cách</option>
-                        </select>-->                        
-                    </div>
-                </div>
-                <div class="span4">
+          <div class="row-fluid">
+                <hr class="sep_item"/>
+            </div>
+        <div id="footer">          
+            <div class="row-fluid">                               
+                <div class="span12">
                     <div class="navigation">
                         <ul>                                                        
-<!--                            <li class="first"><a>Điều khoản</a></li>
-                            <li><a>Phản hồi</a></li>
-                            <li><a>Liên hệ</a></li>-->
-                            <li class="first"><a>© 2013 ITAKE.ME</a></li>
+                            <li class="first"><a><b style="color:#194675"><i class="icon-desktop"></i>   PHIÊN BẢN THỬ NGHIỆM</a></b></li>
+                            <li class="first"><a>GIỚI THIỆU</a></li>
+                            <li ><a>ĐIỀU KHOẢN</a></li>       
+                            <li ><a>PHẢN HỒI</a></li>                                                     
+                            <li><a>© <?php echo date('Y') ?> ITAKE.ME</a></li>
                         </ul>
                     </div>                   
                 </div>

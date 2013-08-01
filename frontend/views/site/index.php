@@ -6,6 +6,7 @@ Yii::app()->clientScript->registerScriptFile('http://maps.google.com/maps/api/js
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/gmaps.js',CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/site.js',CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/productDetails.js',CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/productControl.js',CClientScript::POS_END);
 ?>
 <div class="container-fluid" style="margin-left:50px;">
   <div class="row-fluid">

@@ -120,7 +120,7 @@ $this->metaKeywords = str_replace(' ',',',  strtolower(preg_replace('/[^0-9a-z\s
                 <div class="span12 custom">
                     <h3>Cùng người đăng</h3>
                     <hr/>
-                    <div id="userProductList">
+                    <div id="userProductList" style="display:none;">
                         <?php foreach ($userProductDataProvider->getData() as $userProduct): ?>
                             <?php echo $userProduct->renderHtml('home-user-'); ?>
                         <?php endforeach; ?>
@@ -131,3 +131,15 @@ $this->metaKeywords = str_replace(' ',',',  strtolower(preg_replace('/[^0-9a-z\s
 
         </div>
     </div></div>
+    <script type="text/javascript" charset="utf-8" async defer>
+        $(document).ready(function() {  
+        $('#userProductList').imagesLoaded(function(){                              
+                            masoryCenterAlign();
+                            $('#userProductList').show('fade');
+                            $('#userProductList').isotope('reLayout');
+                            setTimeout(function() {
+                                $('#userProductList').isotope('reLayout');
+                             }, 200); 
+                        });   
+    });
+    </script>

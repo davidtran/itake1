@@ -21,10 +21,7 @@ $(document).ready(function() {
     $('.fileupload').fileupload({
         uploadtype: 'image'
     });
- 
     updatePreview();
- 
-
 });
 function updatePreview() {
     $('div.productImageTitle').html($('#Product_title').val());
@@ -44,7 +41,6 @@ function getMapSearchQuery(address) {
     //get selected city, vietnam
     var cityId = $('#Product_city').val();
     address = address.trim();
-
     return address + getCityNameFromId(cityId) + ', Vietnam';
 }
 
@@ -61,9 +57,7 @@ function onProductItemClick() {
         e.preventDefault();
         var $parent = $(this).parent('.productItem');
         var productId = $parent.attr('data-product-id');
-
         deleteItem(productId, $parent);
-
     });
 }
 function deleteItem(productId, productItem) {

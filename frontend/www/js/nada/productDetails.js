@@ -4,7 +4,6 @@ var userProductPage = 1;
 var $side;
 var $dialog;
 var $relateProductContainer;
-var isIE = /*@cc_on!@*/false;
 var justLoadProduct = false;
 var noReloadProduct = false;
 requestHide = false;
@@ -26,7 +25,8 @@ $(document).ready(function() {
         //productId = productItem.attr('data-product-id');
         productIdHtml = productItem.attr('id');
         loadedMap = false;
-        //loadProduct(link, productIdHtml);
+        if(detectmob()||isIE)
+            location.href = link;
 
         return false;
     });
@@ -63,13 +63,13 @@ function decode_utf8(s) {
 }
 function loadProduct(href, htmlProductId)
 {
-    //where 1: home 2: user product 3:relateProduct
-    console.log('loadProduct');
+    $('#scrollUp').hide();
+    //where 1: home 2: user product 3:relateProduct    
     currentHref = href;
     isLoadingNew = true;
     //load html
     //load product data
-    //show dialog   
+    //show dialog      
     productItem = $('#' + htmlProductId);    
     startLoadingBackground(productItem);
     $('#special').show();
@@ -127,7 +127,15 @@ function loadProduct(href, htmlProductId)
                         }
 
                         return false;
-                    });
+                    });                          
+                     $('#userProductList').imagesLoaded(function(){                              
+                        masoryCenterAlign();
+                        $('#userProductList').show('fade');
+                        $('#userProductList').isotope('reLayout');
+                        setTimeout(function() {
+                            $('#userProductList').isotope('reLayout');
+                         }, 200); 
+                    });                                               
                 });
                 $dialog.on('hidden', function(e) {     
                     $(".zoomContainer").remove();                           
@@ -189,9 +197,5 @@ function loadUserProduct(product) {
         masonryHorizontal: {
             rowHeight: 360
         }
-    });    
-    setTimeout(function() {
-        $('#userProductList').isotope('reLayout');
-    }, 1000);   
-
+    });       
 }

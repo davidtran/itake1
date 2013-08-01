@@ -70,7 +70,7 @@ div.productItem div.product-detail div.productCreateDate
 @media screen and (max-width: 767px) {
     .productItem{
         width:40%;
-    }
+    }  
 }
 
 @media screen and (min-width: 1500px) {
@@ -299,7 +299,7 @@ margin:0 auto !important;
     text-align: center;
     color:rgba(0,0,0,0.8);
     text-shadow: 0px 0px 1px rgba(0,0,0,0.2);
-    filter: dropshadow(color=rgba(0,0,0,0.2), offx=0, offy=0);
+    /*filter: dropshadow(color=rgba(0,0,0,0.2), offx=0, offy=0);*/
 }
 .productImageLink{
     position:relative;
@@ -504,10 +504,13 @@ form.form-signin label{
     padding-left: 20px;   
 }
 
-#productDialog{
+#productDialog{    
      position:absolute;   
     background: transparent;
-    margin-left: -35%;    
+    left: 15%;
+    right: 15%;
+    width: 70%;
+    margin-left: 0px;    
     border:none;    
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
@@ -772,6 +775,7 @@ div#categories-bar
     background: #fff;   
     padding-top: 20px;
     border-right: 1px solid #ccc;
+    z-index: 8;
 }
 div#categories-bar ul{
     list-style:none;
@@ -801,6 +805,7 @@ div#listCategory li a{
 }
 div#listCategory ul.dropdown-menu{
     padding: 0;
+    min-width: 200px;
 }
 div#listCategory span.label{    
     min-width: 30px;    
@@ -1130,6 +1135,7 @@ div.close_tag button:hover
     text-transform: uppercase;
     margin-top: -10px;
 }
+
 div#productDialogBody.modal-body div.row-fluid div.span12 h3{
     font-family: "MNBTitleBold";
     font-weight: 300;
@@ -1169,13 +1175,14 @@ hr{
     bottom: 40%;
     right: 20px;
     padding: 7px;
-    width: 30px;
-    height: 30px;
-    background-color: rgba(0,0,0,0.5);
+    width: 50px;
+    height: 50px;
+    /*background-color: rgba(255,255,255,0.5);*/
     background-image: url(../images/scrollUp.png);
     background-repeat:no-repeat;
     background-position:center;
     color: #fff;
+    border-radius: 10px;
 }
 div#categories-bar h1{
     font-family: "MNBTitleBold";
@@ -1370,7 +1377,7 @@ div.slim-scroll{
     word-wrap:break-word;
 }
 div.page-container{
-    overflow-x:hidden;     
+    overflow-x:hidden;         
 }
 div.btn-group.user-bar.avatar-bar
 {
@@ -1618,8 +1625,8 @@ span.btn.fileinput-button.btn-large{
 #footer {
 font-size: 0.9em;
 position: relative;
-top: 20px;
-left:0;
+bottom: 0;
+width: 100%;
 right:0;
 padding-top: 3px;
 height: 30px;
@@ -1673,7 +1680,7 @@ div.navigation ul li a{
     line-height: 15px;
 }
 div.navigation ul li a:hover{
-    color:#fff;
+    color:#194675;
 }
 div.selectedCategoryTab{
     -webkit-transform: rotate(90deg);
@@ -1701,8 +1708,3 @@ div.profile-name h3{
     text-rendering: optimizelegibility;
     text-shadow: 0 0 3px rgba(0,0,0,0.8);
 }
-/*overide style of boostrap*/
-button.btn.dropdown-toggle{
-    border-radius: none;
-}
-/*overide style of boostrap*/
