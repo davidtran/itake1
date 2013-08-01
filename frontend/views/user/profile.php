@@ -59,8 +59,8 @@
         }else {?>
         <div class="alert alert-block">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4>Ax, chưa có sản phẩm nào!</h4>
-            Chưa tải lên sản phẩm nào từ trước. 
+            <h4>Bạn chưa có sản phẩm nào!</h4>
+            
         </div>
         <?php } ?>
         <div id="userProductLoading"></div>    
