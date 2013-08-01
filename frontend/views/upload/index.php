@@ -34,11 +34,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                 </div>
             </div>
             <div class="row-fluid">
-
                 <?php
                 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-                    'id' => 'uploadProductForm',
-                   
+                    'id' => 'uploadProductForm',                   
                     'htmlOptions' => array(
                         'enctype' => 'multipart/form-data'
                     )
@@ -51,8 +49,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                             <div class="row-fluid">                               
                                 <div class="span6" style="min-width:250px;">                                    
                                     <div class="rb-form-part" style="text-align:center;margin-top:15%;">                          
-                                        <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>
-                                        
+                                        <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>                                        
                                         <div class="fileupload fileupload-new" data-provides="fileupload">
                                             <div class="fileupload-new thumbnail" style="max-width: 200px; max-height: 200px;">
                                                 <?php if ($product->image == null): ?>
@@ -64,11 +61,13 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                                     ));
                                                     ?>
                                                 <?php endif; ?>
+                                                <?php echo $form->error($product,'image'); ?>
                                             </div>
                                             <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 200px; line-height: 20px;"></div>
                                             <div>
                                                 <span class="btn btn-file">
-                                                    <span class="fileupload-new">Chọn hình từ máy tính</span><span class="fileupload-exists">Đổi lại</span>
+                                                    <span class="fileupload-new">Chọn hình từ máy tính</span>
+                                                    <span class="fileupload-exists">Đổi lại</span>
                                                     <input type="file" name="productImage" id='productImage'/></span>
                                                  
                                                 <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Xóa</a>                                                                
@@ -80,18 +79,15 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                     </div>
                                 </div>
                                 <div class="span6">
-                                    <div class="rb-form-part"   >                              
-                                        <?php echo $form->textFieldRow($product, 'title'); ?>  
-                                        
-                                        <?php echo $form->textFieldRow($product, 'price', array('append' => 'VNĐ')); ?>
-                                        
+                                    <div class="rb-form-part">                              
+                                        <?php echo $form->textFieldRow($product, 'title'); ?>                                          
+                                        <?php echo $form->textFieldRow($product, 'price', array('append' => 'VNĐ')); ?>                                        
                                         <?php //echo $form->textFieldRow($product, 'phone'); ?>
                                         <?php echo $form->textAreaRow($product, 'description'); ?>                                       
-
                                         <?php echo $form->hiddenField($product,'address_id'); ?>
                                         <?php echo CHtml::link('<i class="icon-map-marker"></i>  Chọn địa chỉ liên hệ','#',array(
                                             'class'=>'btnAddressDialog flat btn btn-warning',
-                                        )); ?>
+                                        )); ?>  
                                          <?php echo $form->error($product,'address_id'); ?>
                                         <?php 
                                         $addressList = $this->getAddressList();
@@ -133,12 +129,13 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
             </div>                       
                 <div class="row-fluid">
                 <hr/>                
-                <?php                            
-                    echo CHtml::submitButton('Đăng bán', array(
+                <?php                   
+                    $submitText = $product->isNewRecord ? 'Đăng tin': 'Cập nhật';
+                    echo CHtml::submitButton($submitText, array(
                         'id' => 'btnFinishStep2',
                         'encode'=>false,
                         'class' => 'btn btn-success pull-right btn-large flat',
-                        'data-loading-text' => 'Đang tải...',                         
+                        'data-loading-text' => 'Đang gửi...',                         
                     ));
                   
                 ?>

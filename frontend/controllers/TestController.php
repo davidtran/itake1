@@ -43,13 +43,7 @@ Từng lời đắm say in đắm mãi trong tim từng phút giây';
     public function actionDrawImage(){
         $product = $this->getSampleProduct();
         ProductImageUtil::drawImage($product, $product->image, $product->processed_image);        
-    }
-    
-    public function actionShareImage(){
-                
-        $product = $this->getSampleProduct();
-        FacebookUtil::shareProductToFacebook($product);
-    }
+    }    
     
     public function actionShareProduct(){
         $product = Product::model()->findByPk(116);        

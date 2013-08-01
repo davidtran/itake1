@@ -17,7 +17,16 @@ $this->metaKeywords = str_replace(' ',',',  strtolower(preg_replace('/[^0-9a-z\s
             <div class="row-fluid">            
                 <div class="productInfo">
                     <div class='span12 custom customtop' id="mainProductInfo">
-
+                        <?php 
+                            $this->widget('bootstrap.widgets.TbAlert', array(
+                                'block'=>true,
+                                'fade'=>true, 
+                                'closeText'=>'×',
+                                'alerts'=>array( 
+                                    'success'=>array('block'=>true, 'fade'=>true, 'closeText'=>'×'), // success, info, warning, error or danger
+                                ),
+                            ));
+                        ?>
                         <h1> <?php echo StringUtil::limitCharacter(strtoupper($product->title), 35); ?></h1>
                         <div class="row-fluid">                            
                             <div class="span6">

@@ -47,6 +47,7 @@ class UploadController extends Controller
                     }
                 }
                 Yii::app()->session['PostedProductId'] = $product->id;
+                Yii::app()->user->setFlash('success','Đăng tin thành công');
                 $this->redirect($product->getDetailUrl());
             }
             else
@@ -97,6 +98,7 @@ class UploadController extends Controller
                 if ($product->validate(null, false) && $product->save(false))
                 {
                     $this->solrImportProduct($product);
+                    Yii::app()->user->setFlash('success','Chỉnh sửa tin thành công');
                     $this->redirect($product->getDetailUrl());
                 }
             }
@@ -133,8 +135,10 @@ class UploadController extends Controller
         $rs = $upload->handleUploadImage('images/content', $filename);
         if ($rs == false)
         {
-            $product->addError('image', $upload->getError());
-            return false;
+            if($product->image == null){
+                $product->addError('image', $upload->getError());
+                return false;
+            }            
         }
         else
         {
