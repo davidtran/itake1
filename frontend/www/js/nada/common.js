@@ -1,5 +1,6 @@
 var isIE = /*@cc_on!@*/false;
 var itakeHistoryHandler;
+$dialog = $('#productDialog');
 if(!isIE)
 {
     itakeHistoryHandler = {
