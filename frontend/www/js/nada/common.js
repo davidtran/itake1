@@ -76,16 +76,16 @@ function alignDiv()
     commentWidth = $('.fb-comments span').width();
     $('.fb-comments').attr('data-width', commentWidth);
     var marginLeftContainer = ($('body').width() - $('#productContainer').width()) / 2 + $('#productContainer').width() * 0.06;
-    var marginLeftContainer2 = ($('body').width() - $('#userProductBoard').width()) / 2 + $('#userProductBoard').width() * 0.06;
+    //var marginLeftContainer2 = ($('body').width() - $('#userProductBoard').width()) / 2 + $('#userProductBoard').width() * 0.06;
     var marginLeftContainer3 = ($('body').width() - $('#categories-bar').width()) / 2;
     if (marginLeftContainer * 2 != $('body').width())
     {
         // $('#categories-bar').css('margin-left', (marginLeftContainer3) + 'px');
     }
-    if (marginLeftContainer2 * 2 != $('body').width()) {
-        $(".nd_profile").css('margin-left', marginLeftContainer2 + 'px');
-        $(".nd_profile").css('margin-right', (marginLeftContainer2 - 15) + 'px');
-    }
+    // if (marginLeftContainer2 * 2 != $('body').width()) {
+    //     $(".nd_profile").css('margin-left', marginLeftContainer2 + 'px');
+    //     $(".nd_profile").css('margin-right', (marginLeftContainer2 - 15) + 'px');
+    // }
     $('.frmSearch_wrapper').css('width',$('.nav-bar-top').width());    
     $('#wrapper_productContainer').css('width',$('#fixWidthMasory').width());   
 }

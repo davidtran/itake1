@@ -69,7 +69,7 @@ div.productItem div.product-detail div.productCreateDate
 
 @media screen and (max-width: 767px) {
     .productItem{
-        width:100%;
+        width:40%;
     }
 }
 
@@ -418,7 +418,7 @@ div.nd_profile div.profile_detail ul li a:hover
     height: 25px;
     color:#d7d7d7;
     margin-left: 5px;    
-    bottom: 10px;
+    bottom: 20px;
     position: absolute;
     text-align: center;
     font-size:0.9em;
@@ -557,22 +557,26 @@ overflow: hidden;
 /*
 User profile
 */
-
+div.nd_profile{
+      margin-left: -20px;
+    margin-right: -20px;
+}
 div.nd_profile div.top{
     position:relative;
     height: 160px;    
     width: 100%;
-    background-color: #fff;
+    background-color: #008C72;
     -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.14);
     -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.14);
     box-shadow: 0 1px 4px rgba(0,0,0,0.14);
-    margin-top: 54px;
+    margin-top: 44px;  
+    background-size: 100% 100%;
 }
 div.nd_profile div.top div.avatar{
 /*    position: absolute;*/
 /*    top:45px;*/
     margin-left: 30px;          
-    margin-top: 30px;
+    margin-top: 20px;
     z-index:100;
     float: left;
 }
@@ -715,7 +719,8 @@ form.form-signin input[type="text"],form.form-signin input[type="password"]{
     font-size:1em;
     font-family: "Arial";
     font-weight: 400;
-    padding-left: 20px;       
+    padding-left: 20px;     
+    border-radius: 0;  
 }
 hr{
     background-color: #bababa;
@@ -785,9 +790,37 @@ div#categories-bar ul li span.badge,div#listCategory span.label{
     text-align: right;
     float: right; 
 }
+div#listCategory{
+    padding: 0;
+}
+div#listCategory li a{
+    width: 100%;
+    padding: 0;
+    border-bottom: solid 1px #ccc;
+    margin-right: 10px;
+}
+div#listCategory ul.dropdown-menu{
+    padding: 0;
+}
 div#listCategory span.label{    
-    width: 100%;    
-    text-align: left;
+    min-width: 30px;    
+    height: 30px;    
+    float: left;    
+    border-radius: 0;
+}
+div#listCategory small{
+    float: left;
+    padding-top:10px;
+    line-height: 20px;
+    padding-left: 10px;
+    color: #194675;    
+}
+div#listCategory span.label i{
+    line-height: 30px;
+    text-align: center;
+    font-size: 1.4em;
+    width: 100%;
+    display: block;
 }
 div.productDialog_wrapper
 {

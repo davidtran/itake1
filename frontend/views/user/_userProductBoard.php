@@ -40,7 +40,7 @@ $(document).ready(function() {
 HERE;
 Yii::app()->clientScript->registerScript('userProductList',$script,  CClientScript::POS_END);
 ?>
-<div id="userProductBoard" class='productBoard'>
+<div id="userProductBoard" style="display:none;" class='productBoard'>
     <?php foreach($productList as $userProduct):?>        
             <?php echo $userProduct->renderHtml(); ?>        
     <?php endforeach; ?>

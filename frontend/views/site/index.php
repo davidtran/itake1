@@ -48,12 +48,15 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/produ
     });
     </script>
 <?php endif; ?>
-<?php if(trim($keyword)!=''):?>
-   <div style="float: left; width: 100%;margin-top: -10px;"><b>Có <?php echo $numFound; ?> kết quả với từ khóa <?php echo $keyword; ?></b></div>
-<?php endif; ?>
+
 </div>
   <div class="row-fluid" id="fixWidthMasory"></div>
-  <div class="row-fluid" id="wrapper_productContainer" style="margin-top:80px;">       
+  <div class="row-fluid" id="wrapper_productContainer" style="margin-top:80px;">  
+    <?php if(trim($keyword)!=''):?>
+   <div class="alert alert-info">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <b>Có <?php echo $numFound; ?> kết quả với từ khóa <?php echo $keyword; ?></b></div>
+<?php endif; ?>
     <?php $this->renderPartial('/site/_board',array(
         'productList'=>$productList,
         'nextPageLink'=>$nextPageLink

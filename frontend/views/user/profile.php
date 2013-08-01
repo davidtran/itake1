@@ -9,7 +9,7 @@
     Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/productControl.js',CClientScript::POS_BEGIN);
 ?>
 <div class='nd_profile'>
-    <div class="top" style="background-image: url('<?php echo Yii::app()->baseUrl.'/'.$user->getBanner();?>');background-repeat: no-repeat; background-size:100% 100%;">
+    <div class="top" style="background-image: url('<?php echo Yii::app()->baseUrl.'/'.$user->getBanner();?>');background-repeat: no-repeat; ">
         <div class="row-fluid">            
             <div class="span6 profile-name">
                 <div class="avatar">
@@ -34,7 +34,7 @@
 <!--            <div id="bannerChanger">Đổi banner</div>-->
         <?php endif; ?>
     </div>
-    <div class="profile_detail">
+    <div class="profile_detail"style="display:none;">
 <!--        <button type="button" class="btn btn-success">
             <span class="buttonText">Dõi theo</span> 
         </button>-->

@@ -67,7 +67,7 @@
                                 ?>       
                                 <div id="listCategory" class="btn-group" style ="margin-top: -5px;">
                                     <a data-toggle="dropdown" class="btn btn-info dropdown-toggle" id="yw0" href="#"><i class="icon-upload"></i>  Đăng bán <span class="caret"></span></a>
-                                    <ul id="yw1" class="dropdown-menu" style="padding-left: 10px;border-radius: 0;">
+                                    <ul id="yw1" class="dropdown-menu">
                                         <?php
                                         foreach ($cates as $cat){                                                                                     
                                             ?>
@@ -77,10 +77,11 @@
                                                     'name'=>StringUtil::makeSlug($cat->name)
                                                     ));?>"
                                                     title="Đăng tin ở danh mục <?php echo $cat->name; ?>    "
-                                                    >
+                                                    >                                                    
                                                     <span class=" label <?php echo $cat->styleName?>">
                                                         <?php echo $cat->iconAndNameHtml;?>
                                                     </span>
+                                                    <small><?php echo $cat->name?></small>                                                    
                                                 </a>
                                             </li>
                                             <?php
@@ -96,7 +97,7 @@
                                             'class'=>'img img-circle',
                                             'style'=>'width:30px; height:30px'
                                             )); ?>
-                                            <?php echo Yii::app()->user->model->username; ?>                                    
+                                            <em style="color:#2f96b4;font-style:normal;"><?php echo Yii::app()->user->model->username; ?></em>                                    
                                         </a>   
                                         <button class="btn dropdown-toggle" style="height: 100%;border-radius:0px;background: transparent;border-top:none;border-bottom: none;" data-toggle="dropdown">
                                             <span class="caret"></span>
@@ -108,7 +109,7 @@
                                     </div>
                                 <?php else: ?>
                                 <!--                            <a href="<?php echo $this->createUrl('/user/register'); ?>" class="btn btn-info" ><i class="icon-user icon-white"></i>  Đăng ký</a>-->
-                                <a class="btn btn-info" href="<?php echo $this->createUrl('/user/login'); ?>"><i class="icon-user"></i>  Thành viên</a>
+                                <a class="btn btn-success" href="<?php echo $this->createUrl('/user/login'); ?>"><i class="icon-user"></i>  Thành viên</a>
                             <?php endif; ?>
                         </div>     
                     </div>

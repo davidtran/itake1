@@ -189,8 +189,7 @@ function loadUserProduct(product) {
         masonryHorizontal: {
             rowHeight: 360
         }
-    });
-    masoryCenterAlign();
+    });    
     setTimeout(function() {
         $('#userProductList').isotope('reLayout');
     }, 1000);   

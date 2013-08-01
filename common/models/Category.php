@@ -102,6 +102,6 @@ class Category extends CActiveRecord
         return 'category_color id_'.$this->id; 
     }
     public function getIconAndNameHtml(){
-        return '<i class="'.$this->icon.'"></i>'.'  '.$this->name;
+        return '<i class="'.$this->icon.'"></i>';
     }
 }

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function() {    
     var avatarChanger = document.getElementById('avatarChanger');
     if (avatarChanger != undefined) {
         upclick(
@@ -47,4 +47,11 @@ $(document).ready(function() {
                 }
         );
     }
+    $container = $('#userProductBoard');
+    $container.imagesLoaded(function(){
+        console.log('loaded image');
+        masoryCenterAlign();
+        $container.show('fade');
+          $('#userProductBoard').isotope('reLayout');            
+    });
 })
