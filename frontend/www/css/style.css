@@ -278,28 +278,6 @@ margin:0 auto !important;
     overflow-y:scroll;
 }
 
-#productDialog{
-
-    left:25%;
-    width:85% !important;
-
-}
-#productDialog{
-    background: transparent;
-    border:none;
-    position: fixed;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
-    -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-    background-clip: padding-box;
-    outline: none;
-}
-
 .productImageInfo{
     margin-bottom: -10px;
     padding: 5px;
@@ -525,18 +503,26 @@ form.form-signin label{
     font-weight: 400;
     padding-left: 20px;   
 }
-#productDialog{
-    position:absolute;
-    left:35%;
-    width:70% !important;
 
-}
 #productDialog{
-
+     position:absolute;   
+    background: transparent;
+    margin-left: -35%;    
+    border:none;    
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+    outline: none;
 }
 #productDialog .modal-body{
     max-height: none;
-    overflow: hidden;
+    overflow: hidden;    
 }
 #addAddressDialog{
      position:absolute;
@@ -763,7 +749,7 @@ div.user-controls
     position: relative;
     top: 0px;
     float: right;
-    right: 7px;
+    right: 30px;
     padding-top: 7px;
     z-index: 671;
 }
@@ -877,7 +863,7 @@ div.btn-group.user-bar ul li{
 }
 a:hover .nav-text small{    
     background-position: 20px 50%;
-padding-left: 15px;
+    padding-left: 15px;
 }
 .nav-text small{
         -webkit-transition: all 0.2s linear;
@@ -1016,41 +1002,64 @@ a:hover .nav-text.all-cat-wrap.selected em {
 
 /**** Isotope CSS3 transitions ****/
 
-.isotope,
+/*.isotope,
 .isotope .isotope-item {
-/*    -webkit-transition-duration: 0.8s;
+    -webkit-transition-duration: 0.8s;
     -moz-transition-duration: 0.8s;
     -ms-transition-duration: 0.8s;
     -o-transition-duration: 0.8s;
-    transition-duration: 0.8s;*/
+    transition-duration: 0.8s;
 }
 
 .isotope {
-/*    -webkit-transition-property: height, width;
+    -webkit-transition-property: height, width;
     -moz-transition-property: height, width;
     -ms-transition-property: height, width;
     -o-transition-property: height, width;
-    transition-property: height, width;*/
+    transition-property: height, width;
 }
 
 .isotope .isotope-item {
-/*    -webkit-transition-property: -webkit-transform, opacity;
+    -webkit-transition-property: -webkit-transform, opacity;
     -moz-transition-property:    -moz-transform, opacity;
     -ms-transition-property:     -ms-transform, opacity;
     -o-transition-property:      -o-transform, opacity;
-    transition-property:         transform, opacity;*/
-}
+    transition-property:         transform, opacity;
+}*/
 
 /**** disabling Isotope CSS3 transitions ****/
 
 .isotope.no-transition,
 .isotope.no-transition .isotope-item,
 .isotope .isotope-item.no-transition {
-/*    -webkit-transition-duration: 0s;
+    -webkit-transition-duration: 0s;
     -moz-transition-duration: 0s;
     -ms-transition-duration: 0s;
     -o-transition-duration: 0s;
-    transition-duration: 0s;*/
+    transition-duration: 0s;
+}
+@keyframes demo {
+   0% {opacity:0;}
+   50% {opacity:1;}
+   100% {opacity:0;}
+}
+
+@-moz-keyframes demo { /* Firefox */
+   0% {opacity:0;}
+   50% {opacity:1;}
+   100% {opacity:0;}
+}
+
+@-webkit-keyframes demo { /* Safari and Chrome */
+   0% {opacity:0;}
+   50% {opacity:1;}
+   100% {opacity:0;}
+}
+
+@-o-keyframes demo { /* Opera */
+   0% {opacity:0;}
+   50% {opacity:1;}
+   100% {opacity:0;}
 }
 div.close_tag
 {
@@ -1301,7 +1310,7 @@ div#mapContainer,div#map
 }
 div#productContainer
 {
-     margin: 0 auto !important;
+     margin: 0 auto !important;     
 }
 .scrollbar-measure {
 	width: 100px;
@@ -1353,7 +1362,7 @@ position: absolute;
 margin-top: -10px;
 right: 6px;
 }
-.modal-body .price {
+.modal-body .price {    
 position: absolute;
 font-family: "Arial";
 font-size: 20px;
@@ -1659,3 +1668,8 @@ div.profile-name h3{
     text-rendering: optimizelegibility;
     text-shadow: 0 0 3px rgba(0,0,0,0.8);
 }
+/*overide style of boostrap*/
+button.btn.dropdown-toggle{
+    border-radius: none;
+}
+/*overide style of boostrap*/

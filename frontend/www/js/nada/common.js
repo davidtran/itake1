@@ -1,10 +1,64 @@
-var viewCounter = 0;
-var pageContextUrl ="";
-var pageContextTitle="";
+var itakeHistoryHandler = {
+    pageContextUrl:location.href,
+    pageContextTitle:document.title,   
+    init:function(){
+        var History = window.History; // Note: We are using a capital H instead of a lower h
+        if (!History.enabled) {
+            // History.js is disabled for this browser.
+            // This is because we can optionally choose to support HTML4 browsers or not.
+            return false;
+        }    
+        // Bind to StateChange Event
+        var lastUrl;
+        History.Adapter.bind(window, 'statechange', function() { // Note: We are using statechange instead of popstate
+            var State = History.getState();
+            History.log(State.data, State.title, State.url);        
+            if(State.url==itakeHistoryHandler.pageContextUrl){            
+                if ($dialog!==undefined&&$dialog.css('display') != 'none') {                
+                    $dialog.modal('hide');
+                }
+                return;
+            }       
+            if ($dialog == null)
+            {
+                location.href = State.url;
+            }
+            else
+            {
+                if (lastUrl != State.url&&State.data.productIdHtml == undefined)
+                {
+                    if ($dialog.css('display') != 'none' && State.data.productIdHtml == undefined) {                    
+                        $dialog.modal('hide');
+                    }
+                }
+                else if (State.data.productIdHtml != undefined)
+                {                
+                    loadProduct(location.href,State.data.productIdHtml);
+                }                   
+                $dialog.on('hidden', function() {
+                    History.pushState({}, itakeHistoryHandler.pageContextTitle, itakeHistoryHandler.pageContextUrl);
+                });
+            }            
+            lastUrl = State.url;
+        });
+    } 
+}
+var scrollbarWidth;
 $(window).resize(function() {
     alignDiv();
 });
 $(document).ready(function() {
+    itakeHistoryHandler.init();
+      // Create the measurement node
+    var scrollDiv = document.createElement("div");
+    scrollDiv.className = "scrollbar-measure";
+    document.body.appendChild(scrollDiv);
+
+// Get the scrollbar width
+    scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+// Delete the DIV 
+    document.body.removeChild(scrollDiv);
+    // Prepare
     $('.slim-scroll').each(function() {
         var $this = $(this);
         $this.slimScroll({
@@ -12,70 +66,8 @@ $(document).ready(function() {
             railVisible: true
         });
     });
-    pageContextUrl = location.href;
-    pageContextTitle = document.title;
-    History.pushState({}, document.title, pageContextUrl);
+    History.pushState({}, document.title, itakeHistoryHandler.pageContextUrl);
     alignDiv();
-    (function($) {
-        $.Isotope.prototype._getCenteredMasonryColumns = function() {
-            this.width = this.element.width();
-
-            var parentWidth = this.element.parent().width();
-
-            // i.e. options.masonry && options.masonry.columnWidth
-            var colW = this.options.masonry && this.options.masonry.columnWidth ||
-                    // or use the size of the first item
-                    this.$filteredAtoms.outerWidth(true) ||
-                    // if there's no items, use size of container
-                    parentWidth;
-
-            var cols = Math.floor(parentWidth / colW);
-            cols = Math.max(cols, 1);
-
-            // i.e. this.masonry.cols = ....
-            this.masonry.cols = cols;
-            // i.e. this.masonry.columnWidth = ...
-            this.masonry.columnWidth = colW;
-        };
-
-        $.Isotope.prototype._masonryReset = function() {
-            // layout-specific props
-            this.masonry = {};
-            // FIXME shouldn't have to call this again
-            this._getCenteredMasonryColumns();
-            var i = this.masonry.cols;
-            this.masonry.colYs = [];
-            while (i--) {
-                this.masonry.colYs.push(0);
-            }
-        };
-
-        $.Isotope.prototype._masonryResizeChanged = function() {
-            var prevColCount = this.masonry.cols;
-            // get updated colCount
-            this._getCenteredMasonryColumns();
-            return (this.masonry.cols !== prevColCount);
-        };
-
-        $.Isotope.prototype._masonryGetContainerSize = function() {
-            var unusedCols = 0,
-                    i = this.masonry.cols;
-            // count unused columns
-            while (--i) {
-                if (this.masonry.colYs[i] !== 0) {
-                    break;
-                }
-                unusedCols++;
-            }
-
-            return {
-                height: Math.max.apply(Math, this.masonry.colYs),
-                // fit container to columns that have been used;
-                width: (this.masonry.cols - unusedCols) * this.masonry.columnWidth
-            };
-        };
-
-    })(jQuery);
 });
 function alignDiv()
 {
@@ -94,68 +86,10 @@ function alignDiv()
         $(".nd_profile").css('margin-left', marginLeftContainer2 + 'px');
         $(".nd_profile").css('margin-right', (marginLeftContainer2 - 15) + 'px');
     }
-    $('.frmSearch_wrapper').css('width',$('.nav-bar-top').width());
+    $('.frmSearch_wrapper').css('width',$('.nav-bar-top').width());    
+    $('#wrapper_productContainer').css('width',$('#fixWidthMasory').width());   
 }
-$(function() {
-    // Create the measurement node
-    var scrollDiv = document.createElement("div");
-    scrollDiv.className = "scrollbar-measure";
-    document.body.appendChild(scrollDiv);
-
-// Get the scrollbar width
-    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-// Delete the DIV 
-    document.body.removeChild(scrollDiv);
-    // Prepare
-    var History = window.History; // Note: We are using a capital H instead of a lower h
-    if (!History.enabled) {
-        // History.js is disabled for this browser.
-        // This is because we can optionally choose to support HTML4 browsers or not.
-        return false;
-    }    
-    // Bind to StateChange Event
-    var lastUrl;
-    History.Adapter.bind(window, 'statechange', function() { // Note: We are using statechange instead of popstate
-        var State = History.getState();
-        History.log(State.data, State.title, State.url);        
-        if(State.url==pageContextUrl){            
-            if ($dialog.css('display') != 'none') {
-                viewCounter--;
-                $dialog.modal('hide');
-            }
-            return;
-        }       
-        if ($dialog == null)
-        {
-            location.href = State.url;
-        }
-        else
-        {
-            if (lastUrl != State.url&&State.data.productIdHtml == undefined)
-            {
-                if ($dialog.css('display') != 'none' && State.data.productIdHtml == undefined) {
-                    viewCounter--;
-                    $dialog.modal('hide');
-                }
-            }
-            else if (State.data.productIdHtml != undefined)
-            {
-                viewCounter++;
-                loadProduct(location.href,State.data.productIdHtml);
-            }          
-            $dialog.on('shown', function() {
-
-            });
-            $dialog.on('hidden', function() {
-                var tempCounter = viewCounter;
-                viewCounter = 0;
-                if (tempCounter != 0)
-                    History.pushState({}, pageContextTitle, pageContextUrl);
-            });
-        }            
-        lastUrl = State.url;
-    });
-
+$(function() {  
     $('.productLink').live('click', function(e) {
         e.preventDefault();
         link = $(this).attr('href');
@@ -171,25 +105,6 @@ $(function() {
     });
 });
 
-function facebookCommentsAttachment()
-{
-    var fbCommentEle = document.getElementById('fb-comments-product');
-    if (fbCommentEle != null)
-    {
-        $('#fb-comments-product').html('');
-        var fb_p_width = fbCommentEle.offsetWidth;
-        $('#fb-comments-product').html('<div class="fb-comments" style="margin-top: 15px;" data-href="' + document.location.href + '" data-width="' + fb_p_width + '" data-num-posts="5"></div>');
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id))
-                return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=620447237967845";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    }
-}
 function getProductTitle(link){
     var arrStr = link.split('/',20);
     return arrStr[arrStr.length-1];
@@ -268,52 +183,7 @@ function utf8_decode(str_data) {
 
     return tmp_arr.join('');
 }
-function signinCallback(authResult) {
-    console.log('Sign in call back')
-    if (authResult['access_token']) {
-        // Successfully authorized
-        // Hide the sign-in button now that the user is authorized, for example:
-        document.getElementById('gplusSignIn').setAttribute('style', 'display: none');
-    } else if (authResult['error']) {
-        // There was an error.
-        // Possible error codes:
-        //   "access_denied" - User denied access to your app
-        //   "immediate_failed" - Could not automatically log in the user
-        // console.log('There was an error: ' + authResult['error']);
-    }
-}
-function disconnectUser(access_token) {
-    var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' +
-            access_token;
 
-    // Perform an asynchronous GET request.
-    $.ajax({
-        type: 'GET',
-        url: revokeUrl,
-        async: false,
-        contentType: "application/json",
-        dataType: 'jsonp',
-        success: function(nullResponse) {
-            // Do something now that user is disconnected
-            // The response is always undefined.
-        },
-        error: function(e) {
-            // Handle the error
-            // console.log(e);
-            // You could point users to manually disconnect if unsuccessful
-            // https://plus.google.com/apps
-        }
-    });
-}
-function render() {
-    gapi.signin.render('gplusSignIn', {
-        //'callback': 'signinCallback',
-        'clientid': '933964749471.apps.googleusercontent.com',
-        'cookiepolicy': 'single_host_origin',
-        'requestvisibleactions': 'http://schemas.google.com/AddActivity',
-        'scope': 'https://www.googleapis.com/auth/plus.login'
-    });
-}
 
 Number.prototype.formatMoney = function(c, d, t) {
     var n = this,
@@ -361,3 +231,64 @@ $.fn.serializeObject = function()
     });
     return o;
 };
+function masoryCenterAlign()
+{
+   (function($) {
+            $.Isotope.prototype._getCenteredMasonryColumns = function() {
+                this.width = this.element.width();
+
+                var parentWidth = this.element.parent().width();
+
+                // i.e. options.masonry && options.masonry.columnWidth
+                var colW = this.options.masonry && this.options.masonry.columnWidth ||
+                        // or use the size of the first item
+                        this.$filteredAtoms.outerWidth(true) ||
+                        // if there's no items, use size of container
+                        parentWidth;
+
+                var cols = Math.floor(parentWidth / colW);
+                cols = Math.max(cols, 1);
+
+                // i.e. this.masonry.cols = ....
+                this.masonry.cols = cols;
+                // i.e. this.masonry.columnWidth = ...
+                this.masonry.columnWidth = colW;
+            };
+
+            $.Isotope.prototype._masonryReset = function() {
+                // layout-specific props
+                this.masonry = {};
+                // FIXME shouldn't have to call this again
+                this._getCenteredMasonryColumns();
+                var i = this.masonry.cols;
+                this.masonry.colYs = [];
+                while (i--) {
+                    this.masonry.colYs.push(0);
+                }
+            };
+
+            $.Isotope.prototype._masonryResizeChanged = function() {
+                var prevColCount = this.masonry.cols;
+                // get updated colCount
+                this._getCenteredMasonryColumns();            
+                return (this.masonry.cols !== prevColCount);
+            };
+
+            $.Isotope.prototype._masonryGetContainerSize = function() {
+                var unusedCols = 0,
+                        i = this.masonry.cols;
+                // count unused columns
+                while (--i) {
+                    if (this.masonry.colYs[i] !== 0) {
+                        break;
+                    }
+                    unusedCols++;
+                }            
+                return {
+                    height: Math.max.apply(Math, this.masonry.colYs),
+                    // fit container to columns that have been used;
+                    width: (this.masonry.cols - unusedCols) * this.masonry.columnWidth
+                };
+            };          
+        })(jQuery);    
+}

@@ -67,12 +67,12 @@
                                 ?>       
                                 <div id="listCategory" class="btn-group" style ="margin-top: -5px;">
                                     <a data-toggle="dropdown" class="btn btn-info dropdown-toggle" id="yw0" href="#"><i class="icon-upload"></i>  Đăng bán <span class="caret"></span></a>
-                                    <ul id="yw1" class="dropdown-menu">
+                                    <ul id="yw1" class="dropdown-menu" style="padding-left: 10px;border-radius: 0;">
                                         <?php
                                         foreach ($cates as $cat){                                                                                     
                                             ?>
                                             <li>
-                                                <a tabindex="-1" href="<?php echo Yii::app()->controller->createUrl('upload/index',array(
+                                                <a style="display:block; overflow:hidden;" tabindex="-1" href="<?php echo Yii::app()->controller->createUrl('upload/index',array(
                                                     'category'=>$cat->id,
                                                     'name'=>StringUtil::makeSlug($cat->name)
                                                     ));?>"

@@ -9,7 +9,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/produ
 ?>
 <div class="container-fluid" style="margin-left:50px;">
   <div class="row-fluid">
-      <div id="categories-bar">
+      <div id="categories-bar">        
         <div class="row-fluid">
             <div class="btn-group" style="float:right;margin-bottom:20px;margin-right:5px;">                                   
                     <Button class="btn flat dropdown-toggle" data-toggle="dropdown"style="border-radius:0px;width:50px;"> 
@@ -52,7 +52,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/produ
    <div style="float: left; width: 100%;margin-top: -10px;"><b>Có <?php echo $numFound; ?> kết quả với từ khóa <?php echo $keyword; ?></b></div>
 <?php endif; ?>
 </div>
-  <div class="row-fluid" style="margin-top:80px;">       
+  <div class="row-fluid" id="fixWidthMasory"></div>
+  <div class="row-fluid" id="wrapper_productContainer" style="margin-top:80px;">       
     <?php $this->renderPartial('/site/_board',array(
         'productList'=>$productList,
         'nextPageLink'=>$nextPageLink

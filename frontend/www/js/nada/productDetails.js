@@ -110,7 +110,7 @@ function loadProduct(href, htmlProductId)
 
                 //  loadRelateProduct(product);         
 
-                $dialog.on('shown', function() {                   
+                $dialog.on('shown', function() {   
                     $('.slim-scroll').each(function() {
                         var $this = $(this);
                         $this.slimScroll({
@@ -119,11 +119,6 @@ function loadProduct(href, htmlProductId)
                         });
                     });
                     addthis.toolbox('.addthis_toolbox');
-
-
-
-
-
                     $('#btnShowMap').live('click', function(e) {
                         e.preventDefault();
                         if (loadedMap == false) {
@@ -133,8 +128,6 @@ function loadProduct(href, htmlProductId)
 
                         return false;
                     });
-
-
                 });
                 $dialog.on('hidden', function(e) {     
                     $(".zoomContainer").remove();                           
@@ -146,7 +139,7 @@ function loadProduct(href, htmlProductId)
         complete: function() {
 
             stopLoadingBackground(productItem);                       
-            setCommentFullWidth();
+            setCommentFullWidth();            
         }
     });
 }
@@ -197,6 +190,7 @@ function loadUserProduct(product) {
             rowHeight: 360
         }
     });
+    masoryCenterAlign();
     setTimeout(function() {
         $('#userProductList').isotope('reLayout');
     }, 1000);   
