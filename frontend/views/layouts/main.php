@@ -78,7 +78,7 @@
                         <ul>                                                        
                             <li class="first"><a><b style="color:#194675"><i class="icon-desktop"></i>   PHIÊN BẢN THỬ NGHIỆM</a></b></li>
                             <li class="first"><a>GIỚI THIỆU</a></li>
-                            <li ><a>ĐIỀU KHOẢN</a></li>       
+                            <li ><a href="<?php echo Yii::app()->createUrl('site/term') ?>">ĐIỀU KHOẢN</a></li>       
                             <li ><a>PHẢN HỒI</a></li>                                                     
                             <li><a>© <?php echo date('Y') ?> ITAKE.ME</a></li>
                         </ul>

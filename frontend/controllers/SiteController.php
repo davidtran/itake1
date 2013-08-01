@@ -241,5 +241,8 @@ class SiteController extends Controller
     {
         $this->render('detail_view');
     }
+    public function actionTerm(){
+        $this->render('pages/term');
+    }
 
 }
