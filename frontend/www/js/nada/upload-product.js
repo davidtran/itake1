@@ -8,7 +8,7 @@ if (typeof product != "undefined" && product.lat != null && product.lon != null)
     defaultLat = product.lat;
     defaultLng = product.lon;
 }
-if (typeof contactInfo != "undefined") {
+if (typeof contactInfo != "undefined"&&contactInfo!=null) {
     $('#Product_city').val(contactInfo.city);
     defaultLat = contactInfo.lat != null ? contactInfo.lat : defaultLat;
     defaultLng = contactInfo.lon != null ? contactInfo.lon : defaultLng;
@@ -23,11 +23,18 @@ $(document).ready(function() {
     });
     updatePreview();
 });
-function updatePreview() {
+function updatePreview() {    
     $('div.productImageTitle').html($('#Product_title').val());
     $('div.productImagePrice').html($('#Product_price').val());
     $('div.productDescription').html($('#Product_description').val());
-    $('img.productImage').attr('src', $('.fileupload-preview img').attr('src'));
+    if($('.fileupload-preview img').attr('src')!=undefined)
+    {        
+        $('img.productImage').attr('src', $('.fileupload-preview img').attr('src'));
+    }
+    else
+    {
+        $('img.productImage').attr('src', $('#productImageHoder').attr('src'));   
+    }
     setTimeout(function() {
         updatePreview();
     }, 1000);

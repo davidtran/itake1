@@ -87,10 +87,16 @@ class UploadController extends Controller
     }
 
     public function actionEdit($id)
-    {
+    {        
+        $this->checkLogin("Cần đăng nhập để chỉnh sửa sản phẩm",Yii::app()->request->requestUri);        
         $product = Product::model()->findByPk($id);
+
+        if($product->user_id!==Yii::app()->user->model->id)
+            throw new CHttpException(500, 'Bạn không thể chỉnh sửa mà không phải của bạn');
+
+
         if ($product != null)
-        {
+        {            
             if (isset($_POST['Product']))
             {
                 $product->attributes = $_POST['Product'];

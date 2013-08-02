@@ -128,6 +128,7 @@ class FacebookUtil
         UserMetaUtil::setMeta($userId, 'FacebookAccessToken', $token);
     }
 
+
     public function shareProductToFacebook(Product $product, $accessToken = null)
     {
         $args = array();
@@ -153,7 +154,7 @@ class FacebookUtil
                 Liên hệ: {$product->user->username} - $product->phone";               
         return $html;
     }
-
+    
     protected static function fbLinkDescriptionNewLines($string)
     {
         $parts = explode(self::FB_LINE_BREAK, $string);

@@ -100,18 +100,17 @@ class Controller extends CController
     }
 
     public function checkLogin($requireLoginMessage = null, $returnUrl = null)
-    {
+    {                        
         if (Yii::app()->user->isGuest)
         {
             if (Yii::app()->request->isAjaxRequest)
             {
-                Yii::app()->controller->renderAjaxResult(false, 'Please login before use this feature');
+                Yii::app()->controller->renderAjaxResult(false, 'Xin vui lòng đăng nhập để sử dụng tính năng này');
             }
             else
             {
 
-                $this->setReturnUrl($returnUrl);
-                
+                $this->setReturnUrl($returnUrl);                
                 Yii::app()->controller->redirect(array('/user/login', 'message' => $requireLoginMessage));
             }
         }
@@ -148,7 +147,7 @@ class Controller extends CController
         }
     }
     
-    public function setReturnUrl($url){
+    public function setReturnUrl($url){        
         Yii::app()->session['ReturnUrl'] = $url;
     }
     
@@ -161,10 +160,17 @@ class Controller extends CController
         }
     }
     
-    public function hasReturnUrl(){
+    public function hasReturnUrl(){        
         if(isset(Yii::app()->session['ReturnUrl'])){
             return true;
         }
         return false;
+    }
+    public function getReturnUrl()
+    {
+        if(isset(Yii::app()->session['ReturnUrl'])){
+            return Yii::app()->session['ReturnUrl'];
+        }
+        return null; 
     }
 }

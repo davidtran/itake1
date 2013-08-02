@@ -97,7 +97,7 @@
                                             'class'=>'img img-circle',
                                             'style'=>'width:30px; height:30px'
                                             )); ?>
-                                            <em style="color:#2f96b4;font-style:normal;"><?php echo Yii::app()->user->model->username; ?></em>                                    
+                                            <em style="color:#000;font-style:normal;"><?php echo Yii::app()->user->model->username; ?></em>                                    
                                         </a>   
                                         <button class="btn dropdown-toggle" style="height: 100%;border-radius:0px;background: transparent;border-top:none;border-bottom: none;" data-toggle="dropdown">
                                             <span class="caret"></span>
