@@ -1,8 +1,10 @@
 <?php
+
 class FacebookUtil
 {
+
     const FB_LINE_BREAK = '#';
-    
+
     protected $_accessToken;
     protected static $instance;
 
@@ -56,7 +58,6 @@ class FacebookUtil
             return false;
         }
     }
-   
 
     public function getFacebookFriendList()
     {
@@ -126,37 +127,37 @@ class FacebookUtil
     {
         UserMetaUtil::setMeta($userId, 'FacebookAccessToken', $token);
     }
-    public function shareProductToFacebook(Product $product,$accessToken = null){     
-        $args = array();        
-        $args['picture'] = '@'.realpath($product->image_thumbnail);
-        if($accessToken!=null){
+
+    public function shareProductToFacebook(Product $product, $accessToken = null)
+    {
+        $args = array();
+        //$args['url'] = Yii::app()->getBaseUrl(true) . '/' . $product->image;
+        $args['picture'] = '@'.realpath($product->image);
+        if ($accessToken != null)
+        {
             $args['access_token'] = $accessToken;
-            $desc = $this->makePostDescription($product);
-           $args['caption'] = $desc;
-            
-        }        
-        $data= Yii::app()->facebook->api('/me/photos?message='.  urlencode($desc), 'POST', $args);
-        var_dump($data);
+        }
+        $desc = $this->makePostDescription($product);        
+        $args['message'] = $desc;
+        $data = Yii::app()->facebook->api('/me/photos', 'POST', $args);       
     }
-    
-    protected function makePostDescription(Product $product){
-        $html = '['.CityUtil::getCityName($product->city).'] [Cần bán]'.self::FB_LINE_BREAK;
-        $html .= "Tên sản phẩm- $product->title".self::FB_LINE_BREAK;
-        $html .= "Giá- ".number_format($product->price,0).' VNĐ'.self::FB_LINE_BREAK;
-        $html .= "Người bán- ".$product->user->username.self::FB_LINE_BREAK;
-        $html .= "Số điện thoại- ".$product->phone.self::FB_LINE_BREAK;
-        $html .= $product->description.self::FB_LINE_BREAK;
-        $html .= self::FB_LINE_BREAK;
-        
-        $html = $this->fbLinkDescriptionNewLines($html);
-        echo $html;
+
+    protected function makePostDescription(Product $product)
+    {
+     
+        $html = "[".CityUtil::getCityName($product->city)."] [{$product->category->name}]
+                $product->title - ". number_format($product->price, 0). " VNĐ
+                 
+                $product->description
+                
+                Liên hệ: {$product->user->username} - $product->phone";               
         return $html;
     }
-    
+
     protected static function fbLinkDescriptionNewLines($string)
     {
         $parts = explode(self::FB_LINE_BREAK, $string);
-        $row_limit = 60;
+        $row_limit = 80;
         $message = '';
         foreach ($parts as $part)
         {
@@ -167,7 +168,7 @@ class FacebookUtil
 
             for ($i = 0; $i <= $diff; $i++)
             {
-                $message .= '&nbsp;';
+                $message .= '%20';
             }
         }
         return $message;
@@ -175,13 +176,14 @@ class FacebookUtil
 
     public static function makeFacebookLoginUrl($returnUrl = null)
     {
-        if($returnUrl == null){
-            $returnUrl = Yii::app()->controller->createAbsoluteUrl('/site/index');            
-        }        
+        if ($returnUrl == null)
+        {
+            $returnUrl = Yii::app()->controller->createAbsoluteUrl('/site/index');
+        }
         Yii::app()->controller->setReturnUrl($returnUrl);
         return Yii::app()->facebook->getLoginUrl(array(
-            'scope' => 'email,publish_stream,user_status,user_photos',            
-            'redirect_uri'=>Yii::app()->controller->createAbsoluteUrl('/user/register')
+                    'scope' => 'email,publish_stream,user_photos',
+                    'redirect_uri' => Yii::app()->controller->createAbsoluteUrl('/user/register')
         ));
     }
 
@@ -189,13 +191,13 @@ class FacebookUtil
     {
         if ($text == null)
             $text = 'Đăng nhập bằng Facebook';
-        
+
         return CHtml::link(
-            $text, self::makeFacebookLoginUrl($returnUrl), array(
-                'id' => 'fb-timeline-btn',
-                'class' => 'special-btn facebook badge-add-fb-timeline',            
-            )
+                        $text, self::makeFacebookLoginUrl($returnUrl), array(
+                    'id' => 'fb-timeline-btn',
+                    'class' => 'special-btn facebook badge-add-fb-timeline',
+                        )
         );
     }
-       
+
 }

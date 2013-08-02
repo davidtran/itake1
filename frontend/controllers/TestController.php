@@ -46,7 +46,7 @@ Từng lời đắm say in đắm mãi trong tim từng phút giây';
     }    
     
     public function actionShareProduct(){
-        $product = Product::model()->findByPk(116);        
+        $product = Product::model()->findByPk(126);        
         FacebookUtil::getInstance()->shareProductToFacebook($product);      
     }
     public function actionLimitText($text){
