@@ -29,7 +29,7 @@ class Product extends CActiveRecord
     {
         return parent::model($className);
     }
-    
+
     public function init()
     {
         $this->view = 0;
@@ -59,7 +59,7 @@ class Product extends CActiveRecord
             array('phone', 'length', 'max' => 11),
             array('phone', 'numerical'),
             array('phone,lat,lon,locationText', 'safe'),
-            array('address_id','exist','className'=>'Address','attributeName'=>'id'),
+            array('address_id', 'exist', 'className' => 'Address', 'attributeName' => 'id'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, title, description, price, user_id, image, create_date', 'safe', 'on' => 'search'),
@@ -76,7 +76,7 @@ class Product extends CActiveRecord
         return array(
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
             'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
-            'address'=>array(self::BELONGS_TO,'Address','address_id'),
+            'address' => array(self::BELONGS_TO, 'Address', 'address_id'),
         );
     }
 
@@ -98,7 +98,7 @@ class Product extends CActiveRecord
             'locationText' => 'Địa chỉ',
             'city' => 'Thành phố',
             'category_id' => 'Danh mục',
-            'address_id'=>'Địa chỉ bán hàng'
+            'address_id' => 'Địa chỉ bán hàng'
         );
     }
 
@@ -134,7 +134,8 @@ class Product extends CActiveRecord
             $this->create_date = date('Y-m-d H:i:s');
             $this->view = 0;
         }
-        if($this->address!=null){
+        if ($this->address != null)
+        {
             $this->locationText = $this->address->address;
             $this->phone = $this->address->phone;
             $this->city = $this->address->city;
@@ -207,14 +208,26 @@ class Product extends CActiveRecord
         return round(DistanceUtil::calculate($this->lat, $this->lon, $lat, $lon), 3);
     }
 
-    public function getDetailUrl()
+    public function getDetailUrl($absolute = false)
     {
-        return Yii::app()->controller->createUrl(
-                        '/product/details', array(
-                    'id' => $this->id,
-                    'title' => StringUtil::makeSlug($this->title)
-                        )
-        );
+        if ($absolute)
+        {
+            return Yii::app()->controller->createAbsoluteUrl(
+                            '/product/details', array(
+                        'id' => $this->id,
+                        'title' => StringUtil::makeSlug($this->title)
+                            )
+            );
+        }
+        else
+        {
+            return Yii::app()->controller->createUrl(
+                            '/product/details', array(
+                        'id' => $this->id,
+                        'title' => StringUtil::makeSlug($this->title)
+                            )
+            );
+        }
     }
 
     public function getAbsoluteDetailUrl()

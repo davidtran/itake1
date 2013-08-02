@@ -131,8 +131,7 @@ class FacebookUtil
 
     public function shareProductToFacebook(Product $product, $accessToken = null)
     {
-        $args = array();
-        //$args['url'] = Yii::app()->getBaseUrl(true) . '/' . $product->image;
+        $args = array();   
         $args['picture'] = '@'.realpath($product->image);
         if ($accessToken != null)
         {
@@ -144,14 +143,14 @@ class FacebookUtil
     }
 
     protected function makePostDescription(Product $product)
-    {
-     
+    {     
         $html = "[".CityUtil::getCityName($product->city)."] [{$product->category->name}]
                 $product->title - ". number_format($product->price, 0). " VNĐ
                  
                 $product->description
                 
-                Liên hệ: {$product->user->username} - $product->phone";               
+                Liên hệ: {$product->user->username} - $product->phone
+               ".$product->getDetailUrl(true);               
         return $html;
     }
     
