@@ -8,7 +8,7 @@
         
        <!--  <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'/>        
         <link href='http://fonts.googleapis.com/css?family=Roboto:700,700italic,900,500italic,500,400,400italic' rel='stylesheet' type='text/css'/> -->
-                
+                <link rel="shortcut icon" type="image/x-icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico"/>
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/font.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" />
         
