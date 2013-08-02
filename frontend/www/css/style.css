@@ -818,7 +818,8 @@ div#listCategory small{
     padding-top:10px;
     line-height: 20px;
     padding-left: 10px;
-    color: #194675;    
+    color: #000;    
+    font-size: 1.0em;
 }
 div#listCategory span.label i{
     line-height: 30px;
