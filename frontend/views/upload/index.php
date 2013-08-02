@@ -128,8 +128,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
 
                                 </div>
                             </div>  
-                                <div class="row-fluid">
-                                <hr/>                
+                                <div class="row-fluid">                                
                                 <?php                   
                                     $submitText = $product->isNewRecord ? 'Đăng tin': 'Cập nhật';
                                     echo CHtml::submitButton($submitText, array(
