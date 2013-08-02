@@ -190,6 +190,8 @@ HERE
     }
     public static function getContactInfo(){
         $user =  Yii::app()->user->model;
+        if($user==null)
+            return null;
         return array(
             'phone'=>$user->phone,
             'lon'=>$user->lon,
