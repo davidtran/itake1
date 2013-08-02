@@ -33,7 +33,7 @@ class UserController extends Controller
 
     public function actionLogin()
     {
-        $loginForm = new LoginForm();        
+        $loginForm = new LoginForm();            
         if (isset($_POST['LoginForm']))
         {
             $loginForm->username = $_POST['LoginForm']['username'];
@@ -51,7 +51,7 @@ class UserController extends Controller
         }
         $this->render('login', array(
             'model' => $loginForm,
-            
+            'returnUrl'=>$this->returnUrl,
         ));
     }
 
