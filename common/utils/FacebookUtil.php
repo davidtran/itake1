@@ -130,26 +130,33 @@ class FacebookUtil
         $args = array();        
         $args['picture'] = '@'.realpath($product->image_thumbnail);
         if($accessToken!=null){
-            $args['access_token'] = $accessToken;
-            $desc = $this->makePostDescription($product);
-           $args['caption'] = $desc;
-            
+            $args['access_token'] = $accessToken;                      
         }        
+          $desc = $this->makePostDescription($product);
+           $args['caption'] = $desc;
         $data= Yii::app()->facebook->api('/me/photos?message='.  urlencode($desc), 'POST', $args);
         var_dump($data);
     }
     
     protected function makePostDescription(Product $product){
-        $html = '['.CityUtil::getCityName($product->city).'] [Cần bán]'.self::FB_LINE_BREAK;
-        $html .= "Tên sản phẩm- $product->title".self::FB_LINE_BREAK;
-        $html .= "Giá- ".number_format($product->price,0).' VNĐ'.self::FB_LINE_BREAK;
-        $html .= "Người bán- ".$product->user->username.self::FB_LINE_BREAK;
-        $html .= "Số điện thoại- ".$product->phone.self::FB_LINE_BREAK;
-        $html .= $product->description.self::FB_LINE_BREAK;
-        $html .= self::FB_LINE_BREAK;
+        // $html = '['.CityUtil::getCityName($product->city).'] [Cần bán]'.self::FB_LINE_BREAK;
+        // $html .= "Tên sản phẩm- $product->title".self::FB_LINE_BREAK;
+        // $html .= "Giá- ".number_format($product->price,0).' VNĐ'.self::FB_LINE_BREAK;
+        // $html .= "Người bán- ".$product->user->username.self::FB_LINE_BREAK;
+        // $html .= "Số điện thoại- ".$product->phone.self::FB_LINE_BREAK;
+        // $html .= $product->description.self::FB_LINE_BREAK;
+        // $html .= self::FB_LINE_BREAK;
+        $html="
+            Bạn ".$product->user->username."
+            Tại ".CityUtil::getCityName($product->city)."
+            Cấn bán ".$product->title."
+            Với giá ".number_format($product->price,0)."
+            Bạn nào có nhu cầu liên hệ số điện thoại ".$product->phone."
+            ".$product->description."
+        ";
         
-        $html = $this->fbLinkDescriptionNewLines($html);
-        echo $html;
+        //$html = $this->fbLinkDescriptionNewLines($html);
+        //echo $html;
         return $html;
     }
     
