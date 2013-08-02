@@ -127,26 +127,27 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                     </div>
 
                                 </div>
-                            </div>                                
+                            </div>  
+                                <div class="row-fluid">
+                                <hr/>                
+                                <?php                   
+                                    $submitText = $product->isNewRecord ? 'Đăng tin': 'Cập nhật';
+                                    echo CHtml::submitButton($submitText, array(
+                                        'id' => 'btnFinishStep2',
+                                        'encode'=>false,
+                                        'class' => 'btn btn-success pull-right btn-large flat',
+                                        'data-loading-text' => 'Đang gửi...',    
+                                        'style'=>"margin-top:20px;"                     
+                                    ));
+                                  
+                                ?>
+                              
+                                </div>                              
                         </div>                          
                     </div>                           
                 </div>    
                
-            </div>                       
-                <div class="row-fluid">
-                <hr/>                
-                <?php                   
-                    $submitText = $product->isNewRecord ? 'Đăng tin': 'Cập nhật';
-                    echo CHtml::submitButton($submitText, array(
-                        'id' => 'btnFinishStep2',
-                        'encode'=>false,
-                        'class' => 'btn btn-success pull-right btn-large flat',
-                        'data-loading-text' => 'Đang gửi...',                         
-                    ));
-                  
-                ?>
-              
-                </div>
+            </div>                                      
                 <?php $this->endWidget(); ?>
         </div>        
     </div>
