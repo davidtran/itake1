@@ -25,10 +25,10 @@
                             'title'=>'Sửa thông tin sản phẩm',                            
                         ));?>
                         
-                        <?php echo CHtml::link('<i class="icon-remove"></i> Xóa ',array('/upload/delete'),array(
+                        <?php echo CHtml::link('<i class="icon-remove"></i> Đã bán ',array('/upload/delete'),array(
                             'class'=>'btn flat  p-delete',
                             'data-toggle'=>'tooltip',
-                            'title'=>'Xóa sản phẩm này',
+                            'title'=>'Đã bán phẩm này',
                         )); ?>
                        
                         <script>
