@@ -81,8 +81,7 @@
                         <ul>                                                        
                             <li class="first"><a href="<?php echo Yii::app()->createUrl('site/index') ?>"><b style="color:#194675"><i class="icon-desktop"></i>   PHIÊN BẢN THỬ NGHIỆM</a></b></li>
                             <li class="first" ><a href="<?php echo Yii::app()->createUrl('site/introduction') ?>">GIỚI THIỆU</a></li>
-                            <li ><a href="<?php echo Yii::app()->createUrl('site/terms') ?>">ĐIỀU KHOẢN</a></li>       
-                            <li ><a>PHẢN HỒI</a></li>                                                     
+                            <li ><a href="<?php echo Yii::app()->createUrl('site/terms') ?>">ĐIỀU KHOẢN</a></li>                                                                           
                             <li><a href="<?php echo Yii::app()->createUrl('site/index') ?>">© <?php echo date('Y') ?> ITAKE.ME</a></li>
                         </ul>
                     </div>                   
