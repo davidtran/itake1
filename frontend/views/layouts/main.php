@@ -28,6 +28,7 @@
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.slimscroll.min.js', CClientScript::POS_HEAD);        
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.history.js', CClientScript::POS_HEAD);       
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/common.js', CClientScript::POS_HEAD);
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/feedback.js', CClientScript::POS_HEAD);
         ?>
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-combined.no-icons.min.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/font-awesome.min.css" />
@@ -46,7 +47,9 @@
     <body class="ostyle">                        
         <div class="page-container">            
             <div class="container-fluid" >
+                
                 <?php echo $content ?>
+                
             </div>  
         </div>
         <div id="fb-root"></div>

@@ -51,6 +51,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                     <div class="rb-form-part" style="text-align:center;margin-top:15%;">                          
                                         <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>                                        
                                         <div class="fileupload fileupload-new" data-provides="fileupload">
+                                            <?php echo $form->error($product,'image'); ?>
                                             <div class="fileupload-new thumbnail" style="max-width: 200px; max-height: 200px;">
                                                 <?php if ($product->image == null): ?>
                                                     <img src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP"  style="max-width: 200px; max-height: 200px;"/>
@@ -61,7 +62,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                                     ));
                                                     ?>
                                                 <?php endif; ?>
-                                                <?php echo $form->error($product,'image'); ?>
+                                                
                                             </div>
                                             <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 200px; line-height: 20px;"></div>
                                             <div>
@@ -85,7 +86,8 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         <?php //echo $form->textFieldRow($product, 'phone'); ?>
                                         <?php echo $form->textAreaRow($product, 'description'); ?>                                       
                                         <?php echo $form->hiddenField($product,'address_id'); ?>
-                                        <?php echo CHtml::link('<i class="icon-map-marker"></i>  Chọn địa chỉ liên hệ','#',array(
+                                        <br/>
+                                        <?php echo CHtml::link('<i class="icon-map-marker"></i>  Thêm địa chỉ liên hệ','#',array(
                                             'class'=>'btnAddressDialog flat btn btn-warning',
                                         )); ?>  
                                          <?php echo $form->error($product,'address_id'); ?>
@@ -104,7 +106,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                 <div class="row-fluid">
                                     <div class="product-detail">
                                         <div class="productImageLink fileupload" data-provides="fileupload">
-                                            <a target="_blank" href="#" class="productLink" title="Laptop think pad">
+                                            <a target="_blank" href="#" class="productLink" title="">
                                                 <?php if($product->image == null):?>
                                                     <img class="productImage" src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP">                                                         
                                                 <?php else:?>
