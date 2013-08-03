@@ -49,7 +49,7 @@ class MessageController extends Controller
         $userId = Yii::app()->user->id;
 		$messageList = new MessageList($userId);
         $messageList->unread = true;
-        $dataProvider = $messageList->getMessageList($page);
+        $list = $messageList->getMessageList($page);
         
         
         echo $this->renderPartial('partial/list',array(
