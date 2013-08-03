@@ -103,7 +103,8 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" style="border-radius: 0px;">
-                                            <li><?php echo CHtml::link('Trang cá nhân',Yii::app()->user->model->getUserProfileUrl()); ?></li>                                    
+                                            <li><?php echo CHtml::link('Trang cá nhân',Yii::app()->user->model->getUserProfileUrl()); ?></li>
+                                            <li><?php echo CHtml::link('Đổi mật khẩu',$this->createUrl('/user/changePassword')); ?></li>                                    
                                             <li><a href="<?php echo $this->createUrl('/user/logout'); ?>">Đăng xuất</a></li>
                                         </ul>
                                     </div>

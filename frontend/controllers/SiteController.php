@@ -241,8 +241,11 @@ class SiteController extends Controller
     {
         $this->render('detail_view');
     }
-    public function actionTerm(){
+    public function actionTerms(){
         $this->render('pages/term');
     }
-
+    public function actionIntroduction(){
+        $this->layout = '//layouts/noMenu';
+        $this->render('pages/intro');
+    }
 }
