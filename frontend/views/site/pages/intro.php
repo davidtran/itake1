@@ -11,9 +11,9 @@ $this->breadcrumbs=array(
 		<div class="span6 center">
 			<img src="<?php echo Yii::app()->baseUrl.'/images/intro_1.png'; ?>">
 		</div>
-		<div class="span6" style="margin-top:54px;">
+		<div class="span6" style="margin-top:44px;">
 			<h2 class="center">ITAKE.ME ! Thật dễ dàng khi tiếp thị sản phẩm</h2>
-			<div class="row center" style="margin-top:10px;">
+			<div class="row center" style="margin-top:40px;">
 				<a class="btn btn-success btn-large wide" href="<?php echo Yii::app()->createUrl('user/register') ?>">Đăng ký</a>
 			</div>		
 			<div class="row center" style="margin-top:10px;">
