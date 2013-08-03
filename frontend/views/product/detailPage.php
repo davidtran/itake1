@@ -40,7 +40,7 @@ $this->metaKeywords = str_replace(' ',',',  strtolower(preg_replace('/[^0-9a-z\s
                                 <div class="row-fluid" style="margin-top: 20px;">
                                     <div class="fb-like" data-href="<?php echo $canonicalUrl; ?>" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
                                      <br/>
-                                     <span class="badge" style="margin-bottom:10px;"><?php echo $product->view; ?>lượt xem</span>
+                                     <span class="badge" style="margin-bottom:10px;"><?php echo $product->view; ?> lượt xem</span>
                                 </div>                                   
                             </div>
                             <div class="span6 custom">
