@@ -10,3 +10,27 @@
 -moz-box-shadow: 0px 0px 1px 0 #000;
 box-shadow: 0px 0px 1px 0 #000;
 }
+.intro-sep{
+	border-bottom:dashed 1px #ccc;padding-bottom:30px;margin-bottom:30px;
+}
+.intro-sep.last{
+	border-bottom:none;padding-bottom:20px;margin-bottom:20px;	
+}
+.intro-sep h2{
+	color:#33536d;
+	font-family: "MNBTitleBold";
+    font-weight: 300;
+}
+.intro-sep small{
+	font-family: "Segoe UI Light",Arial,Helvetica,sans-serif;
+	font-size: 1.1em;
+	color:#748796;
+}
+.btn-large.wide{
+	min-width: 170px;
+	min-height: 30px;
+	line-height: 30px;
+}
+.center{
+	text-align: center;
+}
