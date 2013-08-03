@@ -68,10 +68,10 @@ class Feedback extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'username' => 'Username',
+			'username' => 'Tên',
 			'email' => 'Email',
 			'url' => 'Url',
-			'message' => 'Message',
+			'message' => 'Nội dung phản hồi',
 			'create_date' => 'Create Date',
 		);
 	}

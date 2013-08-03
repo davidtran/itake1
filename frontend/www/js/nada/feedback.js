@@ -19,7 +19,12 @@ var FeedbackForm = {
                     if(data.success){
                         FeedbackForm.dialog = $(data.msg.html);
                         $('body').append(FeedbackForm.dialog);
-                        FeedbackForm.dialog.modal('show');
+                        $('#scrollUp').hide();
+                        $('#btnShowFeedbackDialog').hide();;
+                        FeedbackForm.dialog.modal('show');  
+                        FeedbackForm.dialog.on('hide',function() {                       
+                             $('#btnShowFeedbackDialog').show();
+                        });
                     }
                 }
             });

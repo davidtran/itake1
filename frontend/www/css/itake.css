@@ -34,3 +34,18 @@ box-shadow: 0px 0px 1px 0 #000;
 .center{
 	text-align: center;
 }
+#feedbackForm input,#feedbackForm textarea{	
+	width: 95%;
+}
+#feedbackForm textarea{
+	min-height: 150px;
+	max-height: 150px;
+}
+#btnShowFeedbackDialog{
+	position: fixed;
+	right: 0;
+	bottom: 100px;
+	z-index: 9999;
+	border-bottom-left-radius: 10px;
+	border-top-left-radius: 10px;
+}
