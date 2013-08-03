@@ -64,6 +64,7 @@ function decode_utf8(s) {
 function loadProduct(href, htmlProductId)
 {
     $('#scrollUp').hide();
+    $('#btnShowFeedbackDialog').hide();
     //where 1: home 2: user product 3:relateProduct    
     currentHref = href;
     isLoadingNew = true;
@@ -137,7 +138,8 @@ function loadProduct(href, htmlProductId)
                          }, 200); 
                     });                                               
                 });
-                $dialog.on('hidden', function(e) {     
+                $dialog.on('hidden', function(e) {  
+                    $('#btnShowFeedbackDialog').show();   
                     $(".zoomContainer").remove();                           
                     $('#special').hide();
                     $dialog.find('#productDialogBody').empty();

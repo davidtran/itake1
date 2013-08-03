@@ -66,12 +66,14 @@ class Feedback extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(			
-			'username' => 'Tên của bạn',
+
+		return array(
+			'id' => 'ID',
+			'username' => 'Tên',
 			'email' => 'Email',
-			'url' => 'Link đang xem',
-			'message' => 'Nội dung',
-			'create_date' => 'Ngày tạo',
+			'url' => 'Url',
+			'message' => 'Nội dung phản hồi',
+			'create_date' => 'Create Date',
 		);
 	}
 

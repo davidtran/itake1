@@ -3,7 +3,7 @@
 
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Gửi phản hồi</h3>
+    <h3 id="myModalLabel"><i class="icon-comments-alt"></i>    Gửi phản hồi</h3>
   </div>
         <div class="modal-body">            
             <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm',array(

@@ -8,8 +8,7 @@
     <div class="frmSearch_wrapper">                          
         <div class="frmSearch">     
             <div class="locations hidden-phone">               
-        <div class="btn-group">          
-            <?php $this->renderPartial('/feedback/partial/showFeedbackButton'); ?>
+        <div class="btn-group">                      
             <Button class="btn dropdown-toggle" data-toggle="dropdown">                                    <i class="icon-map-marker"></i>
                 <?php 
                 $selectCityId = CityUtil::getSelectedCityId();
@@ -121,3 +120,4 @@
                 <?php echo $content; ?>
 
                 <?php $this->endContent(); ?>
+                <?php $this->renderPartial('/feedback/partial/showFeedbackButton'); ?>
