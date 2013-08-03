@@ -3,7 +3,7 @@ $this->pageTitle = 'Đổi mật khẩu tài khoản tại ListenToMe.vn';
 //$this->showHeader = false;
 ?>
 
-<div class="container more-space">
+<div class="container more-space" style="margin-top:54px;">
     <?php 
 
     $this->widget('bootstrap.widgets.TbAlert', array(
@@ -41,7 +41,7 @@ $this->pageTitle = 'Đổi mật khẩu tài khoản tại ListenToMe.vn';
         )); ?>
       
         
-        <button class="btn btn-primary" type="submit">Đổi mật khẩu</button>
+        <button class="btn btn-primary btn-large pull-right" type="submit">Đổi mật khẩu</button>
         
      <?php $this->endWidget(); ?> 
 
