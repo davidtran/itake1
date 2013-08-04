@@ -136,7 +136,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                     echo CHtml::submitButton($submitText, array(
                                         'id' => 'btnFinishStep2',
                                         'encode'=>false,
-                                        'class' => 'btn btn-success pull-right btn-large flat',
+                                        'class' => 'btn btn-success pull-left btn-large flat',
                                         'data-loading-text' => 'Đang gửi...',    
                                         'style'=>"margin-top:20px;"                     
                                     ));

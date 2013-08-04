@@ -51,11 +51,14 @@ $(document).ready(function() {
             
         }, 
         function(newItems) {
-            $('#productContainer').isotope('appended', $(newItems));
-            setTimeout(function() {
-                $('#productContainer').isotope('reLayout');
+            $('#productContainer').isotope('appended', $(newItems));      
+            $container.imagesLoaded(function(){                
+                $('#productContainer').isotope('reLayout');            
+            });      
+            // setTimeout(function() {
+            //     $('#productContainer').isotope('reLayout');
               
-            }, 500);
+            // }, 500);
         }
     );
 });
