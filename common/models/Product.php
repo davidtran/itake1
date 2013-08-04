@@ -145,6 +145,13 @@ class Product extends CActiveRecord
         $this->price = intval(StringUtil::removeSpecialCharacter($this->price));
         return parent::beforeValidate();
     }
+    
+    public function beforeSave()
+    {
+        $this->title = filter_var($this->title,FILTER_SANITIZE_SPECIAL_CHARS);
+        $this->description = filter_var($this->description,FILTER_SANITIZE_SPECIAL_CHARS);                
+        return parent::beforeSave();
+    }
 
     public function saveImageFromForm()
     {

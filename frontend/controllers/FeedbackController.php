@@ -15,7 +15,7 @@ class FeedbackController extends Controller{
     public function actionSend(){
         $feedback = new Feedback();
         if(Yii::app()->user->isGuest == false){
-            $feedback->user_id = Yii::ap()->user->getId();
+            $feedback->user_id = Yii::app()->user->getId();
         }
         if(isset($_POST['Feedback'])){
             $feedback->attributes = $_POST['Feedback'];

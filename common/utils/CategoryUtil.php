@@ -13,7 +13,9 @@
 class CategoryUtil
 {
     public static function getCategoryList(){
-        return Category::model()->findAll();
+        return Category::model()->findAll(array(
+            'order'=>'sort asc'
+        ));
     }        
 }
 
