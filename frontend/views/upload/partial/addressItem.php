@@ -8,12 +8,12 @@
     <div class="span6" style="padding:5px;">
          <a class="close btnDeleteAddress" data-address-id="<?php echo $address->id; ?>" href="#">&times;</a>
             <input type='radio' name='address-item' class='radio-address-item' value='<?php echo $address->id; ?>'/>
-            <?php echo $address->phone; ?><br/>            
+            <?php echo '<i class="icon-phone-sign"></i>  '.$address->phone; ?><br/>            
             <?php if(trim($address->address)!=''):?>
                 <?php echo $address->address; ?>
                 <br/>                
             <?php endif; ?>
-             <?php echo CityUtil::getCityName($address->city); ?> 
+             <?php echo '   &nbsp;&nbsp;&nbsp;&nbsp;  <i class="icon-map-marker"></i>  '.CityUtil::getCityName($address->city); ?> 
     </div>    
     </div>
 </div>
