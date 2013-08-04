@@ -117,7 +117,7 @@ $(function() {
 
 function getProductTitle(link){
     var arrStr = link.split('/',20);
-    return arrStr[arrStr.length-1];
+    return arrStr[arrStr.length-1].replace('.html','');
 }
 
 function getUrlQuery(href, qr)

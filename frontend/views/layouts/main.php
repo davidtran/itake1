@@ -38,7 +38,7 @@
         <![endif]-->
         <?php
         Yii::app()->controller->widget('ext.seo.widgets.SeoHead', array(
-            'defaultDescription' => 'iTake.me - Take the favorite. Chợ mua bán những sản phẩm nhanh trên smartphone',
+            'defaultDescription' => 'iTake.me - Thật dễ dàng khi tiếp thị sản phẩm. Chợ mua bán những sản phẩm nhanh trên smartphone',
             'defaultKeywords' => 'rao vặt trên smartphone, chợ trực tuyến, ô tô, xe máy, nhà đất, căn hộ, điện thoại, thiết bị điện tử'
         ));
         ?>        

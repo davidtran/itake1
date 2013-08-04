@@ -29,7 +29,7 @@ $this->metaKeywords = str_replace(' ', ',', strtolower(preg_replace('/[^0-9a-z\s
                                 ),
                             ));
                             ?>
-                            <h1> <?php echo StringUtil::limitCharacter(strtoupper($product->title), 35); ?></h1>
+                            <h1> <?php echo StringUtil::limitCharacter(strtoupper($product->title), 100); ?></h1>
                             <div class="row-fluid">                            
                                 <div class="span6">
                                     <div class="row-fluid">
