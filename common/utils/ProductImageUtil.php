@@ -28,7 +28,7 @@ class ProductImageUtil{
             //background height = 30% height of main picture
             $background = WideImage::load('images/background.png');            
             $backgroundHeight = $height*25/100;
-            $image = $image->merge($background, 0, $height - $backgroundHeight, 60);
+            $image = $image->merge($background, 0, $height - $backgroundHeight, 50);
             $canvas = $image->getCanvas();
             
             //draw product info

@@ -144,12 +144,12 @@ class FacebookUtil
 
     protected function makePostDescription(Product $product)
     {     
-        $html = "[".CityUtil::getCityName($product->city)."] [{$product->category->name}]
-                $product->title - ". number_format($product->price, 0). " VNĐ
-                 
-                $product->description
-                
-                Liên hệ: {$product->user->username} - $product->phone
+        
+        if($product->locationText != ''){
+            $address = $product->locationText. ',';
+        }
+        $address .= CityUtil::getCityName($product->city);
+        $html ="$product->description                                                
                ".$product->getDetailUrl(true);               
         return $html;
     }
