@@ -146,8 +146,8 @@ class Product extends CActiveRecord
     
     public function beforeSave()
     {
-        $this->title = filter_var($this->title,FILTER_SANITIZE_SPECIAL_CHARS);
-        $this->description = filter_var($this->description,FILTER_SANITIZE_SPECIAL_CHARS);                
+        $this->title = filter_var($this->title,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $this->description = filter_var($this->description,FILTER_SANITIZE_FULL_SPECIAL_CHARS);                
         return parent::beforeSave();
     }
 
