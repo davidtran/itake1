@@ -1,3 +1,9 @@
+<?php
+/* @var $this SiteController */
+/* @var $error array */
+
+$this->pageTitle=Yii::app()->name . ' - Chợ rao vặt trên internet,rao vặt trên smartphone, chợ trực tuyến, ô tô, xe máy, nhà đất, căn hộ, điện thoại, thiết bị điện tử';
+?>
 <?php 
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/masonry.pkgd.min.js',CClientScript::POS_HEAD);
 

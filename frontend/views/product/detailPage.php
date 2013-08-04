@@ -8,10 +8,12 @@ $this->addMetaProperty('og:image',$product->image);
 $this->metaDescription = StringUtil::limitByWord($product->description, 100);
 $this->metaKeywords = str_replace(' ',',',  strtolower(preg_replace('/[^0-9a-z\s]/', '', $product->title)));
 ?>
-<div class="modal-scrollable" style="z-index: 1;margin-top: 50px;">
-    <div class="close_tag" style="top:50px;"> <a style="padding:20px;" class="close"  href="../../"><i class="icon-home"></i></a></div>
-    <div id="productDialog" class="span9 modal hide fade modal-overflow in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: block; margin-top: 0px;">                    
-        <div class="modal-body"  id="productDialogBody" style="">            
+
+<div class="container-fluid" style="margin-top: 64px;">
+    <div class="close_tag" style="top:45px;"> <a style="padding:20px;" class="close"  href="../../"><i class="icon-home"></i></a></div>
+    <div id="detailProduct"style="display: block; margin-top: 0px;">                    
+        <div id="detailProductBody" style="">
+          
             <div class="row-fluid">            
                 <div class="productInfo">
                     <div class='span12 custom customtop' id="mainProductInfo">

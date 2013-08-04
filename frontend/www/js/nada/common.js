@@ -56,8 +56,9 @@ $(window).resize(function() {
 $(document).ready(function() {
     if(!isIE)
     {
-        itakeHistoryHandler.init();
-        History.pushState({}, document.title, itakeHistoryHandler.pageContextUrl);
+        itakeHistoryHandler.init();        
+        itakeHistoryHandler.pageContextTitle = document.title;
+        History.pushState({}, itakeHistoryHandler.pageContextTitle, itakeHistoryHandler.pageContextUrl);
     }
       // Create the measurement node
     var scrollDiv = document.createElement("div");

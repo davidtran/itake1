@@ -22,7 +22,7 @@ return CMap::mergeArray(
             'basePath' => 'frontend',
             'params' => $params,
             'preload' => array('log', 'bootstrap'),
-            'language' => 'vi',
+            'language' => 'vi',            
             'import' => array(
                 'common.components.*',
                 'common.extensions.*',
@@ -64,16 +64,19 @@ return CMap::mergeArray(
                     'urlFormat' => 'path',
                     'showScriptName' => false,
                     'caseSensitive' => false,
+                    'urlSuffix'=>'.html',
                     'rules' => array(
                         'post/<id:\d+>/<title:.*?>' => '/product/details',
                         'register' => 'user/register',
                         'login' => 'user/login',
                         'category/<category:\d+>/<name:.*?>' => '/site/category',
                         'city/<id:\d+>/<name:.*?>' => 'site/city',
-                        'upload/<category:\d+>/<name:.*?>' => '/upload/index',
-                        'forget-password'=>'user/forgetPassword',
+                        'post-ad/<category:\d+>/<name:.*?>' => '/upload/uploadNew',
+                        'forgot-password'=>'user/forgetPassword',
                         'change-password'=>'user/changePassword',  
-                        
+                        'market/<action>'=>'site/<action>',
+                        'market'=>'site',                                                                
+                        'upload/<category:\d+>/<name:.*?>' => '/upload/index',                                            
                     ),
                 ),
                 'mail' => array(
