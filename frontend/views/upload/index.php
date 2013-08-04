@@ -42,7 +42,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                     )
                         ));
                 ?>
-                <?php //echo $form->errorSummary($product); ?>       
+                <?php echo $form->errorSummary($product); ?>       
                 <div id="uploadStep1">
                     <div class="row-fluid">
                         <div class="span8">                                
