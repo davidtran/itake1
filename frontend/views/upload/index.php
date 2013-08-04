@@ -74,7 +74,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                                 <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Xóa</a>                                                                
                                             </div>
                                             <div class="alert alert-info" style="text-align: justify;background:transparent;border:none;max-width:180px;margin:0 auto;">
-                                                <b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn <?php echo Yii::app()->params['image.minWidth']; ?>px và bề cao ảnh phải lớn hơn <?php echo Yii::app()->params['image.minHeight']; ?>px
+                                                <b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn <?php echo Yii::app()->params['image.minWidth']; ?>pxs và bề cao ảnh phải lớn hơn <?php echo Yii::app()->params['image.minHeight']; ?>pxs
                                             </div>
                                         </div>                                    
                                     </div>
@@ -90,6 +90,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         <?php echo $form->textAreaRow($product, 'description'); ?>                                       
                                         <?php echo $form->hiddenField($product,'address_id'); ?>
                                         <br/>
+                                        <div class="row-fluid" style="margin-bottom:-10px;">
+                                            <p class="alert alert-info">Thêm hoặc chọn 1 địa chỉ bên dưới nếu có</p>
+                                        </div>
                                         <?php echo CHtml::link('<i class="icon-map-marker"></i>  Thêm địa chỉ liên hệ','#',array(
                                             'class'=>'btnAddressDialog flat btn btn-warning',
                                         )); ?>  
@@ -104,7 +107,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                 </div>
                             </div>                           
                         </div>
-                        <div class="span4" style="border-left: dashed 1px #ccc;min-width: 250px;">                             
+                        <div class="span3 pull-right" style="border-left: dashed 1px #ccc;min-width: 250px;">                             
                             <div class="productItem <?php echo $product->category->getStyleName(); ?>" style="width: 80%;float:right;">
                                 <div class="row-fluid">
                                     <div class="product-detail">
@@ -141,7 +144,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         'encode'=>false,
                                         'class' => 'btn btn-success pull-left btn-large flat',
                                         'data-loading-text' => 'Đang gửi...',    
-                                        'style'=>"margin-top:20px;"                     
+                                        'style'=>"margin-top:20px;margin-left:10px;"                     
                                     ));
                                   
                                 ?>
