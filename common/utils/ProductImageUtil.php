@@ -34,11 +34,11 @@ class ProductImageUtil{
             //draw product info
             $canvas->useFont('font/mnbtitlefont.ttf', 35, $image->allocateColor(255, 255, 255));
             $canvas->writeText(30, $height - 140, strtoupper($product->title));
-            $price = intval($product->price);
-            $priceText = number_format($price, 0) . ' VNĐ';
+            
+            $priceText = $product->price . ' VNĐ';
             $canvas->useFont('font/mnbtitlefont.ttf', 20, $image->allocateColor(255, 255, 255));
             $canvas->writeText(30, $height - 85, $priceText);
-            $canvas->writeText(30, $height - 50, 'Liên hệ: ' . $product->phone);
+            $canvas->writeText(30, $height - 50, 'Liên hệ: ' . $product->user->username.' - '.$product->address->phone);
             return $image->saveToFile($dest);
         }        
         return false;

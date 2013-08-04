@@ -55,9 +55,7 @@ class Product extends CActiveRecord
             array('title, description,address_id,price, city,category_id', 'required'),
             array('address_id, view,price,category_id,city', 'numerical', 'integerOnly' => true),
             array('title', 'length', 'max' => 50),
-            array('description', 'length', 'max' => 500),
-            array('phone', 'length', 'max' => 11),
-            array('phone', 'numerical'),
+            array('description', 'length', 'max' => 500),         
             array('phone,lat,lon,locationText', 'safe'),
             array('address_id', 'exist', 'className' => 'Address', 'attributeName' => 'id'),
             // The following rule is used by search().

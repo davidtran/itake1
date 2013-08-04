@@ -39,8 +39,7 @@ class Address extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('city,phone, lat, lon', 'required'),
-			array('city', 'numerical', 'integerOnly'=>true),
+			array('city,phone, lat, lon', 'required'),		
 			array('lat, lon', 'numerical'),
             array('phone','length','max'=>20),
 			array('address', 'length', 'max'=>200),
@@ -102,9 +101,7 @@ class Address extends CActiveRecord
     
     public function beforeValidate()
     {
-        $this->address = filter_var($this->address,FILTER_SANITIZE_ENCODED);
-        $this->lat = filter_var($this->lat,FILTER_SANITIZE_NUMBER_FLOAT);
-        $this->lon = filter_var($this->lon,FILTER_SANITIZE_NUMBER_FLOAT);
+        $this->address = filter_var($this->address,FILTER_SANITIZE_STRIPPED);    
         return parent::beforeValidate();
     }
 }

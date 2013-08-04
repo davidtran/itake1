@@ -132,7 +132,7 @@ class FacebookUtil
     public function shareProductToFacebook(Product $product, $accessToken = null)
     {
         $args = array();   
-        $args['picture'] = '@'.realpath($product->image);
+        $args['picture'] = '@'.realpath($product->processed_image);
         if ($accessToken != null)
         {
             $args['access_token'] = $accessToken;

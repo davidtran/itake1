@@ -56,8 +56,9 @@ var UploadAddress = {
             e.preventDefault();
             UploadAddress.saveAddress(function(msg) {
                 UploadAddress.addressList.prepend(msg.html);
-                UploadAddress.addressList.find('.radio-address-item:eq(0)').attr('checked',true);
+                UploadAddress.addressList.find('.radio-address-item:eq(0)').click();
                 UploadAddress.addAddressDialog.modal('hide');
+                
             },function(msg){
                 bootbox.alert(msg);
             });
@@ -139,10 +140,14 @@ var UploadAddress = {
             console.log(e.keycode);
             if (e.keyCode == 13) {
                 e.preventDefault();
-                MapUtils.searchMapByAddress(UploadAddress.addressField.val(),function(lat,lon){
-                    UploadAddress.setFormLatLon(lat,lon);
-                    UploadAddress.map = MapUtils.addMap(UploadAddress.map,lat,lon);                  
-                });
+                var address = UploadAddress.addressField.val() + ',' + $('#Address_city option:selected').text();
+                MapUtils.searchMapByAddress(
+                        address,
+                        function(lat,lon){
+                            UploadAddress.setFormLatLon(lat,lon);
+                            UploadAddress.map = MapUtils.addMap(UploadAddress.map,lat,lon);                  
+                        }
+                    );
                 return false;
             }
         });
