@@ -96,8 +96,8 @@ function loadProduct(href, htmlProductId)
                     return;
                 }
                 $dialog.attr('data-item-id', htmlProductId);
-                $dialog.find('#productDialogBody').html('');
-                $dialog.find('#productDialogBody').html(utf8_decode(json.msg.html));
+                $('#productDialogBody').html('');
+                $('#productDialogBody').html(utf8_decode(json.msg.html));
                 $relateProductContainer = $('#relateProductList');
                 $side = $('#userProductList');
                 product = json.msg.product;
@@ -105,7 +105,8 @@ function loadProduct(href, htmlProductId)
 
                 loadUserProduct(product);
 
-                $('.modal-scrollable').scrollTop(0);
+                $('.modal-scrollable').scrollTop(0); // work only in modal
+                $('body').scrollTop(0); // work in single page
                 if ($dialog.css('display') == 'none') {
                     $dialog.modal({
                         show: true,
