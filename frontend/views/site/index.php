@@ -2,7 +2,7 @@
 /* @var $this SiteController */
 /* @var $error array */
 
-$this->pageTitle=Yii::app()->name . ' - Chợ rao vặt trên internet,rao vặt trên smartphone, chợ trực tuyến, ô tô, xe máy, nhà đất, căn hộ, điện thoại, thiết bị điện tử';
+$this->pageTitle=Yii::app()->name . ' - Thật dễ dàng khi tiếp thị sản phẩm - Chợ rao vặt trên web, rao vặt trên smartphone, chợ trực tuyến, ô tô, xe máy, nhà đất, căn hộ, điện thoại, thiết bị điện tử';
 ?>
 <?php 
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/masonry.pkgd.min.js',CClientScript::POS_HEAD);
@@ -39,6 +39,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/produ
             </ul>
         </div>    
     <?php if($categoryModel!=null):?>
+    <?php $this->pageTitle = "Tin đăng rao vặt trên danh mục ".$categoryModel->name." trên ITAKE.ME" ?>
     <!--         <div class="selectedCategoryTab"> <h1>Danh mục: <?php echo $categoryModel->name; ?></h1></div>-->
     <script>
     $(function() {
