@@ -99,4 +99,12 @@ class Address extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+    
+    public function beforeValidate()
+    {
+        $this->address = filter_var($this->address,FILTER_SANITIZE_ENCODED);
+        $this->lat = filter_var($this->lat,FILTER_SANITIZE_NUMBER_FLOAT);
+        $this->lon = filter_var($this->lon,FILTER_SANITIZE_NUMBER_FLOAT);
+        return parent::beforeValidate();
+    }
 }

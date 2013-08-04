@@ -76,6 +76,7 @@ return CMap::mergeArray(
                         'change-password'=>'user/changePassword',  
                         'market/<action>'=>'site/<action>',
                         'market'=>'site',                                                                
+                        'upload/<category:\d+>/<name:.*?>' => '/upload/index',                                            
                     ),
                 ),
                 'mail' => array(

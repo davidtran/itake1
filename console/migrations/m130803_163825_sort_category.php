@@ -1,15 +1,15 @@
 <?php
 
-class m130803_023639_user_feedback extends CDbMigration
+class m130803_163825_sort_category extends CDbMigration
 {
 	public function up()
 	{
-        $this->addColumn('{{feedback}}', 'user_id', 'int');
+        $this->execute('ALTER TABLE  `mp_category` ADD  `sort` INT NOT NULL ;');
 	}
 
 	public function down()
 	{
-		$this->dropColumn('{{feedback}}', 'user_id');
+		$this->dropColumn('{{category}}', 'sort');
 	}
 
 	/*

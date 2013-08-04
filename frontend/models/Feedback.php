@@ -66,6 +66,7 @@ class Feedback extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
+
 		return array(
 			'id' => 'ID',
 			'username' => 'Tên',
@@ -102,9 +103,12 @@ class Feedback extends CActiveRecord
     public function beforeValidate()
     {
         if($this->isNewRecord){
-            $this->create_date = date('Y-m-d H:i:s');
-            
+            $this->create_date = date('Y-m-d H:i:s');            
         }
+        $this->message = filter_var($this->message,FILTER_SANITIZE_ENCODED);
+        $this->url = filter_var($this->url,FILTER_SANITIZE_URL);
+        $this->username = filter_var($this->username,FILTER_SANITIZE_STRIPPED);
+        $this->email = filter_var($this->email,FILTER_SANITIZE_EMAIL);        
         return parent::beforeValidate();
     }
 }

@@ -10,7 +10,14 @@ class UserController extends Controller
         return array(
             'seo'=>array(
                     'class'=>'frontend.extensions.seo.components.SeoControllerBehavior'
-                )
+            )
+        );
+    }
+    
+    public function filters()
+    {
+        return array(
+            array('frontend.components.ForceHttpsFilter + login,register,changePassword,forgetPassword')
         );
     }
     public function actions()
@@ -100,7 +107,8 @@ class UserController extends Controller
                         $loginForm->username = $user->email;
                         $loginForm->validate();
                         $loginForm->login();
-                        $this->redirectToReturnUrl();
+                        $siteUrl = $this->createUrl('/site/index');         
+                        $this->redirect($siteUrl);                
                     }
                 }
             }

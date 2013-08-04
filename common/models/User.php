@@ -191,6 +191,8 @@ class User extends CActiveRecord
     public function beforeValidate()
     {
         $oldModel = $this->findByPk($this->id);
+        $this->username = filter_var($this->username,FILTER_SANITIZE_STRIPPED);
+        $this->email = filter_var($this->email,FILTER_SANITIZE_EMAIL);        
         if ($this->isNewRecord)
         {
             $this->status = self::STATUS_ACTIVE;

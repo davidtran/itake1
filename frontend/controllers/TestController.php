@@ -83,6 +83,18 @@ Từng lời đắm say in đắm mãi trong tim từng phút giây';
         fwrite($f, $lines);
         fclose($f);
     }
+    
+    public function actionUpdateCategory(){
+        Yii::app()->db->createCommand("INSERT INTO  `itake`.`mp_category` (
+`id` ,
+`name` ,
+`description` ,
+`icon`
+)
+VALUES (
+NULL ,  'Hàng thủ công mỹ nghệ',  '',  'icon-gift'
+);")->query();
+    }
 }
 
 ?>
