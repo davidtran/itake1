@@ -77,12 +77,13 @@ class SolrSearchAdapter
 
     public function makeQuery()
     {
-
+        $keyword = null;
         if (trim($this->keyword) == ''){
-            return self::DEFAULT_KEYWORD;
+            $keyword = self::DEFAULT_KEYWORD;
+        }else{
+            $keyword = $this->keyword;
         }
-            
-        return $this->keyword.'*';
+        return strtolower($keyword);
     }
 
     protected function getOffset()

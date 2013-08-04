@@ -43,5 +43,7 @@ return array(
     
     'solr.port'=>'8983',
     'solr.host'=>'localhost',
-    'solr.indexPath'=>'/solr'
+    'solr.indexPath'=>'/solr',
+    
+    
 );
