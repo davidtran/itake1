@@ -61,6 +61,7 @@ return CMap::mergeArray(
                 ),
                 // uncomment the following to enable URLs in path-format
                 'urlManager' => array(
+                    'class'=>'frontend.components.UrlManager',
                     'urlFormat' => 'path',
                     'showScriptName' => false,
                     'caseSensitive' => false,
@@ -78,6 +79,9 @@ return CMap::mergeArray(
                         'market'=>'site',                                                                
                         'upload/<category:\d+>/<name:.*?>' => '/upload/index',                             
                     ),
+                    'hostInfo' => $params['urlManager.hostInfo'],
+                    'secureHostInfo' => $params['urlManager.secureHostInfo'],
+                    'secureRoutes' => $params['urlManager.secureRoutes'],
                 ),
                 'mail' => array(
                     'class' => 'common.extensions.yii-mail.YiiMail',

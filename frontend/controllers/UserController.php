@@ -14,12 +14,12 @@ class UserController extends Controller
         );
     }
     
-    public function filters()
-    {
-        return array(
-            array('frontend.components.ForceHttpsFilter + login,register,changePassword,forgetPassword')
-        );
-    }
+//    public function filters()
+//    {
+//        return array(
+//            array('frontend.components.ForceHttpsFilter + login,register,changePassword,forgetPassword')
+//        );
+//    }
     public function actions()
     {
         return array(
