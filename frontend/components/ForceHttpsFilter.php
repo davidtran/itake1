@@ -7,7 +7,7 @@ class ForceHttpsFilter extends CFilter{
             $url = UrlUtil::getAbsoluteUrl();
             $url = substr($url,4);
             $httpsUrl = 'https'.$url;
-     //       Yii::app()->controller->redirect($httpsUrl);
+            Yii::app()->controller->redirect($httpsUrl);
         }
         $filterChain->run();
     }
