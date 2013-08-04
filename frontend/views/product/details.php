@@ -1,8 +1,7 @@
 <?php 
 $this->pageTitle = $product->title; 
 ?>
-<img class="ribbon" src="<?php echo Yii::app()->baseUrl;?>/images/ribbon.png">
-<p class="price"><?php echo number_format($product->price); ?></p>
+
 <div class="row-fluid">
     <div class="productInfo">
                     <div class='span12 custom customtop' id="mainProductInfo">

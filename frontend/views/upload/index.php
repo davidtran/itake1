@@ -82,7 +82,10 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                 <div class="span6">
                                     <div class="rb-form-part">                              
                                         <?php echo $form->textFieldRow($product, 'title'); ?>                                          
-                                        <?php echo $form->textFieldRow($product, 'price', array('append' => 'VNĐ')); ?>                                        
+                                        <?php echo $form->textFieldRow($product, 'price', array(
+                                            'append' => 'VNĐ',
+                                            'value'=>number_format($product->price,0)
+                                            )); ?>                                        
                                         <?php //echo $form->textFieldRow($product, 'phone'); ?>
                                         <?php echo $form->textAreaRow($product, 'description'); ?>                                       
                                         <?php echo $form->hiddenField($product,'address_id'); ?>

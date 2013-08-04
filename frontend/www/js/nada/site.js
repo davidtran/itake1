@@ -59,4 +59,7 @@ $(document).ready(function() {
         }
     );
 });
+setInterval(function(){
+    $('#productContainer').isotope('reLayout');
+},500);
 
