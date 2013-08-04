@@ -5,29 +5,33 @@ class FacebookAccessCheckerFilter extends CFilter
 
     public function preFilter($filterChain)
     {
-        if (Yii::app()->user->isFacebookUser
-                &&  ! $this->isSaved())
+        if (Yii::app()->user->isFacebookUser && !Yii::app()->request->isAjaxRequest && !$this->isSaved())
         {
 
             try
             {
+                $userId = Yii::app()->user->getId();
                 $fbUtil = FacebookUtil::getInstance();
-                $accessToken = Yii::app()->facebook->getAccessToken();
-                $fbUtil->setAccessToken($accessToken);                
-                Yii::app()->session['CheckedFacebookAccessToken'] = true;          
+                $accessToken = $fbUtil->getSavedUserToken($userId);
+                if ($accessToken != null)
+                {
+                    $fbUtil->setAccessToken($accessToken);
+                    Yii::app()->session['CheckedFacebookAccessToken'] = true;
+                }
             }
             catch (Exception $e)
             {
-                $this->redirectToFacebookLoginPage();
+                Yii::app()->user->logout();
+                Yii::app()->controller->redirect('/market');
             }
-        }          
+        }
         $filterChain->run();
     }
-    
-    
-    
-    protected function isSaved(){
-        if(Yii::app()->session->get('CheckedFacebookAccessToken',false)!==false){
+
+    protected function isSaved()
+    {
+        if (Yii::app()->session->get('CheckedFacebookAccessToken', false) !== false)
+        {
             return true;
         }
         return false;
@@ -37,8 +41,8 @@ class FacebookAccessCheckerFilter extends CFilter
     {
         $currentUrl = UrlUtil::getAbsoluteUrl();
         Yii::app()->controller->setReturnUrl($currentUrl);
-        
-        $loginUrl = FacebookUtil::makeFacebookLoginUrl();       
+
+        $loginUrl = FacebookUtil::makeFacebookLoginUrl();
         Yii::app()->controller->redirect($loginUrl);
     }
 

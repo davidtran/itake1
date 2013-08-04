@@ -39,6 +39,7 @@ var UploadAddress = {
     },
     initDeleteButton: function() {
         $('.btnDeleteAddress').click(function(e) {
+            e.preventDefault();
             var that = $(this);
             addressId = that.attr('data-address-id');
             productId = product.id;
@@ -49,6 +50,7 @@ var UploadAddress = {
                     bootbox.alert(data.msg);
                 }
             });
+            return false;
         });
     },
     initSaveButton: function() {

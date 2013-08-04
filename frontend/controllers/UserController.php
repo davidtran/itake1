@@ -17,7 +17,7 @@ class UserController extends Controller
     public function filters()
     {
         return array(
-            array('frontend.components.ForceHttpsFilter + abc')
+            array('frontend.components.ForceHttpsFilter + login,register,changePassword,forgetPassword')
         );
     }
     public function actions()
@@ -69,6 +69,7 @@ class UserController extends Controller
 
     public function actionRegister()
     {
+        $user = new User();
         if (isset($_GET['code']))
         {
             try
@@ -92,6 +93,7 @@ class UserController extends Controller
                         }
                         $user->username = $username;
                         //render login form/ redirect to returnUrl
+                        FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
                         Yii::app()->session['LastFbId'] = $profile['id'];
                         Yii::app()->user->setFlash('success', 'Kết nối với Facebook thành công. Bạn có thể tiếp tục hoàn tất đăng ký.');
                     }
@@ -107,6 +109,7 @@ class UserController extends Controller
                         $loginForm->username = $user->email;
                         $loginForm->validate();
                         $loginForm->login();
+                        FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
                         $siteUrl = $this->createUrl('/site/index');         
                         $this->redirect($siteUrl);                
                     }
@@ -116,11 +119,7 @@ class UserController extends Controller
             {
                 //do nothing
             }
-        }
-        else
-        {
-            $user = new User();
-        }
+        }        
 
         if (isset($_POST['User']))
         {

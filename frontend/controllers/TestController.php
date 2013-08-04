@@ -95,6 +95,14 @@ VALUES (
 NULL ,  'Hàng thủ công mỹ nghệ',  '',  'icon-gift'
 );")->query();
     }
+    
+    public function actionHtml(){
+        $script = <<<HERE
+<DIV STYLE="background-image: url(javascript:alert('XSS'))">                
+HERE;
+    
+        echo filter_var($script,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    }
 }
 
 ?>

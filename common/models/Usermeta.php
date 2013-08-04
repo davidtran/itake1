@@ -1,22 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "{{address}}".
+ * This is the model class for table "{{usermeta}}".
  *
- * The followings are the available columns in table '{{address}}':
+ * The followings are the available columns in table '{{usermeta}}':
  * @property integer $id
- * @property integer $city
- * @property string $address
- * @property double $lat
- * @property double $lon
- * @property string $create_date
+ * @property string $key
+ * @property integer $sub_key
+ * @property string $value
+ * @property integer $user_id
  */
-class Address extends CActiveRecord
+class Usermeta extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Address the static model class
+	 * @return Usermeta the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,7 +27,7 @@ class Address extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{address}}';
+		return '{{usermeta}}';
 	}
 
 	/**
@@ -39,13 +38,12 @@ class Address extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('city,phone, lat, lon', 'required'),		
-			array('lat, lon', 'numerical'),
-            array('phone','length','max'=>20),
-			array('address', 'length', 'max'=>200),
+			array('key, value, user_id', 'required'),
+			array('sub_key, user_id', 'numerical', 'integerOnly'=>true),
+			array('key', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, city, address, lat, lon, create_date', 'safe', 'on'=>'search'),
+			array('id, key, sub_key, value, user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,12 +65,10 @@ class Address extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'city' => 'Thành phố',
-			'address' => 'Địa chỉ',
-			'lat' => 'Lat',
-			'lon' => 'Lon',
-			'create_date' => 'Create Date',
-			'phone'=>'Số ĐT'
+			'key' => 'Key',
+			'sub_key' => 'Sub Key',
+			'value' => 'Value',
+			'user_id' => 'User',
 		);
 	}
 
@@ -88,20 +84,21 @@ class Address extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('city',$this->city);
-		$criteria->compare('address',$this->address,true);
-		$criteria->compare('lat',$this->lat);
-		$criteria->compare('lon',$this->lon);
-		$criteria->compare('create_date',$this->create_date,true);
+		$criteria->compare('key',$this->key,true);
+		$criteria->compare('sub_key',$this->sub_key);
+		$criteria->compare('value',$this->value,true);
+		$criteria->compare('user_id',$this->user_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-    
-    public function beforeValidate()
-    {
-        $this->address = filter_var($this->address,FILTER_SANITIZE_FULL_SPECIAL_CHARS);    
-        return parent::beforeValidate();
-    }
+
+	public function beforeValidate(){
+		if($this->isNewRecord){
+			$this->create_date = date('Y-m-d H:i:s');
+		}
+		$this->update_date = date('Y-m-d H:i:s');
+		return parent::beforeValidate();
+	}
 }
