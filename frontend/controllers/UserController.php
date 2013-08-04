@@ -17,7 +17,7 @@ class UserController extends Controller
     public function filters()
     {
         return array(
-            array('frontend.components.ForceHttpsFilter + login,register,changePassword,forgetPassword')
+            array('frontend.components.ForceHttpsFilter + abc')
         );
     }
     public function actions()
