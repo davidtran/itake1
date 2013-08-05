@@ -74,7 +74,9 @@ $(document).ready(function() {
         var $this = $(this);
         $this.slimScroll({
             height: $this.data('height') || 100,
-            railVisible: true
+            railVisible: true,
+            color: '#0A6DFF',
+            alwaysVisible:false,
         });
     });    
     alignDiv();

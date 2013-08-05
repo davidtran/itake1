@@ -88,7 +88,7 @@ $this->metaKeywords = str_replace(' ', ',', strtolower(preg_replace('/[^0-9a-z\s
                                                         <div class="span12">
                                                             <h4 class="product-detail-tag"> Mô tả sản phẩm</h4>
                                                             <div class="slim-scroll" data-height="150">
-                                                                <?php echo $product->description; ?>
+                                                                <p><?php echo $product->description; ?></p>
                                                             </div>   
                                                         </div>
                                                     </div>

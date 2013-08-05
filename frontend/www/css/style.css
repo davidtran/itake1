@@ -1369,7 +1369,7 @@ span.priceTag{
     font-weight: bold;
 }
 div.slim-scroll{
-    background-color: #f9f9f9;
+    background-color: #fff;
     border: solid 1px #ececec;
     padding:10px;
     margin-bottom:10px;
@@ -1733,4 +1733,8 @@ div.profile-name h3{
 #detailProductBody{
     width: 75%;
     margin: 0 auto;
+}
+.slim-scroll p{    
+    margin-bottom: 30px;
+    padding: 5px;
 }
