@@ -13,6 +13,12 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" />
         
         <script type="text/javascript" src="<?php echo Yii::app()->baseUrl; ?>/js/jquery-1.8.2.min.js"></script>
+        <?php
+        Yii::app()->controller->widget('frontend.extensions.seo.widgets.SeoHead', array(
+            'defaultDescription' => 'iTake.me - Thật dễ dàng khi tiếp thị sản phẩm. Chợ mua bán những sản phẩm nhanh trên smartphone',
+            'defaultKeywords' => 'rao vặt trên smartphone, chợ trực tuyến, ô tô, xe máy, nhà đất, căn hộ, điện thoại, thiết bị điện tử'
+        ));
+        ?>        
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <?php
         $baseUrl = Yii::app()->baseUrl;
@@ -36,12 +42,7 @@
         <!--[if IE 7]>
           <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome-ie7.min.css">
         <![endif]-->
-        <?php
-        Yii::app()->controller->widget('ext.seo.widgets.SeoHead', array(
-            'defaultDescription' => 'iTake.me - Thật dễ dàng khi tiếp thị sản phẩm. Chợ mua bán những sản phẩm nhanh trên smartphone',
-            'defaultKeywords' => 'rao vặt trên smartphone, chợ trực tuyến, ô tô, xe máy, nhà đất, căn hộ, điện thoại, thiết bị điện tử'
-        ));
-        ?>        
+        
     </head>
 
     <body class="ostyle">                        

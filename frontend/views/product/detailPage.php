@@ -2,11 +2,7 @@
 $this->pageTitle = $product->title;
 $cs = Yii::app()->clientScript;
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.js', CClientScript::POS_HEAD);
-$this->addMetaProperty('og:title', $product->title);
-$this->addMetaProperty('og:description', StringUtil::limitByWord($product->description, 100));
-$this->addMetaProperty('og:image', $product->image);
-$this->metaDescription = StringUtil::limitByWord($product->description, 100);
-$this->metaKeywords = str_replace(' ', ',', strtolower(preg_replace('/[^0-9a-z\s]/', '', $product->title)));
+
 ?>
 
 <div class="row-fluid"  style="margin-top: 64px;">
