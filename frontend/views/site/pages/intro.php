@@ -1,7 +1,7 @@
 <?php
 /* @var $this SiteController */
 
-$this->pageTitle=Yii::app()->name . ' - Điều khoản sử dụng Itake';
+$this->pageTitle=Yii::app()->name . ' - Giới thiệu ITAKE';
 $this->breadcrumbs=array(
 	'Giới thiệu',
 );
