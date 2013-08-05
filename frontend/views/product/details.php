@@ -28,7 +28,7 @@ $this->pageTitle = $product->title;
 
                         <div class="fb-like" data-href="<?php echo $canonicalUrl; ?>" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
                         <br/>
-                        <span class="badge" style="margin-bottom:10px;"><?php echo $product->view; ?> lượt xem</span>
+                        <span class="" style="margin-bottom:10px;color:#005580;font-size:0.9em;"><i class="icon-eye-open"></i>   <?php echo $product->view; ?> lượt xem</span>
                         <!-- AddThis Button END -->
                     </div>                                   
                 </div>
