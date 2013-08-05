@@ -703,8 +703,7 @@ h2.form-signin-heading
 }
 a.facebook-login
 {
-    background: url('../images/fb_btn.png') no-repeat;    
-    width: 100%;
+    background: url('../images/fb_btn.png') no-repeat;        
     background-size: 100% auto;
     height: 56px;
     display: inline-block;
