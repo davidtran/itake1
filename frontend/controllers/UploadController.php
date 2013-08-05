@@ -2,7 +2,14 @@
 
 class UploadController extends Controller
 {
-
+    
+    public function behaviors()
+    {
+        return array(
+            'seo'=>array('class'=> 'frontend.extensions.seo.components.SeoControllerBehavior')
+        );
+    }
+    
     protected function solrImportProduct($product)
     {
         $solrImporter = new ProductModelSolrImporter();
@@ -17,6 +24,17 @@ class UploadController extends Controller
         }
     }
 
+    protected function renderImage(Product &$product, $filename, $extension)
+    {
+        $thumbnail = ImageUtil::resize($product->image, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);
+        $product->image_thumbnail = $thumbnail;
+        
+        
+        $processed = 'images/content/processed/' . $filename . '.' . $extension;
+        ProductImageUtil::drawImage($product, $product->image, $processed);
+        $product->processed_image = $processed;       
+    }
+
     public function actionIndex($category)
     {
         $returnUrl = $this->createUrl('/upload/index');
@@ -28,48 +46,53 @@ class UploadController extends Controller
         if (isset($_POST['Product']))
         {
             $product->attributes = $_POST['Product'];
-            $product->user_id = Yii::app()->user->getId();            
-            $this->handleUploadImage($product);
-            if ($product->validate(null, false) && $product->save(false))
-            {
-                $this->solrImportProduct($product);
-                if (Yii::app()->user->isFacebookUser)
+            $product->user_id = Yii::app()->user->getId();
+         
+                $imageMeta = $this->handleUploadImage($product);
+                if ($imageMeta !== false && $product->validate(null, false) )
                 {
-                    try
+                    if ($imageMeta !== false)
                     {
-                        FacebookUtil::getInstance()->shareProductToFacebook($product);
-                        $postedToFacebook = true;
+                        $this->renderImage($product, $imageMeta['filename'], $imageMeta['extension']);
                     }
-                    catch (FacebookApiException $e)
+                    if($product->save(false)){
+                        $this->solrImportProduct($product);
+                        if (Yii::app()->user->isFacebookUser)
+                        {
+                            try
+                            {
+                                FacebookUtil::getInstance()->shareProductToFacebook($product);
+                                $postedToFacebook = true;
+                            }
+                            catch (FacebookApiException $e)
+                            {
+                                $postedToFacebook = false;
+                                Yii::app()->session['PostedToFacebook'] = false;
+                            }
+                        }
+                        Yii::app()->session['PostedProductId'] = $product->id;
+                        Yii::app()->user->setFlash('success', 'Đăng tin thành công');
+                        $this->redirect($product->getDetailUrl());
+                    }
+                    
+                }
+                else
+                {
+                    if (file_exists($product->image))
                     {
-                        $postedToFacebook = false;
-                        Yii::app()->session['PostedToFacebook'] = false;
+                        unlink($product->image);
+                    }
+                    if (file_exists($product->processed_image))
+                    {
+                        unlink($product->processed_image);
                     }
                 }
-                Yii::app()->session['PostedProductId'] = $product->id;
-                Yii::app()->user->setFlash('success','Đăng tin thành công');
-                $this->redirect($product->getDetailUrl());
             }
-            else
-            {
-                if (file_exists($product->image))
-                {
-                    unlink($product->image);
-                }
-                if (file_exists($product->processed_image))
-                {
-                    unlink($product->processed_image);
-                }
-            }
-        }
-        $hasContactInfo = false;
-        if (UserUtil::hasContactInfo())
-        {
-            $hasContactInfo = true;
-        }
+           
+        
         $this->render('index', array(
             'product' => $product,
-            'hasContactInfo' => $hasContactInfo,
+        
         ));
     }
 
@@ -87,32 +110,54 @@ class UploadController extends Controller
     }
 
     public function actionEdit($id)
-    {        
-        $this->checkLogin("Cần đăng nhập để chỉnh sửa sản phẩm",Yii::app()->request->requestUri);        
+    {
+        $this->checkLogin("Cần đăng nhập để chỉnh sửa sản phẩm", Yii::app()->request->requestUri);
         $product = Product::model()->findByPk($id);
-
-        if($product->user_id!==Yii::app()->user->model->id)
+        if ($product->user_id !== Yii::app()->user->model->id)
             throw new CHttpException(500, 'Bạn không thể chỉnh sửa mà không phải của bạn');
-
-
         if ($product != null)
-        {            
+        {
             if (isset($_POST['Product']))
             {
                 $product->attributes = $_POST['Product'];
-                $this->handleUploadImage($product);
-                if ($product->validate(null, false) && $product->save(false))
-                {
-                    $this->solrImportProduct($product);
-                    Yii::app()->user->setFlash('success','Chỉnh sửa tin thành công');
-                    $this->redirect($product->getDetailUrl());
+          
+                    $imageMeta = $this->handleUploadImage($product);
+                    if ($imageMeta !== false && $product->validate(null, false))
+                    {
+                        if ($imageMeta !== false)
+                        {
+                            $this->renderImage($product, $imageMeta['filename'], $imageMeta['extension']);
+                        }
+                        if($product->save(false)){
+                            $this->solrImportProduct($product);
+                            if (Yii::app()->user->isFacebookUser)
+                            {
+                                try
+                                {
+                                    FacebookUtil::getInstance()->shareProductToFacebook($product);
+                                    $postedToFacebook = true;
+                                }
+                                catch (FacebookApiException $e)
+                                {
+                                    $postedToFacebook = false;
+                                    Yii::app()->session['PostedToFacebook'] = false;
+                                }
+                            }
+                            Yii::app()->session['PostedProductId'] = $product->id;
+                            Yii::app()->user->setFlash('success', 'Đăng tin thành công');
+                            $this->redirect($product->getDetailUrl());
+                        }
+                        
+                    }
+                   
                 }
-            }
-            $this->render('index', array(
+                $this->render('index', array(
                 'product' => $product,
                 'category' => $product->category
             ));
-        }
+   
+            }
+           
         else
         {
             throw CHttpException(404, 'Không tìm thấy sản phẩm bạn cần');
@@ -130,7 +175,7 @@ class UploadController extends Controller
      * @param Product $product
      * @return boolean upload successful
      */
-    protected function handleUploadImage(Product $product)
+    protected function handleUploadImage(Product &$product)
     {
         $upload = ImageUploadUtil::getInstance('productImage');
         $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($product->title)) .
@@ -141,21 +186,24 @@ class UploadController extends Controller
         $rs = $upload->handleUploadImage('images/content', $filename);
         if ($rs == false)
         {
-            if($product->image == null){
+            if ($product->image == null)
+            {
                 $product->addError('image', $upload->getError());
                 return false;
-            }            
+            }
         }
         else
         {
 
             $raw = 'images/content/' . $filename . '.' . $upload->getExtension();
-            $product->image_thumbnail = ImageUtil::resize($raw, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);
-            $processed = 'images/content/processed/' . $filename . '.' . $upload->getExtension();
             $product->image = $raw;
-            ProductImageUtil::drawImage($product, $raw, $processed);
-            $product->processed_image = $processed;
+            return array(
+                'filename' => $filename,
+                'extension' => $upload->getExtension(),
+                'fullpath' => $raw
+            );
         }
+        return false;
     }
 
     public function actionDelete()
@@ -192,53 +240,6 @@ class UploadController extends Controller
         $this->renderAjaxResult(false);
     }
 
-    public function actionUploadItem()
-    {
-        $product = new Product;
-        if (isset($_POST['title']) && isset($_POST['price']) && isset($_POST['description']) && isset($_POST['link']) && isset($_POST['imageLink']) && isset($_POST['category']))
-        {
-            $product->title = $_POST['title'];
-            $product->price = $_POST['price'];
-            $product->description = $_POST['description'];
-            $product->link = $_POST['link'];
-            $user = Yii::app()->user->model;
-            $product->lon = $user->lon;
-            $product->lat = $user->lat;
-            $product->locationText = $user->locationText;
-            $product->city = $user->city;
-            $product->phone = $user->phone;
-
-
-            $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($product->title)) .
-                    '_' .
-                    rand(0, 999);
-            $extension = pathinfo($_POST['imageLink'], PATHINFO_EXTENSION);
-            $fileLink = basename($_POST['imageLink']);
-            $raw = 'images/content/' . $filename . '.' . $extension;
-            copy('images/uploads/' . date("mdY") . '/' . $fileLink, $raw);
-            unlink('images/uploads/' . date("mdY") . '/' . $fileLink);
-            $product->image_thumbnail = ImageUtil::resize($raw, 400, 400);
-            $processed = 'images/content/processed/' . $filename . '.' . $extension;
-            $product->image = $raw;
-            ProductImageUtil::drawImage($product, $raw, $processed);
-            $product->processed_image = $processed;
-            $product->category_id = $_POST['category'];
-            $product->user_id = $user->id;
-            if ($product->save())
-            {
-                echo 'save success';
-            }
-            else
-            {
-                echo 'save fail';
-            }
-        }
-        else
-        {
-            echo 'save fail';
-        }
-    }
-
     protected function getAddressList()
     {
         $addressList = Address::model()->findAll(array(
@@ -263,16 +264,15 @@ class UploadController extends Controller
             {
                 $this->renderAjaxResult(true, array(
                     'html' => $this->renderPartial(
-                        'partial/addressItem', 
-                        array(
-                            'address' => $address
-                        ), 
-                        true, 
-                        false
+                            'partial/addressItem', array(
+                        'address' => $address
+                            ), true, false
                     )
                 ));
-            }else{
-                $this->renderAjaxResult(false,'Vui lòng nhập đầy đủ thông yêu cầu'); 
+            }
+            else
+            {
+                $this->renderAjaxResult(false, 'Vui lòng nhập đầy đủ thông yêu cầu');
             }
         }
         $this->renderAjaxResult(false, "Không thể lưu địa chỉ");
@@ -285,25 +285,34 @@ class UploadController extends Controller
         $productId = Yii::app()->request->getPost('productId');
         $product = Product::model()->findByPk($productId);
         $address = Address::model()->findByPk($addressId);
-        $userId = Yii::app()->user->getId();        
-        if($address!=null && $product != null){
-            if($product->user_id == $userId && $address->user_id == $userId){
-                if($product->address_id != $address->id){
+        $userId = Yii::app()->user->getId();
+        if ($address != null && $product != null)
+        {
+            if ($product->user_id == $userId && $address->user_id == $userId)
+            {
+                if ($product->address_id != $address->id)
+                {
                     $address->delete();
                     $this->renderAjaxResult(true);
-                }else{
-                    $this->renderAjaxResult(false,'Không thể xóa địa chỉ đang được sử dụng');
                 }
-            }else{
-                $this->renderAjaxResult(false,'Không thể xóa địa chỉ này');
+                else
+                {
+                    $this->renderAjaxResult(false, 'Không thể xóa địa chỉ đang được sử dụng');
+                }
             }
-        }else{
-            if($address!=null && $product == null){
+            else
+            {
+                $this->renderAjaxResult(false, 'Không thể xóa địa chỉ này');
+            }
+        }
+        else
+        {
+            if ($address != null && $product == null)
+            {
                 $address->delete();
                 $this->renderAjaxResult(true);
             }
         }
-        
     }
 
 }

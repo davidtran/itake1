@@ -103,6 +103,11 @@ HERE;
     
         echo filter_var($script,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     }
+    
+    public function actionFilter(){
+        $html = '<p>dasdasd</p><br/><p>adsad</p>ada#@$#%&^^<?php ?>addas&(Q@&@(&$(&$#)!(@*!)&*(#)(@d ad <a href="adsd">asdsd</a><img/><script>alert(1)</script>';
+        echo strip_tags($html,'<br><p>');
+    }
 }
 
 ?>

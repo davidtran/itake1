@@ -29,6 +29,13 @@ class SiteController extends Controller
             )
         );
     }
+    
+    public function behaviors()
+    {
+        return array(
+            'seo'=>array('class'=> 'frontend.extensions.seo.components.SeoControllerBehavior')
+        );
+    }
 
     public function actionCity($id)
     {

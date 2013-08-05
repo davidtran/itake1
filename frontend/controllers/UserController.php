@@ -8,9 +8,7 @@ class UserController extends Controller
     public function behaviors()
     {
         return array(
-            'seo'=>array(
-                    'class'=>'frontend.extensions.seo.components.SeoControllerBehavior'
-            )
+            'seo'=>array('class'=> 'frontend.extensions.seo.components.SeoControllerBehavior')
         );
     }
     

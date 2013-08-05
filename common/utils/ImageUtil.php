@@ -16,8 +16,7 @@
          * @return string 
          */
         public static function resize($filename,$width, $height)
-        {
-            assert('is_string($filename) && strlen(trim($filename))>0');
+        {            
             self::$filename = $filename;
             $resizeFileName = self::getResizedImageFileName($width, $height);
             if (file_exists($resizeFileName) == false)

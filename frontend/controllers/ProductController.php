@@ -14,45 +14,47 @@ class ProductController extends Controller
 {
 
     protected $_product;
-    
+
     public function behaviors()
     {
         return array(
-            array(
-                'class'=>'frontend.extensions.seo.components.SeoControllerBehavior'
-            )
+            
+                'seo'=>array('class'=> 'frontend.extensions.seo.components.SeoControllerBehavior')
+            
         );
     }
 
     public function actionDetails($id)
     {
         ProductViewCounterUtil::getInstance($id)->increaseView();
-        $product = $this->loadProduct($id);              
-        $canonicalUrl = $this->createAbsoluteUrl('/product/details',array('id'=>$id));      
+        $product = $this->loadProduct($id);
+        $canonicalUrl = $this->createAbsoluteUrl('/product/details', array('id' => $id));
         $userProductDataProvider = $product->user->searchProduct(null, 10, 0);
-        if(Yii::app()->request->isAjaxRequest){                   
+        if (Yii::app()->request->isAjaxRequest)
+        {
             $html = '';
-            $html = $this->renderPartial('details',array(
-                'product'=>$product,
-               
+            $html = $this->renderPartial('details', array(
+                'product' => $product,
                 'userProductDataProvider' => $userProductDataProvider,
-                'canonicalUrl'=>$canonicalUrl
-                ),true,false);      
-           $html = utf8_encode($html);       
-           $html = iconv('utf-8','utf-8',$html);                      
-            $this->renderAjaxResult(true,array(
-                'html'=>$html,            
-                'product'=>$product->attributes,
-                'canonicalUrl'=>$canonicalUrl
+                'canonicalUrl' => $canonicalUrl
+                    ), true, false);
+            $html = utf8_encode($html);
+            $html = iconv('utf-8', 'utf-8', $html);
+            $this->renderAjaxResult(true, array(
+                'html' => $html,
+                'product' => $product->attributes,
+                'canonicalUrl' => $canonicalUrl
             ));
-        }else{
-            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/masonry.pkgd.min.js',CClientScript::POS_HEAD);
-            Yii::app()->clientScript->registerScriptFile('http://maps.google.com/maps/api/js?sensor=true',CClientScript::POS_HEAD);
-            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/gmaps.js',CClientScript::POS_HEAD);
-            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/jquery.infinitescroll.min.js',CClientScript::POS_HEAD);            
-            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/productDetails.js',CClientScript::POS_BEGIN);
+        }
+        else
+        {
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/masonry.pkgd.min.js', CClientScript::POS_HEAD);
+            Yii::app()->clientScript->registerScriptFile('http://maps.google.com/maps/api/js?sensor=true', CClientScript::POS_HEAD);
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/gmaps.js', CClientScript::POS_HEAD);
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.infinitescroll.min.js', CClientScript::POS_HEAD);
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/productDetails.js', CClientScript::POS_BEGIN);
             $productAttributes = json_encode($product->attributes);
-            Yii::app()->clientScript->registerScript("productdetails","
+            Yii::app()->clientScript->registerScript("productdetails", "
                 var product = $productAttributes;
                 $(document).ready(function(){
                     loadRelateProduct(product);
@@ -60,17 +62,21 @@ class ProductController extends Controller
                     loadProductMap(product);
                 });
                 
-            ",  CClientScript::POS_END);
+            ", CClientScript::POS_END);
+            $this->addMetaProperty('og:title', $product->title);
+            $this->addMetaProperty('og:description', StringUtil::limitByWord($product->description, 100));
+            $this->addMetaProperty('og:image', $product->image);
+            $this->addMetaProperty('og:url',$canonicalUrl);
+            $this->metaDescription = StringUtil::limitByWord($product->description, 100);
+            $this->metaKeywords = str_replace(' ', ',', strtolower(preg_replace('/[^0-9a-z\s]/', '', $product->title)));
             $this->render('detailPage', array(
-                'product' => $product,              
+                'product' => $product,
                 'userProductDataProvider' => $userProductDataProvider,
-                'canonicalUrl'=>$canonicalUrl
+                'canonicalUrl' => $canonicalUrl
             ));
         }
-        
     }
-    
-    
+
     public function actionRelateProductList($id, $page = 0)
     {
         $product = $this->loadProduct($id);
@@ -85,7 +91,7 @@ class ProductController extends Controller
                 'page' => $page,
                 'product' => $product,
                 'productList' => $productDataProvider->getData()
-            ), true, false);
+                    ), true, false);
         }
         echo $html;
         Yii::app()->end();
@@ -94,17 +100,17 @@ class ProductController extends Controller
     public function actionUserProductList($id, $page = 0)
     {
         $product = $this->loadProduct($id);
-        $productDataProvider = $product->user->searchProduct(null,30, $page);
+        $productDataProvider = $product->user->searchProduct(null, 30, $page);
         $productList = $productDataProvider->getData();
         $empty = $page >= $productDataProvider->getPagination()->getPageCount();
-        
+
         $html = '';
         if ($empty == false)
         {
-            $html = $this->renderPartial('_userProductList',array(
-                'page'=>$page,
-                'productList'=>$productList,
-                'product'=>$product
+            $html = $this->renderPartial('_userProductList', array(
+                'page' => $page,
+                'productList' => $productList,
+                'product' => $product
             ));
         }
         echo $html;
