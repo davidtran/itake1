@@ -30,13 +30,21 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                 <div class="span6">
                                     <div class="row-fluid">
 
-                                        <?php echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image_thumbnail, $product->title, array('data-zoom-image' => Yii::app()->baseUrl . '/' . $product->image, 'id' => 'imagePreview')); ?>
+                                        <?php echo CHtml::image(
+                                                    Yii::app()->baseUrl . '/' . $product->image_thumbnail, 
+                                                    $product->title, 
+                                                    array(
+                                                        'data-zoom-image' => Yii::app()->baseUrl . '/' . $product->image, 
+                                                        'id' => 'imagePreview',
+                                                        'onError'=>"this.onerror=null;this.src='http://www.placehold.it/400x400/EFEFEF/AAAAAA&text=Hình+SP';"
+                                                    )
+                                                ); ?>
 
 
 
                                     </div>
                                     <div class="row-fluid" style="margin-top: 20px;">
-                                        <div class="fb-like" data-href="<?php echo $canonicalUrl; ?>" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+                                        <div class="fb-like" href="<?php echo $canonicalUrl; ?>" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
                                         <br/>
                                         <span class="badge" style="margin-bottom:10px;"><?php echo $product->view; ?> lượt xem</span>
                                     </div>                                   

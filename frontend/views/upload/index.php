@@ -58,7 +58,8 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                                 <?php else: ?>
                                                     <?php
                                                     echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image, '', array(
-                                                        'id' => 'productImageHoder'
+                                                        'id' => 'productImageHoder',
+                                                        'onError'=>"this.onerror=null;this.src='http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP';"
                                                     ));
                                                     ?>
                                                 <?php endif; ?>
@@ -117,7 +118,8 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                                     <img class="productImage" src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP">                                                         
                                                 <?php else:?>
                                                     <?php echo CHtml::image(Yii::app()->baseUrl.'/'.$product->image,'',array(
-                                                        'class'=>'productImage'
+                                                        'class'=>'productImage',
+                                                        'onError'=>"this.onerror=null;this.src='http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP';"
                                                     ));?>
                                                 <?php endif; ?>
                                             </a>
