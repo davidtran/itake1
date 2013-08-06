@@ -22,7 +22,7 @@
                         $cityName,
                         CityUtil::makeSelectCityUrl($cityId),
                         array(
-                            'title'=>'Đăng rao vặt ở '.$cityName
+                            'title'=>$cityName
                             )); ?>       
                         </li>
                     <?php endforeach;?>
@@ -76,7 +76,7 @@
                                                     'category'=>$cat->id,
                                                     'name'=>StringUtil::makeSlug($cat->name)
                                                     ));?>"
-                                                    title="Đăng tin ở danh mục <?php echo $cat->name; ?>    "
+                                                    title="<?php echo $cat->name; ?>"
                                                     >                                                    
                                                     <span class=" label <?php echo $cat->styleName?>">
                                                         <?php echo $cat->iconAndNameHtml;?>
