@@ -34,14 +34,14 @@ class ProductImageUtil
                 $image = $image->resize(800,600,'inside','down');
                 $titleFontSize = 30;
                 $textFontSize = 18;
-                $titleOffset = 600 - 138;
+                $titleOffset = 600 - 130;
                 $priceOffset = 600 - 81;
                 $addressOffset = 600 - 52;                                
             }else{
                 $image = $image->resize(420,420,'inside','down');
                 $titleFontSize = 23;
                 $textFontSize = 16;
-                $titleOffset = 420 - 100;
+                $titleOffset = 420 - 95;
                 $priceOffset = 420 - 60;
                 $addressOffset = 420 - 40;                                
             }
