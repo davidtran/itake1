@@ -30,7 +30,7 @@ class TestController extends Controller
     protected function getSampleProduct(){
         //draw an image 
         $product = new Product();
-        $product->title = 'Sản phẩm độc đáo';
+        $product->title = 'Cầu Vĩnh Tuy lại xuất hiện lún nứt kéo dài';
         $product->price = 7000000;
         $product->phone = '01217703647';
         $product->description = 'Đến môt ngày anh ngồi tập chát
@@ -48,7 +48,7 @@ Từng lời đắm say in đắm mãi trong tim từng phút giây';
     }
     public function actionDrawImage(){
         $product = $this->getSampleProduct();
-        ProductImageUtil::drawImage($product,Yii::getPathOfAlias('root').'/large_stores_lazada.jpg', Yii::getPathOfAlias('root').'/large_stores_lazada1.jpg');        
+        ProductImageUtil::drawImage($product,Yii::app()->basePath.'/www/images/content/Bng-n--n_153_420x420.jpg', Yii::app()->basePath.'/www/images/content/AAAAAAAAAAAAAAA.jpg');        
     }    
     
     public function actionDrawSmallImage(){

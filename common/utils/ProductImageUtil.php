@@ -49,23 +49,32 @@ class ProductImageUtil
             $background = WideImage::load('images/background.png');
             $backgroundHeight = $image->getHeight() * 25 / 100;
             
-            $image = $image->merge($background, 0, $image->getHeight() - $backgroundHeight, 50);
-            $canvas = $image->getCanvas();
-
             
-            $canvas->useFont('font/mnbtitlefont.ttf', $titleFontSize, $image->allocateColor(255, 255, 255));
-            $title = StringUtil::limitCharacter($product->title,60);
-            $canvas->writeText(30, $titleOffset, ($product->title));
+            $canvas = $background->getCanvas();
+
+            $marginLeft = 40;
+            $titleFontSize = 70;
+            $textFontSize = 50;      
+            $canvas->useFont('font/mnbtitlefont.ttf', $titleFontSize, $background->allocateColor(0, 0, 0));
+            $title = StringUtil::limitCharacter($product->title,45);
+            $canvas->writeText($marginLeft, 45, ($title));
+            $canvas->useFont('font/mnbtitlefont.ttf', $titleFontSize, $background->allocateColor(255, 255, 255));
+            $title = StringUtil::limitCharacter($product->title,45);
+            $canvas->writeText($marginLeft-1, 45-1, ($title));
 
             $priceText = preg_replace('/[^0-9]/', '', $product->price);
-            $priceText = number_format($priceText) . ' VNĐ';
-            $canvas->useFont('font/mnbtitlefont.ttf', $textFontSize, $image->allocateColor(255, 255, 255));
-            $canvas->writeText(30,$priceOffset, $priceText);
+            $priceText = number_format($priceText) . ' VNĐ';            
+            $canvas->useFont('font/mnbtitlefont.ttf', $textFontSize, $background->allocateColor(255, 255, 255));
+            $canvas->writeText($marginLeft,170, $priceText);
+            
             if ($product->address != null && $product->user != null)
             {
-                $canvas->writeText(30,$addressOffset, 'Liên hệ: ' . $product->user->username . ' - ' . $product->address->phone);
+                $canvas->writeText($marginLeft,240, 'Liên hệ: ' . $product->user->username . ' - ' . $product->address->phone);
             }
-
+            $ratio = $image->getWidth()/$background->getWidth();
+            $newBackgroundHeight = $ratio*$background->getHeight();
+            $background = $background->resize($image->getWidth(), $newBackgroundHeight, 'inside');
+            $image = $image->merge($background,"right", "bottom", 50);
             return $image->saveToFile($dest);
         }
         return false;
