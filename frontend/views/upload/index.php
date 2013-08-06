@@ -84,8 +84,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                     <div class="rb-form-part">                              
                                         <?php echo $form->textFieldRow($product, 'title'); ?>                                          
                                         <?php echo $form->textFieldRow($product, 'price', array(
-                                            'append' => 'VNĐ',
-                                            'value'=>number_format($product->price,0)
+                                            'append' => 'VNĐ',                                            
                                             )); ?>                                        
                                         <?php //echo $form->textFieldRow($product, 'phone'); ?>
                                         <?php echo $form->textAreaRow($product, 'description'); ?>                                       
