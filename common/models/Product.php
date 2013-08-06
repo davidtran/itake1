@@ -85,18 +85,18 @@ class Product extends CActiveRecord
     {
 
         return array(
-            'id' => 'Mã',
-            'title' => 'Tên sản phẩm',
-            'description' => 'Mô tả',
-            'price' => 'Giá',
-            'user_id' => 'Người dùng',
-            'image' => 'Hình',
-            'phone' => 'Điện thoại liên hệ',
-            'create_date' => 'Ngày tạo',
-            'locationText' => 'Địa chỉ',
-            'city' => 'Thành phố',
-            'category_id' => 'Danh mục',
-            'address_id' => 'Địa chỉ bán hàng'
+            'id' => LanguageUtil::t('ID'),
+            'title' => LanguageUtil::t('Title'),
+            'description' => LanguageUtil::t('Description'),
+            'price' => LanguageUtil::t('Price'),
+            'user_id' => LanguageUtil::t('User'),
+            'image' => LanguageUtil::t('Image'),
+            'phone' => LanguageUtil::t('Phone'),
+            'create_date' => LanguageUtil::t('Create date'),
+            'locationText' => LanguageUtil::t('Street'),
+            'city' => LanguageUtil::t('City'),
+            'category_id' => LanguageUtil::t('Category'),
+            'address_id' => LanguageUtil::t('Address')
         );
     }
 
@@ -279,10 +279,10 @@ class Product extends CActiveRecord
         $elapseTime = time() - strtotime($this->create_date);
         $week = $day * 7;
         $year = $day * 365;
-        $dateFormatter = new CDateFormatter(Yii::app()->getLocale('vi'));
+        $dateFormatter = new CDateFormatter(Yii::app()->getLocale(Yii::app()->language));
         if ($elapseTime < $day || $elapseTime > $year)
         {
-            return DateUtil::elapseTime($this->create_date) . ' trước';
+            return DateUtil::elapseTime($this->create_date) . ' '.Yii::t('strings','ago',null).'';
         }
         else if ($elapseTime < $day * 2)
         {

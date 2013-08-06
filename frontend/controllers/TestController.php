@@ -22,6 +22,10 @@ class TestController extends Controller
         $user->fbId = '100003724941703';        
         $user->save();
     }
+    public function actionLang()
+    {                  
+        echo Yii::t('Default','Search',null);
+    }
     
     protected function getSampleProduct(){
         //draw an image 

@@ -68,12 +68,12 @@ class Feedback extends CActiveRecord
 	{
 
 		return array(
-			'id' => 'ID',
-			'username' => 'Tên',
-			'email' => 'Email',
+			'id' => LanguageUtil::t('ID'),
+			'username' => LanguageUtil::t('Username'),
+			'email' => LanguageUtil::t('Email'),
 			'url' => 'Url',
-			'message' => 'Nội dung phản hồi',
-			'create_date' => 'Create Date',
+			'message' => LanguageUtil::t('Feedback content'),
+			'create_date' => LanguageUtil::t('Create date'),
 		);
 	}
 

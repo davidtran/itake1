@@ -120,17 +120,17 @@ class User extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'username' => 'Tên người dùng',
-            'password' => 'Mật khẩu',
+            'id' => LanguageUtil::t('ID'),
+            'username' => LanguageUtil::t('Username'),
+            'password' => LanguageUtil::t('Password'),
             'salt' => 'Salt',
-            'create_date' => 'Ngày tạo',
-            'update_date' => 'Ngày cập nhật',
-            'type' => 'Loại',
-            'email' => 'Email',
-            'introduction' => 'Giới thiệu',
+            'create_date' => LanguageUtil::t('Create date'),
+            'update_date' => LanguageUtil::t('Update date'),
+            'type' => LanguageUtil::t('Type'),
+            'email' => LanguageUtil::t('Email'),
+            'introduction' => LanguageUtil::t('Introduction'),
             'target' => 'Tự giới thiệu',
-            'birthday' => 'Ngày sinh'
+            'birthday' => LanguageUtil::t('Birthday'),
         );
     }
 

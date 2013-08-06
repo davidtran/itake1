@@ -3,7 +3,7 @@
 
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel"><i class="icon-comments-alt"></i>    Gửi phản hồi</h3>
+    <h3 id="myModalLabel"><i class="icon-comments-alt"></i>    <?php LanguageUtil::echoT('Feedback') ?></h3>
   </div>
         <div class="modal-body">            
             <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm',array(
@@ -21,12 +21,12 @@
         </div>
         <div class="modal-footer">
             
-            <?php echo CHtml::link('Gửi phản hồi','#',array(
+            <?php echo CHtml::link(LanguageUtil::t('Send'),'#',array(
                 'class'=>'btn btn-success',
-                'data-loading-text'=>'Đang gửi...',
+                'data-loading-text'=>LanguageUtil::t('Sending').'...',
                 'id'=>'btnSendFeedback'
             ));?>
-            <a href="#" data-dismiss="modal" class="btn">Đóng</a>
+            <a href="#" data-dismiss="modal" class="btn"><?php LanguageUtil::echoT('Close') ?></a>
             
         </div>
     

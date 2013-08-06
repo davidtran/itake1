@@ -22,7 +22,8 @@ return CMap::mergeArray(
             'basePath' => 'frontend',
             'params' => $params,
             'preload' => array('log', 'bootstrap'),
-            'language' => 'vi',            
+            'language' => 'vi',      
+            'sourceLanguage'=>'en',      
             'import' => array(
                 'common.components.*',
                 'common.extensions.*',

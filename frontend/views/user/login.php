@@ -6,7 +6,7 @@ $this->pageTitle = 'Đăng nhập vào Itake';
 <div class="container-fluid" style="margin-top: 74px;">
     <div class="row-fluid">
         <div class="span8 offset2">
-        <h2 class="form-signin-heading"><i class="icon-signin"></i>  Đăng nhập</h2>          
+        <h2 class="form-signin-heading"><i class="icon-signin"></i>  <?php LanguageUtil::echoT('Sign In'); ?></h2>          
         <hr/>
         </div>
     </div>
@@ -43,22 +43,22 @@ $this->pageTitle = 'Đăng nhập vào Itake';
             <?php echo $form->errorSummary($model); ?>
             <?php
             echo $form->textFieldRow($model, 'username', array(
-                'placeholder' => 'Địa chỉ email',
+                'placeholder' => LanguageUtil::t('Email'),
                 'class' => 'input-block-level'
             ));
             ?>
             <?php
             echo $form->passwordFieldRow($model, 'password', array(
-                'placeholder' => 'Mật khẩu',
+                'placeholder' => LanguageUtil::t('Password'),
                 'class' => 'input-block-level'
             ));
             ?>
             <?php //echo $form->checkBoxRow($model, 'rememberMe', array('value=1')); ?>
             <div style="float:right;width:100%;text-align: right; font-size:0.9em;">
-                <?php echo CHtml::link('Quên mật khẩu ?', array('/user/forgetPassword')); ?>                
+                <?php echo CHtml::link(LanguageUtil::t('Forgot password').'?', array('/user/forgetPassword')); ?>                
             </div>  
             <div style="float:right;width:100%;">
-                <button class="btn btn-primary login" type="submit" style="width:100%;height:50px;font-size:1.3em;">Đăng nhập</button>
+                <button class="btn btn-primary login" type="submit" style="width:100%;height:50px;font-size:1.3em;"><?php LanguageUtil::echoT('Sign In'); ?></button>
             </div>           
             
 
@@ -90,7 +90,7 @@ $this->pageTitle = 'Đăng nhập vào Itake';
         <div class="span4">
              <div style="float:right;width:100%;margin-top: 40px;">
             <!--     <p style="font-family: 'Segoe UI Light',Arial,Helvetica,sans-serif;font-size:1.1em;">Dễ dàng chia sẽ tin đăng. ITAKE kết nối tới facebook của bạn để việc bán hàng của bạn nhanh chóng hơn, tiếp thị sản phẩm thêm hiệu quả. Hãy đăng nhập bằng facebook để chia sẻ sản phẩm bạn tới bạn bè trên facebook một cách tốt nhất.</p> -->                
-                <h4 class="rb-h4" style="text-align: center;">HOẶC ĐĂNG NHẬP BẰNG</h4>
+                <h4 class="rb-h4" style="text-align: center;"><?php LanguageUtil::echoT('OR SIGN IN BY') ?></h4>
                 <div class="fb-login-wrapper"> 
                     <?php echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($returnUrl), array('class' => 'facebook-login')); ?>                   
                 </div>    
@@ -101,7 +101,7 @@ $this->pageTitle = 'Đăng nhập vào Itake';
     <div class="row-fluid" style="margin-top:20px;">        
         <div class="span8 offset2">
             <hr/>
-            <p style="text-align:center;">Bạn chưa có tài khoản?   <?php echo CHtml::link('Tạo tài khoản', array('/user/register')); ?></p>
+            <p style="text-align:center;"><?php LanguageUtil::echoT('You do not have an account') ?>?  <?php echo CHtml::link(LanguageUtil::t('Create an account'), array('/user/register')); ?></p>
         </div>
     </div>
 </div>

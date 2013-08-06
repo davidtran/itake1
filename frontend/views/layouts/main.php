@@ -88,11 +88,11 @@
             </script>        
             <div class="row-fluid">                               
                 <div class="span12">
-                    <div class="navigation">
+                    <div class="navigation" style="text-transform:uppercase;">
                         <ul>                                                        
-                            <li class="first"><a href="<?php echo Yii::app()->createUrl('site/') ?>"><b style="color:#194675"><i class="icon-desktop"></i>   PHIÊN BẢN THỬ NGHIỆM</a></b></li>
-                            <li class="first" ><a href="<?php echo Yii::app()->createUrl('site/introduction') ?>">GIỚI THIỆU</a></li>
-                            <li ><a href="<?php echo Yii::app()->createUrl('site/terms') ?>">ĐIỀU KHOẢN</a></li>                                                                           
+                            <li class="first"><a href="<?php echo Yii::app()->createUrl('site/') ?>"><b style="color:#194675"><i class="icon-desktop"></i>   <?php LanguageUtil::echoT('Beta version') ?> </a></b></li>
+                            <li class="first" ><a href="<?php echo Yii::app()->createUrl('site/introduction') ?>"><?php LanguageUtil::echoT('Introduction') ?> </a></li>
+                            <li ><a href="<?php echo Yii::app()->createUrl('site/terms') ?>"><?php LanguageUtil::echoT('Terms') ?></a></li>                                                                           
                             <li><a href="<?php echo Yii::app()->createUrl('site/') ?>">© <?php echo date('Y') ?> ITAKE.ME</a></li>
                         </ul>
                     </div>                   

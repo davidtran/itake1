@@ -45,7 +45,7 @@
                                         'autocomplete'=>'off',
                                         'name'=>'keyword',
                                         'class'=>'search-query',
-                                        'placeholder'=>'Tìm kiếm...'
+                                        'placeholder'=>LanguageUtil::t('Search').'...'
                                         ),
                                     'sourceUrl'=>$this->createUrl('/site/suggest')
                                     ));
@@ -56,7 +56,7 @@
 
                                         <ul class="results"></ul></div>
                                     </div>
-                                    <button id="ndsearch_btn" class="submit" type="submit">Tìm kiếm</button>
+                                    <button id="ndsearch_btn" class="submit" type="submit"><?php LanguageUtil::echoT('Search')?></button>
                                 </form>
                             </div>   
                             <div class="user-controls hidden-phone">
@@ -66,7 +66,7 @@
                                 $cates = CategoryUtil::getCategoryList();                                                                           
                                 ?>       
                                 <div id="listCategory" class="btn-group" style ="margin-top: -5px;">
-                                    <a data-toggle="dropdown" class="btn btn-info dropdown-toggle" id="yw0" href="#"><i class="icon-upload"></i>  Đăng bán <span class="caret"></span></a>
+                                    <a data-toggle="dropdown" class="btn btn-info dropdown-toggle" id="yw0" href="#"><i class="icon-upload"></i>  <?php echo LanguageUtil::echoT('Post Ad') ?> <span class="caret"></span></a>
                                     <ul id="yw1" class="dropdown-menu">
                                         <?php
                                         foreach ($cates as $cat){                                                                                     
@@ -103,14 +103,14 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" style="border-radius: 0px;">
-                                            <li><?php echo CHtml::link('Trang cá nhân',Yii::app()->user->model->getUserProfileUrl()); ?></li>
-                                            <li><?php echo CHtml::link('Đổi mật khẩu',$this->createUrl('/user/changePassword')); ?></li>                                    
-                                            <li><a href="<?php echo $this->createUrl('/user/logout'); ?>">Đăng xuất</a></li>
+                                            <li><?php echo CHtml::link(LanguageUtil::t('My profile'),Yii::app()->user->model->getUserProfileUrl()); ?></li>
+                                            <li><?php echo CHtml::link(LanguageUtil::t('Change password'),$this->createUrl('/user/changePassword')); ?></li>                                    
+                                            <li><a href="<?php echo $this->createUrl('/user/logout'); ?>"><?php LanguageUtil::echoT('Sign out') ?></a></li>
                                         </ul>
                                     </div>
                                 <?php else: ?>
                                 <!--                            <a href="<?php echo $this->createUrl('/user/register'); ?>" class="btn btn-info" ><i class="icon-user icon-white"></i>  Đăng ký</a>-->
-                                <a class="btn btn-success" href="<?php echo $this->createUrl('/user/login'); ?>"><i class="icon-user"></i>  Thành viên</a>
+                                <a class="btn btn-success" href="<?php echo $this->createUrl('/user/login'); ?>"><i class="icon-user"></i>  <?php LanguageUtil::echoT('Member') ?></a>
                             <?php endif; ?>
                         </div>     
                     </div>
