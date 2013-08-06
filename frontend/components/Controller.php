@@ -29,8 +29,9 @@ class Controller extends CController
 
     public function init()
     {
-        chdir(Yii::getPathOfAlias('www'));
-        return parent::init();
+        chdir(Yii::getPathOfAlias('www'));        
+        parent::init();
+        Yii::app()->language = 'vi';
     }
 
     public function renderJsonResult($success = false, $message = '')
