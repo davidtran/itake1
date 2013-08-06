@@ -139,12 +139,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                             </div>  
                                 
                                 <div class="row-fluid">  
-                                    <?php if(Yii::app()->user->isFacebookUser):?>
-                                        <br/>                                    
-                                        <?php echo $form->checkBoxRow($product,'uploadToFacebook',array(
-                                            'class'=>'pull-left'
-                                        )); ?>
-                                    <?php endif; ?>
+                              
                                 <?php                   
                                     $submitText = $product->isNewRecord ? 'Đăng tin': 'Cập nhật';
                                     echo CHtml::submitButton($submitText, array(
