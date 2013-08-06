@@ -21,27 +21,49 @@ class ProductImageUtil
         if ($image != null)
         {
             //resize image to 1024x768
-            $image = $image->resize(1024, 768, 'inside', 'down');
-            $height = $image->getHeight();
-            $width = $image->getWidth();
-
-            //draw a transparent black background
-            //background height = 30% height of main picture
+            $normalFontSize = 30;
+            $fontSize = $normalFontSize;
+            if($image->getWidth() > 1024){
+                $image = $image->resize(1024, 768, 'inside', 'down');                
+                $titleFontSize = 35;
+                $textFontSize = 30;
+                $titleOffset = 1024 - 140;
+                $priceOffset = 1024 - 85;
+                $addressOffset = 1024 - 50;
+            }else if($image->getWidth() > 640){
+                $image = $image->resize(800,600,'inside','down');
+                $titleFontSize = 30;
+                $textFontSize = 18;
+                $titleOffset = 600 - 138;
+                $priceOffset = 600 - 81;
+                $addressOffset = 600 - 52;                                
+            }else{
+                $image = $image->resize(420,420,'inside','down');
+                $titleFontSize = 23;
+                $textFontSize = 16;
+                $titleOffset = 420 - 100;
+                $priceOffset = 420 - 60;
+                $addressOffset = 420 - 40;                                
+            }
+            
             $background = WideImage::load('images/background.png');
-            $backgroundHeight = $height * 25 / 100;
-            $image = $image->merge($background, 0, $height - $backgroundHeight, 50);
+            $backgroundHeight = $image->getHeight() * 25 / 100;
+            
+            $image = $image->merge($background, 0, $image->getHeight() - $backgroundHeight, 50);
             $canvas = $image->getCanvas();
 
-            //draw product info
-            $canvas->useFont('font/mnbtitlefont.ttf', 35, $image->allocateColor(255, 255, 255));
-            $canvas->writeText(30, $height - 140, strtoupper($product->title));
+            
+            $canvas->useFont('font/mnbtitlefont.ttf', $titleFontSize, $image->allocateColor(255, 255, 255));
+            $title = StringUtil::limitCharacter($product->title,60);
+            $canvas->writeText(30, $titleOffset, ($product->title));
 
-            $priceText = $product->price . ' VNĐ';
-            $canvas->useFont('font/mnbtitlefont.ttf', 20, $image->allocateColor(255, 255, 255));
-            $canvas->writeText(30, $height - 85, $priceText);
+            $priceText = preg_replace('/[^0-9]/', '', $product->price);
+            $priceText = number_format($priceText) . ' VNĐ';
+            $canvas->useFont('font/mnbtitlefont.ttf', $textFontSize, $image->allocateColor(255, 255, 255));
+            $canvas->writeText(30,$priceOffset, $priceText);
             if ($product->address != null && $product->user != null)
             {
-                $canvas->writeText(30, $height - 50, 'Liên hệ: ' . $product->user->username . ' - ' . $product->address->phone);
+                $canvas->writeText(30,$addressOffset, 'Liên hệ: ' . $product->user->username . ' - ' . $product->address->phone);
             }
 
             return $image->saveToFile($dest);
