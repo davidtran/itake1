@@ -144,7 +144,7 @@ class FacebookUtil
 
     protected function makePostDescription(Product $product)
     {     
-        
+        $address = '';
         if($product->locationText != ''){
             $address = $product->locationText. ',';
         }
