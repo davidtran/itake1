@@ -57,7 +57,7 @@ class UploadController extends Controller
                     }
                     if($product->save(false)){
                         $this->solrImportProduct($product);
-                        if (Yii::app()->user->isFacebookUser)
+                        if (Yii::app()->user->isFacebookUser && $product->uploadToFacebook)
                         {
                             try
                             {
@@ -122,7 +122,7 @@ class UploadController extends Controller
                 $product->attributes = $_POST['Product'];
           
                     $imageMeta = $this->handleUploadImage($product);
-                    if ($imageMeta !== false && $product->validate(null, false))
+                    if ($product->validate(null, false))
                     {
                         if ($imageMeta !== false)
                         {
@@ -130,7 +130,7 @@ class UploadController extends Controller
                         }
                         if($product->save(false)){
                             $this->solrImportProduct($product);
-                            if (Yii::app()->user->isFacebookUser)
+                            if (Yii::app()->user->isFacebookUser && $product->uploadToFacebook)
                             {
                                 try
                                 {
@@ -144,7 +144,7 @@ class UploadController extends Controller
                                 }
                             }
                             Yii::app()->session['PostedProductId'] = $product->id;
-                            Yii::app()->user->setFlash('success', 'Đăng tin thành công');
+                            Yii::app()->user->setFlash('success', 'Chỉnh sửa tin thành công');
                             $this->redirect($product->getDetailUrl());
                         }
                         
