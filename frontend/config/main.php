@@ -34,7 +34,7 @@ return CMap::mergeArray(
                 'application.controllers.*',
                 'application.models.*'
             ),
-            'name' => 'iTake.me',
+            'name' => 'iTake.me',            
             'components' => array(
                 'errorHandler' => array(
                     'errorAction' => 'site/error'

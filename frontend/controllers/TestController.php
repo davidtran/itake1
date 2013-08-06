@@ -30,7 +30,7 @@ class TestController extends Controller
     protected function getSampleProduct(){
         //draw an image 
         $product = new Product();
-        $product->title = 'New product';
+        $product->title = 'Sản phẩm độc đáo';
         $product->price = 7000000;
         $product->phone = '01217703647';
         $product->description = 'Đến môt ngày anh ngồi tập chát
@@ -42,13 +42,19 @@ Nhưng trong trò vui chứa chan bao lời yêu thương...bao ngọt ngào
 Từng lời đắm say in đắm mãi trong tim từng phút giây';
         $product->image = 'images/content/test.jpeg';
         $product->processed_image = 'images/content/test_processed.jpeg';
+        $product->address_id = 1;
+        $product->user_id = 8;
         return $product;
     }
     public function actionDrawImage(){
         $product = $this->getSampleProduct();
-        ProductImageUtil::drawImage($product, $product->image, $product->processed_image);        
+        ProductImageUtil::drawImage($product,Yii::getPathOfAlias('root').'/large_stores_lazada.jpg', Yii::getPathOfAlias('root').'/large_stores_lazada1.jpg');        
     }    
     
+    public function actionDrawSmallImage(){
+        $product = $this->getSampleProduct();
+        ProductImageUtil::drawImage($product,Yii::getPathOfAlias('root').'/lazada.jpg', Yii::getPathOfAlias('root').'/lazada1.jpg');        
+    }
     public function actionShareProduct(){
         $product = Product::model()->findByPk(126);        
         FacebookUtil::getInstance()->shareProductToFacebook($product);      
