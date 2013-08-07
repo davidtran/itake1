@@ -249,10 +249,24 @@ class SiteController extends Controller
         $this->render('detail_view');
     }
     public function actionTerms(){
-        $this->render('pages/term');
+        if(Yii::app()->language=='en')
+            $this->render('pages/term_en');
+        else
+            $this->render('pages/term');
     }
     public function actionIntroduction(){
         $this->layout = '//layouts/noMenu';
-        $this->render('pages/intro');
+        if(Yii::app()->language=='en')
+            $this->render('pages/intro_en');
+        else
+            $this->render('pages/intro');
+    }
+    public function actionEnLang(){
+        Yii::app()->session['itake_lang'] = 'en';
+        $this->redirect(Yii::app()->createUrl('site/'));
+    }
+    public function actionViLang(){
+        Yii::app()->session['itake_lang'] = 'vi';
+        $this->redirect(Yii::app()->createUrl('site/'));
     }
 }

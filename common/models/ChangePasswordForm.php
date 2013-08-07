@@ -53,9 +53,9 @@
         public function attributeLabels()
         {
             return array(
-                'oldPassword'=>'Mật khẩu cũ',
-                'password'=>'Mật khẩu mới',
-                'retypePassword'=>'Nhập lại mật khẩu mới'
+                'oldPassword'=>LanguageUtil::t('Old password'),
+                'password'=>LanguageUtil::t('New password'),
+                'retypePassword'=>LanguageUtil::t('Reconfirm new password')
             );
         }
 

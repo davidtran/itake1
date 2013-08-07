@@ -31,7 +31,23 @@ class Controller extends CController
     {
         chdir(Yii::getPathOfAlias('www'));        
         parent::init();
-        Yii::app()->language = 'vi';
+        if(isset( $_POST['_lang']))
+        {
+            Yii::app()->session['itake_lang'] = $_POST['_lang'];
+            Yii::app()->language = Yii::app()->session['itake_lang'];
+        }
+        else{
+            if (isset(Yii::app()->session['itake_lang'])) {
+                Yii::app()->language = Yii::app()->session['itake_lang'];
+            }
+            else{
+                 $lang= substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+                if($lang!='vi')
+                    Yii::app()->language = 'en';
+                else
+                    Yii::app()->language = 'vi';
+            }            
+        }        
     }
 
     public function renderJsonResult($success = false, $message = '')

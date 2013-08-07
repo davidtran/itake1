@@ -25,12 +25,15 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
             <div class="row-fluid" style="margin-bottom:20px;"> 
                 <div class="span8">    
                      <div class="row-fluid">
-                        <h3 style="text-align: center;" class="title_font"><i class="icon-hand-right"></i>  Đăng tin <?php echo $product->category->name ?>
+                        <h3 style="text-align: center;" class="title_font"><i class="icon-hand-right"></i>   <?php 
+                                echo LanguageUtil::t('Post Ad to').'  '.$product->category->name ;
+                                $this->pageTitle = LanguageUtil::t('Post Ad to').'  '.$product->category->name;
+                            ?>
                         </h3>
                     </div>                    
                 </div>
                 <div class="span4">
-                        <h3 style="text-align: right;" class="title_font"><i class="icon-eye-open"></i>  Xem trước</h3>
+                        <h3 style="text-align: right;" class="title_font"><i class="icon-eye-open"></i>  <?php LanguageUtil::echoT('Preview') ?></h3>
                 </div>
             </div>
             <div class="row-fluid">
@@ -54,12 +57,12 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                             <?php echo $form->error($product,'image'); ?>
                                             <div class="fileupload-new thumbnail" style="max-width: 200px; max-height: 200px;">
                                                 <?php if ($product->image == null): ?>
-                                                    <img src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP"  style="max-width: 200px; max-height: 200px;"/>
+                                                    <img src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=<?php LanguageUtil::echoT('Your+ad+image') ?>"  style="max-width: 200px; max-height: 200px;"/>
                                                 <?php else: ?>
                                                     <?php
                                                     echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image, '', array(
                                                         'id' => 'productImageHoder',
-                                                        'onError'=>"this.onerror=null;this.src='http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP';"
+                                                        'onError'=>"this.onerror=null;this.src='http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=<?php LanguageUtil::echoT('Your+ad+image') ?>';"
                                                     ));
                                                     ?>
                                                 <?php endif; ?>
@@ -68,14 +71,15 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                             <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 200px; line-height: 20px;"></div>
                                             <div>
                                                 <span class="btn btn-file">
-                                                    <span class="fileupload-new">Chọn hình từ máy tính</span>
-                                                    <span class="fileupload-exists">Đổi lại</span>
+                                                    <span class="fileupload-new"><?php LanguageUtil::echoT('Upload from your computer') ?></span>
+                                                    <span class="fileupload-exists"><?php LanguageUtil::echoT('Change') ?></span>
                                                     <input type="file" name="productImage" id='productImage'/></span>
                                                  
-                                                <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Xóa</a>                                                                
+                                                <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><?php LanguageUtil::echoT('Remove') ?></a>                                                                
                                             </div>
                                             <div class="alert alert-info" style="text-align: justify;background:transparent;border:none;max-width:180px;margin:0 auto;">
-                                                <b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn <?php echo Yii::app()->params['image.minWidth']; ?>pxs và bề cao ảnh phải lớn hơn <?php echo Yii::app()->params['image.minHeight']; ?>pxs
+                                        <!--         <b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn <?php echo Yii::app()->params['image.minWidth']; ?>pxs và bề cao ảnh phải lớn hơn <?php echo Yii::app()->params['image.minHeight']; ?>pxs -->
+                                        <?php LanguageUtil::echoT('<b>Warning:</b> The width of your image is larger than '.Yii::app()->params['image.minWidth'].' pxs and its height is taller than '.Yii::app()->params['image.minHeight'].' pxs') ?>
                                             </div>
                                         </div>                                    
                                     </div>
@@ -90,10 +94,10 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         <?php echo $form->textAreaRow($product, 'description'); ?>                                       
                                         <?php echo $form->hiddenField($product,'address_id'); ?>
                                         <br/>
-                                        <div class="row-fluid" style="margin-bottom:-10px;">
+                                       <!--  <div class="row-fluid" style="margin-bottom:-10px;">
                                             <p class="alert alert-info">Thêm hoặc chọn 1 địa chỉ bên dưới nếu có</p>
-                                        </div>
-                                        <?php echo CHtml::link('<i class="icon-map-marker"></i>  Thêm địa chỉ liên hệ','#',array(
+                                        </div> -->
+                                        <?php echo CHtml::link('<i class="icon-map-marker"></i>  '.LanguageUtil::t('Add your address'),'#',array(
                                             'class'=>'btnAddressDialog flat btn btn-warning',
                                         )); ?>  
                                          <?php echo $form->error($product,'address_id'); ?>
@@ -114,11 +118,11 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         <div class="productImageLink fileupload" data-provides="fileupload">
                                             <a target="_blank" href="#" class="productLink" title="">
                                                 <?php if($product->image == null):?>
-                                                    <img class="productImage" src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP">                                                         
+                                                    <img class="productImage" src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=<?php LanguageUtil::echoT('Your+ad+image') ?>">                                                         
                                                 <?php else:?>
                                                     <?php echo CHtml::image(Yii::app()->baseUrl.'/'.$product->image,'',array(
                                                         'class'=>'productImage',
-                                                        'onError'=>"this.onerror=null;this.src='http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP';"
+                                                        'onError'=>"this.onerror=null;this.src='http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=<?php LanguageUtil::echoT('Your+ad+image') ?>';"
                                                     ));?>
                                                 <?php endif; ?>
                                             </a>
@@ -141,7 +145,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                 <div class="row-fluid">  
                               
                                 <?php                   
-                                    $submitText = $product->isNewRecord ? 'Đăng tin': 'Cập nhật';
+                                    $submitText = $product->isNewRecord ? LanguageUtil::t('Post Ad'): LanguageUtil::t('Update');
                                     echo CHtml::submitButton($submitText, array(
                                         'id' => 'btnFinishStep2',
                                         'encode'=>false,

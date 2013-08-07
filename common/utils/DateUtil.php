@@ -48,7 +48,7 @@
                 if ($time < $unit)
                     continue;
                 $numberOfUnits = floor($time / $unit);
-                return Yii::t('Default','{number} '.$text.'|'.$text.'s',$numberOfUnits);                
+                return Yii::t('Default','{number} '.$text.'|{number} '.$text.'s',array($numberOfUnits,'{number}'=>$numberOfUnits));                
             }
         }
 

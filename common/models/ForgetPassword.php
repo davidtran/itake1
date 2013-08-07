@@ -27,8 +27,7 @@
                 return true;
             }
             return false;
-        }
-
+        }        
 
         protected function generateRandomPassword(){
             return StringUtil::generateRandomString(25);

@@ -19,21 +19,21 @@
                 $myUserModel = Yii::app()->user->getModel();
                 if(isset($myUserModel)&&($myUserModel->id==$product->user_id)):?>
                     <div style="float:right;display:none" class="productControl">
-                        <?php echo CHtml::link('<i class="icon-edit"></i>  Sửa',array('/upload/edit','id'=>$product->id),array(
+                        <?php echo CHtml::link('<i class="icon-edit"></i>  '.LanguageUtil::t('Edit'),array('/upload/edit','id'=>$product->id),array(
                             'class'=>'btn flat p-edit',
                             'data-toggle'=>'tooltip',
                             'title'=>'Sửa thông tin sản phẩm',                            
                         ));?>
                         
-                        <?php echo CHtml::link('<i class="icon-remove"></i> Đã bán ',array('/upload/delete'),array(
+                        <?php echo CHtml::link('<i class="icon-remove"></i> '.LanguageUtil::t('Sold'),array('/upload/delete'),array(
                             'class'=>'btn flat  p-delete',
                             'data-toggle'=>'tooltip',
                             'title'=>'Đã bán phẩm này',
                         )); ?>
                        
                         <script>
-                            $('#p-edit').tooltip('show');
-                            $('#p-delete').tooltip('show');
+                            // $('#p-edit').tooltip('show');
+                            // $('#p-delete').tooltip('show');
                         </script>
                     </div>
                 <?php endif;?>

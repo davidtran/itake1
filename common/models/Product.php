@@ -283,7 +283,7 @@ class Product extends CActiveRecord
         $dateFormatter = new CDateFormatter(Yii::app()->getLocale(Yii::app()->language));
         if ($elapseTime < $day || $elapseTime > $year)
         {
-            return DateUtil::elapseTime($this->create_date) . ' '.Yii::t('strings','ago',null).'';
+            return DateUtil::elapseTime($this->create_date) . ' '.Yii::t('Default','ago',null).'';
         }
         else if ($elapseTime < $day * 2)
         {

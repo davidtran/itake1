@@ -21,27 +21,27 @@ $this->pageTitle = 'Đổi mật khẩu tài khoản tại ListenToMe.vn';
     		'class'=>'form-signin'
     	)
     ));?>
-        <h2 class="form-signin-heading">Đổi mật khẩu</h2>
+        <h2 class="form-signin-heading"><?php  LanguageUtil::echoT('Change password')?> </h2>
                
         <?php echo $form->errorSummary($model); ?>
 
         <?php echo $form->passwordFieldRow($model,'oldPassword',array(
-        'placeholder'=>'Mật khẩu cũ',
+        'placeholder'=> LanguageUtil::t('Old password'),
         'class'=>'input-block-level'
         )); ?>
         
         <?php echo $form->passwordFieldRow($model,'password',array(
-        'placeholder'=>'Mật khẩu mới',
+        'placeholder'=>LanguageUtil::t('New password'),
         'class'=>'input-block-level'
         )); ?>
         
         <?php echo $form->passwordFieldRow($model,'retypePassword',array(
-        'placeholder'=>'Nhập lại mật khẩu mới',
+        'placeholder'=>LanguageUtil::t('Reconfirm new password'),
         'class'=>'input-block-level'
         )); ?>
       
         
-        <button class="btn btn-primary btn-large pull-right" type="submit">Đổi mật khẩu</button>
+        <button class="btn btn-primary btn-large pull-right" type="submit"><?php LanguageUtil::echoT('Update') ?></button>
         
      <?php $this->endWidget(); ?> 
 
