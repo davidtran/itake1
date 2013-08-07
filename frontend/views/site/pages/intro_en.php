@@ -12,7 +12,7 @@ $this->breadcrumbs=array(
 			<img src="<?php echo Yii::app()->baseUrl.'/images/intro_1.png'; ?>">
 		</div>
 		<div class="span6" style="margin-top:44px;">
-			<h2 class="center">ITAKE.ME ! It's easy and so simple to internet marketing</h2>
+			<h2 class="center">ITAKE.ME ! It's easy and so simple to social marketing</h2>
 			<div class="row center" style="margin-top:40px;">
 				<a class="btn btn-success btn-large wide" href="<?php echo Yii::app()->createUrl('user/register') ?>">Sign Up</a>
 			</div>		
@@ -24,7 +24,7 @@ $this->breadcrumbs=array(
 	<div class="row-fluid intro-sep">
 		<div class="span6 center" style="margin-top:104px;">
 			<h2>Quick and extremely convenient</h2>
-			<small>You will no longer wonder how to marketing your products on many websites or social networks, how to determine where to sell. ITAKE will help you, just a simple step to post your product to everywhere</small>			
+			<small>You will no longer wonder how to marketing your products on many websites or social networks, how to determine where to sell. ITAKE will help you, just a simple step to post your products to everywhere</small>			
 		</div>
 		<div class="span6 center">
 			<img src="<?php echo Yii::app()->baseUrl.'/images/intro_2.png'; ?>">
@@ -36,7 +36,7 @@ $this->breadcrumbs=array(
 		</div>
 		<div class="span6 center" style="margin-top:84px;">
 			<h2>Share and have fun</h2>
-			<small>Easy to share your product to everywhere</small>	
+			<small>Easy to share your products to everywhere</small>	
 		</div>
 	</div>
 	<div class="row-fluid intro-sep">
@@ -61,7 +61,7 @@ $this->breadcrumbs=array(
 	<div class="row-fluid intro-sep last">
 		<div class="span6 center" style="margin-top:44px;">	
 			<h2>Constantly improvement</h2>
-			<small>With a full of passion, our team, we always create inno-ideas to bring a perfect product, more convenient with a great experience</small>					
+			<small>With a full of passion, our team, we always create innovative ideas to bring a perfect product, more convenient with a great experience</small>					
 		</div>
 		<div class="span6 center">
 			<img src="<?php echo Yii::app()->baseUrl.'/images/intro_6.png'; ?>">		
