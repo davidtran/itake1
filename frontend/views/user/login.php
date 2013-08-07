@@ -92,7 +92,11 @@ $this->pageTitle = 'Đăng nhập vào Itake';
             <!--     <p style="font-family: 'Segoe UI Light',Arial,Helvetica,sans-serif;font-size:1.1em;">Dễ dàng chia sẽ tin đăng. ITAKE kết nối tới facebook của bạn để việc bán hàng của bạn nhanh chóng hơn, tiếp thị sản phẩm thêm hiệu quả. Hãy đăng nhập bằng facebook để chia sẻ sản phẩm bạn tới bạn bè trên facebook một cách tốt nhất.</p> -->                
                 <h4 class="rb-h4" style="text-align: center;"><?php LanguageUtil::echoT('OR SIGN IN BY') ?></h4>
                 <div class="fb-login-wrapper"> 
-                    <?php echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($returnUrl), array('class' => 'facebook-login')); ?>                   
+                    <?php if(Yii::app()->language=='vi'): ?>
+                    <?php echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($returnUrl), array('class' => 'facebook-login')); ?>       
+                    <?php else: ?>            
+                      <?php echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($returnUrl), array('class' => 'facebook-login2')); ?>       
+                    <?php endif; ?>            
                 </div>    
             </div>
         </div>       
