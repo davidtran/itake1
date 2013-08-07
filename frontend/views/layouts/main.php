@@ -42,7 +42,10 @@
         <!--[if IE 7]>
           <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome-ie7.min.css">
         <![endif]-->
-        
+        <!-- HmIxT9hT1VdUAtjoRIXeBL1DE_c -->
+        <meta name="alexaVerifyID" content="HmIxT9hT1VdUAtjoRIXeBL1DE_c" />
+        <meta name="keywords" 
+        content="itake,classified ad, rao vat, rao vat mobile, HmIxT9hT1VdUAtjoRIXeBL1DE_c" />
     </head>
 
     <body class="ostyle">                        
