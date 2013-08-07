@@ -70,13 +70,13 @@ return array(
 
     ////Category
     'Fashion'=>'Thời trang',
-    'Mobile and Tablet'=>'Điện thoại, máy tính bảng',
-    'Desktop and Latop'=>'Máy tính bàn, laptop',
-    'Camera and Electrical Devices'=>'Máy ảnh, thiết bị điện tử',
-    'Handmade and Art'=>'Thủ công mỹ nghệ',
+    'Mobile & Tablet'=>'Điện thoại, máy tính bảng',
+    'Desktop & Latop'=>'Máy tính bàn, laptop',
+    'Camera & Electrical Devices'=>'Máy ảnh, thiết bị điện tử',
+    'Handmade & Art'=>'Thủ công mỹ nghệ',
     'Services'=>'Dịch vụ',
     'Real Estate'=>'Bất động sản',
-    'Car and Motobike'=>'Ô tô, xe máy',
+    'Car & Motobike'=>'Ô tô, xe máy',
     'Others'=>'Khác',
     'All'=>'Tất cả',
     /////CITIES
