@@ -17,65 +17,125 @@ class ProductImageUtil
     {
 
         Yii::import('common.lib.wideimage.WideImage');
-        $image = WideImage::loadFromFile($source);
+
+        $newImageWidth  = 0;
+        $newImageHeight = 0;  
+        $baseTagHeight = 250;      
+
+        $image = WideImage::loadFromFile($source);        
         if ($image != null)
         {
             //resize image to 1024x768
             $normalFontSize = 30;
             $fontSize = $normalFontSize;
+            $marginLeft = 20;        
             if($image->getWidth() > 1024){
                 $image = $image->resize(1024, 768, 'inside', 'down');                
-                $titleFontSize = 35;
-                $textFontSize = 30;
-                $titleOffset = 1024 - 140;
-                $priceOffset = 1024 - 85;
-                $addressOffset = 1024 - 50;
+                $titleFontSize = 50;
+                $textFontSize = 40;                
+                $priceOffset = 70;
+
             }else if($image->getWidth() > 640){
                 $image = $image->resize(800,600,'inside','down');
-                $titleFontSize = 30;
-                $textFontSize = 18;
-                $titleOffset = 600 - 130;
-                $priceOffset = 600 - 81;
-                $addressOffset = 600 - 52;                                
+                $titleFontSize = 35;
+                $textFontSize = 27;
+                $marginLeft = 15;                                   
             }else{
                 $image = $image->resize(420,420,'inside','down');
-                $titleFontSize = 23;
-                $textFontSize = 16;
-                $titleOffset = 420 - 95;
-                $priceOffset = 420 - 60;
-                $addressOffset = 420 - 40;                                
+                $titleFontSize = 25;
+                $textFontSize = 20;
+                $marginLeft = 10;   
             }
             
-            $background = WideImage::load('images/background.png');
-            $backgroundHeight = $image->getHeight() * 25 / 100;
-            
-            
-            $canvas = $background->getCanvas();
+            $newImageWidth =  $image->getWidth();
+            $newImageHeight = $image->getHeight();
+            $image->saveToFile($dest);
+            $gd_canvas = imagecreatetruecolor($newImageWidth,$newImageHeight);
+            $icon1 = imagecreatefromjpeg($dest);
 
-            $marginLeft = 40;
-            $titleFontSize = 70;
-            $textFontSize = 50;      
-            $canvas->useFont('font/mnbtitlefont.ttf', $titleFontSize, $background->allocateColor(0, 0, 0));
-            $title = StringUtil::limitCharacter($product->title,45);
-            $canvas->writeText($marginLeft, 45, ($title));
-            $canvas->useFont('font/mnbtitlefont.ttf', $titleFontSize, $background->allocateColor(255, 255, 255));
-            $title = StringUtil::limitCharacter($product->title,45);
-            $canvas->writeText($marginLeft-1, 45-1, ($title));
 
-            $priceText = preg_replace('/[^0-9]/', '', $product->price);
-            $priceText = number_format($priceText) . ' VNĐ';            
-            $canvas->useFont('font/mnbtitlefont.ttf', $textFontSize, $background->allocateColor(255, 255, 255));
-            $canvas->writeText($marginLeft,170, $priceText);
-            
-            if ($product->address != null && $product->user != null)
+
+                  //Set our text string 
+            $string = ($product->title);         
+            //Write our text to the existing image.
+            $len = strlen($string);
+            $titleFontSize = ($newImageWidth-2*$marginLeft)/$len/0.32;
+            $baseTagHeight = $titleFontSize*6;            
+            if($baseTagHeight>$newImageHeight/4)
             {
-                $canvas->writeText($marginLeft,240, 'Liên hệ: ' . $product->user->username . ' - ' . $product->address->phone);
+                $ratio =  $newImageHeight/4/$baseTagHeight;
+                $baseTagHeight = $newImageHeight/4;
+                $titleFontSize *= $ratio;
             }
-            $ratio = $image->getWidth()/$background->getWidth();
-            $newBackgroundHeight = $ratio*$background->getHeight();
-            $background = $background->resize($image->getWidth(), $newBackgroundHeight, 'inside');
-            $image = $image->merge($background,"right", "bottom", 50);
-            return $image->saveToFile($dest);
+            $offsetPos = $newImageHeight - $baseTagHeight;
+
+            $icon2 = imagecreatefrompng(Yii::app()->basePath.'/www/images/background.png');
+
+            //Set the background color
+            $rgbColor = CategoryUtil::getCategoryColor($product->category->id);
+            //$rgbColor = CategoryUtil::getCategoryColor(4);
+            $bgColor = imagecolorallocate($icon2, $rgbColor['r'], $rgbColor['g'], $rgbColor['b']);                
+                         
+            imagealphablending($icon2, 1);
+            imagecopy($gd_canvas, $icon1, 0, 0, 0, 0, $newImageWidth, $newImageHeight);
+            imagecopymerge($gd_canvas, $icon2, 0, $newImageHeight-$baseTagHeight, 0, 0, $newImageWidth, $baseTagHeight,50);        
+
+
+            //Set up some colors, use a dark gray as the background color
+            $dark_grey = imagecolorallocate($gd_canvas, 0xcc, 0xcc, 0xcc);
+            $white = imagecolorallocate($gd_canvas, 255, 255, 255);
+            $shadow = imagecolorallocate($gd_canvas, 0, 0, 0);
+             
+            //Set the path to our true type font 
+            $font_path = Yii::app()->basePath.'/www/font/mnbtitlefont.ttf';
+                   
+            imagettftext($gd_canvas, $titleFontSize, 0, $marginLeft, $offsetPos+$titleFontSize*2, $shadow, $font_path, $string);
+             imagettftext($gd_canvas, $titleFontSize, 0, $marginLeft-1, $offsetPos+$titleFontSize*2-1, $white, $font_path, $string);
+            $priceText = preg_replace('/[^0-9]/', '', $product->price);
+            $priceText = number_format($priceText) . ' VNĐ';
+            imagettftext($gd_canvas, $titleFontSize*0.9, 0, $marginLeft, $offsetPos+$titleFontSize*3.8, $dark_grey, $font_path, $priceText);
+             imagefilledrectangle($gd_canvas,0, $newImageHeight-$titleFontSize*0.2, $newImageWidth, $newImageHeight, $bgColor);    
+             if ($product->address != null && $product->user != null)
+            {                
+                imagettftext($gd_canvas, $titleFontSize*0.7, 0, $marginLeft, $newImageHeight-$titleFontSize*0.7, $dark_grey, $font_path, 'Liên hệ: ' . $product->user->username . ' - ' . $product->address->phone);
+            }            
+            
+
+
+
+            
+            imagepng($gd_canvas, $dest);
+            //imagepng($gd_canvas, Yii::app()->basePath.'/www/images/content/merged_image.png');
+            imagedestroy($gd_canvas);
+            imagedestroy($icon2);
+            imagedestroy($icon1);
+            return true;
+
+            // $background = WideImage::load('images/background.png');
+            // $backgroundHeight = $image->getHeight() * 25 / 100;
+            
+            // $image = $image->merge($background, 0, $image->getHeight() - $backgroundHeight, 50);
+            // $canvas = $image->getCanvas();
+
+                        
+            // $title = StringUtil::limitCharacter($product->title,60);
+            // LogUtil::d("AAA".$image->getWidth());            
+            // $titleFontSize = 1.1*$titleFontSize*$image->getWidth()/$selectedWidth;        
+            // LogUtil::d("titleFontSize $titleFontSize");
+            // $canvas->useFont('font/mnbtitlefont.ttf', $titleFontSize, $image->allocateColor(255, 255, 255));
+            // $canvas->writeText($marginLeft, "bottom-".$titleOffset, ($product->title));
+
+            // $priceText = preg_replace('/[^0-9]/', '', $product->price);
+            // $priceText = number_format($priceText) . ' VNĐ';
+            // $textFontSize = 1.1*$textFontSize*$image->getWidth()/$selectedWidth;  
+            // $canvas->useFont('font/mnbtitlefont.ttf', $textFontSize, $image->allocateColor(255, 255, 255));
+            // $canvas->writeText($marginLeft,"bottom-".$priceOffset, $priceText);
+            // if ($product->address != null && $product->user != null)
+            // {
+            //     $canvas->writeText($marginLeft,"bottom-".$addressOffset, 'Liên hệ: ' . $product->user->username . ' - ' . $product->address->phone);
+            // }
+
+            // return $image->saveToFile($dest);
         }
         return false;
     }
