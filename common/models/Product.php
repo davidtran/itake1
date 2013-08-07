@@ -22,7 +22,7 @@ class Product extends CActiveRecord
      * @param string $className active record class name.
      * @return Product the static model class
      */
-    public $facebookPost;
+    public $uploadToFacebook = true;
     public $priceDisplay;
 
     public static function model($className = __CLASS__)
@@ -96,7 +96,8 @@ class Product extends CActiveRecord
             'locationText' => LanguageUtil::t('Street'),
             'city' => LanguageUtil::t('City'),
             'category_id' => LanguageUtil::t('Category'),
-            'address_id' => LanguageUtil::t('Address')
+            'address_id' => LanguageUtil::t('Address'),
+            'uploadToFacebook'=>  LanguageUtil::t('Upload To Facebook')
         );
     }
 

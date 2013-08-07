@@ -4,25 +4,25 @@ class CityUtil{
     const ALL_ID= 0;
     protected static $cityList = array(
         self::ALL_ID=>array(
-            'name'=>'Toàn quốc',
+            'name'=>'All cities',
             'hasLocation'=>false
         ),
         1=>array(
-            'name'=>'Hà Nội',
+            'name'=>'Ha Noi',
             'englishName'=>'Hanoi',
             'hasLocation'=>true,
             'latitude'=>21.022983,
             'longitude'=>105.831878
         ),
         2=>array(
-            'name'=>'Hồ Chí Minh',
+            'name'=>'Ho Chi Minh',
             'englishName'=>'Ho Chi Minh',
             'hasLocation'=>true,
             'latitude'=>10.771602,
             'longitude'=>106.69837
         ),        
         3=>array(
-            'name'=>'Đà Nẵng',
+            'name'=>'Da Nang',
             'englishName'=>'Da Nang',
             'hasLocation'=>true,
             'latitude'=>16.051505,
@@ -55,7 +55,7 @@ class CityUtil{
         return $rs;
     }
     public static function getCityName($id){
-        return isset(self::$cityList[$id])?self::$cityList[$id]['name']:false;
+        return isset(self::$cityList[$id])?LanguageUtil::t(self::$cityList[$id]['name']):false;
     }
     
     public static function makeSelectCityUrl($id){

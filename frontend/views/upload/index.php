@@ -84,8 +84,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                     <div class="rb-form-part">                              
                                         <?php echo $form->textFieldRow($product, 'title'); ?>                                          
                                         <?php echo $form->textFieldRow($product, 'price', array(
-                                            'append' => 'VNĐ',
-                                            'value'=>number_format($product->price,0)
+                                            'append' => 'VNĐ',                                            
                                             )); ?>                                        
                                         <?php //echo $form->textFieldRow($product, 'phone'); ?>
                                         <?php echo $form->textAreaRow($product, 'description'); ?>                                       
@@ -138,7 +137,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
 
                                 </div>
                             </div>  
-                                <div class="row-fluid">                                
+                                
+                                <div class="row-fluid">  
+                              
                                 <?php                   
                                     $submitText = $product->isNewRecord ? 'Đăng tin': 'Cập nhật';
                                     echo CHtml::submitButton($submitText, array(
@@ -146,7 +147,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         'encode'=>false,
                                         'class' => 'btn btn-success pull-left btn-large flat',
                                         'data-loading-text' => 'Đang gửi...',    
-                                        'style'=>"margin-top:20px;margin-left:10px;"                     
+                                        'style'=>"margin-left:10px;"                     
                                     ));
                                   
                                 ?>

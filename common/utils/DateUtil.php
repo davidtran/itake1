@@ -34,13 +34,13 @@
             $time = time() - $time; 
 
             $tokens = array(
-                31536000 => Yii::t('strings','year',null),
-                2592000 => Yii::t('strings','month',null),
-                604800 => Yii::t('strings','week',null),
-                86400 => Yii::t('strings','day',null),
-                3600 => Yii::t('strings','hour',null),
-                60 => Yii::t('strings','min',null),
-                1 => Yii::t('strings','second',null)
+                31536000 => 'year',
+                2592000 => 'month',
+                604800 => 'week',
+                86400 => 'day',
+                3600 => 'hour',
+                60 => 'min',
+                1 => 'second'
             );
 
             foreach ($tokens as $unit => $text)
@@ -48,10 +48,7 @@
                 if ($time < $unit)
                     continue;
                 $numberOfUnits = floor($time / $unit);
-                if($numberOfUnits>1)
-                    return $numberOfUnits . ' ' . $text.'s';
-                else
-                    return $numberOfUnits . ' ' . $text;
+                return Yii::t('Default','{number} '.$text.'|'.$text.'s',$numberOfUnits);                
             }
         }
 

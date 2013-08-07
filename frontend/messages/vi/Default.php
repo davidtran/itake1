@@ -50,6 +50,7 @@ return array(
     'Search'=>'Tìm kiếm',    
     'My profile'=>'Trang cá nhân',
     'Change password'=>'Đổi mật khẩu',
-    'Sign out'=>'Đăng xuất'
+    'Sign out'=>'Đăng xuất',
+    'Upload To Facebook'=>'Đăng tin lên Facebook'
 
 );
