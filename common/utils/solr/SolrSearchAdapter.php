@@ -55,7 +55,7 @@ class SolrSearchAdapter
             $params['pt'] = $this->latitude . ',' . $this->longitude;
             $params['d'] = 50;
             $params['bf'][] = 'recip(geodist(),2,200,20)';
-        }
+        }        
 
         if ($this->sortType == SolrSortTypeUtil::TYPE_CREATE_DATE)
         {

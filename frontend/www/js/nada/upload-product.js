@@ -22,6 +22,15 @@ $(document).ready(function() {
         uploadtype: 'image'
     });
     updatePreview();
+    if(cityList!=null)
+    {
+        var firstCityIndex = null;
+         for (var prop in cityList)
+            if (cityList.propertyIsEnumerable(prop))
+               firstCityIndex = prop;
+           defaultLat = cityList[firstCityIndex].latitude;
+           defaultLng = cityList[firstCityIndex].longitude;
+    }
 });
 function updatePreview() {    
     $('div.productImageTitle').html($('#Product_title').val());
