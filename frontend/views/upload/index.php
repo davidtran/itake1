@@ -79,7 +79,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                             </div>
                                             <div class="alert alert-info" style="text-align: justify;background:transparent;border:none;max-width:180px;margin:0 auto;">
                                         <!--         <b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn <?php echo Yii::app()->params['image.minWidth']; ?>pxs và bề cao ảnh phải lớn hơn <?php echo Yii::app()->params['image.minHeight']; ?>pxs -->
-                                        <?php LanguageUtil::echoT('<b>Warning:</b> The width of your image is larger than '.Yii::app()->params['image.minWidth'].' pxs and its height is taller than '.Yii::app()->params['image.minHeight'].' pxs') ?>
+                                        <?php echo Yii::t('Default','<b>Warning:</b> The width of your image is larger than {width} pxs and its height is taller than {height} pxs',array('{width}'=>Yii::app()->params['image.minWidth'],'{height}'=>Yii::app()->params['image.minHeight'])) ?>
                                             </div>
                                         </div>                                    
                                     </div>
