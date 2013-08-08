@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = 'Tạo tài khoản vào '.Yii::app()->name;
+$this->pageTitle = LanguageUtil::t('Participate in').' '.Yii::app()->name;
 
 //$this->showHeader = false;
 ?>

@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = 'Đăng nhập vào Itake';
+$this->pageTitle = LanguageUtil::t('Sign In').' ITAKE';
 
 //$this->showHeader = false;
 ?>
