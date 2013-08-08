@@ -31,8 +31,24 @@ class CityUtil{
     );
     
     public static function getCityList($excludeAllSelect = false){
-        
-        $list =  self::$cityList;
+        $countryCode = 'vi';
+        $country = Country::model()->find('code=:code',array(':code' =>$countryCode));
+        $cities = $country->cities;
+        $cityList = array();
+         array_push($cityList, array(
+                'name'=>'All cities',
+                'hasLocation'=>false
+        ));
+        foreach ($cities as $city) {
+           array_push($cityList, array(
+                'name'=>$city->name,
+                'englishName'=>$city->name,
+                'hasLocation'=>true,
+                'latitude'=>$city->latitude,
+                'longitude'=>$city->longitude
+           ));
+        }
+        $list =  $cities;
         if($excludeAllSelect){
             unset($list[self::ALL_ID]);
         }
