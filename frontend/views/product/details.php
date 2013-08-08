@@ -117,7 +117,7 @@ $this->pageTitle = $product->title;
 </div>
 <div class="row-fluid">
     <div class="span12 custom">
-        <h3><?php LanguageUtil::echoT('Ads with the same seller') ?></h3>
+        <h3><?php LanguageUtil::echoT('More from this seller') ?></h3>
         <hr/>
         <div id="userProductList">
             <?php foreach ($userProductDataProvider->getData() as $userProduct): ?>
