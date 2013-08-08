@@ -10,6 +10,7 @@ class SolrSearchAdapter
     public $pageSize = 10;
     public $cityId = null;
     public $keyword = null;
+    public $country = null;
     public $categoryId = null;
     protected $latitude = null;
     protected $longitude = null;
@@ -32,6 +33,9 @@ class SolrSearchAdapter
     {
         $fq = '';
         $params = array();
+        if($this->country !=null){
+            $fq[] = 'country:'.$this->country;
+        }
         if ($this->cityId != null && $this->cityId != CityUtil::ALL_ID)
         {
             $fq[] = 'city_id:' . $this->cityId;

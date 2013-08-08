@@ -447,8 +447,9 @@
         <field name="create_date" type="tdate" indexed="true" stored="true"/>        
         <field name="price"  type="float" indexed="true" stored="true"/>                                                                 
         <field name="lat"  type="tdouble" indexed="true"  stored="false"/>
-        <field name="lon" type="tdouble" indexed="true" stored="false"/>
+        <field name="lon" type="tdouble" indexed="true" stored="false"/>        
         <field name="phone" type="phonetic" indexed="true" stored="true"/>
+        <field name="country" type="tint" indexed="true" stored="true" default="0"/>
         <field name="city_id" type="int" indexed="true" stored="false"/>
         <field name="city_name" type="text_general" indexed="true" stored="true"/>
         <field name="view" type="tint" indexed="true" stored="true" default="0"/>
