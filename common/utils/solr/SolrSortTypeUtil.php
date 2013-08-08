@@ -51,7 +51,7 @@ class SolrSortTypeUtil
     {
         return self::TYPE_CREATE_DATE;
     }
-
+        
     protected function getCookieValue()
     {
         if (isset(Yii::app()->request->cookies[self::COOKIE_NAME]))
