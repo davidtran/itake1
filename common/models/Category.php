@@ -103,5 +103,5 @@ class Category extends CActiveRecord
     }
     public function getIconAndNameHtml(){
         return '<i class="'.$this->icon.'"></i>';
-    }
+    }    
 }

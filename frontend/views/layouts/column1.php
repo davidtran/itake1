@@ -19,10 +19,10 @@
                 <?php foreach(CityUtil::getCityListData() as $cityId=>$cityName):?>
                 <li>
                     <?php echo CHtml::link(
-                        $cityName,
+                        LanguageUtil::t($cityName),
                         CityUtil::makeSelectCityUrl($cityId),
                         array(
-                            'title'=>$cityName
+                            'title'=>LanguageUtil::t($cityName)
                             )); ?>       
                         </li>
                     <?php endforeach;?>
@@ -76,12 +76,12 @@
                                                     'category'=>$cat->id,
                                                     'name'=>StringUtil::makeSlug($cat->name)
                                                     ));?>"
-                                                    title="<?php echo $cat->name; ?>"
+                                                    title="<?php echo LanguageUtil::t($cat->name)?>"
                                                     >                                                    
                                                     <span class=" label <?php echo $cat->styleName?>">
                                                         <?php echo $cat->iconAndNameHtml;?>
                                                     </span>
-                                                    <small><?php echo $cat->name?></small>                                                    
+                                                    <small><?php echo LanguageUtil::t($cat->name)?></small>                                                    
                                                 </a>
                                             </li>
                                             <?php

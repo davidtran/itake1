@@ -69,15 +69,15 @@ class SolrSortTypeUtil
     public function getSortTypeList()
     {
         return array(
-            self::TYPE_CREATE_DATE => 'Thời gian',
-            self::TYPE_SCORE => 'Xu hướng'
+            self::TYPE_CREATE_DATE => 'Time',
+            self::TYPE_SCORE => 'Trend'
         );
     }
     
     public function getSortTypeLinkList(){
         $list = array();
         foreach($this->getSortTypeList() as $key=>$value){
-            $list[$key] = CHtml::link($value,$this->makeSortTypeUrl($key));
+            $list[$key] = CHtml::link(LanguageUtil::t($value),$this->makeSortTypeUrl($key));
         }
         return $list;
     }

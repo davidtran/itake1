@@ -2,7 +2,7 @@
 /* @var $this SiteController */
 /* @var $error array */
 
-$this->pageTitle = Yii::app()->name . ' - Thật dễ dàng khi tiếp thị sản phẩm - Chợ rao vặt trên web, rao vặt trên smartphone, chợ trực tuyến, ô tô, xe máy, nhà đất, căn hộ, điện thoại, thiết bị điện tử';
+$this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("ITAKE.ME ! It's easy and so simple to internet marketing on your products, classified ads on Fashion, Mobile and Tablet, Desktop and Latop, Camera and Electrical Devices, Handmade and Art, Services, Real Estate, Car and Motobike, Others");
 ?>
 <?php
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/masonry.pkgd.min.js', CClientScript::POS_HEAD);
@@ -32,14 +32,14 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/pro
             </div>    
             <div class="row-fluid">     
                 <ul>
-                    <li><a href="<?php echo Yii::app()->createUrl('site/index') ?>" title="Xem tất cả"><span class="nav-text all-cat-wrap selected mark"><small class="all-cat"></small><em></em></span></a></li>                                                      
+                    <li><a href="<?php echo Yii::app()->createUrl('site/index') ?>" title="<?php echo LanguageUtil::t('All')?>"><span class="nav-text all-cat-wrap selected mark"><small class="all-cat"></small><em></em></span></a></li>                                                      
                     <?php foreach (CategoryUtil::getCategoryList() as $category): ?>
-                        <li><a href="<?php echo $category->getUrl(); ?>" title='<?php echo $category->name; ?>'><span class="nav-text <?php echo $category->getStyleName(); ?>"><small><i class="<?php echo $category->icon; ?> icon-large"></i> <em></em></small>  <?php //echo $category->name;  ?></span></a></li>
+                        <li><a href="<?php echo $category->getUrl(); ?>" title='<?php echo LanguageUtil::t($category->name)?>'><span class="nav-text <?php echo $category->getStyleName(); ?>"><small><i class="<?php echo $category->icon; ?> icon-large"></i> <em></em></small>  <?php //echo $category->name;  ?></span></a></li>
                     <?php endforeach; ?>                    
                 </ul>
             </div>    
             <?php if ($categoryModel != null): ?>
-                <?php $this->pageTitle = $categoryModel->name . " trên ITAKE.ME" ?>
+                <?php $this->pageTitle = $categoryModel->name . " ".LanguageUtil::t('on')." ITAKE.ME" ?>
             <!--         <div class="selectedCategoryTab"> <h1>Danh mục: <?php echo $categoryModel->name; ?></h1></div>-->
                 <script>
                     $(function() {

@@ -48,7 +48,7 @@ Từng lời đắm say in đắm mãi trong tim từng phút giây';
     }
     public function actionDrawImage(){
         $product = $this->getSampleProduct();
-        ProductImageUtil::drawImage($product,Yii::app()->basePath.'/www/images/content/Bng-n--n_153_420x420.jpg', Yii::app()->basePath.'/www/images/content/AAAAAAAAAAAAAAA.jpg');        
+        ProductImageUtil::drawImage($product,Yii::app()->basePath.'/www/images/content/Khung-nh-p_600.jpg', Yii::app()->basePath.'/www/images/content/AAAAAAAAAAAAAAA.jpg');        
     }    
     
     public function actionDrawSmallImage(){

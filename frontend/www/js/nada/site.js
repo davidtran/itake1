@@ -44,10 +44,10 @@ $(document).ready(function() {
             },
             loading: {
                 finished: undefined,
-                finishedMsg: "<em>Chưa có thêm bài đăng vào lúc này.</em>",
+                finishedMsg: "<em>Have no more post at the moment.</em>",
                 img:BASE_URL + '/images/loading.gif',
                 msg: null,
-                msgText: "<em>Đang tải</em>",
+                msgText: "<em>Loading</em>",
                 selector: '#loadingText',
                 speed: 'fast',
                 start: undefined

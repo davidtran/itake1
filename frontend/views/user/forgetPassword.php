@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = 'Quên mật khẩu';
+$this->pageTitle = LanguageUtil::t('Forgot password') ;
 ?>
 
 <?php if(isset($sent) && $sent == true):?>
@@ -8,31 +8,32 @@ $this->pageTitle = 'Quên mật khẩu';
     <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'htmlOptions' => array(
-            'class' => 'form-signin'
+            'class' => 'form-signin',
+            'style'=>'margin-top:64px;'
         )
     ));
     ?>
 
-    <h2 class="form-signin-heading">Quên mật khẩu</h2>  
+    <h2 class="form-signin-heading"><?php LanguageUtil::echoT('Forgot password') ?></h2>  
     <hr/>
     <p></p>
     <?php echo $form->errorSummary($model); ?>
     <?php
     echo $form->textFieldRow($model, 'email', array(
-        'placeholder' => 'Nhập vào địa chỉ email của bạn',
+        'placeholder' => LanguageUtil::t('Enter your email'),
         'class' => 'input-block-level'
     ));
     ?>
     <?php
     $this->widget('CCaptcha');
     echo $form->textFieldRow($model,'captcha',array(
-        'placeholder' => 'Nhập vào những chữ ở trên để xác nhận',
+        'placeholder' => LanguageUtil::t('Type your letters above to confirm'),
         'class' => 'input-block-level'
     ));
     ?>
 
     <hr/>
-    <button class="btn btn-primary login" type="submit">Gửi</button>
+    <button class="btn btn-primary login" type="submit"><?php LanguageUtil::echoT('Send') ?></button>
 
     <br/>
     <br/>

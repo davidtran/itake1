@@ -472,6 +472,14 @@ a.facebook-login
     display: inline-block;
     text-decoration: none;
 }
+a.facebook-login2
+{
+    background: url('../images/fb_btn_en.png') no-repeat;    
+    width: 350px;
+    height: 70px;
+    display: inline-block;
+    text-decoration: none;
+}
 a.google-login
 {
     background: url('../images/gplus_btn.png') no-repeat;    

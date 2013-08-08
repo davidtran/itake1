@@ -15,7 +15,7 @@
         <script type="text/javascript" src="<?php echo Yii::app()->baseUrl; ?>/js/jquery-1.8.2.min.js"></script>
         <?php
         Yii::app()->controller->widget('frontend.extensions.seo.widgets.SeoHead', array(
-            'defaultDescription' => 'iTake.me - Thật dễ dàng khi tiếp thị sản phẩm. Chợ mua bán những sản phẩm nhanh trên smartphone',
+            'defaultDescription' => LanguageUtil::t("ITAKE.ME ! It's easy and so simple to internet marketing on your products, classified ads on Fashion, Mobile and Tablet, Desktop and Latop, Camera and Electrical Devices, Handmade and Art, Services, Real Estate, Car and Motobike, Others"),
             'defaultKeywords' => 'rao vặt trên smartphone, chợ trực tuyến, ô tô, xe máy, nhà đất, căn hộ, điện thoại, thiết bị điện tử'
         ));
         ?>        
@@ -42,7 +42,10 @@
         <!--[if IE 7]>
           <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome-ie7.min.css">
         <![endif]-->
-        
+        <!-- HmIxT9hT1VdUAtjoRIXeBL1DE_c -->
+        <meta name="alexaVerifyID" content="HmIxT9hT1VdUAtjoRIXeBL1DE_c" />
+        <meta name="keywords" 
+        content="itake,classified ad, rao vat, rao vat mobile, HmIxT9hT1VdUAtjoRIXeBL1DE_c" />
     </head>
 
     <body class="ostyle">                        
@@ -90,7 +93,11 @@
                 <div class="span12">
                     <div class="navigation" style="text-transform:uppercase;">
                         <ul>                                                        
-                            <li class="first"><a href="<?php echo Yii::app()->createUrl('site/') ?>"><b style="color:#194675"><i class="icon-desktop"></i>   <?php LanguageUtil::echoT('Beta version') ?> </a></b></li>
+                            <li class="first"><a href="<?php echo Yii::app()->createUrl('site/') ?>"><b style="color:#194675"><i class="icon-desktop"></i>   <?php LanguageUtil::echoT('Beta version') ?> </a></b></li>                                                        
+                            <li class="first"><a href="<?php echo Yii::app()->createUrl('site/viLang') ?>">
+                            <img style="margin-top:-6px;" src="<?php echo Yii::app()->baseUrl.'/images/vi_flag.png'?>"></a></li>    
+                             <li style="margin-left:-6px;" class="first"><a href="<?php echo Yii::app()->createUrl('site/enLang') ?>">
+                            <img style="margin-top:-6px;" src="<?php echo Yii::app()->baseUrl.'/images/en_flag.png'?>"></a></li>                                                      
                             <li class="first" ><a href="<?php echo Yii::app()->createUrl('site/introduction') ?>"><?php LanguageUtil::echoT('Introduction') ?> </a></li>
                             <li ><a href="<?php echo Yii::app()->createUrl('site/terms') ?>"><?php LanguageUtil::echoT('Terms') ?></a></li>                                                                           
                             <li><a href="<?php echo Yii::app()->createUrl('site/') ?>">© <?php echo date('Y') ?> ITAKE.ME</a></li>
