@@ -50,8 +50,17 @@ class ProductImageUtil
             $newImageWidth =  $image->getWidth();
             $newImageHeight = $image->getHeight();
             $image->saveToFile($dest);
+            $icon1 = null;
             $gd_canvas = imagecreatetruecolor($newImageWidth,$newImageHeight);
-            $icon1 = imagecreatefromjpeg($dest);
+            if (strpos($dest,'.png') !== false||strpos($dest,'.PNG') !== false) {
+                $icon1 = imagecreatefrompng($dest);
+            }
+            else if (strpos($dest,'.jpg') !== false||strpos($dest,'.JPG') !== false) {
+               $icon1 = imagecreatefromjpeg($dest);
+            }else if (condition) {
+                return false;
+            }
+
 
 
 
