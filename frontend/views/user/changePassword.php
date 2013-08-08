@@ -1,5 +1,5 @@
 <?php 
-$this->pageTitle = 'Đổi mật khẩu tài khoản tại ListenToMe.vn';
+$this->pageTitle = LanguageUtil::t('Change password').' ITAKE';
 //$this->showHeader = false;
 ?>
 
