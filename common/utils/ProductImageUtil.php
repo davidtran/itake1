@@ -23,22 +23,22 @@ class ProductImageUtil
             //resize image to 1024x768
             $normalFontSize = 30;
             $fontSize = $normalFontSize;
-            if($image->getWidth() > 1024){
-                $image = $image->resize(1024, 768, 'inside', 'down');                
+            if($image->getHeight() > 768){
+                $image = $image->resize(null, 768, 'inside', 'down');                
                 $titleFontSize = 35;
                 $textFontSize = 30;
                 $titleOffset = 1024 - 140;
                 $priceOffset = 1024 - 85;
                 $addressOffset = 1024 - 50;
-            }else if($image->getWidth() > 640){
-                $image = $image->resize(800,600,'inside','down');
+            }else if($image->getWidth() > 600){
+                $image = $image->resize(null,600,'inside','down');
                 $titleFontSize = 30;
                 $textFontSize = 18;
                 $titleOffset = 600 - 130;
                 $priceOffset = 600 - 81;
                 $addressOffset = 600 - 52;                                
             }else{
-                $image = $image->resize(420,420,'inside','down');
+                $image = $image->resize(null,420,'inside','down');
                 $titleFontSize = 23;
                 $textFontSize = 16;
                 $titleOffset = 420 - 95;
@@ -71,10 +71,9 @@ class ProductImageUtil
             {
                 $canvas->writeText($marginLeft,240, 'Liên hệ: ' . $product->user->username . ' - ' . $product->address->phone);
             }
-            $ratio = $image->getWidth()/$background->getWidth();
-            $newBackgroundHeight = $ratio*$background->getHeight();
-            $background = $background->resize($image->getWidth(), $newBackgroundHeight, 'inside');
-            $image = $image->merge($background,"right", "bottom", 50);
+            
+            $background = $background->resize($image->getWidth(), $backgroundHeight, 'inside');
+            $image = $image->merge($background,"right", "bottom", 70);
             return $image->saveToFile($dest);
         }
         return false;
