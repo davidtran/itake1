@@ -17,20 +17,12 @@ if (typeof contactInfo != "undefined"&&contactInfo!=null) {
 }
 //defaultLat = contactInfo.lat!=null?contactInfo.lat:defaultLat;
 //defaultLng = contactInfo.lon!=null?contactInfo.lon:defaultLng;
+
 $(document).ready(function() {
     $('.fileupload').fileupload({
         uploadtype: 'image'
     });
-    updatePreview();
-    if(cityList!=null)
-    {
-        var firstCityIndex = null;
-         for (var prop in cityList)
-            if (cityList.propertyIsEnumerable(prop))
-               firstCityIndex = prop;
-           defaultLat = cityList[firstCityIndex].latitude;
-           defaultLng = cityList[firstCityIndex].longitude;
-    }
+    updatePreview();   
 });
 function updatePreview() {    
     $('div.productImageTitle').html($('#Product_title').val());

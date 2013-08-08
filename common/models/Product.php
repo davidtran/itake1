@@ -75,6 +75,8 @@ class Product extends CActiveRecord
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
             'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
             'address' => array(self::BELONGS_TO, 'Address', 'address_id'),
+            'countryModel' => array(self::BELONGS_TO, 'Country', 'country'),
+            'cityModel' => array(self::BELONGS_TO, 'City', 'city'),
         );
     }
 

@@ -108,6 +108,20 @@ var UploadAddress = {
         $('#Address_city').change(function(e) {
             UploadAddress.onCityChange($(this).val());
         });
+        if(cityList!=null)
+        {       
+            var firstCityIndex = null;
+             for (var prop in cityList)
+             {
+                if (cityList.propertyIsEnumerable(prop))
+                {
+                   firstCityIndex = prop;
+                   return;
+               }
+            }
+               defaultLat = cityList[firstCityIndex].latitude;
+               defaultLng = cityList[firstCityIndex].longitude;
+        }
         UploadAddress.addAddressDialog.on('shown', function() {
             UploadAddress.map = MapUtils.addMap(UploadAddress.map,defaultLat,defaultLng);
         });

@@ -42,7 +42,7 @@ class ProductModelSolrImporter extends ProductSolrImporter
         }
         
         $data['suggest_terms'] = $data['title'];
-        $data['city_name'] = CityUtil::getCityName($product->city);
+        $data['city_name'] = $product->cityModel->name;
         return $data;
     }
 
