@@ -33,6 +33,7 @@ class ProductModelSolrImporter extends ProductSolrImporter
             'price' => $product->price,
             'phone' => $product->phone,
             'view'=>$product->view,
+            'country'=>$product->country
         );
         
         if ($product->category != null)
