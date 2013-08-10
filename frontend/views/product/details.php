@@ -79,6 +79,14 @@ $this->pageTitle = $product->title;
                                             </div>   
                                         </div>
                                     </div>
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <?php echo CHtml::link('Liên hệ','#',array(
+                                                'class'=>'btn btn-primary',
+                                                'id'=>'btnOpenMessageDialog'
+                                            )); ?>
+                                        </div>
+                                    </div>
 
                                 </div>
                                 <div class="tab-pane fade" id="bando">                                                  

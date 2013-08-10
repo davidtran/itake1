@@ -39,8 +39,9 @@ class Message extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('receiver_id, content', 'required'),
-			array('receiver_id', 'numerical', 'integerOnly'=>true),
+			array('receiver_id, content,user_id', 'required'),
+			array('receiver_id,product_id,sender_id,user_id', 'numerical', 'integerOnly'=>true),
+            array('content','length','max'=>500),   
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, sender_id, receiver_id, content, create_date', 'safe', 'on'=>'search'),
@@ -67,10 +68,11 @@ class Message extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'sender_id' => 'Sender',
-			'receiver_id' => 'Receiver',
-			'content' => 'Content',
-			'create_date' => 'Create Date',
+			'sender_id' => Yii::t('Default','Sender'),
+			'receiver_id' => Yii::t('Default','Receiver'),
+			'content' => Yii::t('Default','Content'),
+			'create_date' => Yii::t('Default','Create Date'),
+            'product_id'=>  Yii::t('Default', 'Product ID'),
 		);
 	}
 
