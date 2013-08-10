@@ -14,8 +14,7 @@ class MessageController extends Controller
 	{
 		$model=new Message;	
 		if(isset($_POST['content']) && isset($_POST['user_id']))
-		{
-			
+		{			
 			$model->receiver_id = $_POST['user_id'];
 			$model->content = $_POST['content'];
 			if($model->save()){
@@ -49,13 +48,10 @@ class MessageController extends Controller
         $userId = Yii::app()->user->id;
 		$messageList = new MessageList($userId);
         $messageList->unread = true;
-        $list = $messageList->getMessageList($page);
-        
-        
+        $list = $messageList->getMessageList($page);                
         echo $this->renderPartial('partial/list',array(
             'list'=>$list
-        ),true,false); 
-		
+        ),true,false); 		
 	}
 
 	/*

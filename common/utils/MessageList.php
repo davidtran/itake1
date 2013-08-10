@@ -8,8 +8,7 @@ class MessageList{
     public $unread = false;
     public function __construct($userId)
     {
-        $this->userId = $userId;
-        
+        $this->userId = $userId;        
     }
                 
     public function getMessageList($page = 0){

@@ -15,10 +15,21 @@ cs()->registerScriptFile(Yii::app()->baseUrl.'/js/app/message.js',CClientScript:
                 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm',array());
                 echo PhihoFormSecurity::keyField('sendMessage'); 
             ?>    
-            <?php echo $form->labelEx($model,'receiver_id'); ?>
-            <span class=" uneditable-input" style="color:black;"><?php echo $receiver->username; ?></span>
+            <?php
+                echo $form->activeLabelEx($model,'receiver_id');
+                echo CHtml::textField('receiver_name', $model->receiver->username); 
+            ?>
+            <?php 
+                echo $form->activeLabelEx($model,'product_id'); 
+                echo $form->uneditableRow($model,'product_id',array(
+                    'value'=>CHtml::link($model->product->name,$model->product->getDetailUrl())
+                ));
+            ?>
         	<?php 
                 echo $form->hiddenField($model,'receiver_id');
+            ?>
+            <?php
+                echo $form->active
             ?>
         	<?php 
                 echo $form->textAreaRow($model,'content',array('class'=>'span5'));
