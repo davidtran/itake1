@@ -45,5 +45,5 @@ index
 /console/runtime
 
 
-/common/config/environments/params-staging.php
-/frontend/www/log/*
+common/config/environments/params-staging.php
+frontend/www/log/*
