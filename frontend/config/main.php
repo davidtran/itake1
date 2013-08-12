@@ -34,6 +34,9 @@ return CMap::mergeArray(
                 'application.controllers.*',
                 'application.models.*'
             ),
+            'modules'=>array(
+                'api'
+            ),        
             'name' => 'iTake.me',            
             'components' => array(
                 'errorHandler' => array(

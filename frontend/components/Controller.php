@@ -47,7 +47,8 @@ class Controller extends CController
                 else
                     Yii::app()->language = 'vi';
             }            
-        }       
+        }  
+        
         try{
             //CityUtil::geoCheckip($_SERVER['REMOTE_ADDR']);        
             CityUtil::geoCheckip('192.227.139.106');
