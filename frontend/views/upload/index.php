@@ -37,55 +37,52 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                 </div>
             </div>
             <div class="row-fluid">
-                <?php
-                $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-                    'id' => 'uploadProductForm',                   
-                    'htmlOptions' => array(
-                        'enctype' => 'multipart/form-data'
-                    )
-                        ));
-                ?>
-                <?php echo $form->errorSummary($product); ?>       
+              
                 <div id="uploadStep1">
                     <div class="row-fluid">
                         <div class="span8">                                
                             <div class="row-fluid">                               
                                 <div class="span6" style="min-width:250px;">                                    
-                                    <div class="rb-form-part" style="text-align:center;margin-top:15%;">                          
-                                        <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>                                        
-                                        <div class="fileupload fileupload-new" data-provides="fileupload">
-                                            <?php echo $form->error($product,'image'); ?>
-                                            <div class="fileupload-new thumbnail" style="max-width: 200px; max-height: 200px;">
-                                                <?php if ($product->image == null): ?>
-                                                    <img src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=<?php LanguageUtil::echoT('Your+ad+image') ?>"  style="max-width: 200px; max-height: 200px;"/>
-                                                <?php else: ?>
-                                                    <?php
-                                                    echo CHtml::image(Yii::app()->baseUrl . '/' . $product->image, '', array(
-                                                        'id' => 'productImageHoder',
-                                                        'onError'=>"this.onerror=null;this.src='http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=<?php LanguageUtil::echoT('Your+ad+image') ?>';"
-                                                    ));
-                                                    ?>
-                                                <?php endif; ?>
-                                                
-                                            </div>
-                                            <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 200px; line-height: 20px;"></div>
-                                            <div>
-                                                <span class="btn btn-file">
-                                                    <span class="fileupload-new"><?php LanguageUtil::echoT('Upload from your computer') ?></span>
-                                                    <span class="fileupload-exists"><?php LanguageUtil::echoT('Change') ?></span>
-                                                    <input type="file" name="productImage" id='productImage'/></span>
-                                                 
-                                                <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><?php LanguageUtil::echoT('Remove') ?></a>                                                                
-                                            </div>
-                                            <div class="alert alert-info" style="text-align: justify;background:transparent;border:none;max-width:180px;margin:0 auto;">
-                                        <!--         <b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn <?php echo Yii::app()->params['image.minWidth']; ?>pxs và bề cao ảnh phải lớn hơn <?php echo Yii::app()->params['image.minHeight']; ?>pxs -->
-                                        <?php echo Yii::t('Default','<b>Warning:</b> The width of your image is larger than {width} pxs and its height is taller than {height} pxs',array('{width}'=>Yii::app()->params['image.minWidth'],'{height}'=>Yii::app()->params['image.minHeight'])) ?>
-                                            </div>
-                                        </div>                                    
+                                    <div class="rb-form-part" style="text-align:center;">                          
+                                  
+                                        <div class="alert alert-info" style="text-align: justify;background:transparent;border:none;max-width:180px;margin:0 auto;">
+
+                                            <?php echo Yii::t('Default','<b>Warning:</b> The width of your image is larger than {width} pxs and its height is taller than {height} pxs',array('{width}'=>Yii::app()->params['image.minWidth'],'{height}'=>Yii::app()->params['image.minHeight'])) ?>
+                                        </div>                                   
+                                        <?php 
+                                        $this->widget( 'frontend.extensions.xupload.XUpload', array(
+                                            'url' => Yii::app( )->createUrl( "/upload/upload"),
+                                            //our XUploadForm
+                                            'model' => $photos,
+                                            //We set this for the widget to be able to target our own form
+                                            'htmlOptions' => array('id'=>'somemodel-form'),                                            
+                                            'showForm'=>true,
+                                            'attribute' => 'file',
+                                            'multiple' => true,
+                                            'autoUpload'=>true,
+                                            //Note that we are using a custom view for our widget
+                                            //Thats becase the default widget includes the 'form' 
+                                            //which we don't want here
+                                            'formView' => 'application.views.upload.partial.ajaxForm',
+                                            'downloadView'=>'application.views.upload.partial.ajaxDownload',
+                                            'uploadView'=>'application.views.upload.partial.ajaxUpload'
+                                            )    
+                                        );                                        
+                                        ?>
                                     </div>
                                 </div>
                                 <div class="span6">
                                     <div class="rb-form-part">                              
+                                        <?php
+                                        $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+                                            'id' => 'uploadProductForm',                   
+                                            'htmlOptions' => array(
+                                                'enctype' => 'multipart/form-data'
+                                            )
+                                                ));
+                                        ?>
+                                        <?php echo $form->errorSummary($product); ?>       
+                                        <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>                                        
                                         <?php echo $form->textFieldRow($product, 'title'); ?>                                          
                                         <?php echo $form->textFieldRow($product, 'price', array(
                                             'append' => 'VNĐ',                                            
@@ -112,6 +109,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                             </div>                           
                         </div>
                         <div class="span3 pull-right" style="border-left: dashed 1px #ccc;min-width: 250px;">                             
+                            
                             <div class="productItem <?php echo $product->category->getStyleName(); ?>" style="width: 80%;float:right;">
                                 <div class="row-fluid">
                                     <div class="product-detail">
