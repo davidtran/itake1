@@ -1,36 +1,78 @@
 <?php
 
-
 /**
  * Api for get, edit, delete product
  *
  * @author Khanh Nam
  */
-class ProductController extends Controller
+class ProductController extends MobileController
 {
-    
+
     public function filters()
     {
-        return array(
-            array(
-                'CheckTokenFilter +post,search,share,detail'
-            )
-        );
+//        return array(
+//            array(
+//                'CheckTokenFilter +post,search,share,detail'
+//            )
+//        );
     }
-    //put your code here
+
     protected $_product;
 
-    protected function log()
+    public function actionSuggest($term)
     {
-        $log = serialize($_REQUEST);
-        $f = fopen('log', 'wb');
-        fwrite($f, $log);
-        fclose($f);
+        $adapter = new SuggestAdapter();
+        $adapter->setKeyword($term);
+        $suggests = $adapter->getSuggestion();
+        echo json_encode($suggests);
+    }
+
+    public function actionSearch($keyword = null, $category = null, $city = null, $country = null, $facebook = false, $page = 0)
+    {
+        $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
+
+        $city = 0;
+        if (isset(Yii::app()->session['LastCity']))
+        {
+            $city = Yii::app()->session['LastCity'];
+        }
+
+        $solrAdapter = new SolrSearchAdapter();
+        $solrAdapter->categoryId = $category;
+        $solrAdapter->cityId = $city;
+        $solrAdapter->page = $page;
+        $solrAdapter->pageSize = 12;
+        $solrAdapter->country = $country;
+        $solrAdapter->keyword = $keyword;
+        $resultSet = $solrAdapter->search();
+
+
+        $productList = $resultSet->productList;
+
+        $empty = $page * $solrAdapter->pageSize + $solrAdapter->pageSize > $resultSet->numFound;
+        $list = array();
+        foreach ($productList as $product)
+        {
+            $list[] = JsonRenderAdapter::renderProduct($product);
+        }
+        $this->renderAjaxResult(true, array(
+            'empty' => $empty,
+            'list' => $list
+        ));
+    }
+
+    public function actionDetail($id)
+    {
+        $product = Product::model()->findByPk($id);
+        if ($product != null)
+        {
+            $this->renderAjaxResult(true, JsonRenderAdapter::renderProduct($product));
+        }
+        $this->renderAjaxResult(false);
     }
 
     public function actionPost()
     {
-        $this->log();
         if (isset($_REQUEST))
         {
             $model = new Product();
@@ -40,13 +82,13 @@ class ProductController extends Controller
             {
 
                 $this->renderAjaxResult(true, array(
-                    'product' => $model->attributes
+                    'product' => JsonRenderAdapter::renderProduct($model)
                 ));
             }
             else
             {
                 $this->renderAjaxResult(false, array(
-                    'error' => $model->errors
+                    'errors' => $model->errors
                 ));
             }
         }
@@ -56,43 +98,25 @@ class ProductController extends Controller
         }
     }
 
-    public function actionDetail($productId, $latitude = null, $longitude = null)
+    public function actionShare($productId, $access_token = null)
     {
-        $model = Product::model()->findByPk($productId);
-        if ($model != null)
-        {
-            $data = $model->attributes;
-            if ($latitude != null && $longitude)
-            {
-                $data['distance'] = $model->getDistance($latitude, $longitude);
-            }
 
-
-            $this->renderAjaxResult(true, array(
-                'product' => $data
-            ));
-        }
-        else
-        {
-            $this->renderAjaxResult(false, 'Product not found');
-        }
-    }
-
-    public function actionShare($productId,$token)
-    {
-        
         $model = Product::model()->findByPk($productId);
         if ($model != null)
         {
             try
             {
-                $data = FacebookUtil::shareProductToFacebook($model, $token);
+                $fb = FacebookUtil::getInstance();
+                if($access_token !=null){
+                    $fb->setAccessToken($access_token);
+                }
+                $data = $fb->shareProductToFacebook($model);
                 $this->renderAjaxResult(true, array(
                     'data' => $data
                 ));
             }
             catch (FacebookApiException $e)
-            {                
+            {
                 $this->renderAjaxResult(false, 'Invalid token or user is not authorized with Facebook');
             }
             catch (Exception $e)
@@ -104,30 +128,6 @@ class ProductController extends Controller
         {
             $this->renderAjaxResult(false, 'Product not found');
         }
-    }
-
-    public function actionSearch($keyword = null, $latitude = null, $longitude = null, $category = null, $city = null, $page = 0)
-    {
-        $keyword = strtolower($keyword);
-        $productDataProvider = ProductUtil::searchProductByLocation($latitude, $longitude, $keyword, $category, $city, $page);
-        $productList = $productDataProvider->getData();
-        $result = array();
-        foreach ($productList as $index => $product)
-        {
-
-            $result[$index] = $product->attributes;
-            $result[$index]['distance'] = $product->getDistance($latitude, $longitude);
-            $result[$index]['image'] = Yii::app()->getBaseUrl(true) . '/' . $product->image;
-            if ($product->user != null)
-            {
-                $result[$index]['user'] = $product->user->getData();
-            }
-        }
-        $this->renderAjaxResult(true, array(
-            'list' => $result,
-            'total'=>$productDataProvider->getTotalItemCount(),
-            'page'=>$page
-        ));
     }
 
 }

@@ -77,6 +77,8 @@ class Product extends CActiveRecord
             'address' => array(self::BELONGS_TO, 'Address', 'address_id'),
             'countryModel' => array(self::BELONGS_TO, 'Country', 'country'),
             'cityModel' => array(self::BELONGS_TO, 'City', 'city'),
+            'firstImage'=>array(self::HAS_ONE,'ProductImage','product_id','order'=>'number'),
+            'images'=>array(self::HAS_MANY,'ProductImage','product_id','order'=>'number'),  
         );
     }
 

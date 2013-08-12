@@ -14,7 +14,7 @@ class SolrSearchAdapter
     public $categoryId = null;
     protected $latitude = null;
     protected $longitude = null;
-    protected $sortType;
+    protected $sortType = null;
 
     const DEFAULT_KEYWORD = '*:*';
 
@@ -22,6 +22,7 @@ class SolrSearchAdapter
     {
         $this->page = 0;
         $this->cityId = null;
+        $this->sortType = SolrSortTypeUtil::TYPE_CREATE_DATE;
     }
 
     public function setSortType($value)

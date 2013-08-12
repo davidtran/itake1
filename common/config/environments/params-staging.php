@@ -25,7 +25,7 @@ return array(
 	'env.code' => 'prod',
 	// DB connection configurations
 	'db.name' => '',
-db.connectionString' => 'mysql:host=127.0.0.1;dbname=itake',
+    'db.connectionString' => 'mysql:host=127.0.0.1;dbname=itake',
 
 	'db.username' => 'itake',
 	'db.password' => 'itake',

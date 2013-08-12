@@ -129,17 +129,13 @@ class FacebookUtil
     }
 
 
-    public function shareProductToFacebook(Product $product, $accessToken = null)
+    public function shareProductToFacebook(Product $product)
     {
         $args = array();   
-        $args['picture'] = '@'.realpath($product->processed_image);
-        if ($accessToken != null)
-        {
-            $args['access_token'] = $accessToken;
-        }
+        $args['picture'] = '@'.realpath($product->firstImage->facebook);        
         $desc = $this->makePostDescription($product);        
         $args['message'] = $desc;
-        $data = Yii::app()->facebook->api('/me/photos', 'POST', $args);       
+        return Yii::app()->facebook->api('/me/photos', 'POST', $args);       
     }
 
     protected function makePostDescription(Product $product)

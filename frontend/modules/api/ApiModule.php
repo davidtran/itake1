@@ -6,7 +6,8 @@ class ApiModule extends CWebModule
 	{		
 		$this->setImport(array(
 			'api.models.*',
-			'api.utils.*',            
+			'api.utils.*',  
+            'api.components.*',
 		));
         ApiUser::getInstance();
 	}
