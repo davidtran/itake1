@@ -1,15 +1,15 @@
 <?php
 
-class UserController extends Controller
+class UserController extends MobileController
 {
 
     public function filters()
     {
-        return array(
-            array(
-                'CheckTokenFilter + detail'
-            )            
-        );
+//        return array(
+//            array(
+//                'CheckTokenFilter + detail'
+//            )            
+//        );
     }     
 
     public function actionRegister()
@@ -39,7 +39,7 @@ class UserController extends Controller
     }
 
     public function actionLogin()
-    {
+    {     
         $data = $this->getPayloadData();
         $login = new LoginForm();
         if (isset($data['email']) && isset($data['password']))
@@ -48,21 +48,24 @@ class UserController extends Controller
             $login->password = $data['password'];
 
             if ($login->login())
-            {
-                
+            {                
                 $user = UserUtil::getUserByEmail($data['email']);
                 if($user!=null){
                     $token = TokenUtil::createTokenModel($user->id);
-                    if($token->save()){
-                        $this->renderAjaxResult(true, array(                            
+                    if ($token->save())
+                    {
+                        $this->renderAjaxResult(true, array(
+                            'id' => $user->id,                     
                             'token' => $token->token
                         ));
                     }
-                }else{
-                    $this->renderAjaxResult(false,'Error while get login token');
-                }
-                
-                
+                    else
+                    {
+                        $this->renderAjaxResult(false, array(
+                            'errors' => $token->errors
+                        ));
+                    }
+                }                                
             }
             else
             {
@@ -75,20 +78,6 @@ class UserController extends Controller
         }
     }
     
-    public function actionDetail($userId){
-        $user = User::model()->findByPk($userId);
-        if($user!=null){
-            $data = $user->attributes;
-            unset($data['password']);
-            unset($data['create_date']);
-            unset($data['salt']);
-            $this->renderAjaxResult(true,$data);
-        }else{
-            $this->renderAjaxResult(false,'Không tìm thấy người dùng');
-        }
-            
-        
-    }
     protected function getPayloadData()
     {
         return $_REQUEST;
@@ -96,11 +85,8 @@ class UserController extends Controller
 
     public function actionFacebookLogin()
     {
-        $profile = $this->getPayloadData();
-        //check user exist
-      
-
-        if (isset($profile['email']))
+        $profile = $this->getPayloadData();   
+        if (isset($profile['email']) && isset($profile['access_token']) && isset($profile['id']))
         {
             $user = UserUtil::getUserByEmail($profile['email']);
             if ($user == null)
@@ -122,6 +108,7 @@ class UserController extends Controller
             }
             $user->fbId = $profile['id'];
             $user->isFbUser = 1;     
+            FacebookUtil::getInstance()->saveUserToken($user->id, $profile['access_token']);
             $user->save();      
             if ($user != null)
             {

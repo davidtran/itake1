@@ -118,7 +118,7 @@ class UserUtil
                 }
                 else
                 {
-                    return Yii::app()->baseUrl . '/' . $user->image;
+                    return Yii::app()->getBaseUrl(true) . '/' . $user->image;
                 }
             }
             else
@@ -139,7 +139,7 @@ class UserUtil
                 }
             }
         }
-        return Yii::app()->baseUrl . '/' . self::USER_IMAGE_PLACEHOLDER;
+        return Yii::app()->getBaseUrl(true) . '/' . self::USER_IMAGE_PLACEHOLDER;
     }
 
     public static function makeLogoutUrl()

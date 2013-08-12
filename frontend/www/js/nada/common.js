@@ -215,7 +215,8 @@ $(document).ready(function() {
             appId: '620447237967845',
             status: true,
             cookie: true,
-            xfbml: true
+            xfbml: true,
+            channelUrl:ABSOLUTE_URL + '/channel.html'
         });
         $(document).trigger("facebook:ready");
     }
