@@ -4,15 +4,16 @@ Yii::import("frontend.extensions.xupload.models.XUploadForm");
 
 class UploadController extends Controller
 {
-
+    const IMAGE_STATE_VARIABLE = 'xuploadFiles';
     public function actions()
     {
         return array(
             'upload' => array(
-                'class' => 'frontend.extensions.xupload.actions.XUploadAction',
+                'class' => 'frontend.extensions.xupload.actions.ITakeXUploadAction',
                 'path' => Yii::getPathOfAlias('www') . '/images/content',
                 'publicPath' => Yii::app()->getBaseUrl() . "/images/content",
-                'formClass' => 'frontend.extensions.xupload.models.XUploadForm'
+                'formClass' => 'frontend.extensions.xupload.models.XUploadForm',
+                'stateVariable'=>self::IMAGE_STATE_VARIABLE
             ),
         );
     }
@@ -50,7 +51,7 @@ class UploadController extends Controller
     }
 
     public function actionIndex($category)
-    {
+    {        
         $returnUrl = $this->createUrl('/upload/index');
         $this->checkLogin('Vui lòng đăng nhập được khi sử dụng tính năng này', $returnUrl);
         $postedToFacebook = false;
@@ -68,28 +69,19 @@ class UploadController extends Controller
             {            
                 if ($product->save(false))
                 {
-                    if($this->saveUploadedImage($product)){
-                        $this->solrImportProduct($product);
-                        if (Yii::app()->user->isFacebookUser && $product->uploadToFacebook)
-                        {
-                            try
-                            {
-                                FacebookUtil::getInstance()->shareProductToFacebook($product);
-                                $postedToFacebook = true;
-                            }
-                            catch (FacebookApiException $e)
-                            {
-                                $postedToFacebook = false;
-                                Yii::app()->session['PostedToFacebook'] = false;
-                            }
-                        }
-                        Yii::app()->session['PostedProductId'] = $product->id;
-                        Yii::app()->user->setFlash('success', 'Đăng tin thành công');
-                        $this->redirect($product->getDetailUrl());
-                    }
+                    $this->solrImportProduct($product);
+                    $this->saveUploadedImage($product);                    
+                    //$this->postProductToFacebook($product);
+                    Yii::app()->session['PostedProductId'] = $product->id;
+                    Yii::app()->user->setFlash('success', 'Đăng tin thành công');
+                    Yii::app( )->user->setState(self::IMAGE_STATE_VARIABLE, null );
+                    $this->redirect($product->getDetailUrl());
+                    
                     
                 }
             }          
+        }else{
+            Yii::app( )->user->setState( self::IMAGE_STATE_VARIABLE, null );
         }
 
 
@@ -126,32 +118,20 @@ class UploadController extends Controller
 
           
                 if ($product->validate(null, false))
-                {
-                    if ($imageMeta !== false)
-                    {
-                        $this->renderImage($product, $imageMeta['filename'], $imageMeta['extension']);
-                    }
+                {                    
                     if ($product->save(false))
                     {
+                        $this->saveUploadedImage($product);
                         $this->solrImportProduct($product);
-                        if (Yii::app()->user->isFacebookUser && $product->uploadToFacebook)
-                        {
-                            try
-                            {
-                                FacebookUtil::getInstance()->shareProductToFacebook($product);
-                                $postedToFacebook = true;
-                            }
-                            catch (FacebookApiException $e)
-                            {
-                                $postedToFacebook = false;
-                                Yii::app()->session['PostedToFacebook'] = false;
-                            }
-                        }
+                        $this->postProductToFacebook($product);
                         Yii::app()->session['PostedProductId'] = $product->id;
                         Yii::app()->user->setFlash('success', 'Chỉnh sửa tin thành công');
+                        Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null );
                         $this->redirect($product->getDetailUrl());
                     }
                 }
+            }else{
+                Yii::app( )->user->setState( self::IMAGE_STATE_VARIABLE , null );
             }
             $this->render('index', array(
                 'product' => $product,
@@ -170,9 +150,9 @@ class UploadController extends Controller
     }
     
     public function haveUploadedImage(){
-         if (Yii::app()->user->hasState('xuploadFiles'))
+         if (Yii::app()->user->hasState(self::IMAGE_STATE_VARIABLE))
             {
-                $userImages = Yii::app()->user->getState('xuploadFiles');                
+                $userImages = Yii::app()->user->getState(self::IMAGE_STATE_VARIABLE);                
                 return count($userImages) > 0;
             }
             return false;
@@ -181,10 +161,10 @@ class UploadController extends Controller
     public function saveUploadedImage(Product $product)
     {
         $haveImage = true;
-        if (Yii::app()->user->hasState('xuploadFiles'))
+        if (Yii::app()->user->hasState(self::IMAGE_STATE_VARIABLE))
         {
-            $userImages = Yii::app()->user->getState('xuploadFiles');
-           
+            $userImages = Yii::app()->user->getState(self::IMAGE_STATE_VARIABLE);
+            
             foreach ($userImages as $index => $image)
             {
                 if (is_file($image["path"]))
@@ -192,8 +172,7 @@ class UploadController extends Controller
                     $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($product->title)) .
                                 '_' .
                                 $product->id;
-                    $ext = substr($image['filename'],strlen($image['filename'])-3);
-                    $filename .= $ext;
+                    $ext = substr($image['filename'],strlen($image['filename'])-3);                  
                     if (rename($image["path"],  Yii::getPathOfAlias('www').'/images/content/'. $filename.'.'.$ext))
                     {
                                                 
@@ -203,8 +182,8 @@ class UploadController extends Controller
                         $imageModel->thumbnail = $resize;                                                
                         if($index == 0){                            
                             $processed = 'images/content/processed/' . $filename . '.' . $ext;
-                            //ProductImageUtil::drawImage($product, $product->image, $processed);                            
-                            //$imageModel->facebook = $processed;
+                            ProductImageUtil::drawImage($product, $product->image, $processed);                            
+                            $imageModel->facebook = $processed;
                         }
                         $imageModel->number = $index + 1;
                         $imageModel->product_id = $product->id;
@@ -360,6 +339,52 @@ class UploadController extends Controller
             {
                 $address->delete();
                 $this->renderAjaxResult(true);
+            }
+        }
+    }
+    
+    public function actionDeleteImage($id){
+        $image = ProductImage::model()->findByPk($id);
+        if($image){
+            $image->delete();
+            $this->renderAjaxResult(true);
+        }else{
+            $this->renderAjaxResult(false,Yii::t('Default','Image is not exist'));
+        }
+    }
+    
+    protected function getFacebookPageListData(){
+        $pages = FacebookUtil::getInstance()->getManagePageList();
+        if($pages!==false){
+            $rs = array();
+            foreach($pages as $page){
+                $rs[$page['page_id']] = CHtml::link($page['name'],$page['page_url'],array(
+                    'target'=>'_blank'
+                ));
+            }
+            return $rs;
+        }
+        return false;        
+    }
+    
+    protected function postProductToFacebook($product){
+        if (Yii::app()->user->isFacebookUser && $product->uploadToFacebook)
+        {
+            try
+            {
+                FacebookUtil::getInstance()->shareProductToFacebook($product);
+                if(isset($_POST['FacebookPage'])){
+                    foreach($_POST['FacebookPage'] as $page){
+                        FacebookUtil::getInstance()->shareProductToPage($product, $page);
+                    }
+                }
+                
+                $postedToFacebook = true;
+            }
+            catch (FacebookApiException $e)
+            {
+                $postedToFacebook = false;
+                Yii::app()->session['PostedToFacebook'] = false;
             }
         }
     }

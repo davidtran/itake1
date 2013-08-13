@@ -51,24 +51,24 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         </div>                                   
                                         <?php 
                                         $this->widget( 'frontend.extensions.xupload.XUpload', array(
-                                            'url' => Yii::app( )->createUrl( "/upload/upload"),
-                                            //our XUploadForm
-                                            'model' => $photos,
-                                            //We set this for the widget to be able to target our own form
+                                            'url' => Yii::app( )->createUrl( "/upload/upload"),                                            
+                                            'model' => $photos,                                            
                                             'htmlOptions' => array('id'=>'somemodel-form'),                                            
                                             'showForm'=>true,
                                             'attribute' => 'file',
                                             'multiple' => true,
-                                            'autoUpload'=>true,
-                                            //Note that we are using a custom view for our widget
-                                            //Thats becase the default widget includes the 'form' 
-                                            //which we don't want here
+                                            'autoUpload'=>true,                                            
                                             'formView' => 'application.views.upload.partial.ajaxForm',
                                             'downloadView'=>'application.views.upload.partial.ajaxDownload',
                                             'uploadView'=>'application.views.upload.partial.ajaxUpload'
                                             )    
                                         );                                        
                                         ?>
+                                        <?php foreach($product->images as $image):?>
+                                            <?php $this->renderPartial('partial/uploadedImage',array(
+                                                'image'=>$image
+                                            )); ?>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                                 <div class="span6">
@@ -139,7 +139,13 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
 
                                 </div>
                             </div>  
-                                
+                                <?php $pages = $this->getFacebookPageListData() ?>
+                                <?php if($pages !==false):?>
+                                <div class="row-fluid">
+                                    <h3><?php echo Yii::t('Default','Post to Facebook Page'); ?></h3>
+                                    <?php echo CHtml::checkBoxList('FacebookPage[]', '', $pages); ?>
+                                </div>
+                                <?php endif; ?>
                                 <div class="row-fluid">  
                               
                                 <?php                   

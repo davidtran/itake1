@@ -248,6 +248,28 @@ var UploadForm = {
         $(UploadForm.finishStep2Selector).click(function(e) {
             $(this).button('loading');
         });
+    },
+    initDeleteUploadedImage:function(){
+        $('.btnDeleteImage').click(function(e){
+            e.preventDefault();
+            var id = $(this).attr('data-image-id');
+            var that = $(this);
+            $.ajax({
+                url:BASE_URL + '/upload/deleteImage',
+                data:{
+                    id:id
+                },
+                success:function(jsons){
+                    var data = $.parseJSON(jsons);
+                    if(data.success){
+                        that.parents('.uploaded-image').remove();
+                    }else{
+                        bootbox.alert(data.msg);
+                    }
+                }
+            });
+            return false;
+        });
     }
 }
 

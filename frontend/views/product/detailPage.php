@@ -31,10 +31,10 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                     <div class="row-fluid">
 
                                         <?php echo CHtml::image(
-                                                    Yii::app()->baseUrl . '/' . $product->image_thumbnail, 
+                                                    Yii::app()->baseUrl . '/' . $product->firstImage->thumbnail, 
                                                     $product->title, 
                                                     array(
-                                                        'data-zoom-image' => Yii::app()->baseUrl . '/' . $product->image, 
+                                                        'data-zoom-image' => Yii::app()->baseUrl . '/' . $product->firstImage->thumbnail, 
                                                         'id' => 'imagePreview',
                                                         'onError'=>"this.onerror=null;this.src='http://www.placehold.it/400x400/EFEFEF/AAAAAA&text=Hình+SP';"
                                                     )

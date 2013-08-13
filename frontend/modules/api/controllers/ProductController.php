@@ -21,6 +21,7 @@ class ProductController extends MobileController
 
     public function actionSuggest($term)
     {
+        $this->logRequest();
         $adapter = new SuggestAdapter();
         $adapter->setKeyword($term);
         $suggests = $adapter->getSuggestion();
@@ -29,6 +30,7 @@ class ProductController extends MobileController
 
     public function actionSearch($keyword = null, $category = null, $city = null, $country = null, $facebook = false, $page = 0)
     {
+        $this->logRequest();
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
 
         $city = 0;
@@ -73,6 +75,7 @@ class ProductController extends MobileController
 
     public function actionPost()
     {
+        $this->logRequest();
         if (isset($_REQUEST))
         {
             $model = new Product();
@@ -100,7 +103,7 @@ class ProductController extends MobileController
 
     public function actionShare($productId, $access_token = null)
     {
-
+        $this->logRequest();
         $model = Product::model()->findByPk($productId);
         if ($model != null)
         {
