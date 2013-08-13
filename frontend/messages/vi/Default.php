@@ -90,7 +90,7 @@ return array(
     'Map'                       =>      'Bản đồ',
     'Seller'                    =>      'Người bán',
     'Comments'                   =>      'Bình luận',
-    'Ads with the same seller'  =>      'Cùng người đăng',
+    'More from this seller'     =>      'Cùng người đăng',
     'Edit'                      =>      'Sửa',
     'Sold'                      =>      'Đã bán',
 

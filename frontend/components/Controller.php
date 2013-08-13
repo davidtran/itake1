@@ -40,13 +40,16 @@ class Controller extends CController
             if (isset(Yii::app()->session['itake_lang'])) {
                 Yii::app()->language = Yii::app()->session['itake_lang'];
             }
-            else{
+            else if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
                  $lang= substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
                 if($lang!='vi')
                     Yii::app()->language = 'en';
                 else
                     Yii::app()->language = 'vi';
-            }            
+            }       
+            else{
+                Yii::app()->language = 'vi';
+            }     
         }  
         
         try{

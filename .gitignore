@@ -50,4 +50,5 @@ index
 /frontend/www/index.php
 
 
-
+common/config/environments/params-staging.php
+frontend/www/log/*
