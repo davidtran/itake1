@@ -4,7 +4,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/btfileupload/bootstrap-fileup
 $cs->registerCssFile(Yii::app()->baseUrl . '/js/btfileupload/bootstrap-fileupload.min.css');
 Yii::app()->clientScript->registerScriptFile('//maps.google.com/maps/api/js?sensor=false', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/gmaps.js', CClientScript::POS_END);
-
+$placeholderImage = "http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=".Yii::t('Default','Your ad image');
 $productInfo = json_encode($product->attributes);
 $cityList = json_encode(CityUtil::getCityList(true));
 $contactInfo = json_encode(UserUtil::getContactInfo());
@@ -14,7 +14,7 @@ $cs->registerScript('product info', "
     var cityList = $cityList;
     var isNewRecord = $isNewRecord;
     var contactInfo = $contactInfo;
-        "
+    var placeholderImage = '$placeholderImage'    "
         , CClientScript::POS_HEAD);
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1', CClientScript::POS_END);
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1', CClientScript::POS_END);

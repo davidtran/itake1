@@ -29,6 +29,8 @@ function updatePreviewImage(){
     var $first = $('.template-download img:eq(0)');
     if($first.length > 0){
         $('.productImage').attr('src',$first.attr('src'));
+    }else{
+        $('.productImage').attr('src',placeholderImage);
     }
 }
 function updatePreview() {    
