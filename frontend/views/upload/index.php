@@ -60,7 +60,11 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                             'autoUpload'=>true,                                            
                                             'formView' => 'application.views.upload.partial.ajaxForm',
                                             'downloadView'=>'application.views.upload.partial.ajaxDownload',
-                                            'uploadView'=>'application.views.upload.partial.ajaxUpload'
+                                            'uploadView'=>'application.views.upload.partial.ajaxUpload',
+                                            'options'=>array(
+                                                'completed'=>'js:function(e,data){setTimeout(function(){updatePreviewImage();},200)}',
+                                                'destroyed'=>'js:function(e,data){setTimeout(function(){updatePreviewImage();},200)}'
+                                            )
                                             )    
                                         );                                        
                                         ?>

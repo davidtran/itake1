@@ -33,7 +33,8 @@ class FacebookUtil
         //check token valid;
         if ($this->checkTokenValid($accessToken))
         {
-            $this->_accessToken = $accessToken;
+            $this->_accessToken = $accessToken;            
+            Yii::app()->facebook->setAccessToken($accessToken);
         }
         else
         {
@@ -61,9 +62,7 @@ class FacebookUtil
 
     public function getFacebookFriendList()
     {
-        return Yii::app()->facebook->api('/me/friends', array(
-                    'access_token' => $this->getAccessToken()
-        ));
+        return Yii::app()->facebook->api('/me/friends');
     }
 
     public function filterFacebookFriendInApp($facebookFriendList)
@@ -135,6 +134,7 @@ class FacebookUtil
         $args['picture'] = '@'.realpath($product->firstImage->facebook);        
         $desc = $this->makePostDescription($product);        
         $args['message'] = $desc;
+     //   $args['access_token'] = $this->_accessToken;
         return Yii::app()->facebook->api('/me/photos', 'POST', $args);       
     }
 
@@ -178,7 +178,7 @@ class FacebookUtil
         }
         Yii::app()->controller->setReturnUrl($returnUrl);
         return Yii::app()->facebook->getLoginUrl(array(
-                    'scope' => 'email,publish_stream,user_photos',
+                    'scope' => 'email,publish_stream,user_photos,manage_pages',
                     'redirect_uri' => Yii::app()->controller->createAbsoluteUrl('/user/register')
         ));
     }
@@ -194,6 +194,36 @@ class FacebookUtil
                     'class' => 'special-btn facebook badge-add-fb-timeline',
                         )
         );
+    }
+    
+    public function getManagePageList(){     
+        try{
+            $uid = Yii::app()->user->model->fbId;
+            $pages = Yii::app()->facebook->api(array(
+                'method' => 'fql.query',
+                'query' => 'SELECT page_id,name,page_url FROM page WHERE page_id in (select page_id from page_admin where uid='.$uid.')',
+               // 'access_token'=>$this->_accessToken
+                )
+            );                              
+            return $pages;
+        }
+        catch(Exception $e){
+            return false;
+        }        
+    }
+    
+    public function shareProductToPage($product,$page){
+        $args = array();   
+        $args['picture'] = '@'.realpath($product->firstImage->facebook);        
+        $desc = $this->makePostDescription($product);        
+        $args['message'] = $desc;
+        $args['page_id'] = $page;
+        
+        $pageInfo = Yii::app()->facebook->api("/$page/?fields=access_token");
+        if(!empty($pageInfo)){
+            $args['access_token'] = $pageInfo['access_token'];
+        }
+        return Yii::app()->facebook->api('/'.$page.'/photos','POST',$args);
     }
 
 }

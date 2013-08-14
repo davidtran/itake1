@@ -51,7 +51,7 @@ class UploadController extends Controller
     }
 
     public function actionIndex($category)
-    {        
+    {                
         $returnUrl = $this->createUrl('/upload/index');
         $this->checkLogin('Vui lòng đăng nhập được khi sử dụng tính năng này', $returnUrl);
         $postedToFacebook = false;
@@ -71,7 +71,7 @@ class UploadController extends Controller
                 {
                     $this->solrImportProduct($product);
                     $this->saveUploadedImage($product);                    
-                    //$this->postProductToFacebook($product);
+                    $this->postProductToFacebook($product);
                     Yii::app()->session['PostedProductId'] = $product->id;
                     Yii::app()->user->setFlash('success', 'Đăng tin thành công');
                     Yii::app( )->user->setState(self::IMAGE_STATE_VARIABLE, null );
@@ -164,9 +164,10 @@ class UploadController extends Controller
         if (Yii::app()->user->hasState(self::IMAGE_STATE_VARIABLE))
         {
             $userImages = Yii::app()->user->getState(self::IMAGE_STATE_VARIABLE);
-            
+            $i =1;
             foreach ($userImages as $index => $image)
             {
+                
                 if (is_file($image["path"]))
                 {
                     $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($product->title)) .
@@ -178,16 +179,17 @@ class UploadController extends Controller
                                                 
                         $resize = ImageUtil::resize('images/content/' . $filename.'.'.$ext, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);
                         $imageModel = new ProductImage();
-                        $imageModel->image = 'images/content' . $filename.'.'.$ext;
+                        $imageModel->image = 'images/content/' . $filename.'.'.$ext;
                         $imageModel->thumbnail = $resize;                                                
-                        if($index == 0){                            
+                        if($i == 1){                            
                             $processed = 'images/content/processed/' . $filename . '.' . $ext;
-                            ProductImageUtil::drawImage($product, $product->image, $processed);                            
+                            ProductImageUtil::drawImage($product, $imageModel->image, $processed);                            
                             $imageModel->facebook = $processed;
                         }
-                        $imageModel->number = $index + 1;
+                        $imageModel->number = $i;
                         $imageModel->product_id = $product->id;
                         if(  $imageModel->save()){
+                            $i++;
                             $haveImage = true;
                         }                                               
                     }

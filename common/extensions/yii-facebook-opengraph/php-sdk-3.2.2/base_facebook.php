@@ -892,8 +892,7 @@ abstract class BaseFacebook
   protected function _oauthRequest($url, $params) {
     if (!isset($params['access_token'])) {
       $params['access_token'] = $this->getAccessToken();
-    }
-
+    }    
     // json_encode all params values that are not strings
     foreach ($params as $key => $value) {
       if (!is_string($value)) {

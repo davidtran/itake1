@@ -24,18 +24,18 @@ $(document).ready(function() {
     });
     updatePreview();   
 });
+
+function updatePreviewImage(){
+    var $first = $('.template-download img:eq(0)');
+    if($first.length > 0){
+        $('.productImage').attr('src',$first.attr('src'));
+    }
+}
 function updatePreview() {    
     $('div.productImageTitle').html($('#Product_title').val());
     $('div.productImagePrice').html($('#Product_price').val());
     $('div.productDescription').html($('#Product_description').val());
-    if($('.fileupload-preview img').attr('src')!=undefined)
-    {        
-        $('img.productImage').attr('src', $('.fileupload-preview img').attr('src'));
-    }
-    else
-    {
-        $('img.productImage').attr('src', $('#productImageHoder').attr('src'));   
-    }
+   
     setTimeout(function() {
         updatePreview();
     }, 1000);
@@ -263,6 +263,7 @@ var UploadForm = {
                     var data = $.parseJSON(jsons);
                     if(data.success){
                         that.parents('.uploaded-image').remove();
+                        updatePreviewImage();
                     }else{
                         bootbox.alert(data.msg);
                     }

@@ -151,6 +151,7 @@ class Product extends CActiveRecord
     
     public function beforeSave()
     {
+        $this->country = CountryUtil::getDefaultCountryId();
         $this->title = filter_var($this->title,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $description = strip_tags($this->description,'<br><p>');
         $this->description = filter_var($description);                
