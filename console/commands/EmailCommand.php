@@ -37,6 +37,32 @@ class EmailCommand extends ConsoleCommand
             }   
         }
     }
+    
+    public function weeklyAnalytic(){
+        //get all user have product > 1
+        $users = Yii::app()->db->createCommand('select * from {{user}} u join {{product}} p on p.user_id = u.id where count(p.id) >0')->queryAll();
+        $productCommand = Yii::app()->db->createCommand('select * from {{product}} where user_id=:user_id');
+        foreach($users as $user){
+            $productList = $productCommand->bindParam('user_id', $user['id'])->queryAll();
+            $analyticResult = array();
+            foreach($productList as $product){
+                $analytic = new SimpleProductAnalyticUtil($product);
+                $analytic->makeAnalytic();         
+                $analyticResult['like'] = $analytic->getLike();
+                $analyticResult['share'] = $analytic->getShare();
+                $analyticResult['view'] = $analytic->getView();
+                $analyticResult['link'] = CHtml::link($product['title'],array('product/details','id'=>$product['id']));
+            }
+            EmailUtil::queue(
+                        Yii::app()->params['email.adminEmail'], 
+                        $user['email'], 
+                        'weeklyAnalytic', 
+                        array(
+                            'data'=>$analyticResult
+                        ), 
+                        Yii::t('Default','Weekly analytic'));
+        }
+    }
  
  
 }
