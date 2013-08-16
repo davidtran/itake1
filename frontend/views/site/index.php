@@ -45,14 +45,16 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/pro
                     $(function() {
                         var counter = 0;
                         var styleName = '<?php echo $categoryModel->styleName ?>';
-                        $('#categories-bar ul li a span').each(function() {
-                            var strClass = "category_color id_" + counter;
-                            $(this).addClass("selected");
-                            if (styleName != strClass) {
-                                $(this).removeClass("selected");
-                            }
-                            counter++;
-                        });
+                        $('.nav-text.all-cat-wrap').removeClass('selected');
+                        $(".nav-text."+styleName.replace(' ','.')).addClass('selected');
+                        // $('#categories-bar ul li a span').each(function() {
+                        //     var strClass = "category_color id_" + counter;
+                        //     $(this).addClass("selected");
+                        //     if (styleName != strClass) {
+                        //         $(this).removeClass("selected");
+                        //     }
+                        //     counter++;
+                        // });
                     });
                 </script>
             <?php endif; ?>
