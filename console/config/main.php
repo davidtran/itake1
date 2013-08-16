@@ -66,8 +66,14 @@ return CMap::mergeArray(
 			'errorHandler' => array(
 				// @see http://www.yiiframework.com/doc/api/1.1/CErrorHandler#errorAction-detail
 				'errorAction'=>'site/error'
-			),
-           
+			),            
+            'urlManager'=>array(
+                'baseUrl'=>$params['request.baseUrl'],
+                'urlFormat' => 'path',
+                    'showScriptName' => false,
+                    'caseSensitive' => false,
+                    'urlSuffix'=>'.html',
+            ),
             'user' => array(
                 // enable cookie-based authentication
                 'allowAutoLogin' => true,

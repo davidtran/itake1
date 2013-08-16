@@ -11,10 +11,5 @@ return array(
     
     'urlManager.hostInfo'=>'http://itake.me',
     'urlManager.secureHostInfo'=>'https://itake.me',
-    'urlManager.secureRoutes'=>array(
-        'user/login',
-        'user/register',
-        'user/changePassword',
-        'user/forgetPassword'
-    )
+    
 );

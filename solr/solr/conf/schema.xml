@@ -457,6 +457,10 @@
 	   multiValued="true" stored="false" omitNorms="true"/>
         <field name="suggestions" type="suggest_term" indexed="true" multiValued="true"
 	   stored="false" omitNorms="true"/>
+        
+        <field name="latlng" type="location" indexed="true" subFieldSuffix="_coordinate"/>
+        <field name="latlng_0_coordinate" type="double" indexed="true" stored="true" />
+        <field name="latlng_1_coordinate" type="double" indexed="true" stored="true" />
         <copyField source="suggest_terms" dest="suggestions"/>
         <field name="text" type="text_general" indexed="true" stored="false" multiValued="true"/>
 

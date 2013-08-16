@@ -46,4 +46,9 @@ return array(
     'solr.indexPath'=>'/solr',
     'country.default'=>'vn',
     
+    'urlManager.hostInfo'=>'http://dev.itake',
+    'urlManager.secureHostInfo'=>'https://dev.itake',
+    'urlManager.secureRoutes'=>array(
+       
+    )
 );

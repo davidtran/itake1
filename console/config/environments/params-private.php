@@ -6,4 +6,6 @@
  * Date: 7/22/12
  * Time: 5:51 PM
  */
-return array();
+return array(
+    'request.baseUrl'=>'http://dev.itake'
+);

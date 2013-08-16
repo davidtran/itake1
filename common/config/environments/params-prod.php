@@ -45,4 +45,10 @@ return array(
     'solr.indexPath'=>'/solr',
     'country.default'=>'vn',
     
+    'urlManager.secureRoutes'=>array(
+        'user/login',
+        'user/register',
+        'user/changePassword',
+        'user/forgetPassword'
+    )
 );
