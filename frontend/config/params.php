@@ -38,7 +38,8 @@ return CMap::mergeArray(
             'image.minWidth'=>420,
             'image.minHeight'=>420,
             'image.maxWidth'=>762,
-            'image.maxHeight'=>1024
+            'image.maxHeight'=>1024,
+            'upload.maxImageNumber'=>6,
 		),
         
 		// merge environment parameters with local *override by local

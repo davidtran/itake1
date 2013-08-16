@@ -72,7 +72,7 @@ class UserController extends Controller
         {
             try
             {
-                $profile = Yii::app()->facebook->getProfile();
+                $profile = Yii::app()->facebook->api('/me');
                 if (isset($profile['email']))
                 {
                     $user = UserUtil::getUserByEmail($profile['email']);

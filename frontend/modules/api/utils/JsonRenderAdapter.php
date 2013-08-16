@@ -7,9 +7,17 @@ class JsonRenderAdapter{
             'title'=>$product->title,
             'description'=>$product->description,
             'create_date'=>$product->create_date,
-            'price'=>$product->price,
-            'user'=>self::renderUser($product->user)
+            'price'=>$product->price,           
+            'locationText'=>$product->locationText,
+            'phone'=>$product->phone,
+            'city'=>$product->cityModel->attributes,            
+            'country'=>$product->countryModel->attributes,
+            'latitude'=>$product->lat,
+            'longitude'=>$product->lon
         );
+        if($product->user!=null){
+            $data['user'] = self::renderUser($product->user);
+        }
         $images = array();
         foreach($product->images as $image){
             $images[] = $image->attributes;

@@ -486,7 +486,7 @@ class SFacebook extends CApplicationComponent
    * @param string $access_token an access token.
    * @return BaseFacebook
    */
-  public function setAccessToken($access_token) {
+  public function setAccessToken($access_token) {     
     return $this->_getFacebook()->setAccessToken($access_token);
   }
 

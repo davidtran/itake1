@@ -6,15 +6,16 @@ class FacebookAccessCheckerFilter extends CFilter
     public function preFilter($filterChain)
     {
         if (Yii::app()->user->isFacebookUser && !Yii::app()->request->isAjaxRequest)
-        {
+        {             
             try
             {
+          
                 $userId = Yii::app()->user->getId();
                 $fbUtil = FacebookUtil::getInstance();
                 $accessToken = $fbUtil->getSavedUserToken($userId);
                 if ($accessToken != null)
                 {
-                    $fbUtil->setAccessToken($accessToken);
+                    $fbUtil->setAccessToken($accessToken);                    
                     Yii::app()->session['CheckedFacebookAccessToken'] = true;
                 }else{
                     Yii::app()->user->logout();
@@ -27,6 +28,7 @@ class FacebookAccessCheckerFilter extends CFilter
                 Yii::app()->controller->redirect('/market');
             }
         }
+         
         $filterChain->run();
     }
 

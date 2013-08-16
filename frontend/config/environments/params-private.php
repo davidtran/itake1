@@ -12,9 +12,6 @@ return array(
     'urlManager.hostInfo'=>'http://dev.itake',
     'urlManager.secureHostInfo'=>'https://dev.itake',
     'urlManager.secureRoutes'=>array(
-        'user/login',
-        'user/register',
-        'user/changePassword',
-        'user/forgetPassword'
+       
     )
 );

@@ -12,8 +12,8 @@ class SolrSearchAdapter
     public $keyword = null;
     public $country = null;
     public $categoryId = null;
-    protected $latitude = null;
-    protected $longitude = null;
+    public $latitude = null;
+    public $longitude = null;
     protected $sortType = null;
 
     const DEFAULT_KEYWORD = '*:*';
@@ -34,42 +34,35 @@ class SolrSearchAdapter
     {
         $fq = '';
         $params = array();
-        if($this->country !=null){
-            $fq[] = 'country:'.$this->country;
+        if ($this->country != null) {
+            $fq[] = 'country:' . $this->country;
         }
-        if ($this->cityId != null && $this->cityId != CityUtil::ALL_ID)
-        {
+        if ($this->cityId != null && $this->cityId != CityUtil::ALL_ID) {
             $fq[] = 'city_id:' . $this->cityId;
         }
-        if ($this->categoryId != null)
-        {
+        if ($this->categoryId != null) {
             $fq[] = 'category_id:' . $this->categoryId;
         }
         $params['fq'] = $fq;
         $params['bf'] = array(
             'recip(ms(NOW,create_date),3.16e-11,1,1)',
-            'product(1.1,view)'
+            'product(1.2,view)'
         );
         $params['defType'] = 'edismax';
         $params['qf'] = 'title^60 description^20';
         $params['q.alt'] = '*:*';
-        if ($this->latitude != null && $this->longitude != null)
-        {
-            $params['fq'][] = '{!geofilt}';
-            $params['sfield'] = 'store';
-            $params['pt'] = $this->latitude . ',' . $this->longitude;
-            $params['d'] = 50;
-            $params['bf'][] = 'recip(geodist(),2,200,20)';
-        }        
 
-        if ($this->sortType == SolrSortTypeUtil::TYPE_CREATE_DATE)
-        {
+
+        if ($this->sortType == SolrSortTypeUtil::TYPE_CREATE_DATE) {
             $params['sort'] = 'create_date desc';
         }
-        else
-        {
+        else {
+            if ($this->latitude != null && $this->longitude != null) {                                
+                $params['bf'][] = 'recip(geodist(latlng,'.$this->latitude . ',' . $this->longitude.'),2,200,0)';
+            }
             $params['sort'] = 'score desc';
         }
+                
 
         return $params;
     }
@@ -83,9 +76,10 @@ class SolrSearchAdapter
     public function makeQuery()
     {
         $keyword = null;
-        if (trim($this->keyword) == ''){
+        if (trim($this->keyword) == '') {
             $keyword = self::DEFAULT_KEYWORD;
-        }else{
+        }
+        else {
             $keyword = $this->keyword;
         }
         return strtolower($keyword);
@@ -127,8 +121,7 @@ class SolrSearchAdapter
         foreach ($docs as $doc)
         {
             $product = Product::model()->findByPk($doc['id']);
-            if ($product != null)
-            {
+            if ($product != null) {
                 $product->title = $doc['title'];
                 $product->description = $doc['description'];
             }

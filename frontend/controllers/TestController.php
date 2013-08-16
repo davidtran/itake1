@@ -118,6 +118,18 @@ HERE;
         $html = '<p>dasdasd</p><br/><p>adsad</p>ada#@$#%&^^<?php ?>addas&(Q@&@(&$(&$#)!(@*!)&*(#)(@d ad <a href="adsd">asdsd</a><img/><script>alert(1)</script>';
         echo strip_tags($html,'<br><p>');
     }
+    
+    public function actionGetManagePage(){
+        $util = FacebookUtil::getInstance();
+        var_dump($util->getManagePageList());
+    }
+    
+    public function actionPostFanpage(){
+        $product = Product::model()->findByPk(41);
+        //https://www.facebook.com/pages/Nh%E1%BA%ADt-k%C3%BD-1-tri%E1%BB%87u-%C4%91%C3%B4/460822480658328?ref=hl#
+        $data =FacebookUtil::getInstance()->shareProductToPage($product, '145218035666025');
+        var_dump($data);
+    }
 }
 
 ?>

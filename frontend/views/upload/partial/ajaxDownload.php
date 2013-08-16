@@ -1,24 +1,23 @@
-
 <script id="template-download" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-download fade">
-        {% if (file.error) { %}
-            <td></td>
-            
-            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
-        {% } else { %}
-            <td class="preview">{% if (file.thumbnail_url) { %}
-                <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
-            {% } %}</td>            
-            <td colspan="2"></td>
-        {% } %}
-        <td class="delete">
-            <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
-                <i class="icon-trash icon-white"></i>
-                <span>{%=locale.fileupload.destroy%}</span>
-            </button>            
-            <input type="hidden" name="delete" value="1">            
-        </td>
-    </tr>
-{% } %}
-</script>
+    <div class="row-fluid template-download">
+        <div class="span12">
+            <div id="download-image-container">
+                {% if (file.error) { %}
+                    <div class="download-image-error">
+                        <span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}
+                    </div>
+                {% } else { %}
+                <img src="{%=file.thumbnail_url%}" width="200">           
+                <span class='delete'>
+                     <button class='' data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+                        <i class="icon-trash"></i>                        
+                    </button>
+                    <input type="hidden" name="delete" value="1"> 
+                </span>
+                {% } %} 
+            </div>
+        </div>
+    </div>
+{% } %}  
+</script>  

@@ -33,7 +33,9 @@ class ProductModelSolrImporter extends ProductSolrImporter
             'price' => $product->price,
             'phone' => $product->phone,
             'view'=>$product->view,
-            'country'=>$product->country
+            'country'=>$product->country,
+            'latlng_0_coordinate'=>$product->lat,
+            'latlng_1_coordinate'=>$product->lon
         );
         
         if ($product->category != null)

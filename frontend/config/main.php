@@ -60,7 +60,7 @@ return CMap::mergeArray(
                 'facebook' => array(
                     'appId' => $params['facebook.appId'],
                     'secret' => $params['facebook.secret'],
-                    'class' => 'common.extensions.yii-facebook-opengraph.MyFacebook',
+                    'class' => 'common.extensions.yii-facebook-opengraph.SFacebook',
                     'fileUpload' => true,
                 ),
                 // uncomment the following to enable URLs in path-format
