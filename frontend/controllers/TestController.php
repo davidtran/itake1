@@ -130,6 +130,19 @@ HERE;
         $data =FacebookUtil::getInstance()->shareProductToPage($product, '145218035666025');
         var_dump($data);
     }
+    
+    public function actionUrl(){
+         $url = 'http://api.facebook.com/method/fql.query?query=select%20like_count%20from%20link_stat%20where%20url=%27http://www.imdb.com/title/tt0638423/%27&format=json';
+        $productUrl = 'http://vnexpress.net/"';
+        
+        
+        $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, ($url));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+            $data = curl_exec($ch);
+            curl_close($ch);
+            var_dump($data);
+    }
 }
 
 ?>

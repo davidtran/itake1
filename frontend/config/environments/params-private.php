@@ -9,9 +9,5 @@
 
 return array(
   'env.code' => 'private',
-    'urlManager.hostInfo'=>'http://dev.itake',
-    'urlManager.secureHostInfo'=>'https://dev.itake',
-    'urlManager.secureRoutes'=>array(
-       
-    )
+    
 );

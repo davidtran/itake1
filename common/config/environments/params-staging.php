@@ -45,4 +45,9 @@ return array(
     'solr.host'=>'localhost',
     'solr.indexPath'=>'/solr',
     'country.default'=>'us',
+    
+    'urlManager.hostInfo'=>'http://test.itake.me',
+    'urlManager.secureHostInfo'=>'https://test.itake.me',
+    'urlManager.secureRoutes'=>array(        
+    )
 );

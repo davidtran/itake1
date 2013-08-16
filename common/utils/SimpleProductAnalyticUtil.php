@@ -26,19 +26,21 @@ class SimpleProductAnalyticUtil{
     }
     
     protected function getFacebookAnalytic(){
-        $url = 'https://graph.facebook.com/fql?q=SELECT url, normalized_url, share_count, like_count, comment_count, total_count,commentsbox_count, comments_fbid, click_count FROM link_stat WHERE url="';
-        $url.= Yii::app()->controller->createAbsoluteUrl('/product/details',array('id'=>$this->product['id']));
-        $json = file_get_contents($url);
-        $rs = array();
+        $productUrl = CHtml::normalizeUrl(array('/product/details','id'=>$this->product['id']));        
+        $url = 'http://api.facebook.com/method/fql.query?query=select%20like_count,share_count%20from%20link_stat%20where%20url=%27'.$productUrl.'%27&format=json';                
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        $json = curl_exec($ch);
+        curl_close($ch);
+        
         if($url!=false){
-            $array = CJSON::decode($json);
-            if(isset($array['data'])){
-                $this->facebookData = $array['data'];
-                $this->like = $array['like_count'];
-                $this->share = $array['share_count'];                
-                
-            }
+            $array = CJSON::decode($json);                    
+            $this->facebookData = $array[0];
+            $this->like = $array[0]['like_count'];
+            $this->share = $array[0]['share_count'];                                            
         }
+        
     }
     
     public function getLike(){
