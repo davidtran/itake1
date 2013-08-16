@@ -12,7 +12,7 @@ var FeedbackForm = {
         $(FeedbackForm.showDialogButtonSelector).click(function(e){
             e.preventDefault();
             $.ajax({
-                url:BASE_URL + '/feedback/index',
+                url:ABSOLUTE_URL + '/feedback/index',
                 type:'post',
                 success:function(jsons){
                     var data = $.parseJSON(jsons);
