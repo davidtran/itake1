@@ -49,3 +49,38 @@ box-shadow: 0px 0px 1px 0 #000;
 	border-bottom-left-radius: 10px;
 	border-top-left-radius: 10px;
 }
+.intro-top{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 44px;
+	height: 500px;
+	display: block;
+	background: url('../images/bg.jpg');
+}
+.intro-image{
+	position: absolute;
+	height: 300px;
+	left: 0;
+	right: 0;
+	top: 150px;
+	height: 350px;
+	background: url('../images/hompage2.png') no-repeat;
+}
+.font-white{
+	color: #fff;
+}
+.font-2x{
+	font-size: 3.5em;
+}
+.font-large{
+	font-size: 2.5em;
+}
+.btn-top{
+	position: relative;
+	left: -10px;
+	right: -10px;
+	line-height: 34px;
+	margin-left: 0px;
+	margin-right: 0px;
+}

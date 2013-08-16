@@ -54,7 +54,7 @@ class Controller extends CController
         
         try{
             //CityUtil::geoCheckip($_SERVER['REMOTE_ADDR']);        
-            CityUtil::geoCheckip('192.227.139.106');
+            CityUtil::geoCheckip('113.165.94.239'); 
         }catch(Exception $exception)
         {
              Yii::app()->session['client_itake'] = 'vi';
