@@ -273,4 +273,8 @@ class SiteController extends Controller
         Yii::app()->session['itake_lang'] = 'vi';
         $this->redirect(Yii::app()->createUrl('site/'));
     }
+    public function actionHome(){
+        $this->layout = '//layouts/noMenu';
+        $this->render('landing_page');
+    }
 }
