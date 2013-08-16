@@ -12,12 +12,12 @@ class FacebookAccessCheckerFilter extends CFilter
           
                 $userId = Yii::app()->user->getId();
                 $fbUtil = FacebookUtil::getInstance();
-                $accessToken = $fbUtil->getSavedUserToken($userId);
+                $accessToken = $fbUtil->getSavedUserToken($userId);                
                 if ($accessToken != null)
                 {
                     $fbUtil->setAccessToken($accessToken);                    
-                    Yii::app()->session['CheckedFacebookAccessToken'] = true;
-                }else{
+                    Yii::app()->session['CheckedFacebookAccessToken'] = true;                    
+                }else{                    
                     Yii::app()->user->logout();
                     Yii::app()->controller->redirect('/market');
                 }

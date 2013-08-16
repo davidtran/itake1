@@ -50,7 +50,7 @@ var FeedbackForm = {
     sendFeedback:function(data,callback){
         callback = callback || function(){};
         $.ajax({
-            url:BASE_URL + '/feedback/send',
+            url:ABSOLUTE_URL + '/feedback/send',
             type:'post',
             data:data,
             success:function(jsons){

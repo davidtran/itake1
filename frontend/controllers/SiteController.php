@@ -79,7 +79,7 @@ class SiteController extends Controller
     }
 
     public function actionIndex($keyword = null, $category = null, $facebook = false, $page = 0)
-    {
+    {        
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber']=$page;
         Yii::app()->session['LastCategory'] = $category;
