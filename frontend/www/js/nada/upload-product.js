@@ -110,6 +110,7 @@ var UploadForm = {
             UploadForm.setFinishStep1ButtonState(true);
         }
         UploadForm.initPriceField();
+        UploadForm.initDeleteUploadedImage();
     },    
     initPriceField:function(){
         var priceDisplayValue = $('#Product_priceDisplay').val();
@@ -278,4 +279,5 @@ var UploadForm = {
 
 $(document).ready(function() {
     UploadForm.init();
+    updatePreviewImage();
 })
