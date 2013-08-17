@@ -108,10 +108,13 @@ class UploadController extends Controller
     {
         $this->checkLogin("Cần đăng nhập để chỉnh sửa sản phẩm", Yii::app()->request->requestUri);
         $product = Product::model()->findByPk($id);
-        if ($product->user_id !== Yii::app()->user->model->id)
-            throw new CHttpException(500, 'Bạn không thể chỉnh sửa mà không phải của bạn');
+        
+        
         if ($product != null)
         {
+            if ($product->user_id !== Yii::app()->user->model->id)
+                throw new CHttpException(500, 'Bạn không thể chỉnh sửa mà không phải của bạn');
+            $photos = new XUploadForm;
             if (isset($_POST['Product']))
             {
                 $product->attributes = $_POST['Product'];
@@ -135,7 +138,8 @@ class UploadController extends Controller
             }
             $this->render('index', array(
                 'product' => $product,
-                'category' => $product->category
+                'category' => $product->category,
+                'photos'=>$photos
             ));
         }
         else

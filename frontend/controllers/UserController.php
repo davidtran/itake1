@@ -72,7 +72,8 @@ class UserController extends Controller
         {
             try
             {
-                $profile = Yii::app()->facebook->api('/me');
+                $profile = Yii::app()->facebook->api('/me');                
+              //  var_dump($profile);exit;
                 if (isset($profile['email']))
                 {
                     $user = UserUtil::getUserByEmail($profile['email']);
@@ -80,7 +81,7 @@ class UserController extends Controller
                     {
                         $user = new User();
                         $user->email = $profile['email'];
-
+                        $user->password = StringUtil::generateRandomString(25);
                         $original = $profile['first_name'] . ' ' . $profile['last_name'];
                         $username = $original;
                         $increment = 1;
@@ -91,7 +92,7 @@ class UserController extends Controller
                         }
                         $user->username = $username;
                         //render login form/ redirect to returnUrl
-                        FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
+                      //  FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
                         Yii::app()->session['LastFbId'] = $profile['id'];
                         
                     }
@@ -102,13 +103,14 @@ class UserController extends Controller
                             $user->fbid = $profile['id'];
                         }
                         $user->isFbUser = 1;
-                        $user->save();
+                        
                     }
+                    $user->save();                    
+                    FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
                     $loginForm = new FacebookLoginForm();
                     $loginForm->username = $user->email;
                     $loginForm->validate();
-                    $loginForm->login();
-                    FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
+                    $loginForm->login();                    
                     $siteUrl = $this->createUrl('/site/index');         
                     $this->redirect($siteUrl);                
                     
