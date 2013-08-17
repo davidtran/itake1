@@ -208,7 +208,7 @@ function loadUserProduct(product) {
         }
     });
 }
-
+///
 function loadImageSlider() {
     $('.flexslider').flexslider({
         animation: "slide",
