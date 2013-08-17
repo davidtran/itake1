@@ -36,6 +36,8 @@
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.scrollUp.min.js', CClientScript::POS_HEAD);        
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.slimscroll.min.js', CClientScript::POS_HEAD);        
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.history.js', CClientScript::POS_HEAD);       
+        Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/js/flexslider/flexslider.css');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/flexslider/jquery.flexslider-min.js', CClientScript::POS_HEAD);       
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/common.js', CClientScript::POS_HEAD);
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/feedback.js', CClientScript::POS_HEAD);
         ?>

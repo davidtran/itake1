@@ -172,6 +172,8 @@ class UploadController extends Controller
                 {
                     $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($product->title)) .
                                 '_' .
+                                $index .
+                                '_' .
                                 $product->id;
                     $ext = substr($image['filename'],strlen($image['filename'])-3);                  
                     if (rename($image["path"],  Yii::getPathOfAlias('www').'/images/content/'. $filename.'.'.$ext))

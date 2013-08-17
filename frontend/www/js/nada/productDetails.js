@@ -25,7 +25,7 @@ $(document).ready(function() {
         //productId = productItem.attr('data-product-id');
         productIdHtml = productItem.attr('id');
         loadedMap = false;
-        if(detectmob()||isIE)
+        if (detectmob() || isIE)
             location.href = link;
 
         return false;
@@ -34,11 +34,11 @@ $(document).ready(function() {
     $('#userProductContainer').height($('#mainProductInfo').height());
 
     commentWidth = $('#commentContainer').width();
+    loadImageSlider();
 
-    
 });
-$(document).live("facebook:ready", function(){
-    setCommentFullWidth();  
+$(document).live("facebook:ready", function() {
+    setCommentFullWidth();
 });
 
 function productClick() {
@@ -65,9 +65,9 @@ function loadProduct(href, htmlProductId)
 {
 
     //$('#scrollUp').hide();
-   // $('#btnShowFeedbackDialog').hide();
+    // $('#btnShowFeedbackDialog').hide();
 
-    $('#scrollUp').hide();    
+    $('#scrollUp').hide();
 
     //where 1: home 2: user product 3:relateProduct    
     currentHref = href;
@@ -75,7 +75,7 @@ function loadProduct(href, htmlProductId)
     //load html
     //load product data
     //show dialog      
-    productItem = $('#' + htmlProductId);    
+    productItem = $('#' + htmlProductId);
     startLoadingBackground(productItem);
     $('#special').show();
     $.ajax({
@@ -104,7 +104,7 @@ function loadProduct(href, htmlProductId)
                 currentProduct = product;
 
                 loadUserProduct(product);
-
+                
                 $('.modal-scrollable').scrollTop(0); // work only in modal
                 $('body').scrollTop(0); // work in single page
                 if ($dialog.css('display') == 'none') {
@@ -116,14 +116,14 @@ function loadProduct(href, htmlProductId)
 
                 //  loadRelateProduct(product);         
 
-                $dialog.on('shown', function() {   
+                $dialog.on('shown', function() {
                     $('.slim-scroll').each(function() {
                         var $this = $(this);
                         $this.slimScroll({
                             height: $this.data('height') || 100,
                             railVisible: true,
                             color: '#0A6DFF',
-                            alwaysVisible:false,
+                            alwaysVisible: false,
                         });
                     });
                     addthis.toolbox('.addthis_toolbox');
@@ -135,18 +135,19 @@ function loadProduct(href, htmlProductId)
                         }
 
                         return false;
-                    });                          
-                     $('#userProductList').imagesLoaded(function(){                              
+                    });
+                    $('#userProductList').imagesLoaded(function() {
                         masoryCenterAlign();
                         $('#userProductList').show('fade');
                         $('#userProductList').isotope('reLayout');
                         setTimeout(function() {
                             $('#userProductList').isotope('reLayout');
-                         }, 200); 
-                    });                                               
+                        }, 200);
+                    });
+                    loadImageSlider();
                 });
-                $dialog.on('hidden', function(e) {                      
-                    $(".zoomContainer").remove();                           
+                $dialog.on('hidden', function(e) {
+                    $(".zoomContainer").remove();
                     $('#special').hide();
                     $dialog.find('#productDialogBody').empty();
                 });
@@ -154,15 +155,15 @@ function loadProduct(href, htmlProductId)
         },
         complete: function() {
 
-            stopLoadingBackground(productItem);                       
-            setCommentFullWidth();            
+            stopLoadingBackground(productItem);
+            setCommentFullWidth();
         }
     });
 }
 
-function setCommentFullWidth(){
-    FB.XFBML.parse(document.getElementById('productDialog'),function(){
-        $('.fb-comments iframe,.fb-comments span:first-child').css({'width':$('.fb-comments').width()});
+function setCommentFullWidth() {
+    FB.XFBML.parse(document.getElementById('productDialog'), function() {
+        $('.fb-comments iframe,.fb-comments span:first-child').css({'width': $('.fb-comments').width()});
     });
 }
 function loadRelateProduct(product) {
@@ -205,5 +206,13 @@ function loadUserProduct(product) {
         masonryHorizontal: {
             rowHeight: 360
         }
-    });       
+    });
+}
+
+function loadImageSlider() {
+    $('.flexslider').flexslider({
+        animation: "slide",
+        controlNav: "thumbnails",
+        smoothHeight: true 
+    });
 }
