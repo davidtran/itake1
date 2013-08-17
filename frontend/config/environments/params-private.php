@@ -9,5 +9,5 @@
 
 return array(
   'env.code' => 'private',
-    
+    'api.checkToken'=>fasle,
 );

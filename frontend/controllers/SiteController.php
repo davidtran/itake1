@@ -35,8 +35,8 @@ class SiteController extends Controller
         return array(
             'seo'=>array('class'=> 'frontend.extensions.seo.components.SeoControllerBehavior')
         );
-    }
-
+    }        
+    
     public function actionCity($id)
     {
         //change city
@@ -80,6 +80,11 @@ class SiteController extends Controller
 
     public function actionIndex($keyword = null, $category = null, $facebook = false, $page = 0)
     {        
+        if(Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])){
+            Yii::app()->session['VisitLanding'] = true;
+            $this->redirect($this->createUrl('landing'));
+        }
+        
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber']=$page;
         Yii::app()->session['LastCategory'] = $category;
@@ -273,8 +278,9 @@ class SiteController extends Controller
         Yii::app()->session['itake_lang'] = 'vi';
         $this->redirect(Yii::app()->createUrl('site/'));
     }
-    public function actionHome(){
+    
+    public function actionLanding(){
         $this->layout = '//layouts/noMenu';
-        $this->render('landing_page');
+        $this->render('landing');
     }
 }

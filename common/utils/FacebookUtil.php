@@ -51,7 +51,7 @@ class FacebookUtil
     {
         try
         {
-            $user = Yii::app()->facebook->api('/me', array('access_token' => $token));
+            $user = Yii::app()->facebook->api('/me?access_token='.$this->_accessToken);              
             return true;
         }
         catch (Exception $e)
@@ -62,7 +62,9 @@ class FacebookUtil
 
     public function getFacebookFriendList()
     {
-        return Yii::app()->facebook->api('/me/friends');
+        return Yii::app()->facebook->api('/me/friends','post',array(
+            'access_token'=>$this->_accessToken
+        ));
     }
 
     public function filterFacebookFriendInApp($facebookFriendList)
@@ -134,7 +136,7 @@ class FacebookUtil
         $args['picture'] = '@'.realpath($product->firstImage->facebook);        
         $desc = $this->makePostDescription($product);        
         $args['message'] = $desc;
-     //   $args['access_token'] = $this->_accessToken;
+        $args['access_token'] = $this->_accessToken;
         return Yii::app()->facebook->api('/me/photos', 'POST', $args);       
     }
 

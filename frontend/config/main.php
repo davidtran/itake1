@@ -79,9 +79,11 @@ return CMap::mergeArray(
                         'post-ad/<category:\d+>/<name:.*?>' => '/upload/uploadNew',
                         'forgot-password'=>'user/forgetPassword',
                         'change-password'=>'user/changePassword',  
+                        'hello'=>'site/landing',
                         'market/<action>'=>'site/<action>',
                         'market'=>'site',                                                                
-                        'upload/<category:\d+>/<name:.*?>' => '/upload/index',                             
+                        'upload/<category:\d+>/<name:.*?>' => '/upload/index',
+                        
                     ),
                     'hostInfo' => $params['urlManager.hostInfo'],
                     'secureHostInfo' => $params['urlManager.secureHostInfo'],

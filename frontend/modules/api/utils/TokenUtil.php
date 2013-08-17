@@ -21,9 +21,9 @@ class TokenUtil
     public static function loadToken()
     {
 
-        if (isset($_POST['token']))
+        if (isset($_REQUEST['token']))
         {
-            $token = TokenUtil::findTokenModel($_POST['token']);
+            $token = TokenUtil::findTokenModel($_REQUEST['token']);
             if ($token != null)
             {
                 return $token;
@@ -37,9 +37,9 @@ class TokenUtil
         $model = LoginToken::model()->find(array(
             'condition' => 'token=:token',
             'params' => array(
-                'token' => $token,
-                'order' => 'create_date desc'
-            )
+                'token' => $token,                
+            ),
+            'order' => 'create_date desc'
         ));
         if ($model != null)
         {

@@ -10,11 +10,11 @@ class ProductController extends MobileController
 
     public function filters()
     {
-//        return array(
-//            array(
-//                'CheckTokenFilter +post,search,share,detail'
-//            )
-//        );
+        return array(
+            array(
+                'CheckTokenFilter + suggest,post,search,share,detail'
+            )
+        );
     }
 
     protected $_product;

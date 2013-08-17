@@ -12,8 +12,7 @@ class ApiUser extends CComponent
     {
         $this->_isGuest = true;
         if (isset($_REQUEST['token']))
-        {
-            $token = $_REQUEST['token'];
+        {            
             $this->_token = TokenUtil::loadToken();
             if ($this->_token != null)
             {

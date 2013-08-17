@@ -16,15 +16,12 @@ class CheckTokenFilter extends CFilter
     public function preFilter($filterChain)
     {
 
-
-        if (ApiUser::getInstance()->isGuest != false)
-        {
+        if(Yii::app()->params['api.checkToken'] && ApiUser::getInstance()->isGuest != false){
+            Yii::app()->controller->renderAjaxResult(false, 'Invalid token, need to login again');
+        }else{
             $filterChain->run();
         }
-        else
-        {
-            Yii::app()->controller->renderAjaxResult(false, 'Invalid token, need to login again');
-        }
+        
     }
 
 }

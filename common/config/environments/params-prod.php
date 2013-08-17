@@ -1,4 +1,5 @@
 <?php
+
 /**
  * params-prod.php
  *
@@ -22,30 +23,28 @@
  * {DATABASE-PASSWORD} -> Test user password
  */
 return array(
-        'env.code' => 'prod',
-        // DB connection configurations
-        'db.name' => '',
-        'db.connectionString' => 'mysql:host=localhost;dbname=itake',
-        'db.username' => 'root',
-        'db.password' => 'itake1234',
-    'db.tablePrefix'=>'mp_',
-    
-    'email.host'=>'smtp.gmail.com',
-    'email.username'=>'norely',
-    'email.password'=>'goodmorning2013',
-    'email.port'=>465,
-    'email.adminEmail'=>'norely@gmail.me',
-    'email.encryption'=>false,
-    
-    'facebook.appId'=>'620447237967845',
-    'facebook.secret'=>'5b14e9c48eaf0da3ead75e49df09c882',
-    
-    'solr.port'=>'8983',
-    'solr.host'=>'localhost',
-    'solr.indexPath'=>'/solr',
-    'country.default'=>'vn',
-    
-    'urlManager.secureRoutes'=>array(
+    'env.code' => 'prod',
+    // DB connection configurations
+    'db.name' => '',
+    'db.connectionString' => 'mysql:host=localhost;dbname=itake',
+    'db.username' => 'root',
+    'db.password' => 'itake1234',
+    'db.tablePrefix' => 'mp_',
+    'email.host' => 'smtp.gmail.com',
+    'email.username' => 'norely',
+    'email.password' => 'goodmorning2013',
+    'email.port' => 465,
+    'email.adminEmail' => 'norely@gmail.me',
+    'email.encryption' => false,
+    'facebook.appId' => '620447237967845',
+    'facebook.secret' => '5b14e9c48eaf0da3ead75e49df09c882',
+    'solr.port' => '8983',
+    'solr.host' => 'localhost',
+    'solr.indexPath' => '/solr',
+    'country.default' => 'vn',
+    'urlManager.hostInfo' => 'http://itake.me',
+    'urlManager.secureHostInfo' => 'https://itake.me',
+    'urlManager.secureRoutes' => array(
         'user/login',
         'user/register',
         'user/changePassword',

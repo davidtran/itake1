@@ -1,4 +1,5 @@
 <?php
+
 /**
  * params-prod.php
  *
@@ -22,32 +23,27 @@
  * {DATABASE-PASSWORD} -> Test user password
  */
 return array(
-	'env.code' => 'prod',
-	// DB connection configurations
-	'db.name' => '',
+    'env.code' => 'prod',
+    // DB connection configurations
+    'db.name' => '',
     'db.connectionString' => 'mysql:host=127.0.0.1;dbname=itake',
-
-	'db.username' => 'itake',
-	'db.password' => 'itake',
-    'db.tablePrefix'=>'mp_',
-    
-    'email.host'=>'smtp.gmail.com',
-    'email.username'=>'rubickweb',
-    'email.password'=>'goodmorning2013',
-    'email.port'=>465,
-    'email.adminEmail'=>'rubickweb@gmail.com',
-    'email.encryption'=>'ssl',
-    
-    'facebook.appId'=>'343485335785351',
-    'facebook.secret'=>'e77260e49968b3d74b2efe8577893d66',
-    
-    'solr.port'=>'8983',
-    'solr.host'=>'localhost',
-    'solr.indexPath'=>'/solr',
-    'country.default'=>'us',
-    
-    'urlManager.hostInfo'=>'http://test.itake.me',
-    'urlManager.secureHostInfo'=>'https://test.itake.me',
-    'urlManager.secureRoutes'=>array(        
+    'db.username' => 'itake',
+    'db.password' => 'itake',
+    'db.tablePrefix' => 'mp_',
+    'email.host' => 'smtp.gmail.com',
+    'email.username' => 'rubickweb',
+    'email.password' => 'goodmorning2013',
+    'email.port' => 465,
+    'email.adminEmail' => 'rubickweb@gmail.com',
+    'email.encryption' => 'ssl',
+    'facebook.appId' => '343485335785351',
+    'facebook.secret' => 'e77260e49968b3d74b2efe8577893d66',
+    'solr.port' => '8983',
+    'solr.host' => 'localhost',
+    'solr.indexPath' => '/solr',
+    'country.default' => 'us',
+    'urlManager.hostInfo' => 'http://test.itake.me',
+    'urlManager.secureHostInfo' => 'https://test.itake.me',
+    'urlManager.secureRoutes' => array(
     )
 );

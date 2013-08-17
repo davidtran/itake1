@@ -5,11 +5,11 @@ class UserController extends MobileController
 
     public function filters()
     {
-//        return array(
-//            array(
-//                'CheckTokenFilter + detail'
-//            )            
-//        );
+        return array(
+            array(
+                'CheckTokenFilter + detail'
+            )            
+        );
     }     
 
     public function actionRegister()
@@ -21,7 +21,7 @@ class UserController extends MobileController
             $user->attributes = $data;
             if ($user->save())
             {
-                $this->renderAjaxResult(true,'Register suuccess');
+                $this->renderAjaxResult(true,'Register success');
             }
             else
             {
@@ -109,8 +109,8 @@ class UserController extends MobileController
             $user->fbId = $profile['id'];
             $user->isFbUser = 1;     
             FacebookUtil::getInstance()->saveUserToken($user->id, $profile['access_token']);
-            $user->save();      
-            if ($user != null)
+                  
+            if ($user->save())
             {
                 $token = TokenUtil::createTokenModel($user->id);
                 if ($token->save())
@@ -126,9 +126,13 @@ class UserController extends MobileController
                         'errors' => $token->errors
                     ));
                 }
+            }else{
+                $this->renderAjaxResult(false,array(
+                    'errors'=>$user->errors
+                ));
             }          
         }
-        $this->renderAjaxResult(false);
+        $this->renderAjaxResult(false,'Invalid parameter');
        
     }
 

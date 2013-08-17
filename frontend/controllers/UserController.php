@@ -93,7 +93,7 @@ class UserController extends Controller
                         //render login form/ redirect to returnUrl
                         FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
                         Yii::app()->session['LastFbId'] = $profile['id'];
-                        Yii::app()->user->setFlash('success', 'Kết nối với Facebook thành công. Bạn có thể tiếp tục hoàn tất đăng ký.');
+                        
                     }
                     else
                     {
@@ -103,14 +103,15 @@ class UserController extends Controller
                         }
                         $user->isFbUser = 1;
                         $user->save();
-                        $loginForm = new FacebookLoginForm();
-                        $loginForm->username = $user->email;
-                        $loginForm->validate();
-                        $loginForm->login();
-                        FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
-                        $siteUrl = $this->createUrl('/site/index');         
-                        $this->redirect($siteUrl);                
                     }
+                    $loginForm = new FacebookLoginForm();
+                    $loginForm->username = $user->email;
+                    $loginForm->validate();
+                    $loginForm->login();
+                    FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
+                    $siteUrl = $this->createUrl('/site/index');         
+                    $this->redirect($siteUrl);                
+                    
                 }
             }
             catch (FacebookApiException $e)
