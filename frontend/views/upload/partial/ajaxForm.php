@@ -16,7 +16,7 @@ if ($this->showForm)
 
                 <div class="fileupload-new thumbnail" style="max-width:200px; max-height:200px;">
 
-                    <img src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=<?php LanguageUtil::echoT('Click to select image') ?>"  style="max-width: <?php echo $size; ?>px; max-height: <?php echo $size; ?>px;"/>    
+                    <img src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=<?php LanguageUtil::echoT('Click to select image') ?>"  style="max-width: 200px; max-height: 200px;"/>    
                 </div>
                 <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 200px; line-height: 20px;"></div>        
             </div>
