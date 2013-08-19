@@ -30,10 +30,10 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                 $this->pageTitle = LanguageUtil::t('Post Ad to').'  '.$product->category->name;
                             ?>
                         </h3>
-                    </div>                    
+                    </div>  
                 </div>
-                <div class="span4">
-                        <h3 style="text-align: right;" class="title_font"><i class="icon-eye-open"></i>  <?php LanguageUtil::echoT('Preview') ?></h3>
+                <div class="span4 hidden-phone">
+                        <h3 style="text-align: right;" class="title_font"><i class="icon-eye-open"></i>  <?php LanguageUtil::echoT('Preview') ?></h3>                        
                 </div>
             </div>
             <div class="row-fluid">
@@ -42,13 +42,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                     <div class="row-fluid">
                         <div class="span8">                                
                             <div class="row-fluid">                               
-                                <div class="span6" style="min-width:250px;">                                    
-                                    <div class="rb-form-part" style="text-align:center;">                          
-                                  
-                                        <div class="alert alert-info" style="text-align: justify;background:transparent;border:none;max-width:180px;margin:0 auto;">
-
-                                            <?php echo Yii::t('Default','<b>Warning:</b> The width of your image is larger than {width} pxs and its height is taller than {height} pxs',array('{width}'=>Yii::app()->params['image.minWidth'],'{height}'=>Yii::app()->params['image.minHeight'])) ?>
-                                        </div>                                   
+                                <div class="span4">                                   
                                         <?php 
                                         $this->widget( 'frontend.extensions.xupload.XUpload', array(
                                             'url' => Yii::app( )->createUrl( "/upload/upload"),                                            
@@ -68,18 +62,22 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                             )    
                                         );                                        
                                         ?>
-                                        <?php foreach($product->images as $image):?>
-                                            <?php $this->renderPartial('partial/uploadedImage',array(
-                                                'image'=>$image
-                                            )); ?>
-                                        <?php endforeach; ?>
-                                    </div>
+                                        
+                                            <div class="alert alert-info" style="text-align: justify;background:transparent;border:none;max-width:180px;margin:0 auto;">
+
+                                                <?php echo Yii::t('Default','<b>Warning:</b> The width of your image is larger than {width} pxs and its height is taller than {height} pxs',array('{width}'=>Yii::app()->params['image.minWidth'],'{height}'=>Yii::app()->params['image.minHeight'])) ?>
+                                            </div>                                                                           
+                                            <?php foreach($product->images as $image):?>
+                                                <?php $this->renderPartial('partial/uploadedImage',array(
+                                                    'image'=>$image
+                                                )); ?>
+                                            <?php endforeach; ?>                                        
                                 </div>
-                                <div class="span6">
-                                    <div class="rb-form-part">                              
+                                <div class="span8">
                                         <?php
                                         $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-                                            'id' => 'uploadProductForm',                   
+                                            'id' => 'uploadProductForm',   
+                                            'type'=>'horizontal',                
                                             'htmlOptions' => array(
                                                 'enctype' => 'multipart/form-data'
                                             )
@@ -92,29 +90,32 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                             'append' => 'VNĐ',                                            
                                             )); ?>                                        
                                         <?php //echo $form->textFieldRow($product, 'phone'); ?>
-                                        <?php echo $form->textAreaRow($product, 'description'); ?>                                       
+                                        <?php echo $form->textAreaRow($product, 'description',array('rows'=>4)); ?>                                       
                                         <?php echo $form->hiddenField($product,'address_id'); ?>
                                         <br/>
                                        <!--  <div class="row-fluid" style="margin-bottom:-10px;">
                                             <p class="alert alert-info">Thêm hoặc chọn 1 địa chỉ bên dưới nếu có</p>
                                         </div> -->
-                                        <?php echo CHtml::link('<i class="icon-map-marker"></i>  '.LanguageUtil::t('Add your address'),'#',array(
-                                            'class'=>'btnAddressDialog flat btn btn-warning',
-                                        )); ?>  
-                                         <?php echo $form->error($product,'address_id'); ?>
-                                        <?php 
-                                        $addressList = $this->getAddressList();
-                                        $this->renderPartial('partial/addressList',array(
-                                            'addressList'=>$addressList
-                                        ));
-                                        ?>
-                                    </div>                                     
+                                        <div class="row">
+                                            <?php echo CHtml::link('<i class="icon-map-marker"></i>  '.LanguageUtil::t('Add your address'),'#',array(
+                                                'class'=>'btnAddressDialog flat btn btn-warning pull-right',
+                                            )); ?>  
+                                             <?php echo $form->error($product,'address_id'); ?>
+                                        </div>
+                                        <div class="row-fluid">
+                                            <?php 
+                                            $addressList = $this->getAddressList();
+                                            $this->renderPartial('partial/addressList',array(
+                                                'addressList'=>$addressList
+                                            ));
+                                            ?>
+                                        </div>
                                 </div>
                             </div>                           
                         </div>
                         <div class="span3 pull-right" style="border-left: dashed 1px #ccc;min-width: 250px;">                             
                             
-                            <div class="productItem <?php echo $product->category->getStyleName(); ?>" style="width: 80%;float:right;">
+                            <div class="productItem <?php echo $product->category->getStyleName(); ?> hidden-phone" style="width: 80%;float:right; ">
                                 <div class="row-fluid">
                                     <div class="product-detail">
                                         <div class="productImageLink fileupload" data-provides="fileupload">
@@ -144,7 +145,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                 </div>
                             </div>  
                                 <?php $pages = $this->getFacebookPageListData() ?>
-                                <?php if($pages !==false):?>
+                                <?php if($pages !==false&&count($pages)>0):?>
                                 <div class="row-fluid">
                                     <h3><?php echo Yii::t('Default','Post to Facebook Page'); ?></h3>
                                     <?php echo CHtml::checkBoxList('FacebookPage[]', '', $pages); ?>

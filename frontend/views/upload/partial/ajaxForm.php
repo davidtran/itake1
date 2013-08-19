@@ -6,7 +6,7 @@ if ($this->showForm)
 }
 ?>
 
-
+<div id="imageUploadedWrapper">
 <div class="row-fluid fileupload-buttonbar">
     <div class="span12">
         <!-- The fileinput-button span is used to style the file input field as button -->
@@ -41,7 +41,9 @@ if ($this->showForm)
 <div class="fileupload-loading"></div>
 <br>
 <!-- The table listing the files available for upload/download -->
-<table class="table table-striped">
-    <tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
-</table>
+    <table class="table table-striped">
+        <tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
+    </table>
+
 <?php if ($this->showForm) echo CHtml::endForm(); ?>
+</div>

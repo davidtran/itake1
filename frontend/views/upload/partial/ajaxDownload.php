@@ -8,8 +8,8 @@
                         <span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}
                     </div>
                 {% } else { %}
-                <img src="{%=file.thumbnail_url%}" width="200">           
-                <span class='delete'>
+                <img  class="img-polaroid" src="{%=file.thumbnail_url%}" width="200">           
+                <span class='delete' style="position: relative;top: -30px;left: 10px;">
                      <button class='' data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
                         <i class="icon-trash"></i>                        
                     </button>

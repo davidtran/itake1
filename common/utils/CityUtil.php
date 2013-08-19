@@ -42,7 +42,6 @@ class CityUtil
         else {
             $country = Country::model()->findAll();
         }
-
         $cities = $country->cities;
         $cityList[0] = array(
             'name' => 'All cities',
@@ -150,9 +149,18 @@ class CityUtil
                 $isContain = true;
         }
         if ($isContain)
+        {
             Yii::app()->session['client_itake'] = $countryCode;
-        else
+            if($countryCode=="vn")
+            {
+                Yii::app()->language = 'vi';
+                Yii::app()->session['itake_lang']="vi";
+            }
+        }
+        else{
             Yii::app()->session['client_itake'] = 'vn';
+            Yii::app()->language = 'vi';
+        }            
         return Yii::app()->session['client_itake'];
     }
 

@@ -22,6 +22,19 @@ $(document).ready(function() {
     $('.fileupload').fileupload({
         uploadtype: 'image'
     });
+     $('#imageUploadedWrapper').slimScroll({
+            position: 'left',
+             height: 350,
+            railVisible: false,
+            color: '#7e7e7e',
+            alwaysVisible:true,
+        });
+     $('#addressListWrapper').slimScroll({
+            height: 250,
+            railVisible: false,
+            color: '#7e7e7e',
+            alwaysVisible:false,
+        });
     updatePreview();   
 });
 

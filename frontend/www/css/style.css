@@ -1290,20 +1290,20 @@ div.rb-form-part
 {  
     width: 100%;
     margin: 0 auto;
-    overflow:hidden;
+    /*overflow:hidden;*/
     margin: 0 auto;
     margin-bottom: 20px;    
     min-width: 285px;
 }
 div.rb-form-part input
 {
-    height: 25px;    
+    height: 20px;    
     font-family: "Arial";
     font-weight: 400;
     padding-left: 20px;
     padding-right: 20px;
 /*    min-width: 300px;*/
-    margin-bottom: 10px;
+    margin-bottom: 10px;    
 }
 div.rb-form-part textarea
 {
@@ -1312,7 +1312,7 @@ div.rb-form-part textarea
     font-weight: 400;
     padding-left: 20px;
     padding-right: 20px;
-    min-height:150px;
+    min-height:100px;
     margin-bottom: 10px;
 }
 div.rb-form-part label{
@@ -1333,7 +1333,7 @@ div.rb-form-part select
 }
 div.rb-form-part div.input-append span
 {
-    height: 25px;
+    height: 20px;
     line-height: 25px;
 }
 div.span8.offset2.step2{
