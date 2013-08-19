@@ -100,7 +100,7 @@ class UserController extends Controller
                     {
                         if ($user->fbId == null)
                         {
-                            $user->fbid = $profile['id'];
+                            $user->fbId = $profile['id'];
                         }
                         $user->isFbUser = 1;
                         
