@@ -66,7 +66,8 @@ class FacebookPostQueueUtil
 
     protected static function makeHash($command, $type, $params, $userId)
     {
-        $uniqueParams = "$command-$type-$params-$userId";
+        $paramString = serialize($params);
+        $uniqueParams = "$command-$type-$paramString-$userId";
         return md5($uniqueParams);
     }
 
