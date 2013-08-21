@@ -56,8 +56,11 @@ Từng lời đắm say in đắm mãi trong tim từng phút giây';
         ProductImageUtil::drawImage($product,Yii::getPathOfAlias('root').'/lazada.jpg', Yii::getPathOfAlias('root').'/lazada1.jpg');        
     }
     public function actionShareProduct($id){
-        $product = Product::model()->findByPk(16);        
-        FacebookUtil::getInstance()->shareProductToFacebook($product);      
+        $product = Product::model()->findByPk($id);        
+        if($product!=null){
+            FacebookUtil::getInstance()->shareProductToFacebook($product);      
+        }
+        
     }
     public function actionLimitText($text){
         echo StringUtil::smartLimit($text);
@@ -145,8 +148,11 @@ HERE;
     }
     
     public function actionCurl(){
-        FacebookPostQueueUtil::postByCurl('me1', 'post', array('access_token'=>'CAAE4ZAelsz4cBAKLqZBxvXQAFKnYJL3wOEwS4IaMKdHRzESR7pL2TEaLaApbHgfT7R3bdc9wukugtggAvJYpzra1zPZA7j83tpvMZBG6oIVYxaNpfXaZBHA8iJ34oGpuF5JtXxauI3CaMO1Dp2ejmT1ZArQLQdZBlUZD'));
-        
+        FacebookPostQueueUtil::postByCurl('me1', 'post', array('access_token'=>'CAAE4ZAelsz4cBAKLqZBxvXQAFKnYJL3wOEwS4IaMKdHRzESR7pL2TEaLaApbHgfT7R3bdc9wukugtggAvJYpzra1zPZA7j83tpvMZBG6oIVYxaNpfXaZBHA8iJ34oGpuF5JtXxauI3CaMO1Dp2ejmT1ZArQLQdZBlUZD'));        
+    }
+    
+    public function actionFbCron(){
+        FacebookPostQueueUtil::processQueueList();
     }
 }
 
