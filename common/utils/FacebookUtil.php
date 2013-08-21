@@ -137,7 +137,7 @@ class FacebookUtil
     public function shareProductToFacebook(Product $product)
     {
         $args = array();   
-        $args['picture'] = '@'.realpath($product->firstImage->facebook);        
+        $args['url'] = Yii::app()->getBaseUrl(true).'/'.($product->firstImage->facebook);        
         $desc = $this->makePostDescription($product);        
         $args['message'] = $desc;
         $args['access_token'] = $this->_accessToken;

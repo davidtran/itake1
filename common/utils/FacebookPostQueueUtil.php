@@ -83,23 +83,30 @@ class FacebookPostQueueUtil
 
     public static function postByCurl($command, $type, $params)
     {
-        $graph_url = "https://graph.facebook.com/" . $command;
-        $postData = http_build_query($params,'','&');                
+        $postData = http_build_query($params, '', '&');
+        $graph_url = "https://graph.facebook.com/" . $command . '?';
+        
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $graph_url);        
-        if (strtolower($type) == 'post') {
-            curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_URL, $graph_url);
+        if(strtolower($type) == 'post'){
+            curl_setopt($ch, CURLOPT_PORT, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);    
         }else{
-            curl_setopt($ch, CURLOPT_POST, 0);
+            
         }
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);        
+        $graph_url.=$postData;
+        
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
         $output = curl_exec($ch);
-        curl_close($ch);
-        $data = CJSON::decode($output);        
-        var_dump($data);
+        curl_close($ch);    
+        $output = CJSON::decode($output);
+//        var_dump($output);
+        if(isset($output['error'])){
+            throw new CException('Facebook API Error '.$output['error']['message'].' - '.$output['error']['code']);
+        }
+        
     }
 
 }
