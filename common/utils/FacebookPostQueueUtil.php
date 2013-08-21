@@ -46,7 +46,7 @@ class FacebookPostQueueUtil
                 $accessToken = FacebookUtil::getInstance()->getSavedUserToken($model->user_id);
                 $params['access_token'] = $accessToken;
                 self::postByCurl($model->command, $model->type, $params);
-                $model->success = true;
+                $model->success = 1;
                 $model->success_date = date('Y-m-d H:i:s');
                 $model->save();
             }

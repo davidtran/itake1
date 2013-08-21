@@ -141,8 +141,8 @@ class FacebookUtil
         $desc = $this->makePostDescription($product);        
         $args['message'] = $desc;
         $args['access_token'] = $this->_accessToken;
-        FacebookPostQueueUtil::queueCommand('/me/photos', 'POST', $args, $product->user_id);
-        //return Yii::app()->facebook->api('/me/photos', 'POST', $args);       
+        //FacebookPostQueueUtil::queueCommand('/me/photos', 'POST', $args, $product->user_id);
+        return Yii::app()->facebook->api('/me/photos', 'POST', $args);       
     }
 
     protected function makePostDescription(Product $product)
@@ -230,8 +230,8 @@ class FacebookUtil
         if(!empty($pageInfo)){
             $args['access_token'] = $pageInfo['access_token'];
         }
-        //return Yii::app()->facebook->api('/'.$page.'/photos','POST',$args);
-        FacebookPostQueueUtil::queueCommand("/$page/?fields=access_token", 'POST', $args, $product->user_id);
+        return Yii::app()->facebook->api('/'.$page.'/photos','POST',$args);
+        //FacebookPostQueueUtil::queueCommand("/$page/?fields=access_token", 'POST', $args, $product->user_id);
     }       
 
 }
