@@ -129,11 +129,11 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                 </div>
                 <div class="row-fluid">
                     <div class="span12 custom">
-                        <h3 class="title_font" style="text-transform:uppercase;" ><?php LanguageUtil::echoT('More from this seller') ?></h3>
+                        <h3 class="title_font" style="text-transform:uppercase;" ><?php LanguageUtil::echoT('More like this') ?></h3>
                         <hr/>
                         <div id="userProductList" style="display:none;">
-                            <?php foreach ($userProductDataProvider->getData() as $userProduct): ?>
-                                <?php echo $userProduct->renderHtml('home-user-'); ?>
+                            <?php foreach ($relateProductList as $relateProduct): ?>
+                                <?php echo $relateProduct->renderHtml('home-user-'); ?>
                             <?php endforeach; ?>
                         </div>
                     </div>

@@ -119,11 +119,11 @@ $this->pageTitle = $product->title;
 </div>
 <div class="row-fluid">
     <div class="span12 custom">
-        <h3><?php LanguageUtil::echoT('More from this seller') ?></h3>
+        <h3><?php LanguageUtil::echoT('More like this') ?></h3>
         <hr/>
         <div id="userProductList">
-            <?php foreach ($userProductDataProvider->getData() as $userProduct): ?>
-                <?php echo $userProduct->renderHtml('dlg-user-'); ?>
+            <?php foreach ($relateProductList as $relateProduct): ?>
+                <?php echo $relateProduct->renderHtml('home-user-'); ?>
             <?php endforeach; ?>
         </div>
     </div>

@@ -35,18 +35,21 @@ $this->pageTitle = LanguageUtil::t('Participate in').' '.Yii::app()->name;
         <?php echo $form->errorSummary($user); ?>
         <?php echo $form->textFieldRow($user,'email',array(
           'placeholder'=>LanguageUtil::t('Email'),
-          'class'=>'input-block-level'
+          'class'=>'input-block-level',
+            'autocomplete'=>'off'
           )); ?>
         <?php
         echo $form->textFieldRow($user, 'username', array(
           'placeholder' => LanguageUtil::t('Username'),
-          'class' => 'input-block-level'
+          'class' => 'input-block-level',
+            'autocomplete'=>'off'
           ));
           ?>
           <?php
           echo $form->passwordFieldRow($user, 'password', array(
             'placeholder' => LanguageUtil::t('Password'),
-            'class' => 'input-block-level'
+            'class' => 'input-block-level',
+              'autocomplete'=>'off'
             ));
             ?>
             <button class="btn btn-success login" type="submit" style="width:100%;height:50px;font-size:1.3em;"><?php LanguageUtil::echoT('Create an account') ?></button>                                  

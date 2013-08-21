@@ -67,6 +67,7 @@ return array(
     'Change password'=>'Đổi mật khẩu',
     'Sign out'=>'Đăng xuất',
     'Upload To Facebook'=>'Đăng tin lên Facebook',
+    'More like this'=>'Tin tương tự',
 
     ////Category
     'Fashion'=>'Thời trang',

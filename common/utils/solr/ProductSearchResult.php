@@ -21,8 +21,8 @@ class ProductSearchResult
     public $numFound;
     
     /**
-     * Search offset
-     * @var int
+     * Search search result
+     * @var array
      */
     
     public $productList = array();        

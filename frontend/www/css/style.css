@@ -1464,13 +1464,7 @@ div.customupload{
     background-clip: padding-box;
 }
 a#btnSearchLocation{
-   margin-left: -40px;
-    margin-top: -10px;
-    box-shadow: none;
-    border: none;
-    background: none;
-    color: #000;
-    font-size: large;
+  
 }
 ul#myTab li{
     min-width: 150px;

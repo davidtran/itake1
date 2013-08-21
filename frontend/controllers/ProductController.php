@@ -29,13 +29,13 @@ class ProductController extends Controller
         ProductViewCounterUtil::getInstance($id)->increaseView();
         $product = $this->loadProduct($id);
         $canonicalUrl = $this->createAbsoluteUrl('/product/details', array('id' => $id));
-        $userProductDataProvider = $product->user->searchProduct(null, 10, 0);
+        $relateProductList = $this->relatedProduct($product);
         if (Yii::app()->request->isAjaxRequest)
         {
             $html = '';
             $html = $this->renderPartial('details', array(
                 'product' => $product,
-                'userProductDataProvider' => $userProductDataProvider,
+                'relateProductList' => $relateProductList,
                 'canonicalUrl' => $canonicalUrl
                     ), true, false);
             $html = utf8_encode($html);
@@ -72,7 +72,7 @@ class ProductController extends Controller
             $this->metaKeywords = str_replace(' ', ',', strtolower(preg_replace('/[^0-9a-z\s]/', '', $product->title)));
             $this->render('detailPage', array(
                 'product' => $product,
-                'userProductDataProvider' => $userProductDataProvider,
+                'relateProductList' => $relateProductList,
                 'canonicalUrl' => $canonicalUrl
             ));
         }
@@ -129,6 +129,18 @@ class ProductController extends Controller
             }
         }
         return $this->_product;
+    }
+    
+    protected function relatedProduct($product){
+        $adapter = new SolrSearchAdapter();
+        $adapter->keyword = $product->title;
+        $adapter->categoryId = $product->category_id;
+        $adapter->city = $product->city;
+        $adapter->country = $product->country;
+        $adapter->mm = 20;
+        $adapter->setSortType(SolrSortTypeUtil::TYPE_CREATE_DATE);
+        $result = $adapter->search();
+        return $result->productList;
     }
 
 }
