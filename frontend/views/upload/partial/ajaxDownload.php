@@ -2,7 +2,6 @@
 {% for (var i=0, file; file=o.files[i]; i++) { %}
     <div class="row-fluid template-download">
         <div class="span12">
-            <div id="download-image-container">
                 {% if (file.error) { %}
                     <div class="download-image-error">
                         <span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}
@@ -16,7 +15,6 @@
                     <input type="hidden" name="delete" value="1"> 
                 </span>
                 {% } %} 
-            </div>
         </div>
     </div>
 {% } %}  

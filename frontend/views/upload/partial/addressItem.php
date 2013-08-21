@@ -2,7 +2,7 @@
     <div class="row-fluid" style="border-bottom:dashed 1px #ccc;margin-top:3px;margin:-5px;">    
     <div class="span6">
     <?php echo CHtml::image(UploadProductUtil::getStaticGoogleMapUrl($address),'',array(
-    'class'=>'googlemap img-circle'
+    'class'=>'googlemap img-rounded'
  )); ?>
 </div>    
     <div class="span6" style="padding:5px;">

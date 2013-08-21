@@ -6,7 +6,6 @@ if ($this->showForm)
 }
 ?>
 
-<div id="imageUploadedWrapper">
 <div class="row-fluid fileupload-buttonbar">
     <div class="span12">
         <!-- The fileinput-button span is used to style the file input field as button -->
@@ -46,4 +45,3 @@ if ($this->showForm)
     </table>
 
 <?php if ($this->showForm) echo CHtml::endForm(); ?>
-</div>

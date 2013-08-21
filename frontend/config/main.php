@@ -79,7 +79,7 @@ return CMap::mergeArray(
                         'post-ad/<category:\d+>/<name:.*?>' => '/upload/uploadNew',
                         'forgot-password'=>'user/forgetPassword',
                         'change-password'=>'user/changePassword',  
-                        'hello'=>'site/landing',
+                        'welcome'=>'site/landing',
                         'market/<action>'=>'site/<action>',
                         'market'=>'site',                                                                
                         'upload/<category:\d+>/<name:.*?>' => '/upload/index',

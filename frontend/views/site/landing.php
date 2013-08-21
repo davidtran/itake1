@@ -43,7 +43,7 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
 				  <i class="icon-random icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center">Your product is promoted to million customer on our website, mobile app and Facebook</h4>
+			<h4 class="center">Your product is promoted to million customers on our website, mobile app and Facebook</h4>
 		</div>
 		<div class="span3">
 			<h2 class="center" >
@@ -61,7 +61,7 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
 				  <i class="icon-group icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center">Easiest way to post your stuff to your friend and friends of friend</h4>
+			<h4 class="center">Easiest way to post your stuffs to your friends and friends of friends</h4>
 		</div>
 	</div>
 	<div class="row-fluid">
@@ -74,7 +74,7 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
 				  <i class="icon-screenshot icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center">Easy to find out product which you like</h4>
+			<h4 class="center">Easy to find out products which you like</h4>
 		</div>
 		<div class="span3">
 			<h2 class="center" >
@@ -83,7 +83,7 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
 				  <i class="icon-star icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center">You could buy good stuff from your friends you know</h4>
+			<h4 class="center">You could buy good stuffs from your friends you know</h4>
 		</div>
 		<div class="span3">
 			<h2 class="center">
@@ -92,7 +92,7 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
 				  <i class="icon-cogs icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center">Only trusted seller</h4>
+			<h4 class="center">Only trusted sellers</h4>
 		</div>
 	</div>	
 	<div class="row-fluid">

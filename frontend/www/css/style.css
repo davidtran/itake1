@@ -18,8 +18,8 @@ root {
     margin-bottom: 2%;
     background-color: #fff;       
     -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
--moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
-box-shadow: 1px 1px 2px 0 #d0d0d0;
+    -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
+    box-shadow: 1px 1px 2px 0 #d0d0d0;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;

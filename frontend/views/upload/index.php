@@ -26,8 +26,8 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                 <div class="span8">    
                      <div class="row-fluid">
                         <h3 style="text-align: center;" class="title_font"><i class="icon-hand-right"></i>   <?php 
-                                echo LanguageUtil::t('Post Ad to').'  '.$product->category->name ;
-                                $this->pageTitle = LanguageUtil::t('Post Ad to').'  '.$product->category->name;
+                                echo LanguageUtil::t('Post Ad to').'  '.LanguageUtil::t($product->category->name);
+                                $this->pageTitle = LanguageUtil::t('Post Ad to').'  '.LanguageUtil::t($product->category->name);
                             ?>
                         </h3>
                     </div>  
@@ -40,9 +40,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
               
                 <div id="uploadStep1">
                     <div class="row-fluid">
-                        <div class="span8">                                
+                        <div class="span9">                                
                             <div class="row-fluid">                               
-                                <div class="span4">                                   
+                                <div class="span3 offset1" style="min-width:220px;">                                   
                                         <?php 
                                         $this->widget( 'frontend.extensions.xupload.XUpload', array(
                                             'url' => Yii::app( )->createUrl( "/upload/upload"),                                            
@@ -73,7 +73,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                                 )); ?>
                                             <?php endforeach; ?>                                        
                                 </div>
-                                <div class="span8">
+                                <div class="span7">
                                         <?php
                                         $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                                             'id' => 'uploadProductForm',   
@@ -85,31 +85,36 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         ?>
                                         <?php echo $form->errorSummary($product); ?>       
                                         <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>                                        
-                                        <?php echo $form->textFieldRow($product, 'title'); ?>                                          
+                                        <?php echo $form->textFieldRow($product, 'title',array('class'=>'span12')); ?>                                          
                                         <?php echo $form->textFieldRow($product, 'price', array(
-                                            'append' => 'VNĐ',                                            
+                                            'class'=>'span12'                                            
                                             )); ?>                                        
                                         <?php //echo $form->textFieldRow($product, 'phone'); ?>
-                                        <?php echo $form->textAreaRow($product, 'description',array('rows'=>4)); ?>                                       
+                                        <?php echo $form->textAreaRow($product, 'description',array('rows'=>4,'class'=>'span12')); ?>                                       
                                         <?php echo $form->hiddenField($product,'address_id'); ?>
                                         <br/>
                                        <!--  <div class="row-fluid" style="margin-bottom:-10px;">
                                             <p class="alert alert-info">Thêm hoặc chọn 1 địa chỉ bên dưới nếu có</p>
-                                        </div> -->
-                                        <div class="row">
-                                            <?php echo CHtml::link('<i class="icon-map-marker"></i>  '.LanguageUtil::t('Add your address'),'#',array(
-                                                'class'=>'btnAddressDialog flat btn btn-warning pull-right',
-                                            )); ?>  
-                                             <?php echo $form->error($product,'address_id'); ?>
-                                        </div>
+                                        </div> -->                                        
                                         <div class="row-fluid">
-                                            <?php 
-                                            $addressList = $this->getAddressList();
-                                            $this->renderPartial('partial/addressList',array(
-                                                'addressList'=>$addressList
-                                            ));
-                                            ?>
-                                        </div>
+                                            <div class="control-group ">
+                                                <label class="control-label required" for="Product_description"> <?php LanguageUtil::echoT('Address') ?><span class="required">*</span></label>
+                                                <div class="row">
+                                                    <?php echo CHtml::link('<i class="icon-map-marker"></i>  '.LanguageUtil::t('Add your address'),'#',array(
+                                                        'class'=>'btnAddressDialog flat btn pull-right',
+                                                    )); ?>  
+                                                     <?php echo $form->error($product,'address_id'); ?>
+                                                </div>
+                                                <div class="controls">
+                                                     <?php 
+                                                $addressList = $this->getAddressList();
+                                                $this->renderPartial('partial/addressList',array(
+                                                    'addressList'=>$addressList
+                                                ));
+                                                ?>
+                                                </div>
+                                            </div>                                          
+                                        </div>                                        
                                 </div>
                             </div>                           
                         </div>

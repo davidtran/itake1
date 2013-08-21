@@ -84,3 +84,14 @@ box-shadow: 0px 0px 1px 0 #000;
 	margin-left: 0px;
 	margin-right: 0px;
 }
+.flex-control-thumbs li{
+	height: 100px;
+	overflow: hidden;
+	background: #000;
+	border: solid 1px #ccc;
+	width: 22%;
+	padding: 1%;
+}
+.flexslider .slides img{
+	width: 97%;
+}
