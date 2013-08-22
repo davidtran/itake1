@@ -5,38 +5,21 @@
             <div class="productImageInfo">
                 <div class="productImageTitle"><?php echo StringUtil::limitCharacter(strtoupper($product->title), 25); ?></div>
                 <hr class="sep_item"/>
-                <div class="productImagePrice"><?php echo number_format($product->price,0); ?> đ</div>
              </div>
             <div class="productDescription">
                 <?php echo StringUtil::limitCharacter($product->description, 50); ?>
-            </div>
+            </div>            
             <div class="productCreateDate">
-                <?php 
-                //echo DateUtil::convertDate('d-m-Y H:i:s', $product->create_date); 
-                ?>                
-                <?php echo $product->displayDateTime(); ?>                
-                <?php
-                $myUserModel = Yii::app()->user->getModel();
-                if(isset($myUserModel)&&($myUserModel->id==$product->user_id)):?>
-                    <div style="float:right;display:none" class="productControl">
-                        <?php echo CHtml::link('<i class="icon-edit"></i>  '.LanguageUtil::t('Edit'),array('/upload/edit','id'=>$product->id),array(
-                            'class'=>'btn flat p-edit',
-                            'data-toggle'=>'tooltip',
-                            'title'=>'Sửa thông tin sản phẩm',                            
-                        ));?>
-                        
-                        <?php echo CHtml::link('<i class="icon-remove"></i> '.LanguageUtil::t('Sold'),array('/upload/delete'),array(
-                            'class'=>'btn flat  p-delete',
-                            'data-toggle'=>'tooltip',
-                            'title'=>'Đã bán phẩm này',
-                        )); ?>
-                       
-                        <script>
-                            // $('#p-edit').tooltip('show');
-                            // $('#p-delete').tooltip('show');
-                        </script>
+                <div class="row-fluid">
+                    <div class="span6">                                               
+                        <div class="row-fluid">
+                            <?php echo $product->displayDateTime(); ?>  
+                        </div>
                     </div>
-                <?php endif;?>
+                    <div class="span6">
+                          <div class="productImagePrice"><?php echo number_format($product->price,0); ?> đ</div>
+                    </div>                    
+            </div>                                                 
             </div>            
         </div>
         

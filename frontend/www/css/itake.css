@@ -95,3 +95,50 @@ box-shadow: 0px 0px 1px 0 #000;
 .flexslider .slides img{
 	width: 97%;
 }
+.avarta-on-item{
+	position: relative;
+	top: 5px;
+	left:15px;
+	height: 30px;
+}
+
+.avarta-on-item small{
+	color:#fff;	
+	text-rendering: optimizelegibility;
+	text-shadow: 0 0 3px rgba(0,0,0,0.8);
+}
+a.productLink{
+	overflow: none;
+	display: block;	
+}
+a.productLink:hover{
+	
+}
+.productControl small{
+	color: #fff;
+	text-rendering: optimizelegibility;
+	text-shadow: 0 0 3px rgba(0,0,0,0.8);
+}
+a.productLink:hover .productControl{	
+	background: rgba(0,0,0,0.5);
+}
+.btn-square{
+	font-size: 0.7em;
+	text-transform: uppercase;
+	border-radius: 5px;
+}
+.btn-square i{	
+	width: 100%;
+	float: left;
+	font-size: 200%;
+}
+a.btn-square:hover{
+	color: #DFAF4B;
+}
+.btn-long{
+	width: 140px;
+	position: relative;
+	left: -7px;
+	top:10px;
+	padding: 5px;
+}

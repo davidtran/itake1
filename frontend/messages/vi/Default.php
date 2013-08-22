@@ -40,6 +40,7 @@ return array(
      'Terms'=>'Điều khoản',
      'Time'=>'Thời gian',
      'Trend'=>'Xu hướng',
+     'Browse'=> 'Xem',
 
      //PRODUCT
     'ID' => 'Mã',
