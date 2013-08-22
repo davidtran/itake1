@@ -10,17 +10,13 @@
                 <?php echo StringUtil::limitCharacter($product->description, 50); ?>
             </div>            
             <div class="productCreateDate">
-<<<<<<< HEAD
+
                 <div class="row-fluid">
                     <div class="span6">                                               
                         <div class="row-fluid">
                             <?php echo $product->displayDateTime(); ?>  
                         </div>
-=======
-                <?php 
-                //echo DateUtil::convertDate('d-m-Y H:i:s', $product->create_date); 
-                ?>                
-                <?php echo $product->displayDateTime(); ?>                
+
                 <?php
                 $myUserModel = Yii::app()->user->getModel();
                 if(isset($myUserModel)&&($myUserModel->id==$product->user_id)):?>
@@ -41,7 +37,7 @@
                             // $('#p-edit').tooltip('show');
                             // $('#p-delete').tooltip('show');
                         </script>
->>>>>>> origin/HEAD
+<?php endif; ?>
                     </div>
                     <div class="span6">
                           <div class="productImagePrice"><?php echo number_format($product->price,0); ?> đ</div>
@@ -51,4 +47,5 @@
         </div>
         
     </div>
+</div>
 </div>
