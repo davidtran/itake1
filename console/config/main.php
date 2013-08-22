@@ -68,7 +68,7 @@ return CMap::mergeArray(
 				'errorAction'=>'site/error'
 			),            
             'urlManager'=>array(
-                'baseUrl'=>$params['request.baseUrl'],
+                'baseUrl'=>$params['urlManager.hostInfo'],
                 'urlFormat' => 'path',
                     'showScriptName' => false,
                     'caseSensitive' => false,
