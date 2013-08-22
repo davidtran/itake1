@@ -37,8 +37,9 @@
                             // $('#p-edit').tooltip('show');
                             // $('#p-delete').tooltip('show');
                         </script>
-<?php endif; ?>
-                    </div>
+                        </div>
+                <?php endif; ?>
+                    
                     <div class="span6">
                           <div class="productImagePrice"><?php echo number_format($product->price,0); ?> đ</div>
                     </div>                    
