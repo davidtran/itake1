@@ -5,7 +5,7 @@ var UploadAddress = {
     addressList: $('#addressList'),
     saveAddressButton: $('#btnSaveAddress'),
     map: $('#map'),
-    addressField:$('#Address_address'),    
+    addressField:'#Address_address',    
     init: function() {
         UploadAddress.initShowDialogButton();
         UploadAddress.initDeleteButton();
@@ -152,21 +152,29 @@ var UploadAddress = {
         $('#Address_lon').val(lon);
     },
     initAddressField: function() {
-        UploadAddress.addressField.keydown(function(e){
+        $(UploadAddress.addressField).keydown(function(e){
             console.log(e.keycode);
             if (e.keyCode == 13) {
                 e.preventDefault();
-                var address = UploadAddress.addressField.val() + ',' + $('#Address_city option:selected').text();
-                MapUtils.searchMapByAddress(
-                        address,
-                        function(lat,lon){
-                            UploadAddress.setFormLatLon(lat,lon);
-                            UploadAddress.map = MapUtils.addMap(UploadAddress.map,lat,lon);                  
-                        }
-                    );
+                UploadAddress.seachMapByAddress($(UploadAddress.addressField).val(), $('#Address_city option:selected').text());
                 return false;
             }
         });
+        $('#btnSearchLocation').click(function(e){
+            e.preventDefault();
+            UploadAddress.seachMapByAddress($(UploadAddress.addressField).val(), $('#Address_city option:selected').text());
+            return false;
+        });
+    },
+    seachMapByAddress:function(address,cityName){
+        var address = address + ',' + cityName;
+        MapUtils.searchMapByAddress(
+                address,
+                function(lat,lon){
+                    UploadAddress.setFormLatLon(lat,lon);
+                    UploadAddress.map = MapUtils.addMap(UploadAddress.map,lat,lon);                  
+                }
+            );
     },
             
     showDialog: function() {

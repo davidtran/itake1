@@ -15,6 +15,7 @@ class SolrSearchAdapter
     public $latitude = null;
     public $longitude = null;
     protected $sortType = null;
+    public $mm = 2;
 
     const DEFAULT_KEYWORD = '*:*';
 
@@ -34,6 +35,7 @@ class SolrSearchAdapter
     {
         $fq = '';
         $params = array();
+        
         if ($this->country != null) {
             $fq[] = 'country:' . $this->country;
         }
@@ -51,7 +53,7 @@ class SolrSearchAdapter
         $params['defType'] = 'edismax';
         $params['qf'] = 'title^60 description^20';
         $params['q.alt'] = '*:*';
-
+        $params['mm'] = $this->mm;
 
         if ($this->sortType == SolrSortTypeUtil::TYPE_CREATE_DATE) {
             $params['sort'] = 'create_date desc';
@@ -116,6 +118,7 @@ class SolrSearchAdapter
         $resultSet->numFound = $parsed['response']['numFound'];
         $resultSet->status = $parsed['responseHeader']['status'];
         $resultSet->queryTime = $parsed['responseHeader']['QTime'];
+        $resultSet->productList = array();
         //$resultSet->start = $parsed['responseHeader']['start'];
         $docs = $parsed['response']['docs'];
         foreach ($docs as $doc)
@@ -124,8 +127,9 @@ class SolrSearchAdapter
             if ($product != null) {
                 $product->title = $doc['title'];
                 $product->description = $doc['description'];
+                $resultSet->productList[] = $product;
             }
-            $resultSet->productList[] = $product;
+            
         }
         return $resultSet;
     }

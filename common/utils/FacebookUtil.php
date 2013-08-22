@@ -41,7 +41,11 @@ class FacebookUtil
             throw new CException('Invalid token');
         }
     }
-
+    
+    public function setExtendedAccessToken(){
+        return Yii::app()->facebook->setExtendedAccessToken();
+    }
+    
     public function getAccessToken()
     {
         return $this->_accessToken;
@@ -133,10 +137,11 @@ class FacebookUtil
     public function shareProductToFacebook(Product $product)
     {
         $args = array();   
-        $args['picture'] = '@'.realpath($product->firstImage->facebook);        
+        $args['url'] = Yii::app()->getBaseUrl(true).'/'.($product->firstImage->facebook);        
         $desc = $this->makePostDescription($product);        
         $args['message'] = $desc;
         $args['access_token'] = $this->_accessToken;
+        //FacebookPostQueueUtil::queueCommand('/me/photos', 'POST', $args, $product->user_id);
         return Yii::app()->facebook->api('/me/photos', 'POST', $args);       
     }
 
@@ -226,6 +231,7 @@ class FacebookUtil
             $args['access_token'] = $pageInfo['access_token'];
         }
         return Yii::app()->facebook->api('/'.$page.'/photos','POST',$args);
-    }
+        //FacebookPostQueueUtil::queueCommand("/$page/?fields=access_token", 'POST', $args, $product->user_id);
+    }       
 
 }

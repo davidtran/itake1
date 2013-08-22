@@ -8,10 +8,10 @@ class UserController extends Controller
     public function behaviors()
     {
         return array(
-            'seo'=>array('class'=> 'frontend.extensions.seo.components.SeoControllerBehavior')
+            'seo' => array('class' => 'frontend.extensions.seo.components.SeoControllerBehavior')
         );
     }
-    
+
 //    public function filters()
 //    {
 //        return array(
@@ -38,25 +38,24 @@ class UserController extends Controller
 
     public function actionLogin()
     {
-        $loginForm = new LoginForm();            
-        if (isset($_POST['LoginForm']))
-        {
+        $loginForm = new LoginForm();
+        if (isset($_POST['LoginForm'])) {
             $loginForm->username = $_POST['LoginForm']['username'];
             $loginForm->password = $_POST['LoginForm']['password'];
-            if ($loginForm->validate() && $loginForm->login())
-            {
+            if ($loginForm->validate() && $loginForm->login()) {
                 $siteUrl = $this->createUrl('/site/index');
-                if($this->hasReturnUrl()){
+                if ($this->hasReturnUrl()) {
                     $this->redirectToReturnUrl();
-                }else{
+                }
+                else {
                     $this->redirect($siteUrl);
-                }                
+                }
             }
             $loginForm->password = '';
         }
         $this->render('login', array(
             'model' => $loginForm,
-            'returnUrl'=>$this->returnUrl,
+            'returnUrl' => $this->returnUrl,
         ));
     }
 
@@ -68,17 +67,14 @@ class UserController extends Controller
     public function actionRegister()
     {
         $user = new User();
-        if (isset($_GET['code']))
-        {
+        if (isset($_GET['code'])) {
             try
             {
-                $profile = Yii::app()->facebook->api('/me');                
-              //  var_dump($profile);exit;
-                if (isset($profile['email']))
-                {
+                $profile = Yii::app()->facebook->api('/me');
+                //  var_dump($profile);exit;
+                if (isset($profile['email'])) {
                     $user = UserUtil::getUserByEmail($profile['email']);
-                    if ($user == null)
-                    {
+                    if ($user == null) {
                         $user = new User();
                         $user->email = $profile['email'];
                         $user->password = StringUtil::generateRandomString(25);
@@ -92,54 +88,52 @@ class UserController extends Controller
                         }
                         $user->username = $username;
                         //render login form/ redirect to returnUrl
-                      //  FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
+                        //  FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
                         Yii::app()->session['LastFbId'] = $profile['id'];
-                        
                     }
-                    else
-                    {
-                        if ($user->fbId == null)
-                        {
+                    else {
+                        if ($user->fbId == null) {
                             $user->fbId = $profile['id'];
                         }
                         $user->isFbUser = 1;
-                        
                     }
-                    $user->save();                    
-                    FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
-                    $loginForm = new FacebookLoginForm();
-                    $loginForm->username = $user->email;
-                    $loginForm->validate();
-                    $loginForm->login();                    
-                    $siteUrl = $this->createUrl('/site/index');         
-                    $this->redirect($siteUrl);                
-                    
+                    $user->save();
+                    if ( FacebookUtil::getInstance()->setExtendedAccessToken() !== false) {
+                        FacebookPostQueueUtil::refreshFacebookCommandForUser($user->id);
+                        FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
+                        $loginForm = new FacebookLoginForm();
+                        $loginForm->username = $user->email;
+                        $loginForm->validate();
+                        $loginForm->login();
+                        $siteUrl = $this->createUrl('/site/index');
+                        $this->redirect($siteUrl);
+                    }
+                    else {
+                        throw new CHttpException(404, 'Không thể đăng nhập với Facebook, vui lòng đăng nhập với email.');
+                    }
                 }
             }
             catch (FacebookApiException $e)
             {
                 //do nothing
             }
-        }        
+        }
 
-        if (isset($_POST['User']))
-        {
+        if (isset($_POST['User'])) {
             $user->attributes = $_POST['User'];
-            if (isset(Yii::app()->session['LastFbId']))
-            {
+            if (isset(Yii::app()->session['LastFbId'])) {
                 $user->fbId = Yii::app()->session['LastFbId'];
             }
             $password = $_POST['User']['password'];
-            if ($user->save())
-            {
+            if ($user->save()) {
                 Yii::app()->user->setFlash('success', 'Chúc mừng bạn đã đăng ký thành công');
                 $loginForm = new LoginForm();
                 $loginForm->username = $user->email;
                 $loginForm->password = $password;
                 $loginForm->validate();
                 $loginForm->login();
-                $siteUrl = $this->createUrl('/site/index');         
-                $this->redirect($siteUrl);                
+                $siteUrl = $this->createUrl('/site/index');
+                $this->redirect($siteUrl);
             }
         }
         $user->password = '';
@@ -167,8 +161,7 @@ class UserController extends Controller
         $dataProvider = $user->searchProduct(null, 20, $page);
         $productList = $dataProvider->getData();
         $empty = $page >= $dataProvider->pagination->pageCount;
-        if (!$empty)
-        {
+        if (!$empty) {
             echo $this->renderPartial('_userProductBoard', array(
                 'user' => $user,
                 'page' => $page,
@@ -180,11 +173,9 @@ class UserController extends Controller
 
     protected function loadUser($id)
     {
-        if ($this->_user == null)
-        {
+        if ($this->_user == null) {
             $this->_user = User::model()->findByPk($id);
-            if ($this->_user == null)
-            {
+            if ($this->_user == null) {
                 throw new CHttpException(404, 'User not found');
             }
         }
@@ -193,12 +184,10 @@ class UserController extends Controller
 
     public function actionUploadProfileImage()
     {
-        if (Yii::app()->user->isGuest == false)
-        {
+        if (Yii::app()->user->isGuest == false) {
             $user = Yii::app()->user->model;
             $result = UserUtil::uploadProfile($user);
-            if ($result)
-            {
+            if ($result) {
                 $this->renderAjaxResult(true, Yii::app()->baseUrl . '/' . $user->image);
             }
             $this->renderAjaxResult(false, array('error' => $user->getError('image')));
@@ -207,15 +196,12 @@ class UserController extends Controller
 
     public function actionUploadBannerImage()
     {
-        if (Yii::app()->user->isGuest == false)
-        {
+        if (Yii::app()->user->isGuest == false) {
             $user = Yii::app()->user->model;
-            if (UserUtil::uploadBanner($user))
-            {
+            if (UserUtil::uploadBanner($user)) {
                 $this->renderAjaxResult(true, Yii::app()->baseUrl . '/' . $user->getBanner());
             }
-            else
-            {
+            else {
                 $this->renderAjaxResult(false, array('errors' => $user->getError('banner')));
             }
         }
@@ -224,12 +210,10 @@ class UserController extends Controller
     public function actionForgetPassword()
     {
         $model = new ForgetPassword();
-        if (isset($_POST['ForgetPassword']))
-        {
+        if (isset($_POST['ForgetPassword'])) {
 
             $model->attributes = $_POST['ForgetPassword'];
-            if ($model->resolveForgetPassword())
-            {
+            if ($model->resolveForgetPassword()) {
                 $this->render('forgetPassword', array(
                     'model' => $model,
                     'sent' => true
@@ -244,18 +228,15 @@ class UserController extends Controller
 
     public function actionUpdateContactInfo()
     {
-        if (Yii::app()->user->isGuest == false)
-        {
+        if (Yii::app()->user->isGuest == false) {
             $user = Yii::app()->user->model;
-            if (isset($_POST['phone']) && isset($_POST['locationText']) && $_POST['lon'] && $_POST['lat'] && $_POST['city'])
-            {
+            if (isset($_POST['phone']) && isset($_POST['locationText']) && $_POST['lon'] && $_POST['lat'] && $_POST['city']) {
                 $user->phone = $_POST['phone'];
                 $user->locationText = $_POST['locationText'];
                 $user->lon = $_POST['lon'];
                 $user->lat = $_POST['lat'];
                 $user->city = $_POST['city'];
-                if ($user->save())
-                {
+                if ($user->save()) {
                     echo 'save success';
                 }
                 else
@@ -265,26 +246,22 @@ class UserController extends Controller
                 echo 'save fail';
         }
     }
-    
+
     public function actionChangePassword()
     {
         $this->canonical = $this->createAbsoluteUrl('/user/changePassword');
-        if (Yii::app()->user->isGuest == false)
-        {
+        if (Yii::app()->user->isGuest == false) {
             $model = new ChangePasswordForm();
             $model->user_id = Yii::app()->user->getId();
-            if (isset($_POST['ChangePasswordForm']))
-            {            
+            if (isset($_POST['ChangePasswordForm'])) {
                 $model->attributes = $_POST['ChangePasswordForm'];
-                if ($model->changePassword())
-                {
-                    $model->password         = null;
-                    $model->retypePassword  = null;
-                    $model->oldPassword     = null;
+                if ($model->changePassword()) {
+                    $model->password = null;
+                    $model->retypePassword = null;
+                    $model->oldPassword = null;
                     Yii::app()->user->setFlash('success', 'Đổi mật khẩu thành công');
                 }
-                else
-                {
+                else {
                     Yii::app()->user->setFlash('error', 'Không thể đổi mật khẩu, vui lòng kiểm tra lại mật khẩu cũ và mật khẩu mới của bạn.');
                 }
             }
@@ -293,11 +270,9 @@ class UserController extends Controller
                 'model' => $model
             ));
         }
-        else
-        {
+        else {
             $this->redirect(array('login'));
         }
     }
-        
 
 }

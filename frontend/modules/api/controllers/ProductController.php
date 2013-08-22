@@ -95,7 +95,12 @@ class ProductController extends MobileController
             $model->saveImage();
             if ($model->save())
             {
-
+                try{
+                    
+                }
+                catch(Exception $e){
+                    
+                }
                 $this->renderAjaxResult(true, array(
                     'product' => JsonRenderAdapter::renderProduct($model)
                 ));
@@ -111,6 +116,10 @@ class ProductController extends MobileController
         {
             $this->renderAjaxResult(false, 'Invalid data');
         }
+    }
+    
+    protected function actionImage(){
+        
     }
 
     public function actionShare($productId, $access_token = null)

@@ -13,10 +13,10 @@ if ($this->showForm)
 
             <div class="fileupload fileupload-new" data-provides="fileupload">
 
-                <div class="fileupload-new thumbnail" style="max-width:200px; max-height:200px;">
-
-                    <img src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=<?php LanguageUtil::echoT('Click to select image') ?>"  style="max-width: 200px; max-height: 200px;"/>    
-                </div>
+                <?php echo CHtml::link(Yii::t('Default', 'Upload images'),'#',array(
+                        'class'=>'btn btn-success btn-large',
+                        'style'=>'width:200px'
+                    ));?>
                 <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 200px; line-height: 20px;"></div>        
             </div>
             <?php

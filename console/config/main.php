@@ -82,7 +82,7 @@ return CMap::mergeArray(
             'facebook' => array(
                 'appId' => $params['facebook.appId'],
                 'secret' => $params['facebook.secret'],
-                'class' => 'common.extensions.yii-facebook-opengraph.MyFacebook',
+                'class' => 'common.extensions.yii-facebook-opengraph.ItakeSFacebook',
                 'fileUpload' => true,
             ),
          

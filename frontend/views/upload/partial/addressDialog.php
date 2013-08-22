@@ -22,18 +22,23 @@
                             'style' => 'min-width:260px;'
                             )); ?>
                             
-                        <?php
-                        echo $form->textFieldRow($address, 'address', array(
-                            'placeholder' => 'Nhập vào địa chỉ và bấm enter',
-                            'style' => 'min-width:260px;'
-                            ));
-                            ?>                               
-                            <?php
-                            echo CHtml::link('<i class="icon-map-marker"></i>', '#', array(
+                         <div class="control-group success">
+                             <label class="control-label" for="Address_address">Địa chỉ</label>
+                             <div class="controls">
+                                 <input placeholder="Nhập vào địa chỉ và nhấn tìm kiếm" style="min-width:260px;" name="Address[address]" id="Address_address" type="text" maxlength="200">
+                                 <?php
+                            echo CHtml::link('<i class="icon-map-marker"></i> Tìm vị trí', '#', array(
                                 'class' => 'btn btn-success',
                                 'id' => 'btnSearchLocation'
                                 ));
                                 ?>
+                                 <span class="help-inline error" id="Address_address_em_" style="display: none;"></span>
+                             </div>
+                         </div>
+                        
+                        
+                            
+                            
                             </div>
                             <?php echo $form->hiddenField($address,'lat'); ?>
                             <?php echo $form->hiddenField($address,'lon'); ?>
