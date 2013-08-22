@@ -9,6 +9,45 @@
                     'onError'=>"this.onerror=null;this.src='http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP';"
                 )
          ); ?>        
-     <?php endif; ?>
-    </a>
+        <?php endif; ?>
+        <div style="display:none" class="productControl">                        
+                         <div class="row-fluid">
+                            <?php echo CHtml::image($product->user->getProfileImageUrl(),$product->user->username,array(
+                            'width'=>30,
+                            'height'=>30,
+                            'style'=>'width: 30px;
+                                      height: 30px;',
+                            'class'=>'img-circle',
+                        )); ?>      
+                        </div>                 
+                        <div class="row-fluid">
+                            <small class="center">            
+                                <?php echo $product->user->username; ?> 
+                            </small>                                            
+                        </div>                           
+                        <div class="row-fluid">
+                              <?php
+                            $myUserModel = Yii::app()->user->getModel();
+                            if(isset($myUserModel)&&($myUserModel->id==$product->user_id)):?>
+                                <?php echo CHtml::link('<i class="icon-cog"></i>  '.LanguageUtil::t('Edit'),array('/upload/edit','id'=>$product->id),array(
+                                    'class'=>'btn btn-square p-edit',
+                                    'data-toggle'=>'tooltip',
+                                    'title'=>'Sửa thông tin sản phẩm',                            
+                                ));?>
+                                
+                                <?php echo CHtml::link('<i class="icon-shopping-cart"></i> '.LanguageUtil::t('Sold'),array('/upload/delete'),array(
+                                    'class'=>'btn btn-square p-delete',
+                                    'data-toggle'=>'tooltip',
+                                    'title'=>'Đã bán phẩm này',
+                                )); ?>             
+                            <?php endif;?>
+                            <div class="span12">
+                                <a data-toggle='tooltip' href="<?php echo $product->getDetailUrl(); ?>" class="btn btn-square btn-long" title="<?php echo  LanguageUtil::t('Browse').' '.$product->title; ?>">
+                                   <i class="icon-external-link-sign"></i>   <?php LanguageUtil::echoT('Browse')?>
+                                </a>
+                            </div>
+                         </div> 
+
+    </div>  
+    </a>     
 </div>    

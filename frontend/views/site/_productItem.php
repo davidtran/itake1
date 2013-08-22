@@ -5,12 +5,18 @@
             <div class="productImageInfo">
                 <div class="productImageTitle"><?php echo StringUtil::limitCharacter(strtoupper($product->title), 25); ?></div>
                 <hr class="sep_item"/>
-                <div class="productImagePrice"><?php echo number_format($product->price,0); ?> đ</div>
              </div>
             <div class="productDescription">
                 <?php echo StringUtil::limitCharacter($product->description, 50); ?>
-            </div>
+            </div>            
             <div class="productCreateDate">
+<<<<<<< HEAD
+                <div class="row-fluid">
+                    <div class="span6">                                               
+                        <div class="row-fluid">
+                            <?php echo $product->displayDateTime(); ?>  
+                        </div>
+=======
                 <?php 
                 //echo DateUtil::convertDate('d-m-Y H:i:s', $product->create_date); 
                 ?>                
@@ -35,8 +41,12 @@
                             // $('#p-edit').tooltip('show');
                             // $('#p-delete').tooltip('show');
                         </script>
+>>>>>>> origin/HEAD
                     </div>
-                <?php endif;?>
+                    <div class="span6">
+                          <div class="productImagePrice"><?php echo number_format($product->price,0); ?> đ</div>
+                    </div>                    
+            </div>                                                 
             </div>            
         </div>
         
