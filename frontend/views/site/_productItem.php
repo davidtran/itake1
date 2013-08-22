@@ -15,6 +15,7 @@
                     <div class="span6">                                               
                         <div class="row-fluid">
                             <?php echo $product->displayDateTime(); ?>  
+                            
                         </div>
 
                 <?php
@@ -40,10 +41,11 @@
                         </div>
                 <?php endif; ?>
                     
+                                       
+            </div>    
                     <div class="span6">
                           <div class="productImagePrice"><?php echo number_format($product->price,0); ?> đ</div>
-                    </div>                    
-            </div>                                                 
+                    </div> 
             </div>            
         </div>
         
