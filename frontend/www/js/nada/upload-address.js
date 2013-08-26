@@ -13,6 +13,7 @@ var UploadAddress = {
         UploadAddress.initSaveButton();
         UploadAddress.initRadioButton();
         UploadAddress.initAddressField();
+        UploadAddress.onCityChange($('#Address_city').val());
     },
     initRadioButton:function(){
         $('.radio-address-item').live('click',function(){
