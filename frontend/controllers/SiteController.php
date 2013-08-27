@@ -281,6 +281,9 @@ class SiteController extends Controller
     
     public function actionLanding(){
         $this->layout = '//layouts/noMenu';
-        $this->render('landing');
+        if(Yii::app()->language=='en')
+              $this->render('landing');
+        else
+              $this->render('landing_vi');
     }
 }
