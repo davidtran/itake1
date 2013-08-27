@@ -24,7 +24,8 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
 	<div class="intro-top">
 		<div class="row-fluid" style="margin-top:20px;">
 			<div class="span6">
-				<h1 class="center title_font font-white font-2x">ONCE POST TO MANY PLACES</h1>
+				<h1 class="center title_font font-white font-2x" style="text-shadow: 0px 1px 1px #000;
+        filter: dropshadow(color=#000, offx=1, offy=1);">ONCE POST TO MANY PLACES</h1>
 			</div>
 			<div class="span6">
 				<h1 class="center title_font font-white font-large">Great place to sell or buy anything...</h1>
@@ -33,71 +34,97 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
 		<div class="intro-image">
 		</div>
 	</div>
-	<div class="row-fluid" style="margin-top:550px;">
-		<hr/>
-		<h1 class="center title_font">FOR SELLER...</h1>
+	<div class="row-fluid intro-sep" style="margin-top:560px;">
+		<h1 class="center title_font"><i class="icon-quote-left"></i>  The market is beautiful, simple and efficient  <i class="icon-quote-right"></i></h1>
+		<div class="row center">
+			<small>ITAKE makes the market more beautiful, easy to use and really efficient when the buyer go social marketing</small>
+		</div>			
+		<div class="row center" style="margin-top:20px;">
+			<img src="<?php echo Yii::app()->baseUrl.'/images/bmarket.png' ?>"/>
+		</div>
+	</div>
+	<div class="row-fluid intro-sep">	
+	<div class="row-fluid" >
+		<h1 class="center title_font">Simple to sell</h1>
 		<div class="span3 offset1">
 			<h2 class="center">
-				<span class="icon-stack icon-2x">
+				<span class="icon-stack icon-2x green">
 				  <i class="icon-circle icon-stack-base"></i>
 				  <i class="icon-random icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center">Your product is promoted to million customers on our website, mobile app and Facebook</h4>
+			<h4 class="center intro_font">PROMOTED TO MILLION CUSTOMERS</h4>
+			<div class="row center">
+				<small>We support all plaforms from mobile to tablet and desktop for increasing the product engagement on internet</small>
+			</div>
 		</div>
 		<div class="span3">
 			<h2 class="center" >
-				<span class="icon-stack icon-2x">
+				<span class="icon-stack icon-2x green">
 				  <i class="icon-circle icon-stack-base"></i>
 				  <i class="icon-tags icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center">Start selling with ease in 3 clicks</h4>
+			<h4 class="center intro_font">SELLING IN 3 CLICKS</h4>
+			<div class="row center">
+				<small>You post once with simple clicks to broadcast your product to facebook, ITAKE mobile app and ITAKE market</small>
+			</div>
 		</div>
 		<div class="span3">
 			<h2 class="center">
-				<span class="icon-stack icon-2x">
+				<span class="icon-stack icon-2x green">
 				  <i class="icon-circle icon-stack-base"></i>
-				  <i class="icon-group icon-light"></i>
+				  <i class="icon-signal icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center">Easiest way to post your stuffs to your friends and friends of friends</h4>
+			<h4 class="center intro_font">SALE ANALYTIS</h4>
+			<div class="row center">
+				<small>ITAKE will statictis your products on sale with analytis system. We offer 3 analytic types: Weekly Sale Report, Realtime Report, Custom Report</small>
+			</div>
 		</div>
 	</div>
 	<div class="row-fluid">
-		<hr/>
-		<h1 class="center title_font">FOR BUYER...</h1>
+		<h1 class="center title_font">Easy to buy</h1>
 		<div class="span3 offset1">
 			<h2 class="center">
-				<span class="icon-stack icon-2x">
+				<span class="icon-stack icon-2x green">
 				  <i class="icon-circle icon-stack-base"></i>
 				  <i class="icon-screenshot icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center">Easy to find out products which you like</h4>
+			<h4 class="center intro_font">EASY TO FIND ANYTHING YOU WANT</h4>
+			<div class="row center">
+				<small>With best seach engine, You can find anything easier and moreover you can search base trend, time and location</small>
+			</div>
 		</div>
 		<div class="span3">
 			<h2 class="center" >
-				<span class="icon-stack icon-2x">
+				<span class="icon-stack icon-2x green">
 				  <i class="icon-circle icon-stack-base"></i>
 				  <i class="icon-star icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center">You could buy good stuffs from your friends you know</h4>
+			<h4 class="center intro_font">BUY PRODUCTS FROM YOUR FRIENDS</h4>
+			<div class="row center">
+				<small>ITAKE as a social buy & sell network, you will take a change to discover products from friends or friends of friends or get advice from your friends before to buy</small>
+			</div>
 		</div>
 		<div class="span3">
 			<h2 class="center">
-				<span class="icon-stack icon-2x">
+				<span class="icon-stack icon-2x green">
 				  <i class="icon-circle icon-stack-base"></i>
-				  <i class="icon-cogs icon-light"></i>
+				  <i class="icon-filter icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center">Only trusted sellers</h4>
+			<h4 class="center intro_font">FROM ONLY TRUSTED SELLERS</h4>
+			<div class="row center">
+				<small>We ensure that we will choose trusted sellers and always buid trust to develop this network</small>
+			</div>
 		</div>
 	</div>	
+	</div>
 	<div class="row-fluid">
-		<hr/>
-		<h2 class="center">Let's start exploring</h2>
+		<h2 class="center title_font">Let's start exploring</h2>
 		<div class="span6 offset3">
 			<h4 class="center"></h4>
 		</div>		
