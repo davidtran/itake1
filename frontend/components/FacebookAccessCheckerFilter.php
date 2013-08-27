@@ -5,7 +5,7 @@ class FacebookAccessCheckerFilter extends CFilter
 
     public function preFilter($filterChain)
     {
-        if (Yii::app()->user->isFacebookUser && !Yii::app()->request->isAjaxRequest)
+        if (Yii::app()->user->isFacebookUser && !Yii::app()->request->isAjaxRequest &&  ! $this->isSaved())
         {             
             try
             {

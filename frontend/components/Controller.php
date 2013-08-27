@@ -51,14 +51,7 @@ class Controller extends CController
                 Yii::app()->language = 'vi';
             }     
         }  
-        
-        try{
-            //CityUtil::geoCheckip($_SERVER['REMOTE_ADDR']);        
-            CityUtil::geoCheckip('113.165.94.239'); 
-        }catch(Exception $exception)
-        {
-             Yii::app()->session['client_itake'] = 'vi';
-        }         
+            
     }
 
     public function renderJsonResult($success = false, $message = '')
@@ -114,10 +107,10 @@ class Controller extends CController
         assert('is_bool($success)');
         //$message = Yii::app()->sanitizer->sanitize($message);               
         echo json_encode(
-        array(
-            'success' => $success,
-            'msg' => $message
-        )
+            array(
+                'success' => $success,
+                'msg' => $message
+            )
         );
         Yii::app()->end();
     }
