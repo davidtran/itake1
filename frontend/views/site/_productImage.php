@@ -11,7 +11,7 @@
             ?>        
         <?php endif; ?>
         <div style="display:none" class="productControl">                        
-            <div class="row-fluid">
+            <div class="row-fluid" style="margin-top: 10px;">
                 <?php
                 echo CHtml::image($product->user->getProfileImageUrl(), $product->user->username, array(
                     'width' => 30,
