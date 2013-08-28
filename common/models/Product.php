@@ -152,7 +152,7 @@ class Product extends CActiveRecord
     public function beforeSave()
     {
         if($this->isNewRecord){
-            $this->country = CountryUtil::getDefaultCountryId();
+            $this->country = Yii::app()->country->getId();
             $this->view = 1;
         }
         

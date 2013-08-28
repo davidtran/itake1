@@ -113,17 +113,14 @@ class SiteController extends Controller
         {
             $city = Yii::app()->session['LastCity'];
         }
-        
-        $countryModel = Country::Model()->find('code=:code',array(':code'=>'th'));
-
-        $countryId=$countryModel->id;
+                
         $solrAdapter = new SolrSearchAdapter();
         $solrAdapter->setSortType(SolrSortTypeUtil::getInstance()->getCurrentSortType());
         $solrAdapter->categoryId = $category;
         $solrAdapter->cityId = $city;
         $solrAdapter->page = $page;
         $solrAdapter->pageSize = 12;
-        $solrAdapter->country = 1;
+        $solrAdapter->country = Yii::app()->country->getId();
         $solrAdapter->keyword = $keyword;        
         $resultSet = $solrAdapter->search();
 
@@ -281,6 +278,9 @@ class SiteController extends Controller
     
     public function actionLanding(){
         $this->layout = '//layouts/noMenu';
-        $this->render('landing');
+        if(Yii::app()->language=='en')
+              $this->render('landing');
+        else
+              $this->render('landing_vi');
     }
 }

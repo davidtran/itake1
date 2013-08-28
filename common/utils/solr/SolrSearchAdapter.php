@@ -16,6 +16,7 @@ class SolrSearchAdapter
     public $longitude = null;
     protected $sortType = null;
     public $mm = 2;
+    protected $excludeIdList = array();
 
     const DEFAULT_KEYWORD = '*:*';
 
@@ -48,7 +49,7 @@ class SolrSearchAdapter
         $params['fq'] = $fq;
         $params['bf'] = array(
             'recip(ms(NOW,create_date),3.16e-11,1,1)',
-            'product(1.2,view)'
+            'product(1.1,view)'
         );
         $params['defType'] = 'edismax';
         $params['qf'] = 'title^60 description^20';
@@ -122,16 +123,23 @@ class SolrSearchAdapter
         //$resultSet->start = $parsed['responseHeader']['start'];
         $docs = $parsed['response']['docs'];
         foreach ($docs as $doc)
-        {
-            $product = Product::model()->findByPk($doc['id']);
-            if ($product != null) {
-                $product->title = $doc['title'];
-                $product->description = $doc['description'];
-                $resultSet->productList[] = $product;
+        {            
+            if( ! in_array($doc['id'],$this->excludeIdList,true)){
+                $product = Product::model()->findByPk(trim($doc['id']));
+                if ($product != null) {
+                    $product->title = $doc['title'];
+                    $product->description = $doc['description'];
+                    $resultSet->productList[] = $product;
+                }
             }
+            
             
         }
         return $resultSet;
+    }
+    
+    public function excludeProduct($id){
+        $this->excludeIdList[] = $id;
     }
 
 }

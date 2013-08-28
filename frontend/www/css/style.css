@@ -811,7 +811,7 @@ div#listCategory li a{
 }
 div#listCategory ul.dropdown-menu{
     padding: 0;
-    min-width: 200px;
+    min-width: 230px;
 }
 div#listCategory span.label{    
     min-width: 30px;    
