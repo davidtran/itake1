@@ -16,9 +16,7 @@ class UserMetaUtil{
 			return $meta;	
 		}else{
 			return false;
-		}
-
-			
+		}		
 	}
 
 	public static function findMeta($user_id, $key, $subKey = null)

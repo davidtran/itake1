@@ -21,7 +21,7 @@ return CMap::mergeArray(
                 array(
             'basePath' => 'frontend',
             'params' => $params,
-            'preload' => array('log', 'bootstrap'),
+            'preload' => array('log', 'bootstrap','country'),
             'language' => 'vi',      
             'sourceLanguage'=>'en',      
             'import' => array(
@@ -39,6 +39,10 @@ return CMap::mergeArray(
             ),        
             'name' => 'iTake.me',            
             'components' => array(
+                'country'=>array(
+                    'class'=>'application.components.CountryManagement',
+                    'defaultCountry'=>$params['country.default'],
+                ),
                 'errorHandler' => array(
                     'errorAction' => 'site/error'
                 ),
