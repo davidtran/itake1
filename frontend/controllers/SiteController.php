@@ -113,10 +113,7 @@ class SiteController extends Controller
         {
             $city = Yii::app()->session['LastCity'];
         }
-        
-        $countryModel = Country::Model()->find('code=:code',array(':code'=>'th'));
-
-        $countryId=$countryModel->id;
+                
         $solrAdapter = new SolrSearchAdapter();
         $solrAdapter->setSortType(SolrSortTypeUtil::getInstance()->getCurrentSortType());
         $solrAdapter->categoryId = $category;
