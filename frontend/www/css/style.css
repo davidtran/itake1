@@ -302,6 +302,7 @@ margin:0 auto !important;
 }
 .productImageLink{
     position:relative;
+    background: #fff;
 }
 #loadingProductBackground{
 /*    background: url('../images/loading.gif') center center no-repeat;    */
@@ -1741,4 +1742,14 @@ div.profile-name h3{
 .slim-scroll p{    
     margin-bottom: 30px;
     padding: 5px;
+}
+#FacebookPage{
+    margin-left: 10px;
+}
+#FacebookPage input{
+    float: left;
+    margin-right: 10px;
+}
+#FacebookPage br{
+    display: none;
 }

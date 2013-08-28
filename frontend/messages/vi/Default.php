@@ -111,4 +111,5 @@ return array(
     'Reconfirm new password'=>'Nhập lại mật khẩu mới',
     'Enter your email'=>'Nhập vào địa chỉ email của bạn',
     'Type your letters above to confirm'=>'Nhập vào những chữ ở trên để xác nhận',
+    'Please choose one or many fanpages to share your post (optional)'=>'Xin vui lòng chọn 1 hoặc nhiều Fanpage mà bạn muốn post lên',
 );
