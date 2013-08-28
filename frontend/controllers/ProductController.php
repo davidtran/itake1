@@ -139,12 +139,13 @@ class ProductController extends Controller
         $adapter->country = $product->country;
         $adapter->mm = 10;
         $adapter->setSortType(SolrSortTypeUtil::TYPE_CREATE_DATE);
+        $adapter->excludeProduct($product->id);
         $result = $adapter->search();
         if(count($result->productList) < 10){
             $result->productList+=$this->searchCategory($product);
         }
         return $result->productList;
-    }
+    }        
     
     protected function searchCategory($product){
         $adapter = new SolrSearchAdapter();        
@@ -153,6 +154,7 @@ class ProductController extends Controller
         $adapter->country = $product->country;        
         $adapter->setSortType(SolrSortTypeUtil::TYPE_CREATE_DATE);
         $adapter->pageSize = 10;
+        $adapter->excludeProduct($product->id);
         $result = $adapter->search();
         
         return $result->productList;

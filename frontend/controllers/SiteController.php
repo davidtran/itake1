@@ -123,7 +123,7 @@ class SiteController extends Controller
         $solrAdapter->cityId = $city;
         $solrAdapter->page = $page;
         $solrAdapter->pageSize = 12;
-        $solrAdapter->country = 1;
+        $solrAdapter->country = Yii::app()->country->getId();
         $solrAdapter->keyword = $keyword;        
         $resultSet = $solrAdapter->search();
 
