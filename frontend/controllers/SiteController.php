@@ -268,12 +268,14 @@ class SiteController extends Controller
             $this->render('pages/intro');
     }
     public function actionEnLang(){
+        $currentUrl = Yii::app()->request->urlReferrer;
         Yii::app()->session['itake_lang'] = 'en';
-        $this->redirect(Yii::app()->createUrl('site/'));
+        $this->redirect($currentUrl);
     }
     public function actionViLang(){
+        $currentUrl = Yii::app()->request->urlReferrer;
         Yii::app()->session['itake_lang'] = 'vi';
-        $this->redirect(Yii::app()->createUrl('site/'));
+        $this->redirect($currentUrl);
     }
     
     public function actionLanding(){
@@ -282,5 +284,8 @@ class SiteController extends Controller
               $this->render('landing');
         else
               $this->render('landing_vi');
+    }
+    public function actionFAQ(){
+        //waiting for KHOA
     }
 }

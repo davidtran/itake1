@@ -151,8 +151,8 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                             </div>  
                                 <?php $pages = $this->getFacebookPageListData() ?>
                                 <?php if($pages !==false&&count($pages)>0):?>
-                                <div class="row-fluid">
-                                    <h3><?php echo Yii::t('Default','Post to Facebook Page'); ?></h3>
+                                <div class="row-fluid" style="margin-left:10px;">
+                                    <label><?php echo LanguageUtil::t('Please choose one or many fanpages to share your post (optional)'); ?></label>
                                     <?php echo CHtml::checkBoxList('FacebookPage[]', '', $pages); ?>
                                 </div>
                                 <?php endif; ?>
@@ -163,7 +163,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                     echo CHtml::submitButton($submitText, array(
                                         'id' => 'btnFinishStep2',
                                         'encode'=>false,
-                                        'class' => 'btn btn-success pull-left btn-large flat',
+                                        'class' => 'btn btn-success pull-right btn-large flat',
                                         'data-loading-text' => 'Đang gửi...',    
                                         'style'=>"margin-left:10px;"                     
                                     ));
