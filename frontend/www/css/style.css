@@ -1209,7 +1209,10 @@ div#categories-bar h1{
     font-weight: 300;
     font-size:1.5em;
     line-height:30px;    
-    margin-top: 25px;
+    margin-top: 20px;
+    background: #f6f6f6;
+    display:inline-block; 
+    padding: 5px;
 }
 div#categories-bar b{
     font-family: "MNBTitleBold";
@@ -1732,10 +1735,11 @@ div.selectedCategoryTab{
 div.productControl{
    position: absolute;
     top: 0px;
-    right: 0px;
-    left: 0px;
-    bottom: 0px;
-    text-align: center;
+    left: 0;
+    right: 0;
+    text-align: center;    
+    display: inline-block;
+    background: transparent;
 }
 div.span4.login-panel{    
 margin-bottom: 20px;

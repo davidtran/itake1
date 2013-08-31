@@ -74,7 +74,7 @@ class SolrSearchAdapter
                 break;
             case self::TYPE_LOCATION:
                 if ($this->latitude != null && $this->longitude != null) {
-                    $params['bf'][] = 'recip(geodist(latlng,' . $this->latitude . ',' . $this->longitude . '),200,200,0)';
+                    $params['bf'][] = 'recip(geodist(latlng,' . $this->latitude . ',' . $this->longitude . '),2,200,20)';
                 }
                 $params['sort'] = 'score desc';
                 break;

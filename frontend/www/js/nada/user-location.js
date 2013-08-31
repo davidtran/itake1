@@ -58,7 +58,7 @@ var UserLocation = {
                 success:function(jsons){
                     var data = $.parseJSON(jsons);
                     if(data.success){
-                        window.location = data.url;
+                        window.location = data.msg.url;
                     }else{
                         bootbox.alert(data.msg);
                     }

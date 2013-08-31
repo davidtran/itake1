@@ -39,10 +39,12 @@ $(document).ready(function() {
         {
               $('.selectedCategoryTab').css('background','rgba(0,0,0,0.2)');
               $('.selectedCategoryTab h1').css('color','#fff');
+               $('.selectedCategoryTab h1').css('background','rgba(0,0,0,0)');
           }
           else{
             $('.selectedCategoryTab').css('background','rgba(0,0,0,0.0)');
               $('.selectedCategoryTab h1').css('color','#0088cc');
+               $('.selectedCategoryTab h1').css('background','#f6f6f6');
           }
     });    
     $container.infinitescroll(

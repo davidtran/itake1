@@ -9,19 +9,19 @@
                     )
             );
             ?>        
-        <?php endif; ?>
-        <div style="display:none" class="productControl">                        
+        <?php endif; ?>        
+    </a>     
+     <div style="display:none" class="productControl">                        
             <div class="row-fluid" style="margin-top: 10px;">
-                
                 <?php
                 Yii::beginProfile('GetImage'.$product->user->id); 
-                echo CHtml::image($product->user->getProfileImageUrl(), $product->user->username, array(
-                    'width' => 30,
-                    'height' => 30,
-                    'style' => 'width: 30px;
-                                      height: 30px;',
-                    'class' => 'img-circle',
-                ));
+                    echo CHtml::image($product->user->getProfileImageUrl(), $product->user->username, array(
+                        'width' => 30,
+                        'height' => 30,
+                        'style' => 'width: 30px;
+                                          height: 30px;',
+                        'class' => 'img-circle',
+                    ));
                 Yii::endProfile('GetImage'.$product->user->id); 
                 ?>      
             </div>                 
@@ -30,7 +30,7 @@
                     <?php echo $product->user->username; ?> 
                 </small>                                            
             </div>                           
-            <div class="row-fluid">
+            <div class="row-fluid" style="margin-top: 10px;">
                 <?php
                 $myUserModel = Yii::app()->user->getModel();
                 if (isset($myUserModel) && ($myUserModel->id == $product->user_id)):
@@ -50,9 +50,8 @@
                         'title' => 'Đã bán phẩm này',
                     ));
                     ?>             
-<?php endif; ?>                            
+                <?php endif; ?>                            
             </div> 
 
-        </div>  
-    </a>     
+        </div>
 </div>    
