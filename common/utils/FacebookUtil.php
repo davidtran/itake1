@@ -233,5 +233,5 @@ class FacebookUtil
         return Yii::app()->facebook->api('/'.$page.'/photos','POST',$args);
         //FacebookPostQueueUtil::queueCommand("/$page/?fields=access_token", 'POST', $args, $product->user_id);
     }       
-
+        
 }

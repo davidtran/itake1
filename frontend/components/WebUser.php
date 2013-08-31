@@ -29,7 +29,10 @@ class WebUser extends CWebUser
         //check for login
         if ($this->model != null)
         {
-            
+            if(Yii::app()->clientScript != null){
+                $loginUser = json_encode($this->model->getData());
+                Yii::app()->clientScript->registerScript('LoginUserData',"var loginUser = $loginUser;",  CClientScript::POS_HEAD);
+            }
         }
         return parent::init();
     }

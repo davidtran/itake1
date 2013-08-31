@@ -17,7 +17,7 @@ $mainLocalConfiguration = file_exists($mainLocalFile) ? require($mainLocalFile) 
 $mainEnvFile = $frontendConfigDir . DIRECTORY_SEPARATOR . 'main-env.php';
 $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : array();
 
-return CMap::mergeArray(
+$config = CMap::mergeArray(
                 array(
             'basePath' => 'frontend',
             'params' => $params,
@@ -32,7 +32,7 @@ return CMap::mergeArray(
                 'common.utils.solr.*',
                 'application.components.*',
                 'application.controllers.*',
-                'application.models.*'
+                'application.models.*',                
             ),
             'modules'=>array(
                 'api'
@@ -42,6 +42,7 @@ return CMap::mergeArray(
                 'country'=>array(
                     'class'=>'application.components.CountryManagement',
                     'defaultCountry'=>$params['country.default'],
+                    'isFixed'=>true,
                 ),
                 'errorHandler' => array(
                     'errorAction' => 'site/error'
@@ -118,13 +119,7 @@ return CMap::mergeArray(
                     'errorAction' => 'site/error',
                 ),
                 'log' => array(
-                    'class' => 'CLogRouter',
-                    'routes' => array(
-                        array(
-                            'class' => 'CFileLogRoute',
-                            'levels' => 'error, warning',
-                        ),
-                    ),
+                    'class' => 'CLogRouter',              
                 ),
                 'db' => array(
                     'connectionString' => $params['db.connectionString'],
@@ -141,3 +136,5 @@ return CMap::mergeArray(
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );
+
+return $config;

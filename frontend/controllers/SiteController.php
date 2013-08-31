@@ -21,27 +21,28 @@ class SiteController extends Controller
             ),
         );
     }
-    
-    public function filters(){
+
+    public function filters()
+    {
         return array(
             array(
                 'frontend.components.FacebookAccessCheckerFilter + index'
             )
         );
     }
-    
+
     public function behaviors()
     {
         return array(
-            'seo'=>array('class'=> 'frontend.extensions.seo.components.SeoControllerBehavior')
+            'seo' => array('class' => 'frontend.extensions.seo.components.SeoControllerBehavior')
         );
-    }        
-    
+    }
+
     public function actionCity($id)
     {
         //change city
         //redirect to index with selected category
-        Yii::app()->session['LastCity'] = $id;        
+        Yii::app()->session['LastCity'] = $id;
         $redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/index');
         $this->redirect($redirectUrl);
     }
@@ -57,18 +58,17 @@ class SiteController extends Controller
     public function actionSortType($type)
     {
         SolrSortTypeUtil::getInstance()->setSortType($type);
-        
-        if (isset(Yii::app()->session['LastCity']))
-        {
+
+        if (isset(Yii::app()->session['LastCity'])) {
             $city = Yii::app()->session['LastCity'];
         }
-        $category = Yii::app()->session->get('LastCategory',null);
-        $keyword= Yii::app()->session->get('LastKeyword',null);
-        
-        $this->redirect($this->createUrl('index',array(
-            'keyword'=>$keyword,
-            'category'=>$category,
-            'page'=>0
+        $category = Yii::app()->session->get('LastCategory', null);
+        $keyword = Yii::app()->session->get('LastKeyword', null);
+
+        $this->redirect($this->createUrl('index', array(
+                    'keyword' => $keyword,
+                    'category' => $category,
+                    'page' => 0
         )));
     }
 
@@ -79,41 +79,36 @@ class SiteController extends Controller
     }
 
     public function actionIndex($keyword = null, $category = null, $facebook = false, $page = 0)
-    {        
-        if(Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])){
+    {
+        if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
             Yii::app()->session['VisitLanding'] = true;
             $this->redirect($this->createUrl('landing'));
         }
-        
+
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
-        Yii::app()->session['LastPageNumber']=$page;
+        Yii::app()->session['LastPageNumber'] = $page;
         Yii::app()->session['LastCategory'] = $category;
-        Yii::app()->session['LastKeyword']=$keyword;
+        Yii::app()->session['LastKeyword'] = $keyword;
         $categoryModel = null;
-        if ($category != null)
-        {
+        if ($category != null) {
             $categoryModel = Category::model()->findByPk($category);
         }
-        if ($keyword != '')
-        {
-            
+        if ($keyword != '') {
+
             $this->pageTitle = Yii::app()->name . ' - Kết quả tìm kiếm cho từ khóa ' . $keyword;
         }
-        else if ($categoryModel != null)
-        {            
+        else if ($categoryModel != null) {
             $this->pageTitle = Yii::app()->name . ' - Danh mục ' . $categoryModel->name;
         }
-        else if ($facebook)
-        {
+        else if ($facebook) {
             $this->pageTitle = Yii::app()->name . ' - Sản phẩm được đăng từ bạn bè của bạn';
         }
 
         $city = 0;
-        if (isset(Yii::app()->session['LastCity']))
-        {
+        if (isset(Yii::app()->session['LastCity'])) {
             $city = Yii::app()->session['LastCity'];
         }
-                
+
         $solrAdapter = new SolrSearchAdapter();
         $solrAdapter->setSortType(SolrSortTypeUtil::getInstance()->getCurrentSortType());
         $solrAdapter->categoryId = $category;
@@ -121,9 +116,10 @@ class SiteController extends Controller
         $solrAdapter->page = $page;
         $solrAdapter->pageSize = 12;
         $solrAdapter->country = Yii::app()->country->getId();
-        $solrAdapter->keyword = $keyword;        
+        $solrAdapter->keyword = $keyword;
+        Yii::beginProfile('search');
         $resultSet = $solrAdapter->search();
-
+        Yii::endProfile('search');
 
         $productList = $resultSet->productList;
 
@@ -139,8 +135,7 @@ class SiteController extends Controller
                     'class' => 'nextPageLink',
         ));
 
-        if (!Yii::app()->request->isAjaxRequest)
-        {
+        if (!Yii::app()->request->isAjaxRequest) {
             $this->render('index', array(
                 'numFound' => $resultSet->numFound,
                 'productList' => $productList,
@@ -151,11 +146,9 @@ class SiteController extends Controller
                 'empty' => $empty
             ));
         }
-        else
-        {
+        else {
             $html = '';
-            if ($empty == false)
-            {
+            if ($empty == false) {
                 $html = $this->renderPartial('/site/_board', array(
                     'productList' => $productList,
                     'nextPageLink' => $nextPageLink
@@ -177,8 +170,7 @@ class SiteController extends Controller
      */
     public function actionError()
     {
-        if ($error = Yii::app()->errorHandler->error)
-        {
+        if ($error = Yii::app()->errorHandler->error) {
             if (Yii::app()->request->isAjaxRequest)
                 $this->renderAjaxResult(false, array(
                     'code' => $error['code'],
@@ -195,11 +187,9 @@ class SiteController extends Controller
     public function actionContact()
     {
         $model = new ContactForm;
-        if (isset($_POST['ContactForm']))
-        {
+        if (isset($_POST['ContactForm'])) {
             $model->attributes = $_POST['ContactForm'];
-            if ($model->validate())
-            {
+            if ($model->validate()) {
                 $name = '=?UTF-8?B?' . base64_encode($model->name) . '?=';
                 $subject = '=?UTF-8?B?' . base64_encode($model->subject) . '?=';
                 $headers = "From: $name <{$model->email}>\r\n" .
@@ -223,15 +213,13 @@ class SiteController extends Controller
         $model = new LoginForm;
 
         // if it is ajax validation request
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form')
-        {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
 
         // collect user input data
-        if (isset($_POST['LoginForm']))
-        {
+        if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login())
@@ -254,38 +242,50 @@ class SiteController extends Controller
     {
         $this->render('detail_view');
     }
-    public function actionTerms(){
-        if(Yii::app()->language=='en')
+
+    public function actionTerms()
+    {
+        if (Yii::app()->language == 'en')
             $this->render('pages/term_en');
         else
             $this->render('pages/term');
     }
-    public function actionIntroduction(){
+
+    public function actionIntroduction()
+    {
         $this->layout = '//layouts/noMenu';
-        if(Yii::app()->language=='en')
+        if (Yii::app()->language == 'en')
             $this->render('pages/intro_en');
         else
             $this->render('pages/intro');
     }
-    public function actionEnLang(){
+
+    public function actionEnLang()
+    {
         $currentUrl = Yii::app()->request->urlReferrer;
         Yii::app()->session['itake_lang'] = 'en';
         $this->redirect($currentUrl);
     }
-    public function actionViLang(){
+
+    public function actionViLang()
+    {
         $currentUrl = Yii::app()->request->urlReferrer;
         Yii::app()->session['itake_lang'] = 'vi';
         $this->redirect($currentUrl);
     }
-    
-    public function actionLanding(){
+
+    public function actionLanding()
+    {
         $this->layout = '//layouts/noMenu';
-        if(Yii::app()->language=='en')
-              $this->render('landing');
+        if (Yii::app()->language == 'en')
+            $this->render('landing');
         else
-              $this->render('landing_vi');
+            $this->render('landing_vi');
     }
-    public function actionFAQ(){
+
+    public function actionFAQ()
+    {
         //waiting for KHOA
-    }
+    }        
+
 }

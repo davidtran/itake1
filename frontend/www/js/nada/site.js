@@ -33,7 +33,20 @@ $(document).ready(function() {
               
         // }, 500);       
          //$container.css('height',$(window).height()*2);
-    });     
+    }); 
+    $(window).scroll(function() {
+        if( $(window).scrollTop()!=0)
+        {
+              $('.selectedCategoryTab').css('background','rgba(0,0,0,0.2)');
+              $('.selectedCategoryTab h1').css('color','#fff');
+               $('.selectedCategoryTab h1').css('background','rgba(0,0,0,0)');
+          }
+          else{
+            $('.selectedCategoryTab').css('background','rgba(0,0,0,0.0)');
+              $('.selectedCategoryTab h1').css('color','#0088cc');
+               $('.selectedCategoryTab h1').css('background','#f6f6f6');
+          }
+    });    
     $container.infinitescroll(
         {
             navSelector: '.nextPageLink',
@@ -71,4 +84,45 @@ $(document).ready(function() {
 // setInterval(function(){
 //     $('#productContainer').isotope('reLayout');
 // },500);
+
+$(document).ready(function(){
+    $('#selectLocation').click(function(e){
+        e.preventDefault();
+        if(user == undefined){
+            $.ajax({
+                url:BASE_URL + '/site/locationDialog',
+                type:'post',
+                success:function(jsons){
+                    var data = $.parseJSON(jsons);
+                    if(data.success){
+                        $('body').append(data.html);                        
+                    }else{
+                        bootbox.alert(data.msg);
+                    }
+                }
+            });
+        }else{
+            window.location = 'login.html';
+        }
+        $('#locationDialog').modal('show');
+        return false;
+    });
+    
+    $('#saveLocation').click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url:BASE_URL + '/site/saveLocation',
+            type:'post',
+            success:function(jsons){
+                var data = $.parseJSON(jsons);
+                if(data.success){
+                    window.location = data.url;
+                }else{
+                    bootbox.alert(data.msg);
+                }
+            }
+        });
+        return false;
+    })
+});
 

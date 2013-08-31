@@ -1,24 +1,36 @@
 <?php
 
-class CountryManagement extends CApplicationComponent {
+class CountryManagement extends CApplicationComponent
+{
 
     public $defaultCountry = 'vn';
     protected $currentCountry = null;
     protected $currentCountryId = null;
     protected $countryModel = null;
-    public function init() {
+    public $isFixed = true;
+
+    public function init()
+    {
+        Yii::beginProfile('getCity');
         $this->currentCountry = $this->getCountry();
         if ($this->currentCountry != false) {
-            
+
             $this->setCountry($this->currentCountry);
-        }else{
+        }
+        else {
             $this->currentCountry = $this->defaultCountry;
             $this->setCountry($this->currentCountry);
         }
+        Yii::endProfile('getCity');
         return parent::init();
     }
 
-    public function getCountry() {
+    public function getCountry()
+    {
+        if ($this->isFixed) {
+            return $this->defaultCountry;
+        }
+
         if (isset(Yii::app()->session[$this->getStoreKey()])) {
             return Yii::app()->session[$this->getStoreKey()];
         }
@@ -45,15 +57,17 @@ class CountryManagement extends CApplicationComponent {
         return false;
     }
 
-    public function setCountry($country) {
+    public function setCountry($country)
+    {
         $countryModel = Country::model()->find('code=:code', array(
             'code' => $country
         ));
-        
-        if ($countryModel != null) {
-        
-            $this->currentCountryId = $countryModel->id;
-            $this->countryModel = $countryModel;
+        if ($countryModel == null) {
+            throw new CException('Can not find country');
+        }
+        if ( ! isset(Yii::app()->session[$this->getStoreKey()])) {
+
+
             if (Yii::app()->user->isGuest == false) {
                 UserMetaUtil::setMeta(Yii::app()->user->getId(), $this->getStoreKey(), $country);
             }
@@ -62,24 +76,28 @@ class CountryManagement extends CApplicationComponent {
 
             Yii::app()->session[$this->getStoreKey()] = $country;
         }
-        else {
-            throw new CException('Can not find country');
-        }
+
+        $this->currentCountryId = $countryModel->id;
+        $this->countryModel = $countryModel;
     }
 
-    protected function getStoreKey() {
+    protected function getStoreKey()
+    {
         return 'UserCountryKey';
     }
 
-    public function getCode() {
+    public function getCode()
+    {
         return $this->currentCountry;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->currentCountryId;
-    }        
-    
-    public function getModel(){
+    }
+
+    public function getModel()
+    {
         return $this->countryModel;
     }
 
