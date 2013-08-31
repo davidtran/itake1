@@ -10,4 +10,9 @@
 return array(
   'env.code' => 'private',
     'api.checkToken'=>false,
+        'request.baseUrl'=>'http://dev.itake',
+     'db.connectionString' => 'mysql:host=localhost;dbname=nada',
+	   'db.username' => 'root',
+	   'db.password' => '',
+	   'db.tablePrefix' => 'mp_',   
 );
