@@ -15,25 +15,21 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/pro
 ?>
 <div class="container-fluid" style="margin-left:50px;">
     <div class="row-fluid">
-        <div id="categories-bar">        
-            <div class="row-fluid">
-                <div class="btn-group" style="float:right;margin-bottom:20px;margin-right:5px;">                                   
-                    <Button class="btn flat dropdown-toggle" data-toggle="dropdown"style="border-radius:0px;width:170px;"> 
-                        <i class="icon-sort-by-attributes"></i> <?php LanguageUtil::echoT('Sort Type') ?>                                      
-                        <span class="caret"></span>
-                    </Button>
-                    <?php 
-                    Yii::beginProfile('SolrType'); ?>
-                    ?>
-                    <ul class="dropdown-menu" style="border-radius:0px;position:fixed;top:95px;">                                    
-                        <?php foreach (SolrSortTypeUtil::getInstance()->getSortTypeLinkList() as $link): ?>
+
+        <div class="sort-bar">
+                    <div class="pagination pagination-centered" >
+                      <ul>
+                         <?php foreach (SolrSortTypeUtil::getInstance()->getSortTypeLinkList() as $link): ?>
                             <li><?php echo $link; ?></li>
                         <?php endforeach; ?>
-                    </ul>
-                    <?php Yii::endProfile('SolrType'); ?>
-                </div>
-            </div>    
-            <div class="row-fluid">                     
+                        <li><a href="#">Ở gần bạn</a></li>
+                        <li><a href="#">Bạn bè Facebook</a></li>
+                      </ul>
+                    </div>
+        </div> 
+        <div id="categories-bar">          
+            <div class="row-fluid">     
+
                 <ul>
                     <li><a href="<?php echo Yii::app()->createUrl('site/index') ?>" title="<?php echo LanguageUtil::t('All')?>"><span class="nav-text all-cat-wrap selected mark"><small class="all-cat"></small><em></em>     &nbsp&nbsp<?php LanguageUtil::echoT('All') ?></span></a></li>                                                      
                     <?php foreach (CategoryUtil::getCategoryList() as $category): ?>
@@ -43,7 +39,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/pro
             </div>    
             <?php if ($categoryModel != null): ?>
                 <?php $this->pageTitle = $categoryModel->name . " ".LanguageUtil::t('on')." ITAKE.ME" ?>
-            <div class="selectedCategoryTab"> <h1><?php LanguageUtil::echoT($categoryModel->name); ?></h1></div>
+            <div class="selectedCategoryTab"> 
+                <h1>
+                    <?php echo $categoryModel->getIconAndNameHtml()."   ";?>
+                    <?php LanguageUtil::echoT($categoryModel->name); ?>
+                </h1>                
+            </div>                    
                 <script>
                     $(function() {
                         var counter = 0;
@@ -62,10 +63,11 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/pro
                 </script>
             <?php endif; ?>
 
-        </div>
+        </div>        
         <div class="row-fluid" id="fixWidthMasory"></div>
-        <div class="span9" style="margin-left:50px;">
-            <div class="row-fluid" id="wrapper_productContainer" style="margin-top:80px;">  
+        <div class="span9" style="margin-left:50px;">            
+            <div class="row-fluid" id="wrapper_productContainer" style="margin-top:115px;"   >  
+                <hr style="position:relative; top:-20px;"/>
                 <?php if (trim($keyword) != ''): ?>
                     <div class="alert alert-info">
                         <button type="button" class="close" data-dismiss="alert">×</button>

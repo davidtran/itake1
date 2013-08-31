@@ -1209,6 +1209,7 @@ div#categories-bar h1{
     font-weight: 300;
     font-size:1.5em;
     line-height:30px;    
+    margin-top: 25px;
 }
 div#categories-bar b{
     font-family: "MNBTitleBold";
@@ -1719,13 +1720,14 @@ div.navigation ul li a:hover{
     color:#194675;
 }
 div.selectedCategoryTab{
-position:fixed;
-left:0;
-right: 0;
-top:34px;
-text-align: center;
-text-transform: uppercase;
-color:#ccc;
+    height: 80px;
+   position: fixed;
+    left: 180px;
+    padding-left: 30px;
+    right: 0;
+    top: 40px;
+    text-transform: uppercase;
+    color: #0088cc;
 }
 div.productControl{
    position: absolute;

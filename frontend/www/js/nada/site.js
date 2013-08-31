@@ -33,7 +33,18 @@ $(document).ready(function() {
               
         // }, 500);       
          //$container.css('height',$(window).height()*2);
-    });     
+    }); 
+    $(window).scroll(function() {
+        if( $(window).scrollTop()!=0)
+        {
+              $('.selectedCategoryTab').css('background','rgba(0,0,0,0.2)');
+              $('.selectedCategoryTab h1').css('color','#fff');
+          }
+          else{
+            $('.selectedCategoryTab').css('background','rgba(0,0,0,0.0)');
+              $('.selectedCategoryTab h1').css('color','#0088cc');
+          }
+    });    
     $container.infinitescroll(
         {
             navSelector: '.nextPageLink',
