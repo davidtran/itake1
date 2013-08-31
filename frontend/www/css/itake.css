@@ -113,15 +113,23 @@ a.productLink{
 	display: block;	
 }
 a.productLink:hover{
-	
+	background: rgba(0,0,0,0.9);
 }
 .productControl small{
 	color: #fff;
 	text-rendering: optimizelegibility;
 	text-shadow: 0 0 3px rgba(0,0,0,0.8);
 }
-a.productLink:hover .productControl{	
-	background: rgba(0,0,0,0.5);
+.productControl{
+	background:none !important;
+	pointer-events:none;
+}
+.productControl a{
+	pointer-events:auto;
+}
+.productControl a.productLink:hover{
+	background:none !important;
+	pointer-events:none;
 }
 .btn-square{
 	font-size: 0.7em;
