@@ -1735,10 +1735,11 @@ div.selectedCategoryTab{
 div.productControl{
    position: absolute;
     top: 0px;
-    right: 0px;
-    left: 0px;
-    bottom: 0px;
-    text-align: center;
+    left: 0;
+    right: 0;
+    text-align: center;    
+    display: inline-block;
+    background: transparent;
 }
 div.span4.login-panel{    
 margin-bottom: 20px;
