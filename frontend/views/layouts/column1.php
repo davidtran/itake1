@@ -16,8 +16,8 @@
                 <span class="caret"></span>
             </Button>
             <ul class="dropdown-menu">
-                <?php foreach(CityUtil::getCityListData() as $cityId=>$cityName):?>
-                <li>
+                <?php foreach(CityUtil::getCityListData(true) as $cityId=>$cityName):?>
+                    <li>
                     <?php echo CHtml::link(
                         LanguageUtil::t($cityName),
                         CityUtil::makeSelectCityUrl($cityId),

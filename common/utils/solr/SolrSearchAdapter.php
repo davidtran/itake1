@@ -35,6 +35,10 @@ class SolrSearchAdapter
     {
         $this->sortType = $value;
     }
+    
+    public function getSortType(){
+        return $this->sortType;
+    }
 
     public function makeParam()
     {
@@ -52,7 +56,7 @@ class SolrSearchAdapter
         }
         $params['fq'] = $fq;
         $params['bf'] = array(
-            'recip(ms(NOW,create_date),3.16e-11,1,1)',
+            'recip(abs(ms(NOW/DAY,create_date)),1,6.3E10,6.3E10)',
             
         );
         $params['defType'] = 'edismax';
@@ -70,7 +74,7 @@ class SolrSearchAdapter
                 break;
             case self::TYPE_LOCATION:
                 if ($this->latitude != null && $this->longitude != null) {
-                    $params['bf'][] = 'recip(geodist(latlng,' . $this->latitude . ',' . $this->longitude . '),2,200,0)';
+                    $params['bf'][] = 'recip(geodist(latlng,' . $this->latitude . ',' . $this->longitude . '),200,200,0)';
                 }
                 $params['sort'] = 'score desc';
                 break;
@@ -79,7 +83,7 @@ class SolrSearchAdapter
         return $params;
     }
 
-    public function getLocation($lat, $lng)
+    public function setLocation($lat, $lng)
     {
         $this->latitude = floatval($lat);
         $this->longitude = floatval($lng);

@@ -52,7 +52,8 @@ class SolrSortTypeUtil
     {
         return array(
             SolrSearchAdapter::TYPE_CREATE_DATE => 'Time',
-            SolrSearchAdapter::TYPE_TREND => 'Trend'
+            SolrSearchAdapter::TYPE_TREND => 'Trend',
+            SolrSearchAdapter::TYPE_LOCATION =>'Near you'
         );
     }
 
@@ -60,7 +61,9 @@ class SolrSortTypeUtil
     {
         $list = array();
         foreach ($this->getSortTypeList() as $key => $value) {
-            $list[$key] = CHtml::link(LanguageUtil::t($value), $this->makeSortTypeUrl($key));
+            $list[$key] = CHtml::link(LanguageUtil::t($value), $this->makeSortTypeUrl($key),array(
+                'id'=>'linkSort_'.$key
+            ));
         }
         return $list;
     }

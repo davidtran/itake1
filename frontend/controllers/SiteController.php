@@ -56,7 +56,7 @@ class SiteController extends Controller
     }
 
     public function actionSortType($type)
-    {
+    {        
         SolrSortTypeUtil::getInstance()->setSortType($type);
 
         if (isset(Yii::app()->session['LastCity'])) {
@@ -117,6 +117,13 @@ class SiteController extends Controller
         $solrAdapter->pageSize = 12;
         $solrAdapter->country = Yii::app()->country->getId();
         $solrAdapter->keyword = $keyword;
+        if($solrAdapter->getSortType() == SolrSearchAdapter::TYPE_LOCATION){
+            $locationArray = UserLocationUtil::getInstance()->getLocation();
+            if($locationArray !== false){
+                $solrAdapter->setLocation($locationArray[0],$locationArray[1]);
+            }
+            
+        }
         Yii::beginProfile('search');
         $resultSet = $solrAdapter->search();
         Yii::endProfile('search');
@@ -286,6 +293,44 @@ class SiteController extends Controller
     public function actionFAQ()
     {
         //waiting for KHOA
-    }        
+    }
+
+    public function actionLocationDialog()
+    {
+        $location = new LocationForm();
+        $location->city = CityUtil::getSelectedCityId();
+        $userLocation = UserLocationUtil::getInstance()->getLocation();
+        if($userLocation!==false){
+            $url = $this->createUrl('/site/sortType',array('type'=>  SolrSearchAdapter::TYPE_LOCATION));
+            $this->renderAjaxResult(true,array(
+                'alreadyHaveLocation'=>true,
+                'url'=>$url
+            ));
+        }else{
+            $html = $this->renderPartial('/site/partial/selectLocationDialog', array(
+                'location' => $location
+                    ), true, false);
+            $this->renderAjaxResult(true, array(
+                'html' => $html,
+                'alreadyHaveLocation'=>false
+            ));
+        }
+        
+    }
+
+    public function actionSaveLocation()
+    {
+        $lat = Yii::app()->request->getPost('lat');
+        $lng = Yii::app()->request->getPost('lng');
+        if($lat!=null && $lng!=null){
+            UserLocationUtil::getInstance()->setLocation(array($lat,$lng));
+            $url = $this->createUrl('/site/sortType',array('type'=>  SolrSearchAdapter::TYPE_LOCATION));
+            $this->renderAjaxResult(true,array('url'=>$url));
+        }else{
+            $this->renderAjaxResult(false,'Invalid data');
+        }        
+    }
+    
+    
 
 }

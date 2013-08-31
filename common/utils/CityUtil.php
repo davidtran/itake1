@@ -45,8 +45,13 @@ class CityUtil
 
     public static function getCityName($id)
     {
-        $cities = self::getCityList();
-        return isset($cities[$id]) ? LanguageUtil::t($cities[$id]['name']) : false;
+        
+        $city = City::model()->findByPk($id);
+        if($city != null){
+            return Yii::t('Default',$city->name);
+        }
+        return false;
+        
     }
 
     public static function makeSelectCityUrl($id)
@@ -73,6 +78,7 @@ class CityUtil
             return 0;
         }
     }
+        
   
 
 }

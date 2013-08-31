@@ -12,6 +12,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/gmaps.js
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/site.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/productDetails.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/productControl.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/map-util.js?id=1', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/user-location.js?id=1', CClientScript::POS_END);
+$cityList = json_encode(CityUtil::getCityList(true));
+Yii::app()->clientScript->registerScript('data',"
+    var cityList = $cityList;
+    ",  CClientScript::POS_HEAD);
 ?>
 <div class="container-fluid" style="margin-left:50px;">
     <div class="row-fluid">
@@ -21,8 +27,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/pro
                       <ul>
                          <?php foreach (SolrSortTypeUtil::getInstance()->getSortTypeLinkList() as $link): ?>
                             <li><?php echo $link; ?></li>
-                        <?php endforeach; ?>
-                        <li><a href="#">Ở gần bạn</a></li>
+                        <?php endforeach; ?>               
                         <li><a href="#">Bạn bè Facebook</a></li>
                       </ul>
                     </div>
@@ -44,23 +49,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/pro
                     <?php echo $categoryModel->getIconAndNameHtml()."   ";?>
                     <?php LanguageUtil::echoT($categoryModel->name); ?>
                 </h1>                
-            </div>                    
-                <script>
-                    $(function() {
-                        var counter = 0;
-                        var styleName = '<?php echo $categoryModel->styleName ?>';
-                        $('.nav-text.all-cat-wrap').removeClass('selected');
-                        $(".nav-text."+styleName.replace(' ','.')).addClass('selected');
-                        // $('#categories-bar ul li a span').each(function() {
-                        //     var strClass = "category_color id_" + counter;
-                        //     $(this).addClass("selected");
-                        //     if (styleName != strClass) {
-                        //         $(this).removeClass("selected");
-                        //     }
-                        //     counter++;
-                        // });
-                    });
-                </script>
+            </div>                                   
             <?php endif; ?>
 
         </div>        
