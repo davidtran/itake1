@@ -5,6 +5,7 @@ class FacebookAccessCheckerFilter extends CFilter
 
     public function preFilter($filterChain)
     {
+        Yii::beginProfile('FacebookFilter');
         if (Yii::app()->user->isFacebookUser && !Yii::app()->request->isAjaxRequest &&  ! $this->isSaved())
         {             
             try
@@ -28,6 +29,7 @@ class FacebookAccessCheckerFilter extends CFilter
                 Yii::app()->controller->redirect('/market');
             }
         }
+        Yii::endProfile('FacebookFilter');
          
         $filterChain->run();
     }

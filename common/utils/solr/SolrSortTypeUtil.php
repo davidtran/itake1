@@ -3,8 +3,6 @@
 class SolrSortTypeUtil
 {
 
-    const TYPE_CREATE_DATE = 0;
-    const TYPE_SCORE = 1;
     const COOKIE_NAME = 'SolrSortType';
 
     protected static $instance;
@@ -13,15 +11,14 @@ class SolrSortTypeUtil
     {
         ;
     }
-    
+
     /**
      * 
      * @return SolrSortTypeUtil
      */
     public static function getInstance()
     {
-        if (self::$instance == null)
-        {
+        if (self::$instance == null) {
             self::$instance = new static;
         }
         return self::$instance;
@@ -29,63 +26,50 @@ class SolrSortTypeUtil
 
     public function getCurrentSortType()
     {
-        $value = $this->getCookieValue();
-        if ($value != null)
-        {
-            return $value;
-        }
-        return $this->getDefaultValue();
+        return UserRegistry::getInstance()->getValue(self::COOKIE_NAME, SolrSearchAdapter::TYPE_CREATE_DATE);
     }
-    
-    public function setSortType($value){
+
+    public function setSortType($value)
+    {
+
         $list = $this->getSortTypeList();
-        if(isset($list[$value])){
-            $this->setCookieValue($value);
-        }else{
+        if (isset($list[$value])) {
+            UserRegistry::getInstance()->setValue(self::COOKIE_NAME, $value);
+            return true;
+        }
+        else {
             throw new CException('Not supported');
         }
-        
+        return false;
     }
 
     protected function getDefaultValue()
     {
-        return self::TYPE_CREATE_DATE;
-    }
-        
-    protected function getCookieValue()
-    {
-        if (isset(Yii::app()->request->cookies[self::COOKIE_NAME]))
-        {
-            return Yii::app()->request->cookies[self::COOKIE_NAME]->value;
-        }
-        return null;
-    }
-
-    protected function setCookieValue($value)
-    {
-        Yii::app()->request->cookies[self::COOKIE_NAME] = new CHttpCookie(self::COOKIE_NAME,$value);
+        return SolrSearchAdapter::TYPE_CREATE_DATE;
     }
 
     public function getSortTypeList()
     {
         return array(
-            self::TYPE_CREATE_DATE => 'Time',
-            self::TYPE_SCORE => 'Trend'
+            SolrSearchAdapter::TYPE_CREATE_DATE => 'Time',
+            SolrSearchAdapter::TYPE_TREND => 'Trend'
         );
     }
-    
-    public function getSortTypeLinkList(){
+
+    public function getSortTypeLinkList()
+    {
         $list = array();
-        foreach($this->getSortTypeList() as $key=>$value){
-            $list[$key] = CHtml::link(LanguageUtil::t($value),$this->makeSortTypeUrl($key));
+        foreach ($this->getSortTypeList() as $key => $value) {
+            $list[$key] = CHtml::link(LanguageUtil::t($value), $this->makeSortTypeUrl($key));
         }
         return $list;
     }
-    
-    public function makeSortTypeUrl($type){
-        return Yii::app()->controller->createUrl('/site/sortType',array(
-            'type'=>$type
-        )); 
+
+    public function makeSortTypeUrl($type)
+    {
+        return Yii::app()->controller->createUrl('/site/sortType', array(
+                    'type' => $type
+        ));
     }
 
 }

@@ -12,7 +12,9 @@
         <?php endif; ?>
         <div style="display:none" class="productControl">                        
             <div class="row-fluid" style="margin-top: 10px;">
+                
                 <?php
+                Yii::beginProfile('GetImage'.$product->user->id); 
                 echo CHtml::image($product->user->getProfileImageUrl(), $product->user->username, array(
                     'width' => 30,
                     'height' => 30,
@@ -20,11 +22,12 @@
                                       height: 30px;',
                     'class' => 'img-circle',
                 ));
+                Yii::endProfile('GetImage'.$product->user->id); 
                 ?>      
             </div>                 
             <div class="row-fluid">
                 <small class="center">            
-<?php echo $product->user->username; ?> 
+                    <?php echo $product->user->username; ?> 
                 </small>                                            
             </div>                           
             <div class="row-fluid">

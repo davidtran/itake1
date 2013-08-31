@@ -18,9 +18,7 @@ class ProductController extends Controller
     public function behaviors()
     {
         return array(
-            
-                'seo'=>array('class'=> 'frontend.extensions.seo.components.SeoControllerBehavior')
-            
+            'seo' => array('class' => 'frontend.extensions.seo.components.SeoControllerBehavior')
         );
     }
 
@@ -30,8 +28,7 @@ class ProductController extends Controller
         $product = $this->loadProduct($id);
         $canonicalUrl = $this->createAbsoluteUrl('/product/details', array('id' => $id));
         $relateProductList = $this->relatedProduct($product);
-        if (Yii::app()->request->isAjaxRequest)
-        {
+        if (Yii::app()->request->isAjaxRequest) {
             $html = '';
             $html = $this->renderPartial('details', array(
                 'product' => $product,
@@ -46,8 +43,7 @@ class ProductController extends Controller
                 'canonicalUrl' => $canonicalUrl
             ));
         }
-        else
-        {
+        else {
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/masonry.pkgd.min.js', CClientScript::POS_HEAD);
             Yii::app()->clientScript->registerScriptFile('http://maps.google.com/maps/api/js?sensor=true', CClientScript::POS_HEAD);
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/gmaps.js', CClientScript::POS_HEAD);
@@ -65,9 +61,9 @@ class ProductController extends Controller
             ", CClientScript::POS_END);
             $this->addMetaProperty('og:title', $product->title);
             $this->addMetaProperty('og:description', StringUtil::limitByWord($product->description, 100));
-            $this->addMetaProperty('og:image', Yii::app()->getBaseUrl(true).'/'.$product->image);
-            $this->addMetaProperty('og:url',$canonicalUrl);
-            $this->addMetaProperty('og:type','product');
+            $this->addMetaProperty('og:image', Yii::app()->getBaseUrl(true) . '/' . $product->image);
+            $this->addMetaProperty('og:url', $canonicalUrl);
+            $this->addMetaProperty('og:type', 'product');
             $this->metaDescription = StringUtil::limitByWord($product->description, 100);
             $this->metaKeywords = str_replace(' ', ',', strtolower(preg_replace('/[^0-9a-z\s]/', '', $product->title)));
             $this->render('detailPage', array(
@@ -86,8 +82,7 @@ class ProductController extends Controller
         $empty = $page >= $productDataProvider->getPagination()->getPageCount();
 
         $html = '';
-        if ($empty == false)
-        {
+        if ($empty == false) {
             $html = $this->renderPartial('/product/_relateProductBoard', array(
                 'page' => $page,
                 'product' => $product,
@@ -106,8 +101,7 @@ class ProductController extends Controller
         $empty = $page >= $productDataProvider->getPagination()->getPageCount();
 
         $html = '';
-        if ($empty == false)
-        {
+        if ($empty == false) {
             $html = $this->renderPartial('_userProductList', array(
                 'page' => $page,
                 'productList' => $productList,
@@ -120,43 +114,43 @@ class ProductController extends Controller
 
     protected function loadProduct($id)
     {
-        if ($this->_product == null)
-        {
+        if ($this->_product == null) {
             $this->_product = Product::model()->findByPk($id);
-            if ($this->_product == null)
-            {
+            if ($this->_product == null) {
                 throw new CHttpException(404, 'Product not found');
             }
         }
         return $this->_product;
     }
-    
-    protected function relatedProduct($product){
+
+    protected function relatedProduct($product)
+    {
         $adapter = new SolrSearchAdapter();
         $adapter->keyword = $product->title;
         $adapter->categoryId = $product->category_id;
         $adapter->city = $product->city;
         $adapter->country = $product->country;
         $adapter->mm = 10;
-        $adapter->setSortType(SolrSortTypeUtil::TYPE_CREATE_DATE);
+        $adapter->setSortType(SolrSearchAdapter::TYPE_CREATE_DATE);
         $adapter->excludeProduct($product->id);
         $result = $adapter->search();
-        if(count($result->productList) < 10){
+        if (count($result->productList) < 10) {
             $result->productList+=$this->searchCategory($product);
         }
         return $result->productList;
-    }        
-    
-    protected function searchCategory($product){
-        $adapter = new SolrSearchAdapter();        
+    }
+
+    protected function searchCategory($product)
+    {
+        $adapter = new SolrSearchAdapter();
         $adapter->categoryId = $product->category_id;
         $adapter->city = $product->city;
-        $adapter->country = $product->country;        
-        $adapter->setSortType(SolrSortTypeUtil::TYPE_CREATE_DATE);
+        $adapter->country = $product->country;
+        $adapter->setSortType(SolrSearchAdapter::TYPE_CREATE_DATE);
         $adapter->pageSize = 10;
         $adapter->excludeProduct($product->id);
         $result = $adapter->search();
-        
+
         return $result->productList;
     }
 

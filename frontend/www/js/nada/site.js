@@ -72,3 +72,44 @@ $(document).ready(function() {
 //     $('#productContainer').isotope('reLayout');
 // },500);
 
+$(document).ready(function(){
+    $('#selectLocation').click(function(e){
+        e.preventDefault();
+        if(user == undefined){
+            $.ajax({
+                url:BASE_URL + '/site/locationDialog',
+                type:'post',
+                success:function(jsons){
+                    var data = $.parseJSON(jsons);
+                    if(data.success){
+                        $('body').append(data.html);                        
+                    }else{
+                        bootbox.alert(data.msg);
+                    }
+                }
+            });
+        }else{
+            window.location = 'login.html';
+        }
+        $('#locationDialog').modal('show');
+        return false;
+    });
+    
+    $('#saveLocation').click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url:BASE_URL + '/site/saveLocation',
+            type:'post',
+            success:function(jsons){
+                var data = $.parseJSON(jsons);
+                if(data.success){
+                    window.location = data.url;
+                }else{
+                    bootbox.alert(data.msg);
+                }
+            }
+        });
+        return false;
+    })
+});
+

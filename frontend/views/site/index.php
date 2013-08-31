@@ -1,12 +1,11 @@
 <?php
 /* @var $this SiteController */
 /* @var $error array */
-
+Yii::beginProfile('RenderSiteIndex');
 $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("ITAKE.ME ! It's easy and so simple to internet marketing on your products, classified ads on Fashion, Mobile and Tablet, Desktop and Latop, Camera and Electrical Devices, Handmade and Art, Services, Real Estate, Car and Motobike, Others");
 ?>
 <?php
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/masonry.pkgd.min.js', CClientScript::POS_HEAD);
-
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.infinitescroll.min.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile('http://maps.google.com/maps/api/js?sensor=true', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/gmaps.js', CClientScript::POS_HEAD);
@@ -23,14 +22,18 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/pro
                         <i class="icon-sort-by-attributes"></i> <?php LanguageUtil::echoT('Sort Type') ?>                                      
                         <span class="caret"></span>
                     </Button>
+                    <?php 
+                    Yii::beginProfile('SolrType'); ?>
+                    ?>
                     <ul class="dropdown-menu" style="border-radius:0px;position:fixed;top:95px;">                                    
                         <?php foreach (SolrSortTypeUtil::getInstance()->getSortTypeLinkList() as $link): ?>
                             <li><?php echo $link; ?></li>
                         <?php endforeach; ?>
                     </ul>
+                    <?php Yii::endProfile('SolrType'); ?>
                 </div>
             </div>    
-            <div class="row-fluid">     
+            <div class="row-fluid">                     
                 <ul>
                     <li><a href="<?php echo Yii::app()->createUrl('site/index') ?>" title="<?php echo LanguageUtil::t('All')?>"><span class="nav-text all-cat-wrap selected mark"><small class="all-cat"></small><em></em>     &nbsp&nbsp<?php LanguageUtil::echoT('All') ?></span></a></li>                                                      
                     <?php foreach (CategoryUtil::getCategoryList() as $category): ?>
@@ -69,10 +72,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/pro
                         <b>Có <?php echo $numFound; ?> kết quả với từ khóa <?php echo $keyword; ?></b></div>
                 <?php endif; ?>
                 <?php
+                Yii::beginProfile('RenderProductList'); 
                 $this->renderPartial('/site/_board', array(
                     'productList' => $productList,
                     'nextPageLink' => $nextPageLink
                 ));
+                Yii::endProfile('RenderProductList');
                 ?>
                 <div id="loadingText"></div>
             </div>
@@ -82,3 +87,4 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/pro
 
 <?php echo $this->renderPartial('/site/_productDialog', array(), true, false); ?>
 
+<?php Yii::endProfile('RenderSiteIndex'); ?>

@@ -11,7 +11,7 @@ class UserMetaUtil{
 				$meta->sub_key = $subKey;
 			}
 		}
-		$meta->value = $value;
+		$meta->value = serialize($value);
 		if($meta->save()){
 			return $meta;	
 		}else{
@@ -26,6 +26,11 @@ class UserMetaUtil{
 		$criteria->compare('`key`',$key);
 		$criteria->compare('sub_key',$subKey);
 		$meta = Usermeta::model()->find($criteria);
+        if($meta!=null){
+            
+            $meta->value = unserialize($meta->value);            
+            
+        }
 		return $meta;
 	}
 	public static function deleteMeta($user_id,$key,$subKey = null){

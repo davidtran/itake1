@@ -12,6 +12,23 @@ return CMap::mergeArray(
 	require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'main.php'),
 	array(
 		'components' => array(
+            'log'=>array(
+            'class'=>'CLogRouter',
+            'routes'=>array(
+                array(
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'error, warning',
+                ),
+                array(
+                    'class' => 'application.extensions.pqp.PQPLogRoute',
+                    'categories' => 'application.*, exception.*',
+                ),
+            ),
+        ),
+        'db'=>array(          
+            'enableProfiling' => true,
+            'enableParamLogging' => true,
+        ),
 			'fixture' => array(
 				'class' => 'system.test.CDbFixtureManager'
 			),

@@ -362,11 +362,7 @@ class User extends CActiveRecord
             
                 
                 $url = "http://graph.facebook.com/" . $this->fbId . "/picture?type=large";
-                $headers = @get_headers($url, 1);
-                if (isset($headers['Location']))
-                {
-                    return $url;
-                }
+                return $url;
             
         }
         else

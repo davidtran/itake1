@@ -130,11 +130,7 @@ class UserUtil
                     {
                         $fid = $fbData['id'];
                         $url = "http://graph.facebook.com/" . $fid . "/picture?type=large";
-                        $headers = @get_headers($url, 1);
-                        if (isset($headers['Location']))
-                        {
-                            return $url;
-                        }
+                        return $url;
                     }
                 }
             }
