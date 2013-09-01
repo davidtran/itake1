@@ -24,7 +24,7 @@ class UserLocationUtil
 
     public function setLocation($value)
     {
-        UserRegistry::getInstance(true,false)->getValue('UserLocation');
+        UserRegistry::getInstance(true,false)->setValue('UserLocation',$value);
     }
 
     public function getLocation()

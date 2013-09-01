@@ -19,7 +19,7 @@ $(document).ready(function() {
         columnWidth: 30,
         itemSelector: '.productItem',
         transformsEnabled:false,
-        masonryHorizontal: {
+        straightAcross: {
             rowHeight: 360
         }
     });
