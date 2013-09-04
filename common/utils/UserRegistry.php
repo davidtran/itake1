@@ -67,5 +67,21 @@ class UserRegistry
             UserMetaUtil::setMeta(Yii::app()->user->getId(), $key, $value);
         }
     }
+    
+    public function delete($key){
+        $key = $this->makeKey($key);
+        if(isset($this->data[$key])){
+            unset($this->data[$key]);
+        }
+        
+        if(isset(Yii::app()->session[$key])){
+            unset(Yii::app()->session[$key]);
+        }
+        
+        if(Yii::app()->user->isGuest == false){
+            UserMetaUtil::deleteMeta(Yii::app()->user->getId(), $key);
+        }
+        
+    }
 
 }
