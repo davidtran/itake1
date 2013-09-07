@@ -267,6 +267,12 @@ class Product extends CActiveRecord
                     'product' => $this
                         ), true, false);
     }
+    
+    public function getFirstImage(){
+        if($this->firstImage !=null){
+            return $this->firstImage->thumbnail;
+        }
+    }
 
     public function searchRelateProduct($pageSize = 5, $page = 0)
     {

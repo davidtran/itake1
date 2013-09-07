@@ -109,7 +109,7 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
-		$model = new LoginForm();
+		$model = new BackendLoginForm();
 
 		if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form')
 		{
@@ -117,9 +117,9 @@ class SiteController extends Controller
 			Yii::app()->end();
 		}
 
-		if (isset($_POST['LoginForm']))
+		if (isset($_POST['BackendLoginForm']))
 		{
-			$model->attributes = $_POST['LoginForm'];
+			$model->attributes = $_POST['BackendLoginForm'];
 			if ($model->validate(array('username', 'password', 'verifyCode')) && $model->login())
 				$this->redirect(user()->returnUrl);
 		}

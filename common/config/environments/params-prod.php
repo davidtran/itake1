@@ -49,5 +49,7 @@ return array(
         'user/register',
         'user/changePassword',
         'user/forgetPassword'
-    )
+    ),
+    'backendUrl'=>'http://backend.itake.me',
+    'frontendUrl'=>'http://itake.me',
 );

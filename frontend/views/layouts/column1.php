@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="btn-group user-bar avatar-bar">                                 
                                     <a class="btn flat" style="height: 34px;border-radius:0px;background: transparent;line-height: 34px;border-top:none;border-bottom: none;">
-                                        <?php echo CHtml::image(Yii::app()->user->model->getProfileImageUrl(),'',array(
+                                        <?php echo CHtml::image(Yii::app()->baseUrl.'/'.Yii::app()->user->model->getProfileImageUrl(),'',array(
                                             'width'=>30,
                                             'height'=>30,   
                                             'class'=>'img img-circle',

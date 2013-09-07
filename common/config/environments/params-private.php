@@ -50,5 +50,7 @@ return array(
     'urlManager.secureHostInfo'=>'https://dev.itake',
     'urlManager.secureRoutes'=>array(
        
-    )
+    ),
+    'backendUrl'=>'http://backend.itake',
+    'frontendUrl'=>'http://dev.itake',
 );

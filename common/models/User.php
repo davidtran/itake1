@@ -37,6 +37,7 @@ class User extends CActiveRecord
     public $lastMessageContent;
     public $lastMessageDate;
     public $lastIsRead;
+
     // public $oldPassword;
     /**
      * Returns the static model of the specified AR class.
@@ -72,7 +73,7 @@ class User extends CActiveRecord
             array('email', 'email'),
             array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
             array('image,banner', 'length', 'max' => 100),
-            array('username', 'length', 'max' => 50, 'min' => 6),
+            array('username', 'length', 'max' => 50, 'min' => 5),
             array('uploadImage', 'file', 'allowEmpty' => true, 'types' => 'jpg,bmp,jpeg,png,gif', 'maxSize' => 10000000, 'maxFiles' => 1),
             array('id,username, create_date, update_date, type, email, image', 'safe', 'on' => 'search'),
         );
@@ -86,8 +87,7 @@ class User extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'finishedVideoCount' => array(self::STAT, 'Score', 'user_id'),
-            'scores' => array(self::HAS_MANY, 'Score', 'user_id', 'order' => 'create_date desc'),
+            'products'=>array(self::HAS_MANY,'Product','user_id')
         );
     }
 
@@ -96,8 +96,7 @@ class User extends CActiveRecord
         $sql = 'select count(*) from {{ban_product}} bp left join {{product}} p on bp.product_id = p.id
                 where p.user_id = :userId';
         $count = Yii::app()->db->createCommand($sql)->bindValue('userId', $this->id)->queryScalar();
-        if (is_numeric($count))
-        {
+        if (is_numeric($count)) {
             return $count;
         }
         return 0;
@@ -107,8 +106,7 @@ class User extends CActiveRecord
     {
         $sql = 'select count(*) from {{ban_user}} where blocked_id = :userId';
         $count = Yii::app()->db->createCommand($sql)->bindValue('userId', $this->id)->queryScalar();
-        if (is_numeric($count))
-        {
+        if (is_numeric($count)) {
             return $count;
         }
         return 0;
@@ -147,8 +145,8 @@ class User extends CActiveRecord
 
         $criteria->compare('id', $this->id);
         $criteria->compare('username', $this->username, true);
-        $criteria->compare('password', $this->password, true);
-        $criteria->compare('salt', $this->salt, true);
+        //$criteria->compare('password', $this->password, true);
+        //$criteria->compare('salt', $this->salt, true);
         $criteria->compare('create_date', $this->create_date, true);
         $criteria->compare('update_date', $this->update_date, true);
 
@@ -163,8 +161,7 @@ class User extends CActiveRecord
     public static function getNameById($id)
     {
         $user = Yii::app()->db->createCommand('select username from user where id=:id')->bindValue('id', $id)->queryRow();
-        if ($user != null)
-        {
+        if ($user != null) {
             return $user['username'];
         }
         return null;
@@ -191,31 +188,25 @@ class User extends CActiveRecord
     public function beforeValidate()
     {
         $oldModel = $this->findByPk($this->id);
-        $this->username = filter_var($this->username,FILTER_SANITIZE_STRIPPED);
-        $this->email = filter_var($this->email,FILTER_SANITIZE_EMAIL);        
-        if ($this->isNewRecord)
-        {
+        $this->username = filter_var($this->username, FILTER_SANITIZE_STRIPPED);
+        $this->email = filter_var($this->email, FILTER_SANITIZE_EMAIL);
+        if ($this->isNewRecord) {
             $this->status = self::STATUS_ACTIVE;
             $this->salt = $this->generateSalt();
             $this->create_date = DateUtil::getCurrentDateTime();
         }
 
-        if ($oldModel != null)
-        {
-            if ($this->password != $oldModel->password && trim($this->password != ''))
-            {
+        if ($oldModel != null) {
+            if ($this->password != $oldModel->password && trim($this->password != '')) {
                 $this->password = $this->makeOptimizedPassword($this->password, $this->salt);
             }
-            else
-            {
+            else {
                 $this->password = $oldModel->password;
             }
         }
-        else
-        {
+        else {
             $currentPassword = trim($this->password);
-            if ($currentPassword != '')
-            {
+            if ($currentPassword != '') {
                 $this->password = $this->makeOptimizedPassword($this->password, $this->salt);
             }
         }
@@ -226,9 +217,8 @@ class User extends CActiveRecord
 
     public function beforeSave()
     {
-        if ($this->isNewRecord)
-        {
-            $this->image = UserUtil::getProfileImageUrl($this);
+        if ($this->isNewRecord) {
+            $this->image = $this->getProfileImageUrl();
         }
 
         return parent::beforeSave();
@@ -236,13 +226,15 @@ class User extends CActiveRecord
 
     public function afterSave()
     {
-
+        
         return parent::afterSave();
     }
 
     public function afterDelete()
     {
-        
+        foreach($this->products as $product){
+            $product->delete();
+        }
     }
 
     protected function hashPassword($str)
@@ -268,31 +260,28 @@ class User extends CActiveRecord
     {
         return array(
             'id' => $this->id,
-            'image' => UserUtil::getProfileImageUrl($this),
+            'image' => $this->getProfileImageUrl(true),
             'username' => $this->username,
             'email' => $this->email
         );
     }
-    
-    public function handleUploadImage($uploadName,$attributeName)
+
+    public function handleUploadImage($uploadName, $attributeName)
     {
         $uploadImage = CUploadedFile::getInstanceByName($uploadName);
         $oldImage = $this->image;
 
-        if ($uploadImage != null)
-        {
+        if ($uploadImage != null) {
 
             $rules = new ImageUploadRules();
-            if (in_array(mb_strtolower($uploadImage->extensionName), $rules->getAllowExtensions(), true) == false)
-            {
+            if (in_array(mb_strtolower($uploadImage->extensionName), $rules->getAllowExtensions(), true) == false) {
                 $this->addError('uploadImage', 'Định dạng ảnh không phù hợp');
                 return false;
             }
 
 
 
-            if ($uploadImage->size > FileUtil::convertSizeToBytes(2, 'MB'))
-            {
+            if ($uploadImage->size > FileUtil::convertSizeToBytes(2, 'MB')) {
                 $this->addError('uploadImage', 'Kích thước ảnh không được quá 2 MB');
                 return false;
             }
@@ -301,8 +290,7 @@ class User extends CActiveRecord
 
             $imageInfo = getimagesize('images/content/profile/' . $filename);
 
-            if ($imageInfo[0] < 180 || $imageInfo[1] < 180)
-            {
+            if ($imageInfo[0] < 180 || $imageInfo[1] < 180) {
                 $this->addError('uploadImage', 'Bề ngang và bề rộng của ảnh phải lớn hơn 180px');
                 @unlink('images/content/profile/' . $filename);
                 return false;
@@ -311,8 +299,7 @@ class User extends CActiveRecord
             $this->$attributeName = $resize;
             //$rs = Yii::app()->s3->upload($resize,UserUtil::USER_IMAGE_FOLDER.'/'.$filename,Yii::app()->params['s3bucket']);                            
             @unlink('images/content/profile/' . $filename);
-            if ($oldImage != null && $oldImage != UserUtil::USER_IMAGE_PLACEHOLDER)
-            {
+            if ($oldImage != null && $oldImage != UserUtil::USER_IMAGE_PLACEHOLDER) {
                 @unlink($oldImage);
             }
             //unlink($resize);
@@ -338,7 +325,7 @@ class User extends CActiveRecord
     public function getUserProfileLink()
     {
         return CHtml::link(
-        $this->username, array('/user/profile', 'id' => $this->id, 'name' => $this->username), array('title' => $this->target)
+                        $this->username, array('/user/profile', 'id' => $this->id, 'name' => $this->username), array('title' => $this->target)
         );
     }
 
@@ -347,55 +334,46 @@ class User extends CActiveRecord
 
 
         return Yii::app()->createUrl('/user/profile', array(
-            'id' => $this->id,
-            'name' => StringUtil::utf8ToAscii($this->username),
-        )
+                    'id' => $this->id,
+                    'name' => StringUtil::utf8ToAscii($this->username),
+                        )
         );
     }
 
-    public function getProfileImageUrl()
+    public function getProfileImageUrl($absolute = false)
     {
-        $filename = null;
+     
+        if ($this->image != null) {
+            if($absolute){
+                return Yii::app()->params['urlManager.hostInfo'].'/'.$this->image;
+            }
+            return $this->image;
+         
+        }
+        else {
+            if ($this->fbId != null) {
 
-        if ($this->fbId!=null)
-        {
-            
-                
+
                 $url = "http://graph.facebook.com/" . $this->fbId . "/picture?type=large";
                 return $url;
-            
-        }
-        else
-        {
-            if ($this->image != null)
-            {
-                if (stripos($this->image, 'http://') !== false || stripos($this->image, 'https://') !== false)
-                {
-                    return $this->image;
-                }
-                else if (substr($this->image, 0, 1) == '/')
-                {
-                    return $this->image;
-                }
-                else
-                {
-                    return Yii::app()->baseUrl . '/' . $this->image;
-                }
             }
         }
 
 
 
-        return Yii::app()->baseUrl . '/' . self::USER_IMAGE_PLACEHOLDER;
+
+        return self::USER_IMAGE_PLACEHOLDER;
     }
-    
-    
-    public function getBanner(){
-        if(trim($this->banner) == ''){
+
+    public function getBanner()
+    {
+        if (trim($this->banner) == '') {
             //default
             return 'images/def-banner.jpg';
-        }else{
+        }
+        else {
             return $this->banner;
         }
     }
+
 }

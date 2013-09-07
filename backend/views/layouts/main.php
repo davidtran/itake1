@@ -24,7 +24,7 @@
 <div class="container" id="page">
 	<?php $this->widget('bootstrap.widgets.TbNavbar', array(
 	'type' => 'inverse', // null or 'inverse'
-	'brand' => 'Project name',
+	'brand' => 'Dashboard',
 	'brandUrl' => '#',
 	'collapse' => true, // requires bootstrap-responsive.css
 	'items' => array(
@@ -32,29 +32,13 @@
 			'class' => 'bootstrap.widgets.TbMenu',
 			'items' => array(
 				array('label' => 'Home', 'url' => array('/site/index')),
-				array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
-				array('label' => 'Contact', 'url' => array('/site/contact')),
+				array('label' => 'Product', 'url' => array('/product')),
+				array('label' => 'User', 'url' => array('/user')),
+                array('label' => 'Feedback', 'url'=> array('/feedback')),
 				array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
 				array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
 			),
-		),
-		'<form class="navbar-search pull-left" action=""><input type="text" class="search-query span2" placeholder="Search"></form>',
-		(!Yii::app()->user->isGuest) ? '<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>' : '',
-		array(
-			'class' => 'bootstrap.widgets.TbMenu',
-			'htmlOptions' => array('class' => 'pull-right'),
-			'items' => array(
-				array('label' => 'Link', 'url' => '#'),
-				'---',
-				array('label' => 'Dropdown', 'url' => '#', 'items' => array(
-					array('label' => 'Action', 'url' => '#'),
-					array('label' => 'Another action', 'url' => '#'),
-					array('label' => 'Something else here', 'url' => '#'),
-					'---',
-					array('label' => 'Separated link', 'url' => '#'),
-				)),
-			),
-		),
+		),			
 	),
 )); ?>
 	<!-- mainmenu -->
@@ -68,9 +52,8 @@
 		<?php echo $content; ?>
 		<hr/>
 		<div id="footer">
-			Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-			All Rights Reserved.<br/>
-			<?php echo Yii::powered(); ?>
+			Copyright &copy; <?php echo date('Y'); ?> by iTake.<br/>
+			All Rights Reserved.<br/>			
 		</div>
 		<!-- footer -->
 	</div>

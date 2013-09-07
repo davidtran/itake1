@@ -131,7 +131,7 @@ class SiteController extends Controller
         ));
 
         if (!Yii::app()->request->isAjaxRequest) {
-            $this->render('category', array(
+            $this->render('list', array(
                 'numFound' => $resultSet->numFound,
                 'productList' => $productList,
                 'nextPageLink' => $nextPageLink,

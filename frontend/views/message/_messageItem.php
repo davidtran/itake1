@@ -1,6 +1,6 @@
 <div class="row-fluid">
 	<div class="span1">
-		<?php echo CHtml::image(UserUtil::getProfileImageUrl($message->sender),$message->sender->username,array('width'=>32)); ?>
+		<?php echo CHtml::image(Yii::app()->baseUrl().'/'.$message->sender->getProfileImageUrl(),$message->sender->username,array('width'=>32)); ?>
 	</div>
 	<div class="span11">
 		<p>

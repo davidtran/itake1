@@ -9,4 +9,11 @@
  * This file will be merged on main-env.php configuration file. It should contain application configuration settings,
  * related to your development machine. You can also use main-local.php
  */
-return array();
+return array(
+    'modules'=>array(
+        'gii'=>array(
+            'class'=>'system.gii.GiiModule',
+            'password'=>'123',
+        )
+    ),     
+);

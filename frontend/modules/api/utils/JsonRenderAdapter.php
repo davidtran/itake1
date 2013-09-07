@@ -31,7 +31,7 @@ class JsonRenderAdapter{
             'id'=>$user->id,
             'username'=>$user->username,
             'email'=>$user->email,
-            'image'=>UserUtil::getProfileImageUrl($user),
+            'image'=>$user->getProfileImageUrl(true)
         );
         return $data;
     }
