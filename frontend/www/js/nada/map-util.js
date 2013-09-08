@@ -4,7 +4,7 @@ var MapUtils = {
     searchMapByAddress: function(address,callback) {
         callback = callback || function(){};
         GMaps.geocode({
-            address: getMapSearchQuery(address),
+            address: address,
             callback: function(results, status) {
                 if (status == 'OK') {
                     var latlng = results[0].geometry.location;

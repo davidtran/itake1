@@ -5,6 +5,7 @@ var UserLocation = {
     defaultLat:null,
     defaultLng:null,
     map:$('locationMap'),
+    addressField:'#LocationForm_address',
     init: function() {
         UserLocation.initShowLocationDialogButton();                
     },
@@ -38,7 +39,7 @@ var UserLocation = {
                 $(UserLocation.locationDialog).modal('show');
                 
             }else{
-                window.location = 'login.html';
+                window.location = '/login.html';
             }
             
             
@@ -117,16 +118,16 @@ var UserLocation = {
     },
     initAddressField: function() {
         $(UserLocation.addressField).keydown(function(e){
-            console.log(e.keycode);
+            console.log(e.keycode);            
             if (e.keyCode == 13) {
                 e.preventDefault();
-                UserLocation.seachMapByAddress($(UserLocation.addressField).val(), $('#Address_city option:selected').text());
+                UserLocation.seachMapByAddress($(UserLocation.addressField).val(), $('#LocationForm_city option:selected').text());
                 return false;
-            }
+            }            
         });
         $('#btnSearchLocation').click(function(e){
             e.preventDefault();
-            UserLocation.seachMapByAddress($(UserLocation.addressField).val(), $('#Address_city option:selected').text());
+            UserLocation.seachMapByAddress($(UserLocation.addressField).val(), $('#LocationForm_city option:selected').text());
             return false;
         });
     },
