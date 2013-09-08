@@ -2,7 +2,7 @@
     <div class="modal hide fade" id='locationDialog' style="top:50%;">        
         <div class="modal-body" >           
             <?php
-            $location = new LocationForm();
+            
             $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 'enableClientValidation' => true,
                 'type' => 'horizontal',
@@ -14,7 +14,7 @@
             <div class="row-fluid">
                 <div class="span12">       
                     <h3>Vị trí hiện tại của bạn</h3>
-
+                    <?php echo $form->dropDownListRow($location, 'city', CityUtil::getCityListData(true), array('style' => 'min-width:274px;')); ?>
                     <div id="advanceFeature">                    
 
                         <div class="control-group success">
@@ -50,7 +50,7 @@
         </div>
         <div class="modal-footer">
             <a href="#" class="btn flat" data-dismiss="modal">Đóng</a>
-            <a href="#" class="btn flat btn-primary" id="btnSaveAddress">Chọn</a>
+            <a href="#" class="btn flat btn-primary" id="saveLocation">Chọn</a>
         </div>
     </div>
 </div>

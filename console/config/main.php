@@ -30,109 +30,110 @@ $mainEnvFile = $consoleConfigDir . DIRECTORY_SEPARATOR . 'main-env.php';
 $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : array();
 
 return CMap::mergeArray(
-	array(
-		// @see http://www.yiiframework.com/doc/api/1.1/CApplication#basePath-detail
-		'basePath' => 'console',
-		// set parameters
-		'params' => $params,
-		// preload components required before running applications
-		// @see http://www.yiiframework.com/doc/api/1.1/CModule#preload-detail
-		'preload' => array('log'),
-
-		// setup import paths aliases
-		// @see http://www.yiiframework.com/doc/api/1.1/YiiBase#import-detail
-		'import' => array(
-			'console.components.*',
-            'common.components.*',
-			'common.extensions.*',
-			'common.models.*',
-            'common.utils.*',
-            'common.utils.solr.*',
-            
-            'application.components.*',
-			'application.controllers.*',
-			'application.models.*',	
-            
-		),
-		/* locate migrations folder if necessary */
-		'commandMap' => array(
-			'migrate' => array(
-				'class' => 'system.cli.commands.MigrateCommand',
-				/* change if required */
-				'migrationPath' => 'root.console.migrations'
-			)
-		),
-		'components' => array(
-			'errorHandler' => array(
-				// @see http://www.yiiframework.com/doc/api/1.1/CErrorHandler#errorAction-detail
-				'errorAction'=>'site/error'
-			),            
-            'urlManager'=>array(
-                'baseUrl'=>$params['urlManager.hostInfo'],
-                'urlFormat' => 'path',
-                    'showScriptName' => false,
-                    'caseSensitive' => false,
-                    'urlSuffix'=>'.html',
+                array(
+            // @see http://www.yiiframework.com/doc/api/1.1/CApplication#basePath-detail
+            'basePath' => 'console',
+            // set parameters
+            'params' => $params,
+            // preload components required before running applications
+            // @see http://www.yiiframework.com/doc/api/1.1/CModule#preload-detail
+            'preload' => array('log'),
+            // setup import paths aliases
+            // @see http://www.yiiframework.com/doc/api/1.1/YiiBase#import-detail
+            'import' => array(
+                'console.components.*',
+                'common.components.*',
+                'common.extensions.*',
+                'common.models.*',
+                'common.utils.*',
+                'common.utils.solr.*',
+                'application.components.*',
+                'application.controllers.*',
+                'application.models.*',
             ),
-            'user' => array(
-                // enable cookie-based authentication
-                'allowAutoLogin' => true,
-                'class' => 'application.components.WebUser',
-            ),
-            'facebook' => array(
-                'appId' => $params['facebook.appId'],
-                'secret' => $params['facebook.secret'],
-                'class' => 'common.extensions.yii-facebook-opengraph.ItakeSFacebook',
-                'fileUpload' => true,
-            ),
-         
-            'mail' => array(
-                'class' => 'common.extensions.yii-mail.YiiMail',
-                'transportType' => 'smtp',
-                'viewPath' => $params['email.viewPath'],
-                'logging' => true,
-                'dryRun' => false,
-                'transportOptions'=>array(
-                    'host'=>$params['email.host'],
-                    'username'=>$params['email.username'],
-                    'password'=>$params['email.password'],
-                    'port'=>$params['email.port'],
-                    'encryption' => $params['email.encryption'],
+            /* locate migrations folder if necessary */
+            'commandMap' => array(
+                'migrate' => array(
+                    'class' => 'system.cli.commands.MigrateCommand',
+                    /* change if required */
+                    'migrationPath' => 'root.console.migrations'
                 )
             ),
-            'solrProduct'=>array(
-                'class'=>'common.extensions.solr.CSolrComponent',
-                'host'=>$params['solr.host'],            
-                'port'=>$params['solr.port'],
-                'indexPath'=>$params['solr.indexPath'],
-            ),
-            'errorHandler' => array(
-                // use 'site/error' action to display errors
-                'errorAction' => 'site/error',
-            ),        
-            'log' => array(
-                'class' => 'CLogRouter',
-                'routes' => array(
-                    array(
-                        'class' => 'CFileLogRoute',
-                        'levels' => 'error, warning',
-                    ),
-
+            'components' => array(
+                'errorHandler' => array(
+                    // @see http://www.yiiframework.com/doc/api/1.1/CErrorHandler#errorAction-detail
+                    'errorAction' => 'site/error'
                 ),
+                'authManager' => array(
+                    'class' => 'CDbAuthManager',
+                    'connectionID' => 'db',
+                ),
+                'request'=>array(
+                    'baseUrl'=>$params['request.baseUrl']
+                ),
+                'urlManager' => array(
+                    'baseUrl' => $params['urlManager.hostInfo'],
+                    'urlFormat' => 'path',
+                    'showScriptName' => false,
+                    'caseSensitive' => false,
+                    'urlSuffix' => '.html',
+                ),
+                'user' => array(
+                    // enable cookie-based authentication
+                    'allowAutoLogin' => true,
+                    'class' => 'application.components.WebUser',
+                ),
+                'facebook' => array(
+                    'appId' => $params['facebook.appId'],
+                    'secret' => $params['facebook.secret'],
+                    'class' => 'common.extensions.yii-facebook-opengraph.ItakeSFacebook',
+                    'fileUpload' => true,
+                ),
+                'mail' => array(
+                    'class' => 'common.extensions.yii-mail.YiiMail',
+                    'transportType' => 'smtp',
+                    'viewPath' => $params['email.viewPath'],
+                    'logging' => true,
+                    'dryRun' => false,
+                    'transportOptions' => array(
+                        'host' => $params['email.host'],
+                        'username' => $params['email.username'],
+                        'password' => $params['email.password'],
+                        'port' => $params['email.port'],
+                        'encryption' => $params['email.encryption'],
+                    )
+                ),
+                'solrProduct' => array(
+                    'class' => 'common.extensions.solr.CSolrComponent',
+                    'host' => $params['solr.host'],
+                    'port' => $params['solr.port'],
+                    'indexPath' => $params['solr.indexPath'],
+                ),
+                'errorHandler' => array(
+                    // use 'site/error' action to display errors
+                    'errorAction' => 'site/error',
+                ),
+                'log' => array(
+                    'class' => 'CLogRouter',
+                    'routes' => array(
+                        array(
+                            'class' => 'CFileLogRoute',
+                            'levels' => 'error, warning',
+                        ),
+                    ),
+                ),
+                'db' => array(
+                    'connectionString' => $params['db.connectionString'],
+                    'username' => $params['db.username'],
+                    'password' => $params['db.password'],
+                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+                    'enableParamLogging' => YII_DEBUG,
+                    'charset' => 'utf8',
+                    'tablePrefix' => $params['db.tablePrefix'],
+                ),
+                'cache' => $params['cache.core'],
+                'contentCache' => $params['cache.content']
             ),
-			'db' => array(
-				'connectionString' => $params['db.connectionString'],
-				'username' => $params['db.username'],
-				'password' => $params['db.password'],
-				'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
-				'enableParamLogging' => YII_DEBUG,
-				'charset' => 'utf8',
-                'tablePrefix'=>$params['db.tablePrefix'],
-			),
-			'cache' => $params['cache.core'],
-			'contentCache' => $params['cache.content']
-		),
-	),
-	CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
+                ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );
 

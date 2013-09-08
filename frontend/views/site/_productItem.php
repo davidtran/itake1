@@ -22,6 +22,15 @@
                     </div>    
                     <div class="span6">
                         <div class="productImagePrice"><?php echo number_format($product->price, 0); ?> đ</div>
+                        
+                        <?php 
+                            $location = UserLocationUtil::getInstance()->getLocation();                            
+                            if($location!==false){
+                                echo $product->getDistance($location[0],$location[1]);
+                            }
+                        ?>
+                        
+                        
                     </div> 
                 </div>            
             </div>

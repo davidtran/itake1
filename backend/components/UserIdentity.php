@@ -22,15 +22,16 @@ class UserIdentity extends CUserIdentity {
 
 		if ($user === null) {
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
-		} else if (!$user->verifyPassword($this->password)) {
+		} else if ($user->password != $user->makeOptimizedPassword($this->password,$user->salt)) {
 			$this->errorCode = self::ERROR_PASSWORD_INVALID;
 		} else {
-			$user->regenerateValidationKey();
+			$validateKey = StringUtil::generateRandomString(50);
 			$this->_id = $user->id;
-			$this->username = $user->username;
-			$this->setState('vkey', $user->validation_key);
-			$this->errorCode = self::ERROR_NONE;
+			$this->username = $user->email;
+			$this->setState('vkey', $validateKey);
+			$this->errorCode = self::ERROR_NONE;        
 		}
+        
 		return !$this->errorCode;
 	}
 

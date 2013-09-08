@@ -13,7 +13,7 @@
         <div class="row-fluid">            
             <div class="span6 profile-name">
                 <div class="avatar">
-            <?php echo CHtml::image($user->getProfileImageUrl(),$user->username,array(
+            <?php echo CHtml::image(Yii::app()->baseUrl.'/'.$user->getProfileImageUrl(),$user->username,array(
                 'width'=>120,
                 'height'=>120,
                 'style'=>'width: 120px;

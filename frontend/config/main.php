@@ -32,7 +32,8 @@ $config = CMap::mergeArray(
                 'common.utils.solr.*',
                 'application.components.*',
                 'application.controllers.*',
-                'application.models.*',                
+                'application.models.*',   
+                'application.utils.*',
             ),
             'modules'=>array(
                 'api'

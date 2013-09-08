@@ -16,10 +16,11 @@ class FeedbackController extends Controller{
         $feedback = new Feedback();
         if(Yii::app()->user->isGuest == false){
             $feedback->user_id = Yii::app()->user->getId();
-        }
+        }        
         if(isset($_POST['Feedback'])){
             $feedback->attributes = $_POST['Feedback'];
             $feedback->url = $_SERVER['HTTP_REFERER'];                        
+            $feedback->ip = Yii::app()->request->getUserHostAddress();
             if($feedback->save()){
                 FeedbackUtil::sendFeedbackToAdmin($feedback);
                 $this->renderAjaxResult(true,'Phản hồi của bạn đã gửi đến chúng tôi. Xin cảm ơn bạn.');

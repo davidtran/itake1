@@ -45,5 +45,7 @@ return array(
     'urlManager.hostInfo' => 'http://test.itake.me',
     'urlManager.secureHostInfo' => 'https://test.itake.me',
     'urlManager.secureRoutes' => array(
-    )
+    ),
+    'backendUrl'=>'http://backend-test.itake.me',
+    'frontendUrl'=>'http://test.itake.me',
 );

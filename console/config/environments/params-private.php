@@ -7,10 +7,6 @@
  * Time: 5:51 PM
  */
 return array(
-    'request.baseUrl'=>'http://dev.itake',
-     'db.connectionString' => 'mysql:host=localhost;dbname=nada',
-	   'db.username' => 'root',
-	   'db.password' => '',
-	   'db.tablePrefix' => 'mp_',   
+    'request.baseUrl'=>'http://dev.itake',     
 	   'urlManager.hostInfo'=>'http://dev.itake' 
 );

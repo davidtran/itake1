@@ -1,7 +1,7 @@
 <div class="messageItemContainer" class="<?php if ($item['read']) echo 'read'; ?>">
     <div class="row-fluid">
         <div class="span1">
-            <?php echo CHtml::image(UserUtil::getProfileImageUrl($item['friend'])); ?>
+            <?php echo CHtml::image($item['friend']->getProfileImageUrl()); ?>
         </div>
         <div class="span9">
             <div class="messageContent">
