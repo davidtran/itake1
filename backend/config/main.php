@@ -32,7 +32,7 @@ $mainEnvConfiguration = file_exists($mainEnvFile) ? require($mainEnvFile) : arra
 
 return CMap::mergeArray(
                 array(
-            'name' => 'Clevertech Backend Boilerplate',
+            'name' => 'Quản lý iTake',
             'basePath' => 'backend',
             'params' => $params,
             'preload' => array('bootstrap', 'log'),
@@ -56,6 +56,7 @@ return CMap::mergeArray(
             ),
             'components' => array(
                 'user' => array(
+                    'class'=>'backend.components.AdminWebUser',
                     'allowAutoLogin' => true,
                 ),
                 /* load bootstrap components */

@@ -55,14 +55,16 @@ class UserController extends Controller
 	public function actionCreate()
 	{
         if(Yii::app()->user->checkAccess(UserRoleConstant::CREATE_USER_TASK)){
-            $model=new User;		
+            $model=new User('admin');		
             if(isset($_POST['User']))
             {
                 $model->attributes=$_POST['User'];
-                if($model->save())
+                if($model->save()){
+                    $this->updateUserAccess($model);
                     $this->redirect(array('view','id'=>$model->id));
+                }
+                    
             }
-
             $this->render('create',array(
                 'model'=>$model,
             ));
@@ -84,8 +86,10 @@ class UserController extends Controller
             if(isset($_POST['User']))
             {
                 $model->attributes=$_POST['User'];
-                if($model->save())
+                if($model->save()){
+                    $this->updateUserAccess($model);
                     $this->redirect(array('view','id'=>$model->id));
+                }
             }
             $model->password = '';
               
@@ -138,9 +142,10 @@ class UserController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=User::model()->findByPk($id);
+		$model=User::model()->findByPk($id);        
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
+        $model->setScenario('admin');
 		return $model;
 	}
 
@@ -156,4 +161,18 @@ class UserController extends Controller
 			Yii::app()->end();
 		}
 	}
+    
+    protected function updateUserAccess($user){
+        switch($user->role){
+            case UserRoleConstant::MOD:
+                Yii::app()->authManager->assign('mod',$user->id);
+                break;
+            case UserRoleConstant::ADMIN:
+                Yii::app()->authManager->assign('admin',$user->id);
+                break;
+            default:                
+                break;
+                
+        }
+    }
 }

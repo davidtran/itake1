@@ -21,6 +21,15 @@ class UserRoleConstant{
         );
     }
     
+    public static function getRoleName($role){
+        $list = self::getRoleList();
+        if(isset($list[$role])){
+            return $list[$role];
+        }else{
+            return null;
+        }
+    }
+    
     public static function getAdminRoleList(){
         return array(self::MOD,self::ADMIN);
     }

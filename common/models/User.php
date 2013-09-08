@@ -65,7 +65,7 @@ class User extends CActiveRecord
         return array(
             array('email,username,password', 'required'),
             array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
-            array('status,type,isFbUser,gender', 'numerical', 'integerOnly' => true),
+            array('status,type,isFbUser,gender,role', 'numerical', 'integerOnly' => true),
             array('password', 'length', 'max' => 50),
             array('salt', 'length', 'max' => 50),
             array('email ', 'length', 'max' => 200),

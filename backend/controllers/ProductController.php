@@ -28,17 +28,9 @@ class ProductController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
+				'actions'=>array('index','view','delete'),
+				'users'=>  UserRoleConstant::getAdminUserList()
+			),			
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -51,9 +43,11 @@ class ProductController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+        if(Yii::app()->user->checkAccess('viewProduct')){
+            $this->render('view',array(
+                'model'=>$this->loadModel($id),
+            ));
+        }
 	}
 
 	/**
@@ -62,6 +56,7 @@ class ProductController extends Controller
 	 */
 	public function actionCreate()
 	{
+        return;
 		$model=new Product;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -86,6 +81,7 @@ class ProductController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+        return;
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -110,11 +106,13 @@ class ProductController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+        if(Yii::app()->user->checkAccess('deleteProduct')){
+            $this->loadModel($id)->delete();
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            if(!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        }
 	}
 
 	/**
@@ -122,29 +120,17 @@ class ProductController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$model=new Product('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Product']))
-			$model->attributes=$_GET['Product'];
+        if(Yii::app()->user->checkAccess('viewProduct')){
+            $model=new Product('search');
+            $model->unsetAttributes();  // clear any default values
+            if(isset($_GET['Product']))
+                $model->attributes=$_GET['Product'];
 
-		$this->render('index',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new Product('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Product']))
-			$model->attributes=$_GET['Product'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
+            $this->render('index',array(
+                'model'=>$model,
+            ));
+        }
+		
 	}
 
 	/**

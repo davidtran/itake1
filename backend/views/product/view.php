@@ -9,8 +9,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Product', 'url'=>array('index')),
-	array('label'=>'Create Product', 'url'=>array('create')),
-	array('label'=>'Update Product', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete Product', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 );
 ?>
@@ -25,18 +23,20 @@ $this->menu=array(
 		'description',
 		'price',
 		'user_id',
-		'image',
 		'create_date',
 		'lat',
 		'lon',
 		'phone',
 		'category_id',
-		'processed_image',
 		'city',
 		'locationText',
-		'image_thumbnail',
 		'view',
-		'address_id',
 		'country',
 	),
 )); ?>
+<h3>Hình ảnh</h3>
+<?php foreach($model->images as $image): ?>
+    <?php echo CHtml::image(Yii::app()->params['frontendUrl'].'/'.$image->image,'',array('width'=>200)); ?>
+    <br/>
+<?php endforeach; ?>
+
