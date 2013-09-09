@@ -48,7 +48,7 @@ Yii::app()->clientScript->registerScript('data',"
             
                 <h1>
                     <?php echo $categoryModel->getIconAndNameHtml()."   ";?>
-                    <?php LanguageUtil::echoT($categoryModel->name); ?>
+                    <?php LanguageUtil::echoT($categoryModel->name); ?> tại <?php echo CityUtil::getCityName($city); ?>
 
                 </h1>                                     
                 <script>

@@ -42,7 +42,7 @@ class SiteController extends Controller
     {
         //change city
         //redirect to index with selected category
-        Yii::app()->session['LastCity'] = $id;
+        UserRegistry::getInstance()->setValue('City', $id);
         $redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/list');
         $this->redirect($redirectUrl);
     }
@@ -59,9 +59,8 @@ class SiteController extends Controller
     {
         SolrSortTypeUtil::getInstance()->setSortType($type);
 
-        if (isset(Yii::app()->session['LastCity'])) {
-            $city = Yii::app()->session['LastCity'];
-        }
+        
+        $city = UserRegistry::getInstance()->getValue('City');
         $category = Yii::app()->session->get('LastCategory', null);
         $keyword = Yii::app()->session->get('LastKeyword', null);
 
@@ -92,10 +91,8 @@ class SiteController extends Controller
             $this->pageTitle = Yii::app()->name . ' - Sản phẩm được đăng từ bạn bè của bạn';
         }
 
-        $city = 0;
-        if (isset(Yii::app()->session['LastCity'])) {
-            $city = Yii::app()->session['LastCity'];
-        }
+        
+        $city = UserRegistry::getInstance()->getValue('City',0);
 
         $solrAdapter = new SolrSearchAdapter();
         $solrAdapter->setSortType(SolrSortTypeUtil::getInstance()->getCurrentSortType());
@@ -146,6 +143,7 @@ class SiteController extends Controller
                 'empty' => $empty,
                 'locationAddress'=>$locationAddress,
                 'locationCity'=>$locationCity,
+                'city'=>$city
             ));
         }
         else {
