@@ -18,6 +18,6 @@ class LocationForm extends CFormModel{
         return array(
             'address'=>'Địa chỉ'
         );
-    }
+    }        
     
 }

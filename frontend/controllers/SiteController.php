@@ -56,7 +56,7 @@ class SiteController extends Controller
     }
 
     public function actionSortType($type)
-    {        
+    {
         SolrSortTypeUtil::getInstance()->setSortType($type);
 
         if (isset(Yii::app()->session['LastCity'])) {
@@ -73,7 +73,7 @@ class SiteController extends Controller
     }
 
     public function actionList($keyword = null, $category = null, $facebook = false, $page = 0)
-    {                
+    {
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber'] = $page;
         Yii::app()->session['LastCategory'] = $category;
@@ -105,12 +105,16 @@ class SiteController extends Controller
         $solrAdapter->pageSize = 12;
         $solrAdapter->country = Yii::app()->country->getId();
         $solrAdapter->keyword = $keyword;
-        if($solrAdapter->getSortType() == SolrSearchAdapter::TYPE_LOCATION){
-            $locationArray = UserLocationUtil::getInstance()->getLocation();
-            if($locationArray !== false){
-                $solrAdapter->setLocation($locationArray[0],$locationArray[1]);
+        $locationAddress= null;
+        $locationCity = null;
+        if ($solrAdapter->getSortType() == SolrSearchAdapter::TYPE_LOCATION) {
+            $lat = UserLocationUtil::getInstance()->lat;
+            $lng = UserLocationUtil::getInstance()->lng;
+            $address = UserLocationUtil::getInstance()->address;
+            $city = UserLocationUtil::getInstance()->city;
+            if ($lat != null && $lng != null) {
+                $solrAdapter->setLocation($lat, $lng);
             }
-            
         }
         Yii::beginProfile('search');
         $resultSet = $solrAdapter->search();
@@ -138,7 +142,9 @@ class SiteController extends Controller
                 'keyword' => $keyword,
                 'categoryModel' => $categoryModel,
                 'facebook' => $facebook,
-                'empty' => $empty
+                'empty' => $empty,
+                'locationAddress'=>$locationAddress,
+                'locationCity'=>$locationCity,
             ));
         }
         else {
@@ -153,7 +159,7 @@ class SiteController extends Controller
             echo $html;
             Yii::app()->end();
         }
-    }               
+    }
 
     public function actionIndex()
     {
@@ -162,8 +168,8 @@ class SiteController extends Controller
             $this->redirect($this->createUrl('landing'));
         }
         $categoryList = Category::model()->findAll();
-        $this->render('index',array(
-            'categoryList'=>$categoryList
+        $this->render('index', array(
+            'categoryList' => $categoryList
         ));
     }
 
@@ -299,38 +305,50 @@ class SiteController extends Controller
     {
         $location = new LocationForm();
         $location->city = CityUtil::getSelectedCityId();
-        $userLocation = UserLocationUtil::getInstance()->getLocation();
-        if($userLocation!==false){
-            $url = $this->createUrl('/site/sortType',array('type'=>  SolrSearchAdapter::TYPE_LOCATION));
-            $this->renderAjaxResult(true,array(
-                'alreadyHaveLocation'=>true,
-                'url'=>$url
+        $lat = UserLocationUtil::getInstance()->lat;
+        $lng = UserLocationUtil::getInstance()->lng;
+        if ($lat && $lng) {
+            $url = $this->createUrl('/site/sortType', array('type' => SolrSearchAdapter::TYPE_LOCATION));
+            $this->renderAjaxResult(true, array(
+                'alreadyHaveLocation' => true,
+                'url' => $url
             ));
-        }else{
+        }
+        else {
             $html = $this->renderPartial('/site/partial/selectLocationDialog', array(
                 'location' => $location
                     ), true, false);
             $this->renderAjaxResult(true, array(
                 'html' => $html,
-                'alreadyHaveLocation'=>false
+                'alreadyHaveLocation' => false
             ));
         }
-        
     }
 
     public function actionSaveLocation()
     {
         $lat = Yii::app()->request->getPost('lat');
         $lng = Yii::app()->request->getPost('lng');
-        if($lat!=null && $lng!=null){
-            UserLocationUtil::getInstance()->setLocation(array($lat,$lng));
-            $url = $this->createUrl('/site/sortType',array('type'=>  SolrSearchAdapter::TYPE_LOCATION));
-            $this->renderAjaxResult(true,array('url'=>$url));
-        }else{
-            $this->renderAjaxResult(false,'Invalid data');
-        }        
+        $address = Yii::app()->request->getPost('address');
+        $city = Yii::app()->request->getPost('city');
+        if ($lat != null && $lng != null) {
+            UserLocationUtil::getInstance()->address = $address;
+            UserLocationUtil::getInstance()->lat = $lat;
+            UserLocationUtil::getInstance()->lng = $lng;
+            UserLocationUtil::getInstance()->city = $city;
+            $url = $this->createUrl('/site/sortType', array('type' => SolrSearchAdapter::TYPE_LOCATION));
+            $this->renderAjaxResult(true, array('url' => $url));
+        }
+        else {
+            $this->renderAjaxResult(false, 'Invalid data');
+        }
     }
     
-    
+    public function actionRemoveLocation(){
+            UserLocationUtil::getInstance()->address = null;
+            UserLocationUtil::getInstance()->lat = null;
+            UserLocationUtil::getInstance()->lng = null;
+            UserLocationUtil::getInstance()->city = null;
+    }
 
 }

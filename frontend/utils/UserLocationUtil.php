@@ -4,6 +4,11 @@ class UserLocationUtil
 {
 
     protected static $instance = null;
+    
+    public $lat;
+    public $lng;
+    public $address;
+    public $city;
 
     /**
      * Singleton
@@ -19,17 +24,17 @@ class UserLocationUtil
 
     public function __construct()
     {
-        $this->location = $this->getLocation();
-    }
+        
+    }             
 
-    public function setLocation($value)
+    public function __set($name, $value)
     {
-        UserRegistry::getInstance(true,false)->setValue('UserLocation',$value);
+        UserRegistry::getInstance(true,false)->setValue('UserLocation_'.$name,$value);
     }
-
-    public function getLocation()
+    
+    public function __get($name)
     {
-        return UserRegistry::getInstance(true,false)->getValue('UserLocation',false);
+        return UserRegistry::getInstance(true,false)->getValue($name, null);
     }
 
 }

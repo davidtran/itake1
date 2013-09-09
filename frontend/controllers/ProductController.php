@@ -130,7 +130,7 @@ class ProductController extends Controller
         $adapter->categoryId = $product->category_id;
         $adapter->city = $product->city;
         $adapter->country = $product->country;
-        $adapter->mm = 10;
+        $adapter->mm = 1;
         $adapter->setSortType(SolrSearchAdapter::TYPE_CREATE_DATE);
         $adapter->excludeProduct($product->id);
         $result = $adapter->search();

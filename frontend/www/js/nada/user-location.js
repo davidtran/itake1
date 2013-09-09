@@ -12,6 +12,7 @@ var UserLocation = {
     initShowLocationDialogButton:function(){
         $('#linkSort_2').click(function(e){
             e.preventDefault();
+            
             if(typeof(loginUser) != 'undefined'){
                 
                 $.ajax({
@@ -49,22 +50,33 @@ var UserLocation = {
     initSaveLocation:function(){
         $('#saveLocation').click(function(e){
             e.preventDefault();
-            $.ajax({
-                url:BASE_URL + '/site/saveLocation',
-                type:'post',
-                data:{
-                    lat:$('#LocationForm_lat').val(),
-                    lng:$('#LocationForm_lng').val()
-                },
-                success:function(jsons){
-                    var data = $.parseJSON(jsons);
-                    if(data.success){
-                        window.location = data.msg.url;
-                    }else{
-                        bootbox.alert(data.msg);
+            var lat = $('#LocationForm_lat').val();
+            var lng = $('#LocationForm_lng').val();
+            var address = $('#LocationForm_address').val();
+            var city = $('#LocationForm_city option:selected').text();
+            if(lat && lng && address.trim().length > 0){
+                $.ajax({
+                    url:BASE_URL + '/site/saveLocation',
+                    type:'post',
+                    data:{
+                        lat:lat,
+                        lng:lng,
+                        address:address,
+                        city:city
+                    },
+                    success:function(jsons){
+                        var data = $.parseJSON(jsons);
+                        if(data.success){
+                            window.location = data.msg.url;
+                        }else{
+                            bootbox.alert(data.msg);
+                        }
                     }
-                }
-            });
+                });
+            }else{
+                bootbox.alert('Vui lòng chọn địa chỉ')
+            }
+            
             return false;
         })
     },
