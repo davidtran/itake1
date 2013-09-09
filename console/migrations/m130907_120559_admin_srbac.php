@@ -43,13 +43,13 @@ create table AuthAssignment
         /* @var $auth CAuthManager */
         $auth = Yii::app()->authManager;
 
-        $mod = $auth->createRole('mod', 'view/delete product', 'return Yii::app()->user->model->role == UserRoleConstant::MOD');
+        $mod = $auth->createRole('mod', 'view/delete product');
         $viewProduct = $auth->createAuthItem('viewProduct', CAuthItem::TYPE_TASK);
         $deleteProduct = $auth->createAuthItem('deleteProduct', CAuthItem::TYPE_TASK);
         $mod->addChild('viewProduct');
         $mod->addChild('deleteProduct');
 
-        $admin = $auth->createRole('admin', 'view/delete product, manage user', 'return Yii::app()->user->model->role == UserRoleConstant::ADMIN');
+        $admin = $auth->createRole('admin', 'view/delete product, manage user');
         $viewUser = $auth->createTask('viewUser');
         $createUser = $auth->createAuthItem('createUser', CAuthItem::TYPE_TASK);
         $updateUser = $auth->createTask('updateUser');
