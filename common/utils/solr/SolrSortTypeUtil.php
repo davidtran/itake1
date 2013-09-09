@@ -52,7 +52,7 @@ class SolrSortTypeUtil
     {
         return array(
             SolrSearchAdapter::TYPE_CREATE_DATE => 'Time',
-            SolrSearchAdapter::TYPE_TREND => 'Trend',
+            //SolrSearchAdapter::TYPE_TREND => 'Trend',
             SolrSearchAdapter::TYPE_LOCATION =>'Near you'
         );
     }

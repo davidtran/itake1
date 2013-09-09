@@ -33,7 +33,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.i
         
         <div class="span9" style="margin-left:50px;">            
             <div class="row-fluid" id="wrapper_categoryContainer" style="margin-top:80px;"   >  
-                <div class="row-fluid" id="fixWidthMasory"></div>
+                <div class="row-fluid" id="fixWidthMasory"></div>   
                 <div class="categoryList">
                     <ul class="thumbnails">
                         <?php foreach($categoryList as $category):?>
