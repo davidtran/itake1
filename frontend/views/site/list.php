@@ -77,7 +77,8 @@ Yii::app()->clientScript->registerScript('data',"
                 <?php if($locationAddress !=null):?>
                     <div class="alert alert-info">
                         <button type="button" class="close" data-dismiss="alert">×</button>
-                        Đang hiển thị các sản phẩm gần địa điểm <?php echo $locationAddress; ?>, <?php echo $locationCity; ?> | Xóa vị trí
+                        Đang hiển thị các sản phẩm gần địa điểm <?php echo $locationAddress; ?>, <?php echo $locationCity; ?> | 
+                        <?php echo CHtml::link('<i class="icon-remove"></i> Xóa vị trí',array('/site/removeLocation'));?>
                     </div>
                 <?php endif; ?>
                 <?php

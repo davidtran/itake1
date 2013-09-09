@@ -107,11 +107,12 @@ class SiteController extends Controller
         $solrAdapter->keyword = $keyword;
         $locationAddress= null;
         $locationCity = null;
+        
         if ($solrAdapter->getSortType() == SolrSearchAdapter::TYPE_LOCATION) {
             $lat = UserLocationUtil::getInstance()->lat;
             $lng = UserLocationUtil::getInstance()->lng;
-            $address = UserLocationUtil::getInstance()->address;
-            $city = UserLocationUtil::getInstance()->city;
+            $locationAddress = UserLocationUtil::getInstance()->address;
+            $locationCity = UserLocationUtil::getInstance()->city;
             if ($lat != null && $lng != null) {
                 $solrAdapter->setLocation($lat, $lng);
             }
@@ -349,6 +350,9 @@ class SiteController extends Controller
             UserLocationUtil::getInstance()->lat = null;
             UserLocationUtil::getInstance()->lng = null;
             UserLocationUtil::getInstance()->city = null;
+            $this->redirect($this->createUrl('/site/sortType',array(
+                'type'=>  SolrSearchAdapter::TYPE_CREATE_DATE
+            )));
     }
 
 }
