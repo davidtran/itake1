@@ -48,7 +48,7 @@ Yii::app()->clientScript->registerScript('data',"
             
                 <h1>
                     <?php echo $categoryModel->getIconAndNameHtml()."   ";?>
-                    <?php LanguageUtil::echoT($categoryModel->name); ?>
+                    <?php LanguageUtil::echoT($categoryModel->name); ?> tại <?php echo CityUtil::getCityName($city); ?>
 
                 </h1>                                     
                 <script>
@@ -72,7 +72,14 @@ Yii::app()->clientScript->registerScript('data',"
                 <?php if (trim($keyword) != ''): ?>
                     <div class="alert alert-info">
                         <button type="button" class="close" data-dismiss="alert">×</button>
-                        <b>Có <?php echo $numFound; ?> kết quả với từ khóa <?php echo $keyword; ?></b></div>
+                        <b>Có <?php echo $numFound; ?> kết quả với từ khóa <?php echo $keyword; ?></b></div>                
+                <?php endif; ?>
+                <?php if($locationAddress !=null):?>
+                    <div class="alert alert-info">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        Đang hiển thị các sản phẩm gần địa điểm <?php echo $locationAddress; ?>, <?php echo $locationCity; ?> | 
+                        <?php echo CHtml::link('<i class="icon-remove"></i> Xóa vị trí',array('/site/removeLocation'));?>
+                    </div>
                 <?php endif; ?>
                 <?php
                 Yii::beginProfile('RenderProductList'); 
