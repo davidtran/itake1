@@ -41,7 +41,7 @@ return array(
     'solr.port' => '8983',
     'solr.host' => 'localhost',
     'solr.indexPath' => '/solr',
-    'country.default' => 'vi',
+    'country.default' => 'vn',
     'urlManager.hostInfo' => 'http://test.itake.me',
     'urlManager.secureHostInfo' => 'https://test.itake.me',
     'urlManager.secureRoutes' => array(
