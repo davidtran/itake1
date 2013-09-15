@@ -58,9 +58,11 @@ class UserController extends Controller
             $model=new User('admin');		
             if(isset($_POST['User']))
             {
+                $lastRole = $model->role;
                 $model->attributes=$_POST['User'];
+                
                 if($model->save()){
-                    $this->updateUserAccess($model);
+                    $this->updateUserAccess($model,$lastRole);
                     $this->redirect(array('view','id'=>$model->id));
                 }
                     
@@ -85,10 +87,11 @@ class UserController extends Controller
             
             if(isset($_POST['User']))
             {
+                $lastRole = $model->role;
                 $model->attributes=$_POST['User'];
                 if($model->save()){
-                    $this->updateUserAccess($model);
-                    $this->redirect(array('view','id'=>$model->id));
+                    $this->updateUserAccess($model,$lastRole);
+                    $this->redirect(array('update','id'=>$model->id));
                 }
             }
             $model->password = '';
@@ -162,17 +165,12 @@ class UserController extends Controller
 		}
 	}
     
-    protected function updateUserAccess($user){
-        switch($user->role){
-            case UserRoleConstant::MOD:
-                Yii::app()->authManager->assign('mod',$user->id);
-                break;
-            case UserRoleConstant::ADMIN:
-                Yii::app()->authManager->assign('admin',$user->id);
-                break;
-            default:                
-                break;
-                
-        }
+    protected function updateUserAccess($user,$lastRole){
+        $lastRoleName = UserRoleConstant::getRoleName($lastRole);
+        
+        Yii::app()->authManager->revoke(strtolower($lastRoleName),$user->id);
+        $roleName = UserRoleConstant::getRoleName($user->role);        
+        Yii::app()->authManager->assign(strtolower($roleName),$user->id);
+        
     }
 }

@@ -47,9 +47,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'type'); ?>
-		<?php echo $form->dropDownList($model,'type',  UserRoleConstant::getRoleList()); ?>
-		<?php echo $form->error($model,'type'); ?>
+		<?php echo $form->labelEx($model,'role'); ?>
+		<?php echo $form->dropDownList($model,'role',  UserRoleConstant::getRoleList()); ?>
+		<?php echo $form->error($model,'role'); ?>
 	</div>
 
 
