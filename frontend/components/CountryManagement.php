@@ -3,7 +3,7 @@
 class CountryManagement extends CApplicationComponent
 {
 
-    public $defaultCountry = 'vn';
+    public $defaultCountry = null;
     protected $currentCountry = null;
     protected $currentCountryId = null;
     protected $countryModel = null;
