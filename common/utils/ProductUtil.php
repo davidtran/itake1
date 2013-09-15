@@ -15,7 +15,7 @@ class ProductUtil
         Yii::app()->db->createCommand($sql)->bindValues(array(
             'productId'=>$productId
         ))->query();
-    }
+    }        
 
 }
 

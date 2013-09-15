@@ -16,7 +16,10 @@
  */
 class Product extends CActiveRecord
 {
-
+    const STATUS_ACTIVE = 0;
+    const STATUS_INACTIVE = 1;
+    const STATUS_DELETED = 2;
+    const STATUS_SOLD = 3;
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -154,6 +157,7 @@ class Product extends CActiveRecord
         if($this->isNewRecord){
             $this->country = Yii::app()->country->getId();
             $this->view = 1;
+            $this->status = self::STATUS_ACTIVE;
         }
         
         $this->title = filter_var($this->title,FILTER_SANITIZE_FULL_SPECIAL_CHARS);

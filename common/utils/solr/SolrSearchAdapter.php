@@ -18,6 +18,11 @@ class SolrSearchAdapter
     public $categoryId = null;
     public $latitude = null;
     public $longitude = null;
+    /**
+     * Product status filter
+     * @var int 
+     */
+    public $status = Product::STATUS_ACTIVE;
     protected $sortType = null;
     public $mm = 2;
     protected $excludeIdList = array();
@@ -54,10 +59,11 @@ class SolrSearchAdapter
         if ($this->categoryId != null) {
             $fq[] = 'category_id:' . $this->categoryId;
         }
+        $fq[] = 'status:'.$this->status;
+        
         $params['fq'] = $fq;
         $params['bf'] = array(
-            'recip(abs(ms(NOW/DAY,create_date)),1,6.3E10,6.3E10)',
-            
+            'recip(abs(ms(NOW/DAY,create_date)),1,6.3E10,6.3E10)',            
         );
         $params['defType'] = 'edismax';
         $params['qf'] = 'title^60 description^20';
@@ -136,7 +142,7 @@ class SolrSearchAdapter
         foreach ($docs as $doc) {
             if (!in_array($doc['id'], $this->excludeIdList, true)) {
                 $product = Product::model()->findByPk(trim($doc['id']));
-                if ($product != null) {
+                if ($product != null && $product->status == $this->status) {
                     $product->title = $doc['title'];
                     $product->description = $doc['description'];
                     $resultSet->productList[] = $product;

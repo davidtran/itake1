@@ -39,7 +39,7 @@ class ProductImage extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('product_id, image, thumbnail, create_date', 'required'),
+			array('product_id, image, create_date', 'required'),
 			array('product_id,number', 'numerical', 'integerOnly'=>true),
 			array('image, thumbnail, facebook', 'length', 'max'=>100),
 			// The following rule is used by search().
