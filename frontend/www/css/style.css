@@ -11,7 +11,6 @@ body.ostyle{
 root { 
     display: block;
 }
-
 .productItem,.productItemUpload{
     width:20%;
     margin-right:2%;
@@ -1769,4 +1768,182 @@ div.profile-name h3{
 }
 #FacebookPage br{
     display: none;
+}
+
+.btn,.btn-group>.btn:first-child{
+	border-radius: 0;
+}
+.dropdown-menu {
+	border-radius: 0;
+}
+.img-circle {
+	border: solid 2px #fff;
+	-webkit-box-shadow: 0px 0px 1px 0 #000;
+-moz-box-shadow: 0px 0px 1px 0 #000;
+box-shadow: 0px 0px 1px 0 #000;
+}
+.intro-sep{
+	border-bottom:dashed 1px #ccc;padding-bottom:30px;margin-bottom:30px;
+}
+.intro-sep.last{
+	border-bottom:none;padding-bottom:20px;margin-bottom:20px;	
+}
+.intro-sep h2{
+	color:#33536d;
+	font-family: "MNBTitleBold";
+    font-weight: 300;
+}
+.intro-sep small{
+	font-family: "Segoe UI Light",Arial,Helvetica,sans-serif;
+	font-size: 1.1em;
+	color:#748796;
+}
+.btn-large.wide{
+	min-width: 170px;
+	min-height: 30px;
+	line-height: 30px;
+}
+.center{
+	text-align: center;
+}
+#feedbackForm input,#feedbackForm textarea{	
+	width: 95%;
+}
+#feedbackForm textarea{
+	min-height: 150px;
+	max-height: 150px;
+}
+#btnShowFeedbackDialog{
+	position: fixed;
+	right: 0;
+	bottom: 100px;
+	z-index: 9999;
+	border-bottom-left-radius: 10px;
+	border-top-left-radius: 10px;
+}
+.intro-top{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 44px;
+	height: 500px;
+	display: block;
+	background: url('../images/bg.jpg') no-repeat;
+	background-size: 100% 100%;
+}
+.intro-image{
+	position: absolute;
+	height: 300px;
+	left: 0;
+	right: 0;
+	top: 150px;
+	height: 350px;
+	background: url('../images/hompage2.png') no-repeat;
+}
+.font-white{
+	color: #fff;
+}
+.font-2x{
+	font-size: 3.5em;
+}
+.font-large{
+	font-size: 2.5em;
+}
+.btn-top{
+	position: relative;
+	left: -10px;
+	right: -10px;
+	line-height: 34px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+.flex-control-thumbs li{
+	height: 100px;
+	overflow: hidden;
+	background: #000;
+	border: solid 1px #ccc;
+	width: 22%;
+	padding: 1%;
+}
+.flexslider .slides img{
+	width: 97%;
+}
+.avarta-on-item{
+	position: relative;
+	top: 5px;
+	left:15px;
+	height: 30px;
+}
+
+.avarta-on-item small{
+	color:#fff;	
+	text-rendering: optimizelegibility;
+	text-shadow: 0 0 3px rgba(0,0,0,0.8);
+}
+a.productLink{
+	overflow: none;
+	display: block;	
+}
+a.productLink:hover{
+	background: rgba(0,0,0,0.9);
+}
+.productControl small{
+	color: #fff;
+	text-rendering: optimizelegibility;
+	text-shadow: 0 0 3px rgba(0,0,0,0.8);
+}
+.productControl{
+	background:none !important;
+	pointer-events:none;
+}
+.productControl a{
+	pointer-events:auto;
+}
+.productControl a.productLink:hover{
+	background:none !important;
+	pointer-events:none;
+}
+.btn-square{
+	font-size: 0.7em;
+	text-transform: uppercase;
+	border-radius: 5px;
+}
+.btn-square i{	
+	width: 100%;
+	float: left;
+	font-size: 200%;
+}
+a.btn-square:hover{
+	color: #DFAF4B;
+}
+.btn-long{
+	width: 140px;
+	position: relative;
+	left: -7px;
+	top:10px;
+	padding: 5px;
+}
+.intro_font{
+	color: #33536d;
+	font-family: "MNBTitleBold";
+	font-weight: 300;
+}
+.green{
+	color: #51a351;
+}
+.pagination li a{
+	font-size: 0.9em;
+}
+div.sort-bar{
+   	position: fixed;
+    left: 180px;
+    right: 0px;
+    top: 44px;
+    color: #0088cc;
+    z-index: 10;
+ 	  -webkit-transition: background-color 1000ms linear;
+     -moz-transition: background-color 1000ms linear;
+     -o-transition: background-color 1000ms linear;
+     -ms-transition: background-color 1000ms linear;
+     transition: background-color 1000ms linear;
 }

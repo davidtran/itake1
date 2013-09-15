@@ -22,7 +22,7 @@ class FeedbackController extends Controller{
             $feedback->url = $_SERVER['HTTP_REFERER'];                        
             $feedback->ip = Yii::app()->request->getUserHostAddress();
             if($feedback->save()){
-                FeedbackUtil::sendFeedbackToAdmin($feedback);
+                //FeedbackUtil::sendFeedbackToAdmin($feedback);
                 $this->renderAjaxResult(true,'Phản hồi của bạn đã gửi đến chúng tôi. Xin cảm ơn bạn.');
             }else{
                 $this->renderAjaxResult(false,'Vui lòng nhập đầy đủ thông tin');

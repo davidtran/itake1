@@ -70,13 +70,7 @@ class CityUtil
 
     public static function getSelectedCityId()
     {
-        if (isset(Yii::app()->session['LastCity'])) {
-            return Yii::app()->session['LastCity'];
-        }
-        else {
-            Yii::app()->session['LastCity'] = 0;
-            return 0;
-        }
+        return UserRegistry::getInstance()->getValue('LastCity',0);
     }
         
   

@@ -4,7 +4,9 @@ Yii::import("frontend.extensions.xupload.models.XUploadForm");
 
 class UploadController extends Controller
 {
+
     const IMAGE_STATE_VARIABLE = 'xuploadFiles';
+
     public function actions()
     {
         return array(
@@ -13,7 +15,7 @@ class UploadController extends Controller
                 'path' => Yii::getPathOfAlias('www') . '/images/content',
                 'publicPath' => Yii::app()->getBaseUrl() . "/images/content",
                 'formClass' => 'frontend.extensions.xupload.models.XUploadForm',
-                'stateVariable'=>self::IMAGE_STATE_VARIABLE
+                'stateVariable' => self::IMAGE_STATE_VARIABLE
             ),
         );
     }
@@ -29,12 +31,10 @@ class UploadController extends Controller
     {
         $solrImporter = new ProductModelSolrImporter();
         $solrImporter->addProduct($product);
-        try
-        {
+        try {
             $solrImporter->importProduct();
         }
-        catch (Exception $e)
-        {
+        catch (Exception $e) {
             throw new CHttpException(500, 'Có lỗi trong khi đăng tin, chúng tôi đang khắc phục điều này');
         }
     }
@@ -51,99 +51,88 @@ class UploadController extends Controller
     }
 
     public function actionIndex($category)
-    {                
+    {
         $returnUrl = $this->createUrl('/upload/index');
         $this->checkLogin('Vui lòng đăng nhập được khi sử dụng tính năng này', $returnUrl);
         $postedToFacebook = false;
         $product = new Product();
         $this->setupDefaultCity($product);
         $product->category_id = $category;
-
+        $product->user_id = Yii::app()->user->getId();
+        $address = new Address();
+        $address->city = CityUtil::getSelectedCityId();
         $photos = new XUploadForm;
-        if (isset($_POST['Product']))
-        {
+        if (isset($_POST['Product'])) {
             $product->attributes = $_POST['Product'];
-            $product->user_id = Yii::app()->user->getId();
 
-            if ($this->haveUploadedImage() && $product->validate(null, false))
-            {            
-                if ($product->save(false))
-                {
+            $product->status = Product::STATUS_ACTIVE;
+            if ($this->haveUploadedImage() && $product->validate(null, false)) {
+                if ($product->save(false)) {
                     $this->solrImportProduct($product);
-                    $this->saveUploadedImage($product);                    
+                    $this->saveUploadedImage($product);
                     $this->postProductToFacebook($product);
                     Yii::app()->session['PostedProductId'] = $product->id;
                     Yii::app()->user->setFlash('success', 'Đăng tin thành công');
-                    Yii::app( )->user->setState(self::IMAGE_STATE_VARIABLE, null );
+                    Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
                     $this->redirect($product->getDetailUrl());
-                    
-                    
                 }
-            }          
-        }else{
-            Yii::app( )->user->setState( self::IMAGE_STATE_VARIABLE, null );
+            }
+        }
+        else {
+            Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
         }
 
 
         $this->render('index', array(
             'product' => $product,
-            'photos' => $photos
+            'photos' => $photos,
+            'address'=>$address
         ));
-    }
-
-    public function setupDefaultCity($product)
-    {
-
-        if ($product->lat == NULL && $product->lon == NULL)
-        {
-            $cityList = CityUtil::getCityList(true);
-            $firstCity = current($cityList);
-            $product->lat = $firstCity['latitude'];
-            $product->lon = $firstCity['longitude'];
-        }
-        return $product;
     }
 
     public function actionEdit($id)
     {
         $this->checkLogin("Cần đăng nhập để chỉnh sửa sản phẩm", Yii::app()->request->requestUri);
         $product = Product::model()->findByPk($id);
-        
-        
-        if ($product != null)
-        {
+
+
+        if ($product != null) {
             if ($product->user_id !== Yii::app()->user->model->id)
                 throw new CHttpException(500, 'Bạn không thể chỉnh sửa mà không phải của bạn');
             $photos = new XUploadForm;
-            if (isset($_POST['Product']))
-            {
+            $address = null;
+            if($product->address !=null){
+                $address = $product->address;
+            }else{
+                $address = new Address();                
+            }
+            if (isset($_POST['Product'])) {
                 $product->attributes = $_POST['Product'];
 
-          
-                if ($product->validate(null, false))
-                {                    
-                    if ($product->save(false))
-                    {
+
+                if ($product->validate(null, false)) {
+                    if ($product->save(false)) {
                         $this->saveUploadedImage($product);
                         $this->solrImportProduct($product);
                         $this->postProductToFacebook($product);
                         Yii::app()->session['PostedProductId'] = $product->id;
                         Yii::app()->user->setFlash('success', 'Chỉnh sửa tin thành công');
-                        Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null );
+                        Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
                         $this->redirect($product->getDetailUrl());
                     }
                 }
-            }else{
-                Yii::app( )->user->setState( self::IMAGE_STATE_VARIABLE , null );
+            }
+            else {
+                Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
             }
             $this->render('index', array(
                 'product' => $product,
                 'category' => $product->category,
-                'photos'=>$photos
+                'photos' => $photos,
+                'address'=>$address
             ));
         }
-        else
-        {
+        else {
             throw CHttpException(404, 'Không tìm thấy sản phẩm bạn cần');
         }
     }
@@ -152,52 +141,48 @@ class UploadController extends Controller
     {
         return $this->createUrl('step2', array('category' => $category->id, 'name' => $category->name));
     }
-    
-    public function haveUploadedImage(){
-         if (Yii::app()->user->hasState(self::IMAGE_STATE_VARIABLE))
-            {
-                $userImages = Yii::app()->user->getState(self::IMAGE_STATE_VARIABLE);                
-                return count($userImages) > 0;
-            }
-            return false;
+
+    public function haveUploadedImage()
+    {
+        if (Yii::app()->user->hasState(self::IMAGE_STATE_VARIABLE)) {
+            $userImages = Yii::app()->user->getState(self::IMAGE_STATE_VARIABLE);
+            return count($userImages) > 0;
+        }
+        return false;
     }
 
     public function saveUploadedImage(Product $product)
     {
         $haveImage = true;
-        if (Yii::app()->user->hasState(self::IMAGE_STATE_VARIABLE))
-        {
+        if (Yii::app()->user->hasState(self::IMAGE_STATE_VARIABLE)) {
             $userImages = Yii::app()->user->getState(self::IMAGE_STATE_VARIABLE);
-            $i =1;
-            foreach ($userImages as $index => $image)
-            {
-                
-                if (is_file($image["path"]))
-                {
+            $i = 1;
+            foreach ($userImages as $index => $image) {
+
+                if (is_file($image["path"])) {
                     $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($product->title)) .
-                                '_' .
-                                $index .
-                                '_' .
-                                $product->id;
-                    $ext = substr($image['filename'],strlen($image['filename'])-3);                  
-                    if (rename($image["path"],  Yii::getPathOfAlias('www').'/images/content/'. $filename.'.'.$ext))
-                    {
-                                                
-                        $resize = ImageUtil::resize('images/content/' . $filename.'.'.$ext, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);
+                            '_' .
+                            $index .
+                            '_' .
+                            $product->id;
+                    $ext = substr($image['filename'], strlen($image['filename']) - 3);
+                    if (rename($image["path"], Yii::getPathOfAlias('www') . '/images/content/' . $filename . '.' . $ext)) {
+
+                        $resize = ImageUtil::resize('images/content/' . $filename . '.' . $ext, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);
                         $imageModel = new ProductImage();
-                        $imageModel->image = 'images/content/' . $filename.'.'.$ext;
-                        $imageModel->thumbnail = $resize;                                                
-                        if($i == 1){                            
+                        $imageModel->image = 'images/content/' . $filename . '.' . $ext;
+                        $imageModel->thumbnail = $resize;
+                        if ($i == 1) {
                             $processed = 'images/content/processed/' . $filename . '.' . $ext;
-                            ProductImageUtil::drawImage($product, $imageModel->image, $processed);                            
+                            ProductImageUtil::drawImage($product, $imageModel->image, $processed);
                             $imageModel->facebook = $processed;
                         }
                         $imageModel->number = $i;
                         $imageModel->product_id = $product->id;
-                        if(  $imageModel->save()){
+                        if ($imageModel->save()) {
                             $i++;
                             $haveImage = true;
-                        }                                               
+                        }
                     }
                 }
             }
@@ -220,16 +205,13 @@ class UploadController extends Controller
 
 
         $rs = $upload->handleUploadImage('images/content', $filename);
-        if ($rs == false)
-        {
-            if ($product->image == null)
-            {
+        if ($rs == false) {
+            if ($product->image == null) {
                 $product->addError('image', $upload->getError());
                 return false;
             }
         }
-        else
-        {
+        else {
 
             $raw = 'images/content/' . $filename . '.' . $upload->getExtension();
             $product->image = $raw;
@@ -243,23 +225,18 @@ class UploadController extends Controller
     }
 
     public function actionDelete()
-    {
-        //check id
-        //inject some crsf
+    {        
         $this->checkLogin('Vui lòng đăng nhập khi sử dụng chức năng này');
         $productId = Yii::app()->request->getParam('id');
-        if ($productId)
-        {
+        if ($productId) {
             $product = Product::model()->findByPk($productId);
-            if ($product != null && $product->user_id == Yii::app()->user->getId())
-            {
+            if ($product != null && $product->user_id == Yii::app()->user->getId()) {
                 $solrImport = new ProductModelSolrImporter();
                 $solrImport->deleteProduct($product);
                 $product->delete();
                 $this->renderAjaxResult(true);
             }
-            else
-            {
+            else {
                 $this->renderAjaxResult(false, 'Không thể xóa bài đăng này');
             }
         }
@@ -269,8 +246,7 @@ class UploadController extends Controller
     public function actionGetGeoData($cityId)
     {
         $cityList = CityUtil::getCityList();
-        if (isset($cityList[$cityId]))
-        {
+        if (isset($cityList[$cityId])) {
             $this->renderAjaxResult(true, $cityList[$cityId]);
         }
         $this->renderAjaxResult(false);
@@ -291,13 +267,11 @@ class UploadController extends Controller
     public function actionAddAddress()
     {
         $address = new Address();
-        if (isset($_POST['Address']))
-        {
+        if (isset($_POST['Address'])) {
             $address->attributes = $_POST['Address'];
             $address->create_date = date('Y-m-d H:i:s');
             $address->user_id = Yii::app()->user->id;
-            if ($address->save())
-            {
+            if ($address->save()) {
                 $this->renderAjaxResult(true, array(
                     'html' => $this->renderPartial(
                             'partial/addressItem', array(
@@ -306,8 +280,7 @@ class UploadController extends Controller
                     )
                 ));
             }
-            else
-            {
+            else {
                 $this->renderAjaxResult(false, 'Vui lòng nhập đầy đủ thông yêu cầu');
             }
         }
@@ -322,75 +295,69 @@ class UploadController extends Controller
         $product = Product::model()->findByPk($productId);
         $address = Address::model()->findByPk($addressId);
         $userId = Yii::app()->user->getId();
-        if ($address != null && $product != null)
-        {
-            if ($product->user_id == $userId && $address->user_id == $userId)
-            {
-                if ($product->address_id != $address->id)
-                {
+        if ($address != null && $product != null) {
+            if ($product->user_id == $userId && $address->user_id == $userId) {
+                if ($product->address_id != $address->id) {
                     $address->delete();
                     $this->renderAjaxResult(true);
                 }
-                else
-                {
+                else {
                     $this->renderAjaxResult(false, 'Không thể xóa địa chỉ đang được sử dụng');
                 }
             }
-            else
-            {
+            else {
                 $this->renderAjaxResult(false, 'Không thể xóa địa chỉ này');
             }
         }
-        else
-        {
-            if ($address != null && $product == null)
-            {
+        else {
+            if ($address != null && $product == null) {
                 $address->delete();
                 $this->renderAjaxResult(true);
             }
         }
     }
-    
-    public function actionDeleteImage($id){
+
+    public function actionDeleteImage($id)
+    {
         $image = ProductImage::model()->findByPk($id);
-        if($image){
+        if ($image) {
             $image->delete();
             $this->renderAjaxResult(true);
-        }else{
-            $this->renderAjaxResult(false,Yii::t('Default','Image is not exist'));
+        }
+        else {
+            $this->renderAjaxResult(false, Yii::t('Default', 'Image is not exist'));
         }
     }
-    
-    protected function getFacebookPageListData(){
+
+    protected function getFacebookPageListData()
+    {
         $pages = FacebookUtil::getInstance()->getManagePageList();
-        if($pages!==false){
+        if ($pages !== false) {
             $rs = array();
-            foreach($pages as $page){
-                $rs[$page['page_id']] = CHtml::link($page['name'],$page['page_url'],array(
-                    'target'=>'_blank'
+            foreach ($pages as $page) {
+                $rs[$page['page_id']] = CHtml::link($page['name'], $page['page_url'], array(
+                            'target' => '_blank'
                 ));
             }
             return $rs;
         }
-        return false;        
+        return false;
     }
-    
-    protected function postProductToFacebook($product){
-        if (Yii::app()->user->isFacebookUser && $product->uploadToFacebook)
-        {
-            try
-            {
+
+    protected function postProductToFacebook($product)
+    {
+        if (Yii::app()->user->isFacebookUser && $product->uploadToFacebook) {
+            try {
                 FacebookUtil::getInstance()->shareProductToFacebook($product);
-                if(isset($_POST['FacebookPage'])){
-                    foreach($_POST['FacebookPage'] as $page){
+                if (isset($_POST['FacebookPage'])) {
+                    foreach ($_POST['FacebookPage'] as $page) {
                         FacebookUtil::getInstance()->shareProductToPage($product, $page);
                     }
                 }
-                
+
                 $postedToFacebook = true;
             }
-            catch (FacebookApiException $e)
-            {
+            catch (FacebookApiException $e) {
                 $postedToFacebook = false;
                 Yii::app()->session['PostedToFacebook'] = false;
             }

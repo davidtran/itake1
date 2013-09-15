@@ -45,7 +45,7 @@
 
                     <?php
                     echo CHtml::link('<i class="icon-shopping-cart"></i> ' . LanguageUtil::t('Sold'), array('/upload/delete'), array(
-                        'class' => 'btn btn-square p-delete',
+                        'class' => 'btn btn-square p-sold',
                         'data-toggle' => 'tooltip',
                         'title' => 'Đã bán phẩm này',
                     ));

@@ -42,6 +42,7 @@ var FeedbackForm = {
                 bootbox.alert(result.msg);                
                 if(result.success){
                     FeedbackForm.dialog.modal('hide');
+                    FeedbackForm.dialog.remove();
                 }
             });
             return false;

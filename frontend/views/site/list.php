@@ -28,7 +28,22 @@ Yii::app()->clientScript->registerScript('data',"
                          <?php foreach (SolrSortTypeUtil::getInstance()->getSortTypeLinkList() as $link): ?>
                             <li><?php echo $link; ?></li>
                         <?php endforeach; ?>               
-                        <li><a href="#">Bạn bè Facebook</a></li>
+                        <li>
+                            <?php echo CHtml::link('Bạn bè Facebook',
+                                $this->createUrl('/site/facebook',
+                                array(
+                                    'category'=>$categoryModel->id)
+                                )
+                            );?>
+                        </li>
+                        <li>
+                            <?php echo CHtml::link('Đã bán',
+                                $this->createUrl('/site/sold',
+                                array(
+                                    'category'=>$categoryModel->id)
+                                )
+                            );?>
+                        </li>
                       </ul>
                     </div>
         </div> 

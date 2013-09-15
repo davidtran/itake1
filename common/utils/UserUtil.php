@@ -230,7 +230,7 @@ HERE
     }
     
     public static function countProductImage($user){
-        $sql = 'select count(i.*) from {{user}} u 
+        $sql = 'select count(*) from {{user}} u 
             join {{product}} p on p.user_id = u.id
             join {{product_image}} i on i.product_id = p.id
             where u.id=:id';

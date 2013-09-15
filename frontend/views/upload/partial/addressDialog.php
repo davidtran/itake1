@@ -1,8 +1,7 @@
 <div class="row-fluid">    
     <div class="modal hide fade" id='addAddressDialog' style="top:50%;">        
         <div class="modal-body" >           
-            <?php 
-            $address  = new Address(); 
+            <?php             
             $form = $this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                 'enableClientValidation'=>true,
                 'type'=>'horizontal',
@@ -13,15 +12,10 @@
                 ?>
                 <div class="row-fluid">
                     <div class="span12">       
-                     <h3>NHẬP THÔNG TIN LIÊN HỆ</h3>
+                     <h3>Người mua sẽ liên hệ với bạn qua</h3>
                      <?php echo $form->dropDownListRow($address, 'city', CityUtil::getCityListData(true), array('style' => 'min-width:274px;')); ?>
 
-                     <div id="advanceFeature">                    
-                        <?php echo $form->textFieldRow($address,'phone',array(
-                            'placeholder'=>'Điện thoại liên hệ',
-                            'style' => 'min-width:260px;'
-                            )); ?>
-                            
+                     <div id="advanceFeature">  
                          <div class="control-group success">
                              <label class="control-label" for="Address_address">Địa chỉ</label>
                              <div class="controls">
@@ -35,6 +29,12 @@
                                  <span class="help-inline error" id="Address_address_em_" style="display: none;"></span>
                              </div>
                          </div>
+                        <?php echo $form->textFieldRow($address,'phone',array(
+                            'placeholder'=>'Điện thoại liên hệ',
+                            'style' => 'min-width:260px;'
+                            )); ?>
+                            
+                         
                         
                         
                             

@@ -150,8 +150,17 @@ class ProductController extends Controller
         $adapter->pageSize = 10;
         $adapter->excludeProduct($product->id);
         $result = $adapter->search();
-
         return $result->productList;
+    }
+    
+    public function actionSold($productId){
+        $product = $this->loadProduct($productId);
+        $product->status = Product::STATUS_SOLD;
+        if($product->save()){
+            $this->renderAjaxResult(true);
+        }else{
+            $this->renderAjaxResult(false,'Không thể lưu thông tin');
+        }        
     }
 
 }

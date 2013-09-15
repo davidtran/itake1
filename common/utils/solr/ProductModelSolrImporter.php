@@ -35,7 +35,8 @@ class ProductModelSolrImporter extends ProductSolrImporter
             'view'=>$product->view,
             'country'=>$product->country,
             'latlng_0_coordinate'=>$product->lat,
-            'latlng_1_coordinate'=>$product->lon
+            'latlng_1_coordinate'=>$product->lon,
+            'status'=>$product->status
         );
         
         if ($product->category != null)

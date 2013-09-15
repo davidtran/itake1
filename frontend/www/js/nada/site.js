@@ -1,5 +1,8 @@
 var $container;
 var ms;
+$(document).ready(function(){
+    $('.thumbnails li.span3:nth-child(4n+1)').css({clear:'left',marginLeft:0});	
+});
 $(document).ready(function() {    
     $(function () {
     $.scrollUp({

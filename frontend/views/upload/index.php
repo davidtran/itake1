@@ -9,11 +9,13 @@ $productInfo = json_encode($product->attributes);
 $cityList = json_encode(CityUtil::getCityList(true));
 $contactInfo = json_encode(UserUtil::getContactInfo());
 $isNewRecord = $product->isNewRecord ? 'true' : 'false';
+$noAddress = Yii::app()->user->model->addressCount == 0? 'true':'false';
 $cs->registerScript('product info', "
     var product = $productInfo;
     var cityList = $cityList;
     var isNewRecord = $isNewRecord;
     var contactInfo = $contactInfo;
+    var noAddress = $noAddress;
     var placeholderImage = '$placeholderImage'    "
         , CClientScript::POS_HEAD);
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1', CClientScript::POS_END);
@@ -182,4 +184,6 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
     </div>
 </div>
 </div>
-<?php $this->renderPartial('partial/addressDialog'); ?>
+<?php $this->renderPartial('partial/addressDialog',array(
+    'address'=>$address
+)); ?>

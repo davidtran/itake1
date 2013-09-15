@@ -57,26 +57,46 @@ class SiteController extends Controller
 
     public function actionSortType($type)
     {
-        SolrSortTypeUtil::getInstance()->setSortType($type);
-
-        
+        SolrSortTypeUtil::getInstance()->setSortType($type);      
         $city = UserRegistry::getInstance()->getValue('City');
         $category = Yii::app()->session->get('LastCategory', null);
-        $keyword = Yii::app()->session->get('LastKeyword', null);
-
+        $keyword = Yii::app()->session->get('LastKeyword', null);        
         $this->redirect($this->createUrl('list', array(
                     'keyword' => $keyword,
                     'category' => $category,
                     'page' => 0
         )));
     }
+    
+    public function actionFacebook($category){
+        $url = $this->createUrl('list',array(
+            'keyword'=>null,
+            'category'=>$category,
+            'facebook'=>true,
+            'page'=>0,
+            'status'=>Product::STATUS_ACTIVE
+        ));
+        $this->redirect($url);
+    }
+    
+    public function actionSold($category){        
+        $url = $this->createUrl('list',array(
+            'keyword'=>null,
+            'category'=>$category,
+            'facebook'=>false,
+            'page'=>0,
+            'status'=>Product::STATUS_SOLD
+        ));
+        $this->redirect($url);
+    }
 
-    public function actionList($keyword = null, $category = null, $facebook = false, $page = 0)
+    public function actionList($keyword = null, $category = null, $facebook = false, $page = 0,$status = Product::STATUS_ACTIVE)
     {
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber'] = $page;
         Yii::app()->session['LastCategory'] = $category;
         Yii::app()->session['LastKeyword'] = $keyword;
+        
         $categoryModel = null;
         if ($category != null) {
             $categoryModel = Category::model()->findByPk($category);
@@ -102,6 +122,7 @@ class SiteController extends Controller
         $solrAdapter->pageSize = 12;
         $solrAdapter->country = Yii::app()->country->getId();
         $solrAdapter->keyword = $keyword;
+        $solrAdapter->status = $status;
         $locationAddress= null;
         $locationCity = null;
         
@@ -125,7 +146,8 @@ class SiteController extends Controller
             'keyword' => $keyword,
             'category' => $category,
             'facebook' => $facebook,
-            'page' => $page + 2
+            'page' => $page + 2,
+            'status'=>$status
         );
         $nextPageUrl = $this->createNextUrl($params);
         $nextPageLink = CHtml::link('Next', $nextPageUrl, array(
@@ -143,7 +165,7 @@ class SiteController extends Controller
                 'empty' => $empty,
                 'locationAddress'=>$locationAddress,
                 'locationCity'=>$locationCity,
-                'city'=>$city
+                'city'=>$city,                
             ));
         }
         else {

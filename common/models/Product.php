@@ -56,7 +56,7 @@ class Product extends CActiveRecord
         // will receive user inputs.
         return array(
             array('title, description,address_id,price, city,category_id', 'required'),
-            array('country,address_id, view,price,category_id,city', 'numerical', 'integerOnly' => true),
+            array('status,country,address_id, view,price,category_id,city', 'numerical', 'integerOnly' => true),
             array('title', 'length', 'max' => 50),
             array('description', 'length', 'max' => 500),         
             array('phone,lat,lon,locationText', 'safe'),

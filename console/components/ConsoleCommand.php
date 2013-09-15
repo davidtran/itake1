@@ -22,6 +22,7 @@
                         echo 'OK';
                     }
                     catch(Exception $e){
+                        echo $e->getMessage();
                         echo 'FAILED';
                         Yii::log("Failed console method: $method at ".date('Y-m-d H:i:s'));
                     }

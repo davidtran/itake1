@@ -14,6 +14,9 @@ var UploadAddress = {
         UploadAddress.initRadioButton();
         UploadAddress.initAddressField();
         UploadAddress.onCityChange($('#Address_city').val());
+        if(typeof noAddress != 'undefined' && noAddress == true){
+            UploadAddress.showDialog();
+        }
     },
     initRadioButton:function(){
         $('.radio-address-item').live('click',function(){
@@ -180,6 +183,9 @@ var UploadAddress = {
             
     showDialog: function() {
         UploadAddress.addAddressDialog.modal('show');
+        $('#Address_city').change(function(e) {
+            UploadAddress.onCityChange($(this).val());
+        });
     }
     
 };

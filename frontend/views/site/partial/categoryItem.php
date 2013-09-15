@@ -1,4 +1,4 @@
-<li class="span4">
+<li class="span3">
     <div class="thumbnail categoryItem <?php echo $category->getStyleName(); ?>" id="categoryItem-<?php echo $category->id; ?>">
         <div class="row-fluid">
             <?php echo CHtml::image($category->image,$category->name,array(
@@ -6,7 +6,7 @@
             )); ?>
 
             <div class="row-fluid">
-                <h3><?php echo $category->name; ?></h3>
+                <b><?php echo $category->name; ?></b>
                 <p>
                     <?php echo $category->description; ?>
                 </p>
