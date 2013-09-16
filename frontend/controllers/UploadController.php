@@ -55,8 +55,7 @@ class UploadController extends Controller
         $returnUrl = $this->createUrl('/upload/index');
         $this->checkLogin('Vui lòng đăng nhập được khi sử dụng tính năng này', $returnUrl);
         $postedToFacebook = false;
-        $product = new Product();
-        $this->setupDefaultCity($product);
+        $product = new Product();      
         $product->category_id = $category;
         $product->user_id = Yii::app()->user->getId();
         $address = new Address();
