@@ -6,7 +6,7 @@ class m130916_054050_change_admin_role extends CDbMigration
 	{
         $admin = User::model()->find('username="admin"');
         if($admin!=null){
-            $admin->role = UserRoleConstant::ADMIN;
+            $admin->role = 2;
             return $admin->save();            
         }
         return false;
