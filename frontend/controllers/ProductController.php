@@ -157,7 +157,15 @@ class ProductController extends Controller
         $product = $this->loadProduct($productId);
         $product->status = Product::STATUS_SOLD;
         if($product->save()){
-            $this->renderAjaxResult(true);
+            $solrImporter = new ProductModelSolrImporter();
+            $solrImporter->addProduct($product);
+            try {
+                $solrImporter->importProduct();
+                $this->renderAjaxResult(true);
+            }
+            catch (Exception $e) {
+                $this->renderAjaxResult(false,'Không thể lưu thông tin');
+            }            
         }else{
             $this->renderAjaxResult(false,'Không thể lưu thông tin');
         }        
