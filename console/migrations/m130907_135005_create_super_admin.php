@@ -9,7 +9,7 @@ class m130907_135005_create_super_admin extends CDbMigration
         $admin->email = 'admin@itake.me';
         $admin->username = 'admin';
         $admin->password = 'goodmorning2013';
-        
+        $admin->role = UserRoleConstant::ADMIN;
         $rs= $admin->save();
         if(!$rs){
             var_dump($admin->getErrors());
@@ -20,7 +20,13 @@ class m130907_135005_create_super_admin extends CDbMigration
 
 	public function safeDown()
 	{
-        return false;
+        $admin = User::model()->find('username="admin"');
+        if($admin!=null){
+            $admin->delete();
+            return true;
+        }else{
+            return false;
+        }        
 	}
 
 }
