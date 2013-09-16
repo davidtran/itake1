@@ -21,6 +21,11 @@ $this->breadcrumbs=array(
 
 	<?php echo $form->textFieldRow($model, 'username', array('class'=>'span3'));?>
 	<?php echo $form->passwordFieldRow($model, 'password', array('class'=>'span3'));?>
+    <?php if($model->getRequireCaptcha()):?>
+        <br/>
+        <?php $this->widget('CCaptcha'); ?>
+        <?php echo $form->textField($model,'verifyCode',array('class'=>'span3')); ?>
+    <?php endif; ?>
 	<?php echo $form->checkBoxRow($model, 'rememberMe');?>
 
 	<div class="form-actions">

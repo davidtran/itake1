@@ -58,6 +58,7 @@ return CMap::mergeArray(
                 'user' => array(
                     'class'=>'backend.components.AdminWebUser',
                     'allowAutoLogin' => true,
+                    'stateKeyPrefix'=>'backend'
                 ),
                 /* load bootstrap components */
                 'bootstrap' => array(

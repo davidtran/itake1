@@ -21,14 +21,12 @@ class UserIdentity extends CUserIdentity {
 		$user = User::model()->find(array('condition' => $attribute . '=:loginname', 'params' => array(':loginname' => $this->username)));
 
 		if ($user === null) {
-			$this->errorCode = self::ERROR_USERNAME_INVALID;
+			$this->errorCode = self::ERROR_USERNAME_INVALID;            
 		} else if ($user->password != $user->makeOptimizedPassword($this->password,$user->salt)) {
-			$this->errorCode = self::ERROR_PASSWORD_INVALID;
-		} else {
-			$validateKey = StringUtil::generateRandomString(50);
+			$this->errorCode = self::ERROR_PASSWORD_INVALID;            
+		} else {			          
 			$this->_id = $user->id;
-			$this->username = $user->email;
-			$this->setState('vkey', $validateKey);
+			$this->username = $user->email;			
 			$this->errorCode = self::ERROR_NONE;        
 		}
         
