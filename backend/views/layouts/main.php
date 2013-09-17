@@ -35,6 +35,7 @@
 				array('label' => 'Product', 'url' => array('/product')),
 				array('label' => 'User', 'url' => array('/user')),
                 array('label' => 'Feedback', 'url'=> array('/feedback')),
+                array('label' => 'Category', 'url'=> array('/category')),           
 				array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
 				array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
 			),
