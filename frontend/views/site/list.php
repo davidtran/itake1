@@ -19,7 +19,7 @@ Yii::app()->clientScript->registerScript('data',"
     var cityList = $cityList;
     ",  CClientScript::POS_HEAD);
 ?>
-<div class="container-fluid" style="margin-left:50px;">
+<div class="container-fluid">
     <div class="row-fluid">
 
         <div class="sort-bar">
@@ -82,8 +82,8 @@ Yii::app()->clientScript->registerScript('data',"
         </div>        
         <div class="row-fluid" id="fixWidthMasory"></div>
         <div class="span9" style="margin-left:50px;">            
-            <div class="row-fluid" id="wrapper_productContainer" style="margin-top:80px;"   >  
-                <hr style="position:relative; top:-20px;"/>
+            <div class="row-fluid" id="wrapper_productContainer" style="margin-top:120px;"   >  
+                <hr style="position:relative; top:-40px;"/>
                 <?php if (trim($keyword) != ''): ?>
                     <div class="alert alert-info">
                         <button type="button" class="close" data-dismiss="alert">×</button>
