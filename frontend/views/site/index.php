@@ -12,9 +12,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/sit
 <div class="container-fluid">
     
     <div class="row-fluid">
-        <div class="span3">
+<!--         <div class="span3">
             <?php echo $this->renderPartial('partial/categoryBar'); ?>   
-        </div>
+        </div> -->
         
         
         <div class="span9" style="margin-left:149px;">            

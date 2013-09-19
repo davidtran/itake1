@@ -100,9 +100,7 @@ function alignDiv()
     // }
     $('.frmSearch_wrapper').css('width',$('.nav-bar-top').width());    
     $('#wrapper_productContainer').parent().css('margin-left',180);
-    $('#wrapper_productContainer').css('width',$('#fixWidthMasory').width()-180);   
-    $('#wrapper_categoryContainer').parent().css('margin-left',220);
-    $('#wrapper_categoryContainer').css('width',$('#fixWidthMasory').width()-180);  
+    $('#wrapper_productContainer').css('width',$('#fixWidthMasory').width()-180);       
 }
 $(function() {  
     $('.productLink').live('click', function(e) {
