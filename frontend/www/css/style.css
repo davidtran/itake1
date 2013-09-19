@@ -1663,12 +1663,14 @@ span.btn.fileinput-button.btn-large{
 }
 #footer {
 font-size: 0.9em;
-position: relative;
+position: fixed;
 bottom: 0;
-width: 100%;
+left: 181px;
 right:0;
 padding-top: 3px;
 height: 30px;
+background: rgba(255,255,255,0.8);
+z-index: 999;
 }
 div#viewTypeDisplay{    
 }
