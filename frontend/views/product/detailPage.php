@@ -39,11 +39,11 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                     </div>
                                     <div class="row-fluid" style="margin-top: 20px;">
                                         <div class="fb-like" href="<?php echo $canonicalUrl; ?>" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
-                                        <br/>
-                                        <span class="" style="margin-bottom:10px;color:#005580;font-size:0.9em;"><i class="icon-eye-open"></i>   
-                                            <?php echo Yii::t('Default','{number} view|{number} views',array($product->view,'{number}'=>$product->view));   ?> 
-                                        </span>
-                                    </div>                                   
+                                    </div>
+                                    <div class="row-fluid" style=" margin-top: 30px; ">
+                        <span class="" style="margin-bottom:10px;color:#005580;font-size:0.9em;"> <i class="icon-eye-open"></i>
+                            <?php echo Yii::t('Default','{number} view|{number} views',array($product->view,'{number}'=>$product->view));   ?></span>
+                                    </div>
                                 </div>
                                 <div class="span6 custom">
                                     <div class="row-fluid">

@@ -1,6 +1,6 @@
 <?php
 $this->
-pageTitle = $product->title;
+    pageTitle = $product->title;
 ?>
 <div class="row-fluid">
     <div class="productInfo">
@@ -13,19 +13,20 @@ pageTitle = $product->title;
                     <div class="row-fluid">
 
                         <?php $this->
-                        renderPartial('partial/images',array(
-                            'product'=>$product
-                        )); ?>
+                            renderPartial('partial/images',array(
+                                'product'=>$product
+                            )); ?>
                     </div>
                     <div class="row-fluid" style="margin-top: 20px;">
 
                         <div class="fb-like" data-href="<?php echo $canonicalUrl; ?>
                             " data-send="false" data-layout="button_count" data-width="450" data-show-faces="false">
                         </div>
-                        <br/>
+                        <!-- AddThis Button END --> </div>
+                    <div class="row-fluid" style=" margin-top: 30px; ">
                         <span class="" style="margin-bottom:10px;color:#005580;font-size:0.9em;"> <i class="icon-eye-open"></i>
                             <?php echo Yii::t('Default','{number} view|{number} views',array($product->view,'{number}'=>$product->view));   ?></span>
-                        <!-- AddThis Button END --> </div>
+                    </div>
                 </div>
                 <div class="span6 custom">
                     <div class="row-fluid">
@@ -50,7 +51,7 @@ pageTitle = $product->title;
                                             <span>
                                                 <i class="icon-money"></i>
                                                 <?php echo number_format($product->
-                                                price); ?> VNĐ
+                                                    price); ?> VNĐ
                                                 <br/>
                                             </span>
                                         </div>
@@ -59,7 +60,7 @@ pageTitle = $product->title;
                                                 <?php LanguageUtil::echoT('Seller') ?></h4>
                                             <i class="icon-user"></i>
                                             <?php echo $product->
-                                            user->getUserProfileLink(); ?>
+                                                user->getUserProfileLink(); ?>
                                             <br/>
                                         </div>
                                     </div>
@@ -69,7 +70,7 @@ pageTitle = $product->title;
                                                 <?php LanguageUtil::echoT('Phone') ?></h4>
                                             <i class="icon-phone-sign"></i>
                                             <?php echo $product->
-                                            phone; ?>
+                                                phone; ?>
                                             <br/>
                                         </div>
                                         <div class="span6">
@@ -79,18 +80,18 @@ pageTitle = $product->title;
                                             <?php echo DateUtil::convertDate('d-m-Y H:i:s', $product->create_date); ?></div>
                                     </div>
                                     <?php if ($product->
-                                    lat != null && $product->lon != null): ?>
-                                    <div class="row-fluid">
+                                            lat != null && $product->lon != null): ?>
+                                        <div class="row-fluid">
 
-                                        <?php if (trim($product->
-                                        locationText) != ''): ?>
-                                        <h4 class="product-detail-tag">
-                                            <?php LanguageUtil::echoT('Address') ?>
-                                            :
-                                            <?php echo CityUtil::getCityName($product->city); ?></h4>
-                                        <?php echo $product->
-                                        locationText; ?>
-                                        <?php endif; ?></div>
+                                            <?php if (trim($product->
+                                                    locationText) != ''): ?>
+                                                <h4 class="product-detail-tag">
+                                                    <?php LanguageUtil::echoT('Address') ?>
+                                                    :
+                                                    <?php echo CityUtil::getCityName($product->city); ?></h4>
+                                                <?php echo $product->
+                                                    locationText; ?>
+                                            <?php endif; ?></div>
                                     <?php endif; ?>
                                     <div class="row-fluid">
                                         <div class="span12">
@@ -106,7 +107,7 @@ pageTitle = $product->title;
                                         <div class="span12">
                                             <?php echo CHtml::link('Liên hệ','#',array(
                                                 'class'=>
-                                            'btn btn-primary',
+                                                'btn btn-primary',
                                                 'id'=>'btnOpenMessageDialog'
                                             )); ?>
                                         </div>
@@ -115,20 +116,20 @@ pageTitle = $product->title;
                                 </div>
                                 <div class="tab-pane fade" id="bando">
                                     <?php if ($product->
-                                    lat != null && $product->lon != null): ?>
-                                    <div class="row-fluid">
-                                        <h4 class="product-detail-tag">
-                                            <?php LanguageUtil::echoT('City') ?>
-                                            :
-                                            <?php echo CityUtil::getCityName($product->city); ?></h4>
+                                            lat != null && $product->lon != null): ?>
+                                        <div class="row-fluid">
+                                            <h4 class="product-detail-tag">
+                                                <?php LanguageUtil::echoT('City') ?>
+                                                :
+                                                <?php echo CityUtil::getCityName($product->city); ?></h4>
 
-                                        <div id='map'></div>
-                                        <script>
+                                            <div id='map'></div>
+                                            <script>
                                                 $('a[href="#bando"]').on('shown', function(e) {
                                                     loadProductMap(currentProduct);
                                                 })
                                             </script>
-                                    </div>
+                                        </div>
                                     <?php endif; ?></div>
                             </div>
                         </div>
@@ -162,8 +163,8 @@ pageTitle = $product->title;
         <div class="row-fluid">
             <div id="userProductList">
                 <?php foreach ($relateProductList as $relateProduct): ?>
-                <?php echo $relateProduct->
-                renderHtml('home-user-'); ?>
+                    <?php echo $relateProduct->
+                        renderHtml('home-user-'); ?>
                 <?php endforeach; ?></div>
         </div>
     </div>
