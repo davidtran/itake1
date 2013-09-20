@@ -53,7 +53,7 @@ Yii::app()->clientScript->registerScript('data',"
                 <ul>
                     <li><a href="<?php echo Yii::app()->createUrl('/site/index') ?>" title="<?php echo LanguageUtil::t('All')?>"><span class="nav-text all-cat-wrap selected mark"><small class="all-cat"></small><em></em>     &nbsp&nbsp<?php LanguageUtil::echoT('All') ?></span></a></li>                                                      
                     <?php foreach (CategoryUtil::getCategoryList() as $category): ?>
-                        <li><a href="<?php echo $category->getUrl(); ?>" title='<?php echo LanguageUtil::t($category->name)?>'><span class="nav-text <?php echo $category->getStyleName(); ?>"><small><i class="<?php echo $category->icon; ?> icon-large"></i> <em></em></small>      &nbsp&nbsp<?php LanguageUtil::echoT( $category->name);  ?></span></a></li>
+                        <li><a href="<?php echo $category->getUrl(); ?>" data-toggle="tooltip" title='<?php echo LanguageUtil::t($category->name)?>'><span class="nav-text <?php echo $category->getStyleName(); ?>"><small><i class="<?php echo $category->icon; ?> icon-large"></i> <em></em></small>      &nbsp&nbsp<?php LanguageUtil::echoT( $category->name);  ?></span></a></li>
                     <?php endforeach; ?>                    
                 </ul>
             </div>    
@@ -63,7 +63,12 @@ Yii::app()->clientScript->registerScript('data',"
             
                 <h1>
                     <?php echo $categoryModel->getIconAndNameHtml()."   ";?>
-                    <?php LanguageUtil::echoT($categoryModel->name); ?> tại <?php echo CityUtil::getCityName($city); ?>
+                    <?php if (strlen(CityUtil::getCityName($city))>0): ?>
+                        <?php LanguageUtil::echoT($categoryModel->name);echo ' '; LanguageUtil::echoT('in');?>  <?php echo CityUtil::getCityName($city); ?>
+                    <?php  else:?>     
+                        <?php LanguageUtil::echoT($categoryModel->name);?>
+                    <?php endif; ?>
+
 
                 </h1>                                     
                 <script>

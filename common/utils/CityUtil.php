@@ -48,20 +48,21 @@ class CityUtil
         
         $city = City::model()->findByPk($id);
         if($city != null){
-            return Yii::t('Default',$city->name);
+            return LanguageUtil::t($city->name);
         }
         return false;
         
     }
 
-    public static function makeSelectCityUrl($id)
+    public static function makeSelectCityUrl($id,$categoryId=NULL)
     {
         $name = self::getCityName($id);
         if ($name != false) {
             return Yii::app()->controller->createUrl(
                             '/site/city', array(
                         'id' => $id,
-                        'name' => StringUtil::makeSlug($name)
+                        'name' => StringUtil::makeSlug($name),
+                        'category'=>$categoryId
                             )
             );
         }

@@ -11,16 +11,18 @@
         <div class="btn-group">                      
             <Button class="btn dropdown-toggle" data-toggle="dropdown">                                    <i class="icon-map-marker"></i>
                 <?php 
-                $selectCityId = CityUtil::getSelectedCityId();
+                //$selectCityId = CityUtil::getSelectedCityId();
+                $selectCityId = UserRegistry::getInstance()->getValue('City',0);
                 echo CityUtil::getCityName($selectCityId); ?>                            
                 <span class="caret"></span>
             </Button>
             <ul class="dropdown-menu">
                 <?php foreach(CityUtil::getCityListData(true) as $cityId=>$cityName):?>
                     <li>
+                        <?php $currentCategory =  isset($_GET['category'])?$_GET['category']:NULL ?>
                     <?php echo CHtml::link(
                         LanguageUtil::t($cityName),
-                        CityUtil::makeSelectCityUrl($cityId),
+                        CityUtil::makeSelectCityUrl($cityId,$currentCategory),
                         array(
                             'title'=>LanguageUtil::t($cityName)
                             )); ?>       

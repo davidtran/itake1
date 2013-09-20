@@ -1,5 +1,5 @@
 <div class="productImageLink">
-    <a target="_blank" href="<?php echo $product->getDetailUrl(); ?>" class="productLink" title="<?php echo $product->title; ?>">
+    <a target="_blank" href="<?php echo $product->getDetailUrl(); ?>" class="productLink"  title="<?php echo $product->description; ?>">
         <?php if (isset($product->firstImage)): ?>
             <?php
             echo CHtml::image(
