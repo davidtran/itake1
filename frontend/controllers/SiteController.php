@@ -38,12 +38,13 @@ class SiteController extends Controller
         );
     }
 
-    public function actionCity($id)
+    public function actionCity($id,$category)
     {
         //change city
         //redirect to index with selected category
         UserRegistry::getInstance()->setValue('City', $id);
-        $redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/list');
+        //$redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/list');
+        $redirectUrl = $this->createAbsoluteUrl('/site/list', array('category' =>$category));
         $this->redirect($redirectUrl);
     }
 

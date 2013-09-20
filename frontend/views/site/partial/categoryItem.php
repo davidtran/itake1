@@ -8,7 +8,7 @@
             </a>
 
             <div class="row-fluid">
-                <b><?php echo $category->name; ?></b>
+                <b><?php echo LanguageUtil::t($category->name); ?></b>
                 <p>
                     <?php echo $category->description; ?>
                 </p>

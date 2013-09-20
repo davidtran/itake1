@@ -113,4 +113,5 @@ return array(
     'Type your letters above to confirm'=>'Nhập vào những chữ ở trên để xác nhận',
     'Please choose one or many fanpages to share your post (optional)'=>'Xin vui lòng chọn 1 hoặc nhiều Fanpage mà bạn muốn post lên',
     'Sort Type'=>'Sắp xếp',
+    'in'=>'tại'
 );
