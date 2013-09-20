@@ -79,10 +79,7 @@
         </script>
          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5165a11f04e5f961">
                 addthis.toolbox('.addthis_toolbox');
-        </script>
-          <div class="row-fluid">
-                <hr class="sep_item"/>
-            </div>
+        </script>     
         <div id="footer">  
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
