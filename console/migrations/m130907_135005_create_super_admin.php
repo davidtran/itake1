@@ -9,7 +9,7 @@ class m130907_135005_create_super_admin extends CDbMigration
         $admin->email = 'admin@itake.me';
         $admin->username = 'admin';
         $admin->password = 'goodmorning2013';
-        $admin->role = UserRoleConstant::ADMIN;
+        $admin->role = 2;
         $rs= $admin->save();
         if(!$rs){
             var_dump($admin->getErrors());

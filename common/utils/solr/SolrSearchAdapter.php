@@ -18,6 +18,7 @@ class SolrSearchAdapter
     public $categoryId = null;
     public $latitude = null;
     public $longitude = null;
+    public $facebookFriend;
     /**
      * Product status filter
      * @var int 
@@ -60,7 +61,9 @@ class SolrSearchAdapter
             $fq[] = 'category_id:' . $this->categoryId;
         }
         $fq[] = 'status:'.$this->status;
-        
+        if($this->facebookFriend){
+            $fq['user_id'] = $this->getFacebookFriendString();
+        }
         $params['fq'] = $fq;
         $params['bf'] = array(
             'recip(abs(ms(NOW/DAY,create_date)),1,6.3E10,6.3E10)',            
@@ -69,7 +72,7 @@ class SolrSearchAdapter
         $params['qf'] = 'title^60 description^20';
         $params['q.alt'] = '*:*';
         $params['mm'] = $this->mm;
-
+        
         switch ($this->sortType) {
             case self::TYPE_CREATE_DATE:
                 $params['sort'] = 'create_date desc';
@@ -103,6 +106,9 @@ class SolrSearchAdapter
         }
         else {
             $keyword = $this->keyword;
+        }
+        if($this->facebookFriend && (false !== $facebookParam = $this->getFacebookFriendString())){
+            $keyword='user_id:'.$facebookParam;
         }
         return strtolower($keyword);
     }
@@ -155,6 +161,29 @@ class SolrSearchAdapter
     public function excludeProduct($id)
     {
         $this->excludeIdList[] = $id;
+    }
+    
+    /**
+     * return a solr friendly array of facebook friend
+     */
+    protected function getFacebookFriendString(){
+        if( ! Yii::app()->user->isFacebookUser){
+            throw new CException('User must login to facebook first');
+        }
+        
+        $friendList = FacebookUtil::getInstance()->getFacebookFriendInApp(Yii::app()->user->getId());        
+        if($friendList !=false){
+            $strList = '(';
+            foreach($friendList as $index=>$friendId){
+                $strList .= $friendId;
+                if( count($friendList) -1  > $index){
+                    $strList.=' or ';
+                }
+            }
+            $strList.=')';
+            return $strList;
+        }
+        return false;
     }
 
 }

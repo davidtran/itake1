@@ -30,6 +30,8 @@ return array(
     'db.username' => 'itake',
     'db.password' => 'itake',
     'db.tablePrefix' => 'mp_',
+    'db.schemaCachingDuration'=>false,
+    
     'email.host' => 'smtp.gmail.com',
     'email.username' => 'rubickweb',
     'email.password' => 'goodmorning2013',

@@ -30,6 +30,8 @@ return array(
     'db.username' => 'root',
     'db.password' => 'itake1234',
     'db.tablePrefix' => 'mp_',
+    'db.schemaCachingDuration'=>3600,
+    
     'email.host' => 'localhost',
     'email.username' => 'norely',
     'email.password' => 'goodmorning2013',

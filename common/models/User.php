@@ -198,7 +198,7 @@ class User extends CActiveRecord
             $this->create_date = DateUtil::getCurrentDateTime();
         }
 
-        if ($oldModel != null) {
+        if ($oldModel != null) {                        
             if ($this->password != $oldModel->password && trim($this->password != '')) {
                 $this->password = $this->makeOptimizedPassword($this->password, $this->salt);
             }

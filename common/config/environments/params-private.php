@@ -29,7 +29,7 @@ return array(
 	'db.username' => 'root',
 	'db.password' => '123',
     'db.tablePrefix'=>'mp_',
-    
+    'db.schemaCachingDuration'=>false,
     'email.host'=>'smtp.gmail.com',
     'email.username'=>'rubickweb',
     'email.password'=>'goodmorning2013',

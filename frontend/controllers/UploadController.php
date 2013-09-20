@@ -170,12 +170,10 @@ class UploadController extends Controller
                         $resize = ImageUtil::resize('images/content/' . $filename . '.' . $ext, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);
                         $imageModel = new ProductImage();
                         $imageModel->image = 'images/content/' . $filename . '.' . $ext;
-                        $imageModel->thumbnail = $resize;
-                        if ($i == 1) {
-                            $processed = 'images/content/processed/' . $filename . '.' . $ext;
-                            ProductImageUtil::drawImage($product, $imageModel->image, $processed);
-                            $imageModel->facebook = $processed;
-                        }
+                        $imageModel->thumbnail = $resize;                     
+                        $processed = 'images/content/processed/' . $filename . '.' . $ext;
+                        ProductImageUtil::drawImage($product, $imageModel->image, $processed);
+                        $imageModel->facebook = $processed;                        
                         $imageModel->number = $i;
                         $imageModel->product_id = $product->id;
                         if ($imageModel->save()) {
