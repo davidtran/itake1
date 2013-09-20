@@ -63,7 +63,12 @@ Yii::app()->clientScript->registerScript('data',"
             
                 <h1>
                     <?php echo $categoryModel->getIconAndNameHtml()."   ";?>
-                    <?php LanguageUtil::echoT($categoryModel->name); ?> tại <?php echo CityUtil::getCityName($city); ?>
+                    <?php if (strlen(CityUtil::getCityName($city))>0): ?>
+                        <?php LanguageUtil::echoT($categoryModel->name);echo ' '; LanguageUtil::echoT('in');?>  <?php echo CityUtil::getCityName($city); ?>
+                    <?php  else:?>     
+                        <?php LanguageUtil::echoT($categoryModel->name);?>
+                    <?php endif; ?>
+
 
                 </h1>                                     
                 <script>
