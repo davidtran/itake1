@@ -10,7 +10,7 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
 <div class="container-fluid">
 	<div class="nav-bar-top" >
 	    <div class="nd_logo">
-	        <a class="logo" href="<?php echo $this->createUrl('/site'); ?>"><h1>ITAKE.ME</h1></a>
+	        <a class="logo" href="<?php echo $this->createUrl('/welcome'); ?>"><h1><span>i</span>Take</h1></a>
 	        <small class="visible-desktop"></small>               
 	    </div>
 	    <div class="frmSearch_wrapper">                          
