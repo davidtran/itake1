@@ -1,5 +1,5 @@
 <div class="productImageLink">
-    <a target="_blank" href="<?php echo $product->getDetailUrl(); ?>" class="productLink" title="<?php echo $product->title; ?>">
+    <a target="_blank" href="<?php echo $product->getDetailUrl(); ?>" class="productLink"  title="<?php echo $product->description; ?>">
         <?php if (isset($product->firstImage)): ?>
             <?php
             echo CHtml::image(
@@ -15,7 +15,7 @@
             <div class="row-fluid" style="margin-top: 10px;">
                 <?php
                 Yii::beginProfile('GetImage'.$product->user->id); 
-                    echo CHtml::image(Yii::app()->baseUrl.'/'.$product->user->getProfileImageUrl(), $product->user->username, array(
+                    echo UserImageUtil::renderImage($product->user,array(
                         'width' => 30,
                         'height' => 30,
                         'style' => 'width: 30px;

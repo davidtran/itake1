@@ -219,7 +219,7 @@ function loadImageSlider() {
 
 $(document).ready(function(){
     $('.p-sold').live('click',function(e){
-        e.preventDefault();
+        e.preventDefault();        
         var id = $(this).parents('.productItem').attr('data-product-id');
         var that = $(this);
         $.ajax({

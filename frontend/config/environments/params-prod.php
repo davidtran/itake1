@@ -9,5 +9,5 @@
 return array(
 	'env.code' => 'prod',       
     'api.checkToken'=>true,
-    
+    'upload.maxImageNumber'=>4
 );

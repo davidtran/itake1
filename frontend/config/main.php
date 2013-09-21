@@ -89,6 +89,7 @@ $config = CMap::mergeArray(
                         'market/<action>'=>'site/<action>',
                         'market'=>'site',                                                                
                         'upload/<category:\d+>/<name:.*?>' => '/upload/index',
+                        'connect-facebook'=>'/user/facebookLogin',
                         
                     ),
                     'hostInfo' => $params['urlManager.hostInfo'],

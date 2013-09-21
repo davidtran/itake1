@@ -9,16 +9,16 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/masonry.
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.infinitescroll.min.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/site.js', CClientScript::POS_HEAD);
 ?>
-<div class="container-fluid" style="margin-left:50px;">
+<div class="container-fluid">
     
     <div class="row-fluid">
-        <div class="span3">
+<!--         <div class="span3">
             <?php echo $this->renderPartial('partial/categoryBar'); ?>   
-        </div>
+        </div> -->
         
         
         <div class="span9" style="margin-left:149px;">            
-            <div class="row-fluid" id="wrapper_categoryContainer" style="margin-top:80px;"   >  
+            <div class="row-fluid" id="wrapper_categoryContainer" style="margin-top:100px;"   >  
                 <div class="row-fluid" id="fixWidthMasory"></div>   
                 <div class="categoryList">
                     <ul class="thumbnails">

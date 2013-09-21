@@ -39,11 +39,11 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                     </div>
                                     <div class="row-fluid" style="margin-top: 20px;">
                                         <div class="fb-like" href="<?php echo $canonicalUrl; ?>" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
-                                        <br/>
-                                        <span class="" style="margin-bottom:10px;color:#005580;font-size:0.9em;"><i class="icon-eye-open"></i>   
-                                            <?php echo Yii::t('Default','{number} view|{number} views',array($product->view,'{number}'=>$product->view));   ?> 
-                                        </span>
-                                    </div>                                   
+                                    </div>
+                                    <div class="row-fluid" style=" margin-top: 30px; ">
+                        <span class="" style="margin-bottom:10px;color:#005580;font-size:0.9em;"> <i class="icon-eye-open"></i>
+                            <?php echo Yii::t('Default','{number} view|{number} views',array($product->view,'{number}'=>$product->view));   ?></span>
+                                    </div>
                                 </div>
                                 <div class="span6 custom">
                                     <div class="row-fluid">
@@ -74,15 +74,16 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                             <i class="icon-calendar"></i>  <?php echo DateUtil::convertDate('d-m-Y H:i:s', $product->create_date); ?>
                                                         </div>
                                                     </div>  
-                                                    <?php if ($product->lat != null && $product->lon != null): ?>
-                                                        <div class="row-fluid">                                                                                                                                                        
+                                                    <?php if ($product->address->lat != null && $product->address->lon != null): ?>
+                                                        <div class="row-fluid">
 
-                                                            <?php if (trim($product->locationText) != ''): ?>
-                                                <h4 class="product-detail-tag"><?php LanguageUtil::echoT('Address') ?>: <?php echo CityUtil::getCityName($product->city); ?></h4> 
-                                                                <?php echo $product->locationText; ?>                    
-                                                            <?php endif; ?>                                         
-
-                                                        </div>
+                                                            <?php if (trim($product->address->address) != ''): ?>
+                                                                <h4 class="product-detail-tag">
+                                                                    <?php LanguageUtil::echoT('Address') ?>
+                                                                    :
+                                                                    <?php echo CityUtil::getCityName($product->address->city); ?></h4>
+                                                                <?php echo $product->address->address; ?>
+                                                            <?php endif; ?></div>
                                                     <?php endif; ?>
                                                     <div class="row-fluid">     
                                                         <div class="span12">
@@ -94,9 +95,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane fade" id="bando">                                                  
-                                                    <?php if ($product->lat != null && $product->lon != null): ?>
+                                                    <?php if ($product->address->lat != null && $product->address->lon != null): ?>
                                                         <div class="row-fluid">                                                                                                                                                        
-                                            <h4 class="product-detail-tag"><?php LanguageUtil::echoT('City') ?>: <?php echo CityUtil::getCityName($product->city); ?></h4>                                        
+                                                            <h4 class="product-detail-tag"><?php LanguageUtil::echoT('City') ?>: <?php echo CityUtil::getCityName($product->address->city); ?></h4>                                        
 
                                                             <div id='map'></div>  
                                                             <script>

@@ -99,7 +99,8 @@ function alignDiv()
     //     $(".nd_profile").css('margin-right', (marginLeftContainer2 - 15) + 'px');
     // }
     $('.frmSearch_wrapper').css('width',$('.nav-bar-top').width());    
-    $('#wrapper_productContainer').css('width',$('#fixWidthMasory').width());   
+    $('#wrapper_productContainer').parent().css('margin-left',180);
+    $('#wrapper_productContainer').css('width',$('#fixWidthMasory').width()-180);       
 }
 $(function() {  
     $('.productLink').live('click', function(e) {
@@ -216,7 +217,7 @@ $(document).ready(function() {
             status: true,
             cookie: true,
             xfbml: true,
-            channelUrl:ABSOLUTE_URL + '/channel.html'
+            channelUrl:ABSOLUTE_URL + '/channel.php'
         });
         $(document).trigger("facebook:ready");
     }

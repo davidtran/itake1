@@ -105,6 +105,7 @@ return array(
     'Update'=>'Cập nhật',
     'Add your address'=>'Thêm địa chỉ',
     'Your+ad+image'=>'Hình+SP',
+    '<b>Notice:</b>Only allow {maxImage} images per product.'=>'<b>Lưu ý:</b>Chỉ cho phép upload {maxImage} ảnh mỗi sản phẩm',
     ///Change password    
     'Old password'=>'Mật khẩu cũ',
     'New password'=>'Mật khẩu mới',
@@ -113,4 +114,5 @@ return array(
     'Type your letters above to confirm'=>'Nhập vào những chữ ở trên để xác nhận',
     'Please choose one or many fanpages to share your post (optional)'=>'Xin vui lòng chọn 1 hoặc nhiều Fanpage mà bạn muốn post lên',
     'Sort Type'=>'Sắp xếp',
+    'in'=>'tại'
 );

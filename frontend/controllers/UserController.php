@@ -58,6 +58,12 @@ class UserController extends Controller
             'returnUrl' => $this->returnUrl,
         ));
     }
+    
+    public function actionFacebookLogin(){
+        $this->render('facebookLogin',array(
+            'returnUrl' => $this->returnUrl,
+        ));
+    }
 
     public function actionFbProfile()
     {

@@ -51,8 +51,8 @@ div.productItem div.product-detail div.productDescription,div.productCreateDate
     font-size: 12px;
     color: rgba(0,0,0,0.6);
     word-wrap:break-word;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 div.productItem div.product-detail div.productCreateDate
 {
@@ -240,7 +240,7 @@ div.nav-bar-top div.frmSearch button#ndsearch_btn
     display:none;
 }
 .p-edit{
-    margin-right: 10px;color:#fff;text-decoration: none;
+    margin-right: 10px;color:#000;text-decoration: none;
 }
 .p-delete{
     color:#fff;margin-right: 5px;text-decoration: none;
@@ -254,6 +254,7 @@ Detail page
 }
 #userProductList {
 margin:0 auto !important;
+top: 20px;
 }
 #map{
     height:300px;
@@ -568,7 +569,7 @@ overflow: hidden;
 User profile
 */
 div.nd_profile{
-      margin-left: -20px;
+      margin-left: -180px;
     margin-right: -20px;
 }
 div.nd_profile div.top{
@@ -1663,12 +1664,14 @@ span.btn.fileinput-button.btn-large{
 }
 #footer {
 font-size: 0.9em;
-position: relative;
+position: fixed;
 bottom: 0;
-width: 100%;
+left: 0;
 right:0;
 padding-top: 3px;
 height: 30px;
+background: rgba(255,255,255,0.8);
+z-index: 999;
 }
 div#viewTypeDisplay{    
 }
@@ -1946,4 +1949,10 @@ div.sort-bar{
      -o-transition: background-color 1000ms linear;
      -ms-transition: background-color 1000ms linear;
      transition: background-color 1000ms linear;
+}
+/*override fb style*/
+.fb_iframe_widget {
+    display: inline-block;
+    position: relative;
+    top: 20px;
 }
