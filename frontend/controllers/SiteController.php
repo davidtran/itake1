@@ -119,7 +119,7 @@ class SiteController extends Controller
         $nextPageLink = false;
         $productList = array();
         $requiredFacebookLogin = false;
-        if($facebook && Yii::app()->user->isFacebookLogin == false){
+        if($facebook && Yii::app()->user->isFacebookUser == false){
             $requiredFacebookLogin = true;            
         }else{
             $solrAdapter = new SolrSearchAdapter();
@@ -309,15 +309,15 @@ class SiteController extends Controller
 
     public function actionEnLang()
     {
-        $currentUrl = Yii::app()->request->urlReferrer;
-        Yii::app()->session['itake_lang'] = 'en';
+        $currentUrl = Yii::app()->request->urlReferrer;        
+        UserRegistry::getInstance()->setValue('itake_lang', 'en');
         $this->redirect($currentUrl);
     }
 
     public function actionViLang()
     {
         $currentUrl = Yii::app()->request->urlReferrer;
-        Yii::app()->session['itake_lang'] = 'vi';
+        UserRegistry::getInstance()->setValue('itake_lang', 'vi');
         $this->redirect($currentUrl);
     }
 

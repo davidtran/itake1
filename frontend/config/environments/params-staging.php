@@ -3,5 +3,6 @@
 return array(
     'env.code' => 'staging',
     'api.checkToken'=>false,
+    'upload.maxImageNumber'=>4,  
 );
 

@@ -82,6 +82,7 @@ class Product extends CActiveRecord
             'cityModel' => array(self::BELONGS_TO, 'City', 'city'),
             'firstImage'=>array(self::HAS_ONE,'ProductImage','product_id','order'=>'number'),
             'images'=>array(self::HAS_MANY,'ProductImage','product_id','order'=>'number'),  
+            'imageCount'=>array(self::STAT,'ProductImage','product_id'),
         );
     }
 

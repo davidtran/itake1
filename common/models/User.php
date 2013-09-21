@@ -22,7 +22,7 @@
 class User extends CActiveRecord
 {
 
-    const USER_IMAGE_PLACEHOLDER = 'images/user-placeholder.jpg';
+    const USER_IMAGE_PLACEHOLDER = 'images/user-placeholder.png';
     const STATUS_ACTIVE = 0;
     const STATUS_INACTIVE = 1;
     const GENDER_MALE = 1;
@@ -220,7 +220,8 @@ class User extends CActiveRecord
     public function beforeSave()
     {
         if ($this->isNewRecord) {
-            $this->image = $this->getProfileImageUrl();
+            //No need to save image;
+            //$this->image = $this->getProfileImageUrl(); 
         }
 
         return parent::beforeSave();
@@ -345,17 +346,14 @@ class User extends CActiveRecord
     public function getProfileImageUrl($absolute = false)
     {
      
-        if ($this->image != null) {
+        if ($this->image != null && $this->image != self::USER_IMAGE_PLACEHOLDER) {       
             if($absolute){
                 return Yii::app()->params['urlManager.hostInfo'].'/'.$this->image;
             }
-            return $this->image;
-         
+            return $this->image;         
         }
         else {
             if ($this->fbId != null) {
-
-
                 $url = "http://graph.facebook.com/" . $this->fbId . "/picture?type=large";
                 return $url;
             }

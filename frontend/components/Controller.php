@@ -33,12 +33,12 @@ class Controller extends CController
         parent::init();
         if(isset( $_POST['_lang']))
         {
-            Yii::app()->session['itake_lang'] = $_POST['_lang'];
-            Yii::app()->language = Yii::app()->session['itake_lang'];
+            UserRegistry::getInstance()->setValue('itake_lang', $_POST['_lang']);
+            Yii::app()->language = UserRegistry::getInstance()->getValue('itake_lang');
         }
         else{
-            if (isset(Yii::app()->session['itake_lang'])) {
-                Yii::app()->language = Yii::app()->session['itake_lang'];
+            if ( false !== $language = UserRegistry::getInstance()->getValue('itake_lang',false)) {
+                Yii::app()->language = $language;
             }
             else if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
                  $lang= substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);

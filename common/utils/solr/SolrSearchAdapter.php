@@ -171,7 +171,7 @@ class SolrSearchAdapter
             throw new CException('User must login to facebook first');
         }
         
-        $friendList = FacebookUtil::getInstance()->getFacebookFriendInApp(Yii::app()->user->getId());        
+        $friendList = FacebookUtil::getInstance()->getFacebookFriendInApp(Yii::app()->user->getId());                
         if($friendList !=false){
             $strList = '(';
             foreach($friendList as $index=>$friendId){

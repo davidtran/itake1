@@ -105,6 +105,7 @@ return array(
     'Update'=>'Cập nhật',
     'Add your address'=>'Thêm địa chỉ',
     'Your+ad+image'=>'Hình+SP',
+    '<b>Notice:</b>Only allow {maxImage} images per product.',
     ///Change password    
     'Old password'=>'Mật khẩu cũ',
     'New password'=>'Mật khẩu mới',
