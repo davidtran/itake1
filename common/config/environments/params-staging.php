@@ -31,14 +31,15 @@ return array(
     'db.password' => 'itake',
     'db.tablePrefix' => 'mp_',
     'db.schemaCachingDuration'=>false,
-    
-    'email.host' => 'smtp.gmail.com',
-    'email.username' => 'rubickweb',
-    'email.password' => 'goodmorning2013',
-    'email.port' => 465,
-    'email.adminEmail' => 'rubickweb@gmail.com',
-    'email.encryption' => 'ssl',
-    'facebook.appId' => '221643951240412',
+
+    'email.host'=>'smtp.gmail.com',
+    'email.username'=>'norely',
+    'email.password'=>'goodmorning2013',
+    'email.port'=>25,
+    'email.adminEmail'=>'norely@gmail.me',
+    'email.encryption'=>false,
+
+    'facebook.appId'=>'221643951240412',
     'facebook.secret' => '4d38bec6cc561750041e4fc64eaab141',
     'solr.port' => '8983',
     'solr.host' => 'localhost',
