@@ -20,9 +20,7 @@
  * @property integer $status     
  */
 class User extends CActiveRecord
-{
-
-    const USER_IMAGE_PLACEHOLDER = 'images/user-placeholder.jpg';
+{   
     const STATUS_ACTIVE = 0;
     const STATUS_INACTIVE = 1;
     const GENDER_MALE = 1;
@@ -198,7 +196,7 @@ class User extends CActiveRecord
             $this->create_date = DateUtil::getCurrentDateTime();
         }
 
-        if ($oldModel != null) {
+        if ($oldModel != null) {                        
             if ($this->password != $oldModel->password && trim($this->password != '')) {
                 $this->password = $this->makeOptimizedPassword($this->password, $this->salt);
             }
@@ -220,7 +218,8 @@ class User extends CActiveRecord
     public function beforeSave()
     {
         if ($this->isNewRecord) {
-            $this->image = $this->getProfileImageUrl();
+            //No need to save image;
+            //$this->image = $this->getProfileImageUrl(); 
         }
 
         return parent::beforeSave();
@@ -301,7 +300,7 @@ class User extends CActiveRecord
             $this->$attributeName = $resize;
             //$rs = Yii::app()->s3->upload($resize,UserUtil::USER_IMAGE_FOLDER.'/'.$filename,Yii::app()->params['s3bucket']);                            
             @unlink('images/content/profile/' . $filename);
-            if ($oldImage != null && $oldImage != UserUtil::USER_IMAGE_PLACEHOLDER) {
+            if ($oldImage != null) {
                 @unlink($oldImage);
             }
             //unlink($resize);
@@ -345,26 +344,19 @@ class User extends CActiveRecord
     public function getProfileImageUrl($absolute = false)
     {
      
-        if ($this->image != null) {
+        if ($this->image != null) {       
             if($absolute){
                 return Yii::app()->params['urlManager.hostInfo'].'/'.$this->image;
             }
-            return $this->image;
-         
+            return $this->image;         
         }
         else {
             if ($this->fbId != null) {
-
-
                 $url = "http://graph.facebook.com/" . $this->fbId . "/picture?type=large";
                 return $url;
             }
         }
-
-
-
-
-        return self::USER_IMAGE_PLACEHOLDER;
+        return null;
     }
 
     public function getBanner()

@@ -56,7 +56,7 @@ class Product extends CActiveRecord
         // will receive user inputs.
         return array(
             array('title, description,address_id,price, city,category_id', 'required'),
-            array('status,country,address_id, view,price,category_id,city', 'numerical', 'integerOnly' => true),
+            array('uploadToFacebook,status,country,address_id, view,price,category_id,city', 'numerical', 'integerOnly' => true),
             array('title', 'length', 'max' => 50),
             array('description', 'length', 'max' => 500),         
             array('phone,lat,lon,locationText', 'safe'),
@@ -82,6 +82,7 @@ class Product extends CActiveRecord
             'cityModel' => array(self::BELONGS_TO, 'City', 'city'),
             'firstImage'=>array(self::HAS_ONE,'ProductImage','product_id','order'=>'number'),
             'images'=>array(self::HAS_MANY,'ProductImage','product_id','order'=>'number'),  
+            'imageCount'=>array(self::STAT,'ProductImage','product_id'),
         );
     }
 
@@ -140,14 +141,7 @@ class Product extends CActiveRecord
             $this->create_date = date('Y-m-d H:i:s');
             $this->view = 0;
         }
-        if ($this->address != null)
-        {
-            $this->locationText = $this->address->address;
-            $this->phone = $this->address->phone;
-            $this->city = $this->address->city;
-            $this->lat = $this->address->lat;
-            $this->lon = $this->address->lon;
-        }
+        
         $this->price = intval(StringUtil::removeSpecialCharacter($this->price));
         return parent::beforeValidate();
     }
@@ -159,7 +153,14 @@ class Product extends CActiveRecord
             $this->view = 1;
             $this->status = self::STATUS_ACTIVE;
         }
-        
+        if ($this->address != null)
+        {                        
+            $this->locationText = $this->address->address;
+            $this->phone = $this->address->phone;
+            $this->city = $this->address->city;
+            $this->lat = $this->address->lat;
+            $this->lon = $this->address->lon;
+        }
         $this->title = filter_var($this->title,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $description = strip_tags($this->description,'<br><p>');
         $this->description = filter_var($description);                

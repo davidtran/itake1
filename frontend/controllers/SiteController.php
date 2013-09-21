@@ -26,7 +26,7 @@ class SiteController extends Controller
     {
         return array(
             array(
-                'frontend.components.FacebookAccessCheckerFilter + index'
+                'frontend.components.FacebookAccessCheckerFilter + index,list'
             )
         );
     }
@@ -70,6 +70,7 @@ class SiteController extends Controller
     }
     
     public function actionFacebook($category){
+
         $url = $this->createUrl('list',array(
             'keyword'=>null,
             'category'=>$category,
@@ -114,46 +115,56 @@ class SiteController extends Controller
 
         
         $city = UserRegistry::getInstance()->getValue('City',0);
+        $empty = true;
+        $nextPageLink = false;
+        $productList = array();
+        $requiredFacebookLogin = false;
+        if($facebook && Yii::app()->user->isFacebookUser == false){
+            $requiredFacebookLogin = true;            
+        }else{
+            $solrAdapter = new SolrSearchAdapter();
+            $solrAdapter->setSortType(SolrSortTypeUtil::getInstance()->getCurrentSortType());
+            $solrAdapter->categoryId = $category;
+            $solrAdapter->cityId = $city;
+            $solrAdapter->page = $page;
+            $solrAdapter->pageSize = 12;
+            $solrAdapter->country = Yii::app()->country->getId();
+            $solrAdapter->keyword = $keyword;
+            $solrAdapter->status = $status;
+            $solrAdapter->facebookFriend = $facebook;
+            $locationAddress= null;
+            $locationCity = null;
 
-        $solrAdapter = new SolrSearchAdapter();
-        $solrAdapter->setSortType(SolrSortTypeUtil::getInstance()->getCurrentSortType());
-        $solrAdapter->categoryId = $category;
-        $solrAdapter->cityId = $city;
-        $solrAdapter->page = $page;
-        $solrAdapter->pageSize = 12;
-        $solrAdapter->country = Yii::app()->country->getId();
-        $solrAdapter->keyword = $keyword;
-        $solrAdapter->status = $status;
-        $locationAddress= null;
-        $locationCity = null;
-        
-        if ($solrAdapter->getSortType() == SolrSearchAdapter::TYPE_LOCATION) {
-            $lat = UserLocationUtil::getInstance()->lat;
-            $lng = UserLocationUtil::getInstance()->lng;
-            $locationAddress = UserLocationUtil::getInstance()->address;
-            $locationCity = UserLocationUtil::getInstance()->city;
-            if ($lat != null && $lng != null) {
-                $solrAdapter->setLocation($lat, $lng);
+            if ($solrAdapter->getSortType() == SolrSearchAdapter::TYPE_LOCATION) {
+                $lat = UserLocationUtil::getInstance()->lat;
+                $lng = UserLocationUtil::getInstance()->lng;
+                $locationAddress = UserLocationUtil::getInstance()->address;
+                $locationCity = UserLocationUtil::getInstance()->city;
+                if ($lat != null && $lng != null) {
+                    $solrAdapter->setLocation($lat, $lng);
+                }
             }
+            Yii::beginProfile('search');
+            $resultSet = $solrAdapter->search();
+            Yii::endProfile('search');
+
+            $productList = $resultSet->productList;
+            $empty = $page * $solrAdapter->pageSize + $solrAdapter->pageSize > $resultSet->numFound;
+            $params = array(
+                'keyword' => $keyword,
+                'category' => $category,
+                'facebook' => $facebook,
+                'page' => $page + 2,
+                'status'=>$status
+            );
+            $nextPageUrl = $this->createNextUrl($params);
+            $nextPageLink = CHtml::link('Next', $nextPageUrl, array(
+                        'class' => 'nextPageLink',
+            ));
         }
-        Yii::beginProfile('search');
-        $resultSet = $solrAdapter->search();
-        Yii::endProfile('search');
+        
 
-        $productList = $resultSet->productList;
-
-        $empty = $page * $solrAdapter->pageSize + $solrAdapter->pageSize > $resultSet->numFound;
-        $params = array(
-            'keyword' => $keyword,
-            'category' => $category,
-            'facebook' => $facebook,
-            'page' => $page + 2,
-            'status'=>$status
-        );
-        $nextPageUrl = $this->createNextUrl($params);
-        $nextPageLink = CHtml::link('Next', $nextPageUrl, array(
-                    'class' => 'nextPageLink',
-        ));
+        
 
         if (!Yii::app()->request->isAjaxRequest) {
             $this->render('list', array(
@@ -166,7 +177,8 @@ class SiteController extends Controller
                 'empty' => $empty,
                 'locationAddress'=>$locationAddress,
                 'locationCity'=>$locationCity,
-                'city'=>$city,                
+                'city'=>$city,     
+                'requiredFacebookLogin'=>$requiredFacebookLogin
             ));
         }
         else {
@@ -297,15 +309,15 @@ class SiteController extends Controller
 
     public function actionEnLang()
     {
-        $currentUrl = Yii::app()->request->urlReferrer;
-        Yii::app()->session['itake_lang'] = 'en';
+        $currentUrl = Yii::app()->request->urlReferrer;        
+        UserRegistry::getInstance()->setValue('itake_lang', 'en');
         $this->redirect($currentUrl);
     }
 
     public function actionViLang()
     {
         $currentUrl = Yii::app()->request->urlReferrer;
-        Yii::app()->session['itake_lang'] = 'vi';
+        UserRegistry::getInstance()->setValue('itake_lang', 'vi');
         $this->redirect($currentUrl);
     }
 

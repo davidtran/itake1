@@ -58,7 +58,7 @@ Yii::app()->clientScript->registerScript('data',"
                 </ul>
             </div>    
             <div class="selectedCategoryTab"> 
-            <?php if ($categoryModel != null): ?>
+            <?php if (isset($categoryModel) && $categoryModel != null): ?>
                 <?php $this->pageTitle = $categoryModel->name . " ".LanguageUtil::t('on')." ITAKE.ME" ?>
             
                 <h1>

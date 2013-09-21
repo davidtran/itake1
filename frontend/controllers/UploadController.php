@@ -15,7 +15,8 @@ class UploadController extends Controller
                 'path' => Yii::getPathOfAlias('www') . '/images/content',
                 'publicPath' => Yii::app()->getBaseUrl() . "/images/content",
                 'formClass' => 'frontend.extensions.xupload.models.XUploadForm',
-                'stateVariable' => self::IMAGE_STATE_VARIABLE
+                'stateVariable' => self::IMAGE_STATE_VARIABLE,
+                'secureFileNames'=>true,
             ),
         );
     }
@@ -49,12 +50,13 @@ class UploadController extends Controller
         ProductImageUtil::drawImage($product, $product->image, $processed);
         $product->processed_image = $processed;
     }
-
+    
     public function actionIndex($category)
     {
         $returnUrl = $this->createUrl('/upload/index');
         $this->checkLogin('Vui lòng đăng nhập được khi sử dụng tính năng này', $returnUrl);
-        $postedToFacebook = false;
+        Yii::app()->session->add('EditingProduct',false);
+        
         $product = new Product();      
         $product->category_id = $category;
         $product->user_id = Yii::app()->user->getId();
@@ -69,13 +71,15 @@ class UploadController extends Controller
                 if ($product->save(false)) {
                     $this->solrImportProduct($product);
                     $this->saveUploadedImage($product);
-                    $this->postProductToFacebook($product);
+                    if($product->uploadToFacebook > 0){
+                        $this->postProductToFacebook($product);
+                    }
                     Yii::app()->session['PostedProductId'] = $product->id;
                     Yii::app()->user->setFlash('success', 'Đăng tin thành công');
                     Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
                     $this->redirect($product->getDetailUrl());
                 }
-            }
+            }          
         }
         else {
             Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
@@ -92,10 +96,13 @@ class UploadController extends Controller
     public function actionEdit($id)
     {
         $this->checkLogin("Cần đăng nhập để chỉnh sửa sản phẩm", Yii::app()->request->requestUri);
+        
+        
         $product = Product::model()->findByPk($id);
 
 
-        if ($product != null) {
+        if ($product != null) {            
+            Yii::app()->session->add('EditingProduct',$id);
             if ($product->user_id !== Yii::app()->user->model->id)
                 throw new CHttpException(500, 'Bạn không thể chỉnh sửa mà không phải của bạn');
             $photos = new XUploadForm;
@@ -108,12 +115,14 @@ class UploadController extends Controller
             if (isset($_POST['Product'])) {
                 $product->attributes = $_POST['Product'];
 
-
                 if ($product->validate(null, false)) {
                     if ($product->save(false)) {
                         $this->saveUploadedImage($product);
                         $this->solrImportProduct($product);
-                        $this->postProductToFacebook($product);
+                        if($product->uploadToFacebook > 0){
+                            $this->postProductToFacebook($product);
+                        }
+                        
                         Yii::app()->session['PostedProductId'] = $product->id;
                         Yii::app()->user->setFlash('success', 'Chỉnh sửa tin thành công');
                         Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
@@ -143,11 +152,13 @@ class UploadController extends Controller
 
     public function haveUploadedImage()
     {
-        if (Yii::app()->user->hasState(self::IMAGE_STATE_VARIABLE)) {
-            $userImages = Yii::app()->user->getState(self::IMAGE_STATE_VARIABLE);
-            return count($userImages) > 0;
+        $userFiles = Yii::app()->user->getState(self::IMAGE_STATE_VARIABLE, array());       
+        if(count($userFiles) > 0){
+            return true;
+        }else{
+            echo 'shit';exit;
+            return false;
         }
-        return false;
     }
 
     public function saveUploadedImage(Product $product)
@@ -170,12 +181,10 @@ class UploadController extends Controller
                         $resize = ImageUtil::resize('images/content/' . $filename . '.' . $ext, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);
                         $imageModel = new ProductImage();
                         $imageModel->image = 'images/content/' . $filename . '.' . $ext;
-                        $imageModel->thumbnail = $resize;
-                        if ($i == 1) {
-                            $processed = 'images/content/processed/' . $filename . '.' . $ext;
-                            ProductImageUtil::drawImage($product, $imageModel->image, $processed);
-                            $imageModel->facebook = $processed;
-                        }
+                        $imageModel->thumbnail = $resize;                     
+                        $processed = 'images/content/processed/' . $filename . '.' . $ext;
+                        ProductImageUtil::drawImage($product, $imageModel->image, $processed);
+                        $imageModel->facebook = $processed;                        
                         $imageModel->number = $i;
                         $imageModel->product_id = $product->id;
                         if ($imageModel->save()) {
@@ -288,6 +297,7 @@ class UploadController extends Controller
 
     public function actionDeleteAddress()
     {
+        return false;
         $this->checkLogin();
         $addressId = Yii::app()->request->getPost('addressId');
         $productId = Yii::app()->request->getPost('productId');

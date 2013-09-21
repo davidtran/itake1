@@ -66,15 +66,22 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         );                                        
                                         ?>
                                         
-                                            <div class="alert alert-info" style="text-align: justify;background:transparent;border:none;max-width:180px;margin:0 auto;">
-
-                                                <?php echo Yii::t('Default','<b>Warning:</b> The width of your image is larger than {width} pxs and its height is taller than {height} pxs',array('{width}'=>Yii::app()->params['image.minWidth'],'{height}'=>Yii::app()->params['image.minHeight'])) ?>
-                                            </div>                                                                           
-                                            <?php foreach($product->images as $image):?>
+                                    <?php foreach($product->images as $image):?>
                                                 <?php $this->renderPartial('partial/uploadedImage',array(
                                                     'image'=>$image
                                                 )); ?>
                                             <?php endforeach; ?>                                        
+                                            <div class="alert alert-info" style="text-align: justify;background:transparent;border:none;max-width:180px;margin:0 auto;">
+
+                                                <?php echo Yii::t('Default','<b>Notice:</b> The width of your image is larger than {width} pxs and its height is taller than {height} pxs',array('{width}'=>Yii::app()->params['image.minWidth'],'{height}'=>Yii::app()->params['image.minHeight'])) ?>
+                                            </div>                                                                           
+                                    <div class="alert alert-info" style="text-align: justify;background:transparent;border:none;max-width:180px;margin:0 auto;">
+
+                                                <?php echo Yii::t('Default','<b>Notice:</b>Only allow {maxImage} images per product.',array(
+                                                    '{maxImage}'=>Yii::app()->params['upload.maxImageNumber']
+                                                )); ?>
+                                            </div>                                                                           
+                                            
                                 </div>
                                 <div class="span7">
                                         <?php
@@ -152,6 +159,12 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
 
                                 </div>
                             </div>  
+                                <?php if(Yii::app()->user->isFacebookUser):?>
+                                    <div class="row-fluid" style="margin-left:10px;">
+                                        <?php echo $form->checkBoxRow($product,'uploadToFacebook'); ?>
+                                    </div>
+                                <?php endif; ?>
+                                
                                 <?php $pages = $this->getFacebookPageListData() ?>
                                 <?php if($pages !==false&&count($pages)>0):?>
                                 <div class="row-fluid" style="margin-left:10px;">

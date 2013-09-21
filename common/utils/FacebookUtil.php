@@ -66,9 +66,7 @@ class FacebookUtil
 
     public function getFacebookFriendList()
     {
-        return Yii::app()->facebook->api('/me/friends','post',array(
-            'access_token'=>$this->_accessToken
-        ));
+        return Yii::app()->facebook->api('/me/friends?access_token='.$this->_accessToken);
     }
 
     public function filterFacebookFriendInApp($facebookFriendList)
@@ -99,23 +97,15 @@ class FacebookUtil
 
     public function getFacebookFriendInApp($userId)
     {
-        try
-        {
-
-            if (!isset(Yii::app()->session[self::FACEBOOK_FRIEND_IN_APP_SESSION_NAME]))
-            {
-                $facebookFriendList = $this->getFacebookFriendList($userId);
+       
+                $facebookFriendList = $this->getFacebookFriendList($userId);                
                 $filterList = $this->filterFacebookFriendInApp($facebookFriendList);
                 $filterList[] = $userId;
                 Yii::app()->session[self::FACEBOOK_FRIEND_IN_APP_SESSION_NAME] = $filterList;
-            }
+                
             return Yii::app()->session[self::FACEBOOK_FRIEND_IN_APP_SESSION_NAME];
-        }
-        catch (Exception $e)
-        {
-            return false;
-        }
-        return false;
+        
+       
     }
 
     public function getSavedUserToken($userId)
@@ -143,6 +133,7 @@ class FacebookUtil
         $args['access_token'] = $this->_accessToken;
         //FacebookPostQueueUtil::queueCommand('/me/photos', 'POST', $args, $product->user_id);
         return Yii::app()->facebook->api('/me/photos', 'POST', $args);       
+        
     }
 
     protected function makePostDescription(Product $product)
@@ -231,7 +222,6 @@ class FacebookUtil
             $args['access_token'] = $pageInfo['access_token'];
         }
         return Yii::app()->facebook->api('/'.$page.'/photos','POST',$args);
-        //FacebookPostQueueUtil::queueCommand("/$page/?fields=access_token", 'POST', $args, $product->user_id);
     }       
         
 }
