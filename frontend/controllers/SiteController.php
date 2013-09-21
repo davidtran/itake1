@@ -26,7 +26,7 @@ class SiteController extends Controller
     {
         return array(
             array(
-                'frontend.components.FacebookAccessCheckerFilter + index,list'
+                'frontend.components.FacebookAccessCheckerFilter + index'
             )
         );
     }
@@ -44,7 +44,7 @@ class SiteController extends Controller
         //redirect to index with selected category
         UserRegistry::getInstance()->setValue('City', $id);
         //$redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/list');
-        $redirectUrl = $this->createAbsoluteUrl('/site/list', array('category' =>$category));
+        $redirectUrl = $this->createAbsoluteUrl('/site/index', array('category' =>$category));
         $this->redirect($redirectUrl);
     }
 
@@ -62,18 +62,18 @@ class SiteController extends Controller
         $city = UserRegistry::getInstance()->getValue('City');
         $category = Yii::app()->session->get('LastCategory', null);
         $keyword = Yii::app()->session->get('LastKeyword', null);        
-        $this->redirect($this->createUrl('list', array(
+        $this->redirect($this->createUrl('index', array(
                     'keyword' => $keyword,
                     'category' => $category,
                     'page' => 0
         )));
     }
     
-    public function actionFacebook($category){
+    public function actionFacebook(){
 
-        $url = $this->createUrl('list',array(
+        $url = $this->createUrl('index',array(
             'keyword'=>null,
-            'category'=>$category,
+            'category'=>Yii::app()->session['LastCategory'],
             'facebook'=>true,
             'page'=>0,
             'status'=>Product::STATUS_ACTIVE
@@ -81,10 +81,10 @@ class SiteController extends Controller
         $this->redirect($url);
     }
     
-    public function actionSold($category){        
-        $url = $this->createUrl('list',array(
+    public function actionSold(){        
+        $url = $this->createUrl('index',array(
             'keyword'=>null,
-            'category'=>$category,
+            'category'=>Yii::app()->session['LastCategory'],
             'facebook'=>false,
             'page'=>0,
             'status'=>Product::STATUS_SOLD
@@ -92,7 +92,7 @@ class SiteController extends Controller
         $this->redirect($url);
     }
 
-    public function actionList($keyword = null, $category = null, $facebook = false, $page = 0,$status = Product::STATUS_ACTIVE)
+    public function actionIndex($keyword = null, $category = null, $facebook = false, $page = 0,$status = Product::STATUS_ACTIVE)
     {
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber'] = $page;
@@ -167,7 +167,7 @@ class SiteController extends Controller
         
 
         if (!Yii::app()->request->isAjaxRequest) {
-            $this->render('list', array(
+            $this->render('index', array(
                 'numFound' => $resultSet->numFound,
                 'productList' => $productList,
                 'nextPageLink' => $nextPageLink,
@@ -195,21 +195,21 @@ class SiteController extends Controller
         }
     }
 
-    public function actionIndex()
-    {
-        if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
-            Yii::app()->session['VisitLanding'] = true;
-            $this->redirect($this->createUrl('landing'));
-        }
-        $categoryList = Category::model()->findAll();
-        $this->render('index', array(
-            'categoryList' => $categoryList
-        ));
-    }
+//    public function actionIndex()
+//    {
+//        if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
+//            Yii::app()->session['VisitLanding'] = true;
+//            $this->redirect($this->createUrl('landing'));
+//        }
+//        $categoryList = Category::model()->findAll();
+//        $this->render('index', array(
+//            'categoryList' => $categoryList
+//        ));
+//    }
 
     protected function createNextUrl($params)
     {
-        return Yii::app()->controller->createAbsoluteUrl('/site/list', $params);
+        return Yii::app()->controller->createAbsoluteUrl('/site/index', $params);
     }
 
     /**

@@ -67,7 +67,7 @@ return array(
     'My profile'=>'Trang cá nhân',
     'Change password'=>'Đổi mật khẩu',
     'Sign out'=>'Đăng xuất',
-    'Upload To Facebook'=>'Đăng tin lên Facebook',
+    
     'More like this'=>'Tin tương tự',
 
     ////Category
@@ -106,6 +106,7 @@ return array(
     'Add your address'=>'Thêm địa chỉ',
     'Your+ad+image'=>'Hình+SP',
     '<b>Notice:</b>Only allow {maxImage} images per product.'=>'<b>Lưu ý:</b>Chỉ cho phép upload {maxImage} ảnh mỗi sản phẩm',
+    'Post to your Facebook profile'=>'Đăng tin lên trang cá Facebook',
     ///Change password    
     'Old password'=>'Mật khẩu cũ',
     'New password'=>'Mật khẩu mới',
