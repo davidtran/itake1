@@ -42,5 +42,12 @@ class UserLocationUtil
         }
         
     }
+    
+    public function removeLocation(){
+        $this->lat = null;
+        $this->lng = null;
+        $this->address = null;
+        $this->city = null;
+    }
 
 }

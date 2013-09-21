@@ -69,8 +69,7 @@ class SiteController extends Controller
         )));
     }
     
-    public function actionFacebook(){
-
+    public function actionFacebook(){        
         $url = $this->createUrl('index',array(
             'keyword'=>null,
             'category'=>Yii::app()->session['LastCategory'],
@@ -81,7 +80,7 @@ class SiteController extends Controller
         $this->redirect($url);
     }
     
-    public function actionSold(){        
+    public function actionSold(){                
         $url = $this->createUrl('index',array(
             'keyword'=>null,
             'category'=>Yii::app()->session['LastCategory'],
@@ -90,7 +89,7 @@ class SiteController extends Controller
             'status'=>Product::STATUS_SOLD
         ));
         $this->redirect($url);
-    }
+    }    
 
     public function actionIndex($keyword = null, $category = null, $facebook = false, $page = 0,$status = Product::STATUS_ACTIVE)
     {
@@ -119,6 +118,7 @@ class SiteController extends Controller
         $nextPageLink = false;
         $productList = array();
         $requiredFacebookLogin = false;
+        $numFound = 0;
         if($facebook && Yii::app()->user->isFacebookUser == false){
             $requiredFacebookLogin = true;            
         }else{
@@ -149,6 +149,7 @@ class SiteController extends Controller
             Yii::endProfile('search');
 
             $productList = $resultSet->productList;
+            $numFound = $resultSet->numFound;
             $empty = $page * $solrAdapter->pageSize + $solrAdapter->pageSize > $resultSet->numFound;
             $params = array(
                 'keyword' => $keyword,
@@ -168,7 +169,7 @@ class SiteController extends Controller
 
         if (!Yii::app()->request->isAjaxRequest) {
             $this->render('index', array(
-                'numFound' => $resultSet->numFound,
+                'numFound' => $numFound,
                 'productList' => $productList,
                 'nextPageLink' => $nextPageLink,
                 'keyword' => $keyword,
@@ -379,10 +380,7 @@ class SiteController extends Controller
     }
     
     public function actionRemoveLocation(){
-            UserLocationUtil::getInstance()->address = null;
-            UserLocationUtil::getInstance()->lat = null;
-            UserLocationUtil::getInstance()->lng = null;
-            UserLocationUtil::getInstance()->city = null;
+            UserLocationUtil::getInstance()->removeLocation();
             $this->redirect($this->createUrl('/site/sortType',array(
                 'type'=>  SolrSearchAdapter::TYPE_CREATE_DATE
             )));
