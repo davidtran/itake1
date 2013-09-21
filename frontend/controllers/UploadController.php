@@ -155,8 +155,7 @@ class UploadController extends Controller
         $userFiles = Yii::app()->user->getState(self::IMAGE_STATE_VARIABLE, array());       
         if(count($userFiles) > 0){
             return true;
-        }else{
-            echo 'shit';exit;
+        }else{           
             return false;
         }
     }
