@@ -71,7 +71,9 @@ class UploadController extends Controller
                 if ($product->save(false)) {
                     $this->solrImportProduct($product);
                     $this->saveUploadedImage($product);
-                    $this->postProductToFacebook($product);
+                    if($product->uploadToFacebook > 0){
+                        $this->postProductToFacebook($product);
+                    }
                     Yii::app()->session['PostedProductId'] = $product->id;
                     Yii::app()->user->setFlash('success', 'Đăng tin thành công');
                     Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
@@ -117,7 +119,10 @@ class UploadController extends Controller
                     if ($product->save(false)) {
                         $this->saveUploadedImage($product);
                         $this->solrImportProduct($product);
-                        $this->postProductToFacebook($product);
+                        if($product->uploadToFacebook > 0){
+                            $this->postProductToFacebook($product);
+                        }
+                        
                         Yii::app()->session['PostedProductId'] = $product->id;
                         Yii::app()->user->setFlash('success', 'Chỉnh sửa tin thành công');
                         Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);

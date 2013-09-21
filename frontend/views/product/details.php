@@ -79,18 +79,15 @@ $this->
                                             <i class="icon-calendar"></i>
                                             <?php echo DateUtil::convertDate('d-m-Y H:i:s', $product->create_date); ?></div>
                                     </div>
-                                    <?php if ($product->
-                                            lat != null && $product->lon != null): ?>
+                                    <?php if ($product->address->lat != null && $product->address->lon != null): ?>
                                         <div class="row-fluid">
 
-                                            <?php if (trim($product->
-                                                    locationText) != ''): ?>
+                                            <?php if (trim($product->address->address) != ''): ?>
                                                 <h4 class="product-detail-tag">
                                                     <?php LanguageUtil::echoT('Address') ?>
                                                     :
-                                                    <?php echo CityUtil::getCityName($product->city); ?></h4>
-                                                <?php echo $product->
-                                                    locationText; ?>
+                                                    <?php echo CityUtil::getCityName($product->address->city); ?></h4>
+                                                <?php echo $product->address->address; ?>
                                             <?php endif; ?></div>
                                     <?php endif; ?>
                                     <div class="row-fluid">
@@ -115,13 +112,12 @@ $this->
 
                                 </div>
                                 <div class="tab-pane fade" id="bando">
-                                    <?php if ($product->
-                                            lat != null && $product->lon != null): ?>
+                                    <?php if ($product->address->lat != null && $product->address->lon != null): ?>
                                         <div class="row-fluid">
                                             <h4 class="product-detail-tag">
                                                 <?php LanguageUtil::echoT('City') ?>
                                                 :
-                                                <?php echo CityUtil::getCityName($product->city); ?></h4>
+                                                <?php echo CityUtil::getCityName($product->address->city); ?></h4>
 
                                             <div id='map'></div>
                                             <script>
