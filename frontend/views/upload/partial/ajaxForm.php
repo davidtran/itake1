@@ -13,7 +13,7 @@ if ($this->showForm)
 
             <div class="fileupload fileupload-new" data-provides="fileupload">
 
-                <?php echo CHtml::link(Yii::t('Default', 'Upload images'),'#',array(
+                <?php echo CHtml::link('<i class="icon-cloud-upload"></i>  '.LanguageUtil::t('Upload images'),'#',array(
                         'class'=>'btn btn-success btn-large',
                         'style'=>'width:200px'
                     ));?>
