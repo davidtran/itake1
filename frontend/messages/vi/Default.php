@@ -116,5 +116,6 @@ return array(
     'Please choose one or many fanpages to share your post (optional)'=>'Xin vui lòng chọn 1 hoặc nhiều Fanpage mà bạn muốn post lên',
     'Sort Type'=>'Sắp xếp',
     'in'=>'tại',
-    'Upload images'=>'Chọn hình để tải lên'
+    'Upload images'=>'Chọn hình để tải lên',
+    'Please choose a city'=>'Xin vui lòng chọn thành phố'
 );

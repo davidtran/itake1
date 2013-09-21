@@ -112,6 +112,7 @@ Yii::app()->clientScript->registerScript('data',"
     </div>
 </div>
 
-<?php echo $this->renderPartial('/site/_productDialog', array(), true, false); ?>
 
+<?php echo $this->renderPartial('/site/_productDialog', array(), true, false); ?>
+<?php $this->renderPartial('partial/cityDialog',array()); ?>
 <?php Yii::endProfile('RenderSiteIndex'); ?>
