@@ -110,31 +110,16 @@ class FacebookUtil
 
     public function getSavedUserToken($userId)
     {
-        $meta = UserMetaUtil::findMeta($userId, 'FacebookAccessToken');
-        if ($meta != null)
-        {
-            return $meta->value;
-        }
-        return false;
+        return UserRegistry::getInstance()->getValue('FacebookAccessToken',false);        
     }
 
     public function saveUserToken($userId, $token)
     {
-        UserMetaUtil::setMeta($userId, 'FacebookAccessToken', $token);
+        UserRegistry::getInstance()->setValue('FacebookAccessToken', $token);        
     }
 
 
-    public function shareProductToFacebook(Product $product)
-    {
-        $args = array();   
-        $args['picture'] = '@'.realpath($product->firstImage->facebook);        
-        $desc = $this->makePostDescription($product);        
-        $args['message'] = $desc;
-        $args['access_token'] = $this->_accessToken;
-        //FacebookPostQueueUtil::queueCommand('/me/photos', 'POST', $args, $product->user_id);
-        return Yii::app()->facebook->api('/me/photos', 'POST', $args);       
-        
-    }
+    
 
     protected function makePostDescription(Product $product)
     {     
@@ -222,6 +207,109 @@ class FacebookUtil
             $args['access_token'] = $pageInfo['access_token'];
         }
         return Yii::app()->facebook->api('/'.$page.'/photos','POST',$args);
-    }       
+    }     
+    
+    public function shareProductToFacebook(Product $product)
+    {
+        $args = array();   
+        $args['picture'] = '@'.realpath($product->firstImage->facebook);        
+        $desc = $this->makePostDescription($product);        
+        $args['message'] = $desc;
+        $args['access_token'] = $this->_accessToken;
+        //FacebookPostQueueUtil::queueCommand('/me/photos', 'POST', $args, $product->user_id);
+        return Yii::app()->facebook->api('/me/photos', 'POST', $args);       
+        
+    }
+    
+    public function shareProductAlbum($product){   
+        try{
+            $albumId = $this->createAlbum($product->title, $product->description);
+            $desc = $this->makePostDescription($product);        
+            foreach($product->images as $image){
+                $args = array();   
+                $args['picture'] = '@'.realpath($image->facebook);                
+                $args['message'] = $desc;
+                $args['access_token'] = $this->_accessToken;
+                Yii::app()->facebook->api('/'.$albumId.'/photos', 'POST', $args);       
+            } 
+            return true;
+        }
+        catch(Exception $e){
+            Yii::log($e,  CLogger::LEVEL_ERROR,'facebook');
+            return false;
+        }
+               
+    }
+    
+    public function shareProductAlbumToFanpage($product,$page){                
+        try{
+            $accessToken = UserRegistry::getInstance()->getValue($page.'_accessToken',null);
+            if($accessToken == null){
+                $pageInfo = Yii::app()->facebook->api("/$page/?fields=access_token");
+                if(!empty($pageInfo)){
+                    $accessToken = $pageInfo['access_token'];
+                    UserRegistry::getInstance()->setValue($page.'_accessToken',$accessToken);
+                }else{
+                    return false;
+                }
+            }
+            $pageInfo = Yii::app()->facebook->api("/$page/?fields=access_token");
+            $albumId = $this->createFanpageAlbum($product->title, $product->description, $accessToken, $page);
+            if($albumId !== false){
+                foreach($product->images as $image){
+                    $args = array();   
+                    $args['picture'] = '@'.realpath($product->firstImage->facebook);        
+                    $desc = $this->makePostDescription($product);        
+                    $args['message'] = $desc;
+                    $args['page_id'] = $page;
+                    $args['access_token'] = $accessToken;
+                    Yii::app()->facebook->api('/'.$albumId.'/photos','POST',$args);
+                }
+            }
+            return true;
+        }
+        catch(Exception $e){
+            Yii::log($e,  CLogger::LEVEL_ERROR,'facebook');
+            return false;
+        }                
+    }
+    
+    protected function createFanpageAlbum($title,$description,$accessToken,$pageID){
+        $album_details = array(
+            'access_token' => $accessToken,
+            'name'         => $title,
+            'message'      => $description,
+        );
+
+        $album = Yii::app()->facebook->api('/'.$pageID.'/albums', 'POST', $album_details);
+        if($album!==false && isset($album['id'])){
+            return $album['id'];
+        }
+    }
+
+
+    /**
+     * 
+     * @param string $title Title of album
+     * @param string $description description of album
+     * @param string $facebookObjectId id of user
+     * @return type
+     */
+    protected function createAlbum($title,$description){
+        
+        $album_details = array(
+            'access_token' => $this->_accessToken,
+            'name'         => $title,
+            'message'      => $description,
+        );
+
+        $album = Yii::app()->facebook->api('/me/albums', 'POST', $album_details);
+        if($album!==false && isset($album['id'])){
+            return $album['id'];
+        }
+        
+    }
+    
+    
         
 }

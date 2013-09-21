@@ -55,7 +55,7 @@ class Product extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title, description,address_id,price, city,category_id', 'required'),
+            array('title, description,address_id,price,category_id', 'required'),
             array('uploadToFacebook,status,country,address_id, view,price,category_id,city', 'numerical', 'integerOnly' => true),
             array('title', 'length', 'max' => 50),
             array('description', 'length', 'max' => 500),         

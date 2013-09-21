@@ -357,7 +357,7 @@ class UploadController extends Controller
     {
         if (Yii::app()->user->isFacebookUser && $product->uploadToFacebook) {
             try {
-                FacebookUtil::getInstance()->shareProductToFacebook($product);
+                FacebookUtil::getInstance()->shareProductAlbum($product);
                 if (isset($_POST['FacebookPage'])) {
                     foreach ($_POST['FacebookPage'] as $page) {
                         FacebookUtil::getInstance()->shareProductToPage($product, $page);
