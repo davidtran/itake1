@@ -40,16 +40,9 @@ class Controller extends CController
             if ( false !== $language = UserRegistry::getInstance()->getValue('itake_lang',false)) {
                 Yii::app()->language = $language;
             }
-            else if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
-                 $lang= substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-                if($lang!='vi')
-                    Yii::app()->language = 'en';
-                else
-                    Yii::app()->language = 'vi';
-            }       
-            else{
+            else {
                 Yii::app()->language = 'vi';
-            }     
+            }
         }  
             
     }
