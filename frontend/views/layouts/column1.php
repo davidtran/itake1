@@ -2,7 +2,7 @@
 <?php $this->beginContent('//layouts/main'); ?>
 <div class="nav-bar-top">
     <div class="nd_logo">
-        <a class="logo" href="<?php echo $this->createUrl('/site'); ?>"><h1>ITAKE.ME</h1></a>
+        <a class="logo" href="<?php echo $this->createUrl('/welcome'); ?>"><h1>ITAKE.ME</h1></a>
         <small class="visible-desktop"></small>               
     </div>
     <div class="frmSearch_wrapper">                          

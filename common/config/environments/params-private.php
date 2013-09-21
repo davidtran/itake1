@@ -25,9 +25,9 @@ return array(
 	'env.code' => 'private',
 	// DB connection configurations
 	'db.name' => '',
-	'db.connectionString' => 'mysql:host=localhost;dbname=nada',
+	'db.connectionString' => 'mysql:host=localhost;dbname=itake',
 	'db.username' => 'root',
-	'db.password' => '123',
+	'db.password' => '',
     'db.tablePrefix'=>'mp_',
     'db.schemaCachingDuration'=>false,
     'email.host'=>'smtp.gmail.com',
