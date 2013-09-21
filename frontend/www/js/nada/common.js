@@ -217,7 +217,7 @@ $(document).ready(function() {
             status: true,
             cookie: true,
             xfbml: true,
-            channelUrl:ABSOLUTE_URL + '/channel.html'
+            channelUrl:ABSOLUTE_URL + '/channel.php'
         });
         $(document).trigger("facebook:ready");
     }

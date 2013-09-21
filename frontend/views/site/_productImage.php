@@ -15,7 +15,7 @@
             <div class="row-fluid" style="margin-top: 10px;">
                 <?php
                 Yii::beginProfile('GetImage'.$product->user->id); 
-                    echo CHtml::image(Yii::app()->baseUrl.'/'.$product->user->getProfileImageUrl(), $product->user->username, array(
+                    echo UserImageUtil::renderImage($product->user,array(
                         'width' => 30,
                         'height' => 30,
                         'style' => 'width: 30px;
