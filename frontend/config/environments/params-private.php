@@ -10,10 +10,6 @@
 return array(
     'env.code' => 'private',
     'api.checkToken' => false,
-    'request.baseUrl' => 'http://dev.itake',
-    'db.connectionString' => 'mysql:host=localhost;dbname=nada',
-    'db.username' => 'root',
-    'db.password' => '123',
-    'db.tablePrefix' => 'mp_',
+    'request.baseUrl' => 'http://dev.itake', 
     'upload.maxImageNumber' => 4,
 );
