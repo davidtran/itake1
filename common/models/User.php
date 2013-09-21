@@ -20,9 +20,7 @@
  * @property integer $status     
  */
 class User extends CActiveRecord
-{
-
-    const USER_IMAGE_PLACEHOLDER = 'images/user-placeholder.png';
+{   
     const STATUS_ACTIVE = 0;
     const STATUS_INACTIVE = 1;
     const GENDER_MALE = 1;
@@ -302,7 +300,7 @@ class User extends CActiveRecord
             $this->$attributeName = $resize;
             //$rs = Yii::app()->s3->upload($resize,UserUtil::USER_IMAGE_FOLDER.'/'.$filename,Yii::app()->params['s3bucket']);                            
             @unlink('images/content/profile/' . $filename);
-            if ($oldImage != null && $oldImage != UserUtil::USER_IMAGE_PLACEHOLDER) {
+            if ($oldImage != null) {
                 @unlink($oldImage);
             }
             //unlink($resize);
@@ -346,7 +344,7 @@ class User extends CActiveRecord
     public function getProfileImageUrl($absolute = false)
     {
      
-        if ($this->image != null && $this->image != self::USER_IMAGE_PLACEHOLDER) {       
+        if ($this->image != null) {       
             if($absolute){
                 return Yii::app()->params['urlManager.hostInfo'].'/'.$this->image;
             }
@@ -358,11 +356,7 @@ class User extends CActiveRecord
                 return $url;
             }
         }
-
-
-
-
-        return self::USER_IMAGE_PLACEHOLDER;
+        return null;
     }
 
     public function getBanner()
