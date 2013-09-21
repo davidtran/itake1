@@ -1956,3 +1956,9 @@ div.sort-bar{
     position: relative;
     top: 20px;
 }
+.btnDeleteImage{
+    position: relative;
+    top: -30px;
+    height:20px;
+    left: 10px;
+}

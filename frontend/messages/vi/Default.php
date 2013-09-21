@@ -99,13 +99,13 @@ return array(
     '{number} view|{number} views'  =>      '{number} lượt xem',
     //UPLOAD
     'Upload from your computer'=>'Chọn hình từ máy tính',
-    '<b>Warning:</b> The width of your image is larger than {width} pxs and its height is taller than {height} pxs'=>'<b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn {width} pxs và bề cao ảnh phải lớn hơn {height} pxs',
+    '<b>Notice:</b> The width of your image is larger than {width} pxs and its height is taller than {height} pxs'=>'<b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn {width} pxs và bề cao ảnh phải lớn hơn {height} pxs',
     'Change'=>'Thay đổi',
     'Remove'=>'Xóa',
     'Update'=>'Cập nhật',
     'Add your address'=>'Thêm địa chỉ',
     'Your+ad+image'=>'Hình+SP',
-    '<b>Notice:</b>Only allow {maxImage} images per product.'=>'<b>Lưu ý:</b>Chỉ cho phép upload {maxImage} ảnh mỗi sản phẩm',
+    '<b>Notice:</b>Only allow {maxImage} images per product.'=>'<b>Lưu ý:</b> Chỉ cho phép upload {maxImage} ảnh mỗi sản phẩm',
     ///Change password    
     'Old password'=>'Mật khẩu cũ',
     'New password'=>'Mật khẩu mới',
@@ -114,5 +114,6 @@ return array(
     'Type your letters above to confirm'=>'Nhập vào những chữ ở trên để xác nhận',
     'Please choose one or many fanpages to share your post (optional)'=>'Xin vui lòng chọn 1 hoặc nhiều Fanpage mà bạn muốn post lên',
     'Sort Type'=>'Sắp xếp',
-    'in'=>'tại'
+    'in'=>'tại',
+    'Upload images'=>'Chọn hình để tải lên'
 );
