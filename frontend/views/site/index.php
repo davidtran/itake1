@@ -18,6 +18,10 @@ $cityList = json_encode(CityUtil::getCityList(true));
 Yii::app()->clientScript->registerScript('data',"
     var cityList = $cityList;
     ",  CClientScript::POS_HEAD);
+$cityId = UserRegistry::getInstance()->getValue('City',0);
+$canShowCityDialog = $cityId !=0 ? 'false':'true';
+Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $canShowCityDialog;",CClientScript::POS_HEAD);
+
 ?>
 <div class="container-fluid">
     <div class="row-fluid">

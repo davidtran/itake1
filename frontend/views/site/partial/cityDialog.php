@@ -11,7 +11,7 @@
                ?>
 
                 <div class="row-fluid">
-                    <a class="btn span6 offset3"href="<?php echo Yii::app()->createUrl('site/city',array('id'=>$cityId,'category'=>1))?>"><?php echo LanguageUtil::t($city['name']); ?></a>
+                    <a class="btn span6 offset3"href="<?php echo Yii::app()->createUrl('site/city',array('id'=>$cityId,'category'=>''))?>"><?php echo LanguageUtil::t($city['name']); ?></a>
                 </div>       
                <?php
                //CityUtil::makeSelectCitychooseUrl($city),
@@ -20,21 +20,4 @@
         </div>
     </div>
 </div>
-<?php if (isset(Yii::app()->request->cookies['usercity_ck'])&&(!Yii::app()->user->isGuest)):?>
-    <?php 
-    //UserMetaUtil::setMeta(Yii::app()->user->model->id,'user_city_key',Yii::app()->request->cookies['usercity_ck']->value); 
-    ?>
-<?php endif; ?>
-<?php if (Yii::app()->user->isGuest):?>
-    <?php 
-     if(!isset(Yii::app()->request->cookies['usercity_ck'])):
-     ?>
-    <script>
-        $('#locationDialog').modal('show');
-    </script>
-    <?php endif; ?>
-<?php elseif (UserMetaUtil::findMeta(Yii::app()->user->model->id,'user_city_key')==NULL):?>
-     <script>
-        $('#locationDialog').modal('show');
-    </script>
-<?php endif; ?>
+
