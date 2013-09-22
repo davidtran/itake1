@@ -1,5 +1,5 @@
 if (canShowCityDialog){
-    $('#locationDialog').modal('show');
+    $('#cityDialog').modal('show');
 }
 
 var UserLocation = {

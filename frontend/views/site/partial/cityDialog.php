@@ -1,5 +1,5 @@
 <div class="row-fluid">    
-    <div class="modal hide fade" id='locationDialog' style="top:50%;">        
+    <div class="modal hide fade" id='cityDialog' style="top:50%;">        
         <div class="modal-body" > 
             <div class="row-fluid">
                 <h1><?php LanguageUtil::echoT('Please choose a city') ?></h1>
