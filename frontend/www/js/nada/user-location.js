@@ -1,3 +1,6 @@
+if (canShowCityDialog){
+    $('#locationDialog').modal('show');
+}
 
 var UserLocation = {
     locationDialog:'#locationDialog',
