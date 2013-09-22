@@ -21,7 +21,9 @@
     </div>
 </div>
 <?php if (isset(Yii::app()->request->cookies['usercity_ck'])&&(!Yii::app()->user->isGuest)):?>
-    <?php UserMetaUtil::setMeta(Yii::app()->user->model->id,'user_city_key',Yii::app()->request->cookies['usercity_ck']->value); ?>
+    <?php 
+    //UserMetaUtil::setMeta(Yii::app()->user->model->id,'user_city_key',Yii::app()->request->cookies['usercity_ck']->value); 
+    ?>
 <?php endif; ?>
 <?php if (Yii::app()->user->isGuest):?>
     <?php 
