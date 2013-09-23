@@ -49,6 +49,7 @@ class SiteController extends Controller
             UserMetaUtil::setMeta(Yii::app()->user->model->id,'user_city_key',$id);
         }
         UserRegistry::getInstance()->setValue('City', $id);
+        CityUtil::setSelectedCityId($id);
         //$redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/list');
         $redirectUrl = $this->createAbsoluteUrl('/site/index', array('category' =>$category));
         $this->redirect($redirectUrl);
@@ -99,14 +100,10 @@ class SiteController extends Controller
 
     public function actionIndex($keyword = null, $category = null, $facebook = false, $page = 0,$status = Product::STATUS_ACTIVE)
     {
-        if(!Yii::app()->user->isGuest&&UserMetaUtil::findMeta(Yii::app()->user->model->id,'user_city_key')!=NULL){
-          $cityId  = UserMetaUtil::findMeta(Yii::app()->user->model->id,'user_city_key')->value;
-            UserRegistry::getInstance()->setValue('City',$cityId);
-        }elseif (isset(Yii::app()->request->cookies['usercity_ck'])) {
+       if (isset(Yii::app()->request->cookies['usercity_ck'])&&Yii::app()->user->isGuest) {
              UserRegistry::getInstance()->setValue('City', Yii::app()->request->cookies['usercity_ck']->value);
+             CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
         }
-
-
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber'] = $page;
         Yii::app()->session['LastCategory'] = $category;
