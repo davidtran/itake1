@@ -49,6 +49,7 @@ class SiteController extends Controller
             UserMetaUtil::setMeta(Yii::app()->user->model->id,'user_city_key',$id);
         }
         UserRegistry::getInstance()->setValue('City', $id);
+        CityUtil::setSelectedCityId($id);
         //$redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/list');
         $redirectUrl = $this->createAbsoluteUrl('/site/index', array('category' =>$category));
         $this->redirect($redirectUrl);
@@ -104,6 +105,7 @@ class SiteController extends Controller
             UserRegistry::getInstance()->setValue('City',$cityId);
         }elseif (isset(Yii::app()->request->cookies['usercity_ck'])) {
              UserRegistry::getInstance()->setValue('City', Yii::app()->request->cookies['usercity_ck']->value);
+             CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
         }
 
 
