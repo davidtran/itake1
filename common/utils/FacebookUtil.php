@@ -258,7 +258,9 @@ class FacebookUtil
             if($albumId !== false){
                 foreach($product->images as $image){
                     $args = array();   
-                    $args['picture'] = '@'.realpath($product->firstImage->facebook);        
+                    //fix
+                    $args['picture'] = '@'.realpath($image->facebook);       
+
                     $desc = $this->makePostDescription($product);        
                     $args['message'] = $desc;
                     $args['page_id'] = $page;

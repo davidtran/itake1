@@ -73,7 +73,10 @@ class CityUtil
     {
         return UserRegistry::getInstance()->getValue('LastCity',0);
     }
-        
-  
+            
+    public static function setSelectedCityId($cityId)
+    {
+        UserRegistry::getInstance()->setValue('LastCity', $cityId);
+    }
 
 }

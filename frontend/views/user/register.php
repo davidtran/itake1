@@ -52,6 +52,13 @@ $this->pageTitle = LanguageUtil::t('Participate in').' '.Yii::app()->name;
               'autocomplete'=>'off'
             ));
             ?>
+       <?php
+        $this->widget('CCaptcha');
+        echo $form->textFieldRow($user,'captcha',array(
+            'placeholder' => LanguageUtil::t('Type your letters above to confirm'),
+            'class' => 'input-block-level'
+        ));
+        ?>
             <button class="btn btn-success login" type="submit" style="width:100%;height:50px;font-size:1.3em;"><?php LanguageUtil::echoT('Create an account') ?></button>                                  
           </div>  
           <div class="span4">

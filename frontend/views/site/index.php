@@ -18,6 +18,10 @@ $cityList = json_encode(CityUtil::getCityList(true));
 Yii::app()->clientScript->registerScript('data',"
     var cityList = $cityList;
     ",  CClientScript::POS_HEAD);
+$cityId = CityUtil::getSelectedCityId();
+$canShowCityDialog = $cityId !=0 ? 'false':'true';
+Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $canShowCityDialog;",CClientScript::POS_HEAD);
+
 ?>
 <div class="container-fluid">
     <div class="row-fluid">
@@ -112,6 +116,7 @@ Yii::app()->clientScript->registerScript('data',"
     </div>
 </div>
 
-<?php echo $this->renderPartial('/site/_productDialog', array(), true, false); ?>
 
+<?php echo $this->renderPartial('/site/_productDialog', array(), true, false); ?>
+<?php $this->renderPartial('partial/cityDialog',array()); ?>
 <?php Yii::endProfile('RenderSiteIndex'); ?>

@@ -24,11 +24,14 @@
                         <div class="productImagePrice"><?php echo number_format($product->price, 0); ?> đ</div>
                         
                         <?php 
+                        if(SolrSortTypeUtil::getInstance()->getCurrentSortType() == SolrSearchAdapter::TYPE_LOCATION){
                             $lat = UserLocationUtil::getInstance()->lat;
                             $lng = UserLocationUtil::getInstance()->lng;
                             if($lat && $lng){
                                 echo $product->getDistance($lat,$lng);
                             }
+                        }
+                            
                         ?>
                         
                         

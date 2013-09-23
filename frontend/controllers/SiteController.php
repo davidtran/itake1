@@ -42,7 +42,14 @@ class SiteController extends Controller
     {
         //change city
         //redirect to index with selected category
+        if (Yii::app()->user->isGuest) {
+            Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $id);
+        }
+        else{
+            UserMetaUtil::setMeta(Yii::app()->user->model->id,'user_city_key',$id);
+        }
         UserRegistry::getInstance()->setValue('City', $id);
+        CityUtil::setSelectedCityId($id);
         //$redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/list');
         $redirectUrl = $this->createAbsoluteUrl('/site/index', array('category' =>$category));
         $this->redirect($redirectUrl);
@@ -69,8 +76,7 @@ class SiteController extends Controller
         )));
     }
     
-    public function actionFacebook(){
-
+    public function actionFacebook(){        
         $url = $this->createUrl('index',array(
             'keyword'=>null,
             'category'=>Yii::app()->session['LastCategory'],
@@ -81,7 +87,7 @@ class SiteController extends Controller
         $this->redirect($url);
     }
     
-    public function actionSold(){        
+    public function actionSold(){                
         $url = $this->createUrl('index',array(
             'keyword'=>null,
             'category'=>Yii::app()->session['LastCategory'],
@@ -90,10 +96,15 @@ class SiteController extends Controller
             'status'=>Product::STATUS_SOLD
         ));
         $this->redirect($url);
-    }
+    }    
 
     public function actionIndex($keyword = null, $category = null, $facebook = false, $page = 0,$status = Product::STATUS_ACTIVE)
     {
+        if (isset(Yii::app()->request->cookies['usercity_ck'])&&Yii::app()->user->isGuest) {
+            UserRegistry::getInstance()->setValue('City', Yii::app()->request->cookies['usercity_ck']->value);
+            CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
+        }
+        
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber'] = $page;
         Yii::app()->session['LastCategory'] = $category;
@@ -119,6 +130,7 @@ class SiteController extends Controller
         $nextPageLink = false;
         $productList = array();
         $requiredFacebookLogin = false;
+        $numFound = 0;
         if($facebook && Yii::app()->user->isFacebookUser == false){
             $requiredFacebookLogin = true;            
         }else{
@@ -149,6 +161,7 @@ class SiteController extends Controller
             Yii::endProfile('search');
 
             $productList = $resultSet->productList;
+            $numFound = $resultSet->numFound;
             $empty = $page * $solrAdapter->pageSize + $solrAdapter->pageSize > $resultSet->numFound;
             $params = array(
                 'keyword' => $keyword,
@@ -168,7 +181,7 @@ class SiteController extends Controller
 
         if (!Yii::app()->request->isAjaxRequest) {
             $this->render('index', array(
-                'numFound' => $resultSet->numFound,
+                'numFound' => $numFound,
                 'productList' => $productList,
                 'nextPageLink' => $nextPageLink,
                 'keyword' => $keyword,
@@ -195,6 +208,7 @@ class SiteController extends Controller
         }
     }
 
+
 //    public function actionIndex()
 //    {
 //        if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
@@ -206,6 +220,24 @@ class SiteController extends Controller
 //            'categoryList' => $categoryList
 //        ));
 //    }
+    // public function actionIndex()
+    // {
+    //     if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
+    //         Yii::app()->session['VisitLanding'] = true;
+    //         $this->redirect($this->createUrl('landing'));
+    //     }
+    //     if(!Yii::app()->user->isGuest&&UserMetaUtil::findMeta(Yii::app()->user->model->id,'user_city_key')!=NULL){
+    //         $cityId  = UserMetaUtil::findMeta(Yii::app()->user->model->id,'user_city_key')->value;
+    //         UserRegistry::getInstance()->setValue('City',$cityId);
+    //     }elseif (isset(Yii::app()->request->cookies['usercity_ck'])) {
+    //          UserRegistry::getInstance()->setValue('City', Yii::app()->request->cookies['usercity_ck']->value);
+    //     }
+    //     $categoryList = Category::model()->findAll();
+    //     $this->render('index', array(
+    //         'categoryList' => $categoryList
+    //     ));
+    // }
+
 
     protected function createNextUrl($params)
     {
@@ -379,10 +411,7 @@ class SiteController extends Controller
     }
     
     public function actionRemoveLocation(){
-            UserLocationUtil::getInstance()->address = null;
-            UserLocationUtil::getInstance()->lat = null;
-            UserLocationUtil::getInstance()->lng = null;
-            UserLocationUtil::getInstance()->city = null;
+            UserLocationUtil::getInstance()->removeLocation();
             $this->redirect($this->createUrl('/site/sortType',array(
                 'type'=>  SolrSearchAdapter::TYPE_CREATE_DATE
             )));

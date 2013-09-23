@@ -35,6 +35,7 @@ class User extends CActiveRecord
     public $lastMessageContent;
     public $lastMessageDate;
     public $lastIsRead;
+    public $captcha;
 
     // public $oldPassword;
     /**
@@ -69,6 +70,7 @@ class User extends CActiveRecord
             array('email ', 'length', 'max' => 200),
             array('target', 'length', 'max' => 500),
             array('email', 'email'),
+            array('captcha','captcha'),
             array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
             array('image,banner', 'length', 'max' => 100),
             array('username', 'length', 'max' => 50, 'min' => 5),

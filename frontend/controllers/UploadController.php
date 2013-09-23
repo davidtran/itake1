@@ -354,15 +354,16 @@ class UploadController extends Controller
 
     protected function postProductToFacebook($product)
     {
-        if (Yii::app()->user->isFacebookUser && $product->uploadToFacebook) {
+        if (Yii::app()->user->isFacebookUser) {
             try {
-                FacebookUtil::getInstance()->shareProductAlbum($product);
+                if($product->uploadToFacebook){
+                    FacebookUtil::getInstance()->shareProductAlbum($product);                    
+                }                
                 if (isset($_POST['FacebookPage'])) {
                     foreach ($_POST['FacebookPage'] as $page) {
-                        FacebookUtil::getInstance()->shareProductToPage($product, $page);
+                        FacebookUtil::getInstance()->shareProductAlbumToFanpage($product, $page);
                     }
                 }
-
                 $postedToFacebook = true;
             }
             catch (FacebookApiException $e) {
