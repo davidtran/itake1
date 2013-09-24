@@ -21,7 +21,7 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
         </div>  
 
 	</div>
-	<div class="intro-top">
+	<div class="intro-top  intro_item come-in">
 		<div class="row-fluid" style="margin-top:20px;">
 			<div class="span6">
 <!--				<h1 class="center title_font font-white font-2x" style="text-shadow: 0px 1px 1px #000;-->
