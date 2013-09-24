@@ -3,19 +3,7 @@ var ms;
 $(document).ready(function(){
     $('.thumbnails li.span3:nth-child(4n+1)').css({clear:'left',marginLeft:0});	
 });
-$(document).ready(function() {    
-    $(function () {
-    $.scrollUp({
-        scrollName: 'scrollUp', // Element ID
-        topDistance: '300', // Distance from top before showing element (px)
-        topSpeed: 300, // Speed back to top (ms)
-        animation: 'fade', // Fade, slide, none
-        animationInSpeed: 200, // Animation in speed (ms)
-        animationOutSpeed: 200, // Animation out speed (ms)
-        scrollText: '', // Text for element
-        activeOverlay: false // Set CSS color to display scrollUp active point, e.g '#00FFFF'
-      });
-    });    
+$(document).ready(function() {
     $container = $('#productContainer');
     // initialize
     $container.isotope({

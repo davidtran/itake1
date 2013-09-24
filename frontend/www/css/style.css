@@ -1144,10 +1144,39 @@ div.close_tag
     -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.34),1px 0 0 rgba(255,255,255,0.9) inset;
     box-shadow: 0 1px 4px rgba(0,0,0,0.34),1px 0 0 rgba(255,255,255,0.9) inset;
 }
+div.scrollUp_tag
+{
+    display: block;
+    position: fixed;
+    z-index: 998;
+    bottom: -5px;
+    right: 50px;
+    background-color: rgb(245, 245, 245);
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ebebeb));
+    background: -webkit-linear-gradient(#ffffff,#ebebeb);
+    background: -moz-linear-gradient(#ffffff,#ebebeb);
+    background: -o-linear-gradient(#ffffff,#ebebeb);
+    background: linear-gradient(#ffffff,#ebebeb);
+    -webkit-border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    -ms-border-radius: 0 0 3px 3px;
+    -o-border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.34),1px 0 0 rgba(255,255,255,0.9) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.34),1px 0 0 rgba(255,255,255,0.9) inset;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.34),1px 0 0 rgba(255,255,255,0.9) inset;
+}
 div.close_tag button{
     padding: 20px;
 }
+div.scrollUp_tag button{
+    padding: 20px;
+}
 div.close_tag button:hover
+{
+    background-color: #0a5b8a;
+}
+div.scrollUp_tag button:hover
 {
     background-color: #0a5b8a;
 }
