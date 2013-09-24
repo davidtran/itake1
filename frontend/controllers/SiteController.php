@@ -48,7 +48,6 @@ class SiteController extends Controller
         else{
             UserMetaUtil::setMeta(Yii::app()->user->model->id,'user_city_key',$id);
         }
-        UserRegistry::getInstance()->setValue('City', $id);
         CityUtil::setSelectedCityId($id);
         //$redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/list');
         $redirectUrl = $this->createAbsoluteUrl('/site/index', array('category' =>$category));
@@ -100,9 +99,8 @@ class SiteController extends Controller
 
     public function actionIndex($keyword = null, $category = null, $facebook = false, $page = 0,$status = Product::STATUS_ACTIVE)
     {
-        if (isset(Yii::app()->request->cookies['usercity_ck'])&&Yii::app()->user->isGuest) {
-            UserRegistry::getInstance()->setValue('City', Yii::app()->request->cookies['usercity_ck']->value);
-            CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
+       if (isset(Yii::app()->request->cookies['usercity_ck'])&&Yii::app()->user->isGuest) {
+             CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
         }
         
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
