@@ -1404,7 +1404,7 @@ div.slim-scroll{
     word-wrap:break-word;
 }
 div.page-container{
-    overflow-x:hidden;         
+    /*overflow-x:hidden;*/
 }
 div.btn-group.user-bar.avatar-bar
 {
