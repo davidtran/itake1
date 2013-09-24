@@ -51,7 +51,7 @@ class SolrSortTypeUtil
     public function getSortTypeList()
     {
         return array(
-            SolrSearchAdapter::TYPE_CREATE_DATE => 'Time',
+            SolrSearchAdapter::TYPE_CREATE_DATE => 'On sale',
             //SolrSearchAdapter::TYPE_TREND => 'Trend',
             SolrSearchAdapter::TYPE_LOCATION =>'Near you'
         );
