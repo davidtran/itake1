@@ -1809,6 +1809,15 @@ box-shadow: 0px 0px 1px 0 #000;
 	min-height: 30px;
 	line-height: 30px;
 }
+.btn-large.wide.emphasis{
+    outline: solid 5px rgba(0,0,0,0.3);
+    margin-right: 10px;
+    -webkit-transition: all 0.7s ease-out;
+    -moz-transition: all 0.7s ease-out;
+    -ms-transition: all 0.7s ease-out;
+    -o-transition: all 0.7s ease-out;
+    transition: all 0.7s ease-out;
+}
 .center{
 	text-align: center;
 }
@@ -1840,11 +1849,11 @@ box-shadow: 0px 0px 1px 0 #000;
 .intro-image{
 	position: absolute;
 	height: 300px;
-	left: 0;
+	left: 50%;
 	right: 0;
 	top: 150px;
 	height: 350px;
-	background: url('../images/hompage2.png') no-repeat;
+	background: url('../images/responsive_image.png') no-repeat;
 }
 .font-white{
 	color: #fff;
@@ -1964,4 +1973,27 @@ div.sort-bar{
     top: -30px;
     height:20px;
     left: 10px;
+}
+.flexslider{
+    border:none;
+    background: transparent;
+}
+.intro_item{
+    opacity: 0;
+}
+.come-in {
+    opacity: 1;
+    transform: translateY(150px);
+    animation: come-in 1.8s ease forwards;
+    -webkit-transition: opacity 1.5s ease-in-out;
+    -moz-transition: opacity 1.5s ease-in-out;
+    -o-transition: opacity 1.5s ease-in-out;
+    transition: opacity 1.5s ease-in-out;
+}
+.come-in:nth-child(odd) {
+    animation-duration: 1.6s; /* So they look staggered */
+}
+
+@keyframes come-in {
+    to { transform: translateY(0); }
 }
