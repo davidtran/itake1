@@ -61,6 +61,10 @@ function decode_utf8(s) {
     return decodeURIComponent(escape(s));
 
 }
+function scrollToTopDialog()
+{
+    $('.modal-scrollable').scrollTop(0);
+}
 function loadProduct(href, htmlProductId)
 {
 
@@ -115,7 +119,16 @@ function loadProduct(href, htmlProductId)
                 }
 
                 //  loadRelateProduct(product);         
+                $('.modal-scrollable').scroll(function(event) {
 
+                    if($('.modal-scrollable').scrollTop()==0)
+                    {
+                        $('.scrollUp_tag').hide();
+                    }
+                    else{
+                        $('.scrollUp_tag').show();
+                    }
+                });
                 $dialog.on('shown', function() {
                     $('.slim-scroll').each(function() {
                         var $this = $(this);

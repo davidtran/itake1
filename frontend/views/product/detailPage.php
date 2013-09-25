@@ -8,7 +8,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
 <div class="row-fluid"  style="margin-top: 64px;">
     
         <div class="close_tag" style="top:45px;"> 
-            <a style="padding:20px;" class="close"  href="../../"><i class="icon-home"></i></a></div>
+            <a style="padding:20px;" class="close"  href="../../"><i class="icon-home"></i></a>
+        </div>
+
         <div id="detailProduct"style="display: block; margin-top: 0px;">                    
             <div id="detailProductBody" style="">
                 <div id="productDialogBody">
@@ -93,6 +95,14 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                             </div>   
                                                         </div>
                                                     </div>
+                                                    <div class="row-fluid">
+                                                        <div class="span12">
+                                                         <?php echo CHtml::link(LanguageUtil::t('Buying instruction'),'#showbuyinginstruction',array(
+                                                                'class'=>'btnOpenDialogBuying btn btn-primary',
+                                                            'data-toggle'=>'modal'
+                                                        )); ?>
+                                                         </div>
+                                                    </div>
                                                 </div>
                                                 <div class="tab-pane fade" id="bando">                                                  
                                                     <?php if ($product->address->lat != null && $product->address->lon != null): ?>
@@ -157,3 +167,8 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
         });
     });
 </script>
+<?php if(Yii::app()->language!='vi'): ?>
+    <?php $this->renderPartial('partial/buyinginstruction',array('product'=>$product)); ?>
+<?php else: ?>
+    <?php $this->renderPartial('partial/buyinginstruction_vi',array('product'=>$product)); ?>
+<?php endif; ?>
