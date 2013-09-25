@@ -33,14 +33,14 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                             <li><?php echo $link; ?></li>
                         <?php endforeach; ?>               
                         <li>
-                            <?php echo CHtml::link('Bạn bè Facebook',
+                            <?php echo CHtml::link(LanguageUtil::t('Facebook friend'),
                                 $this->createUrl('/site/facebook'
                                 
                                 )
                             );?>
                         </li>
                         <li>
-                            <?php echo CHtml::link('Đã bán',
+                            <?php echo CHtml::link(LanguageUtil::t('Product sold'),
                                 $this->createUrl('/site/sold'                                
                                 )
                             );?>

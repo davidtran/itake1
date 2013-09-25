@@ -117,5 +117,10 @@ return array(
     'Sort Type'=>'Sắp xếp',
     'in'=>'tại',
     'Upload images'=>'Chọn hình để tải lên',
-    'Please choose a city'=>'Xin vui lòng chọn thành phố'
+    'Please choose a city'=>'Xin vui lòng chọn thành phố',
+    'On sale'=>'Đang bán' ,
+    'Near you'=>'Gần bạn' ,
+    'Product sold'=>'Đã bán',
+    'Facebook friend'=>'Bạn bè Facebook',
+    'Buying instruction'=>'Hướng dẫn mua hàng'
 );
