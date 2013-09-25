@@ -106,7 +106,7 @@ return array(
     'Add your address'=>'Thêm địa chỉ',
     'Your+ad+image'=>'Hình+SP',
     '<b>Notice:</b>Only allow {maxImage} images per product.'=>'<b>Lưu ý:</b>Chỉ cho phép upload {maxImage} ảnh mỗi sản phẩm',
-    'Post to your Facebook profile'=>'Đăng tin lên trang cá Facebook',
+    'Post to your Facebook profile'=>'Đăng tin lên trang cá nhân Facebook',
     ///Change password
     'Old password'=>'Mật khẩu cũ',
     'New password'=>'Mật khẩu mới',
@@ -117,5 +117,6 @@ return array(
     'Sort Type'=>'Sắp xếp',
     'in'=>'tại',
     'Upload images'=>'Chọn hình để tải lên',
-    'Please choose a city'=>'Xin vui lòng chọn thành phố'
+    'Please choose a city'=>'Xin vui lòng chọn thành phố',
+
 );

@@ -1,14 +1,14 @@
 $(document).ready(function(){
-    $('.productItem').on('mouseenter',function(){
+    $('.productItem').live('mouseenter',function(){
         $(this).find('.productControl').fadeIn('fast');
         
     });
-    $('.productItem').on('mouseleave',function(){
+    $('.productItem').live('mouseleave',function(){
         $(this).find('.productControl').fadeOut('fast');
         
     });
     
-    $('.p-delete').click(function(e){
+    $('.p-delete').live('click',function(e){
         e.preventDefault();
         if(confirm('Bạn có muốn xóa sản phẩm này ?')){
             productItem = $(this).parents('.productItem');
