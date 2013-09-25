@@ -121,6 +121,6 @@ return array(
     'On sale'=>'Đang bán' ,
     'Near you'=>'Gần bạn' ,
     'Product sold'=>'Đã bán',
-    'Facebook friend'=>'Bạn bè Facebook'
-
+    'Facebook friend'=>'Bạn bè Facebook',
+    'Buying instruction'=>'Hướng dẫn mua hàng'
 );

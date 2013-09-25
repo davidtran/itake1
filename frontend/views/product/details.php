@@ -102,10 +102,9 @@ $this->
                                     </div>
                                     <div class="row-fluid">
                                         <div class="span12">
-                                            <?php echo CHtml::link('Liên hệ','#',array(
-                                                'class'=>
-                                                'btn btn-primary',
-                                                'id'=>'btnOpenMessageDialog'
+                                            <?php echo CHtml::link(LanguageUtil::t('Buying instruction'),'#showbuyinginstruction',array(
+                                                'class'=>'btnOpenDialogBuying btn btn-primary',
+                                                'data-toggle'=>'modal'
                                             )); ?>
                                         </div>
                                     </div>
@@ -165,3 +164,8 @@ $this->
         </div>
     </div>
 </div>
+<?php if(Yii::app()->language!='vi'): ?>
+    <?php $this->renderPartial('partial/buyinginstruction',array('product'=>$product)); ?>
+<?php else: ?>
+    <?php $this->renderPartial('partial/buyinginstruction_vi',array('product'=>$product)); ?>
+<?php endif; ?>
