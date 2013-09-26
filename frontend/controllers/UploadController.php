@@ -79,7 +79,8 @@ class UploadController extends Controller
                     Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
                     $this->redirect($product->getDetailUrl());
                 }
-            }          
+            }
+            Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
         }
         else {
             Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
@@ -129,6 +130,7 @@ class UploadController extends Controller
                         $this->redirect($product->getDetailUrl());
                     }
                 }
+                Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
             }
             else {
                 Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
