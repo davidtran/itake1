@@ -81,7 +81,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
             </div>    
             <div class="selectedCategoryTab"> 
             <?php if (isset($categoryModel) && $categoryModel != null): ?>
-                <?php $this->pageTitle = $categoryModel->name . " ".LanguageUtil::t('on')." ITAKE.ME" ?>
+                <?php $this->pageTitle = LanguageUtil::t($categoryModel->name) . " ".LanguageUtil::t('on')." ITAKE.ME" ?>
             
                 <h1>
                     <?php echo $categoryModel->getIconAndNameHtml()."   ";?>
