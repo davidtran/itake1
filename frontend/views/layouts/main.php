@@ -101,7 +101,7 @@
                             <img style="margin-top:-6px;" src="<?php echo Yii::app()->baseUrl.'/images/en_flag.png'?>"></a></li>                                                      
                             <li class="first" ><a href="<?php echo Yii::app()->createUrl('site/introduction') ?>"><?php LanguageUtil::echoT('Introduction') ?> </a></li>
                             <li ><a href="<?php echo Yii::app()->createUrl('site/terms') ?>"><?php LanguageUtil::echoT('Terms') ?></a></li>                                                                           
-                            <li><a href="<?php echo Yii::app()->createUrl('site/') ?>">© <?php echo date('Y') ?> ITAKE.ME</a></li>
+                            <li><a href="<?php echo Yii::app()->createUrl('welcome') ?>">© <?php echo date('Y') ?> ITAKE.ME</a></li>
                         </ul>
                     </div>                   
                 </div>
