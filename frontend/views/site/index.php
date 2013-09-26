@@ -35,14 +35,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                     $sortTypeLink = "nothing";
             ?>
             <div class="pagination pagination-centered" >
-              <ul>
-                 <?php foreach (SolrSortTypeUtil::getInstance()->getSortTypeLinkList() as $link): ?>
-                     <?php if(strpos($link, $sortTypeLink)!== FALSE):?>
-                        <li class="active"><?php echo $link; ?></li>
-                     <?php else: ?>
-                         <li><?php echo $link; ?></li>
-                     <?php endif; ?>
-                <?php endforeach; ?>
+              <ul>                 
                  <?php if($facebook==1&&isset($_GET['status'])&&$_GET['status']!=3):?>
                 <li class="active">
                 <?php else: ?>

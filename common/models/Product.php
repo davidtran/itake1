@@ -93,19 +93,19 @@ class Product extends CActiveRecord
     {
 
         return array(
-            'id' => LanguageUtil::t('ID'),
-            'title' => LanguageUtil::t('Title'),
-            'description' => LanguageUtil::t('Description'),
-            'price' => LanguageUtil::t('Price'),
-            'user_id' => LanguageUtil::t('User'),
-            'image' => LanguageUtil::t('Image'),
-            'phone' => LanguageUtil::t('Phone'),
-            'create_date' => LanguageUtil::t('Create date'),
-            'locationText' => LanguageUtil::t('Street'),
-            'city' => LanguageUtil::t('City'),
-            'category_id' => LanguageUtil::t('Category'),
-            'address_id' => LanguageUtil::t('Address'),
-            'uploadToFacebook'=>  LanguageUtil::t('Upload To Facebook')
+            'id' => Yii::t('Default','ID'),
+            'title' => Yii::t('Default','Title'),
+            'description' => Yii::t('Default','Description'),
+            'price' => Yii::t('Default','Price'),
+            'user_id' => Yii::t('Default','User'),
+            'image' => Yii::t('Default','Image'),
+            'phone' => Yii::t('Default','Phone'),
+            'create_date' => Yii::t('Default','Create date'),
+            'locationText' => Yii::t('Default','Street'),
+            'city' => Yii::t('Default','City'),
+            'category_id' => Yii::t('Default','Category'),
+            'address_id' => Yii::t('Default','Address'),
+            'uploadToFacebook'=>  Yii::t('Default','Post to your Facebook profile')
         );
     }
 

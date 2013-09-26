@@ -132,6 +132,8 @@ class SiteController extends Controller
         $productList = array();
         $requiredFacebookLogin = false;
         $numFound = 0;
+        $locationAddress= null;
+        $locationCity = null;
         if($facebook && Yii::app()->user->isFacebookUser == false){
             $requiredFacebookLogin = true;            
         }else{
@@ -145,8 +147,7 @@ class SiteController extends Controller
             $solrAdapter->keyword = $keyword;
             $solrAdapter->status = $status;
             $solrAdapter->facebookFriend = $facebook;
-            $locationAddress= null;
-            $locationCity = null;
+            
 
             if ($solrAdapter->getSortType() == SolrSearchAdapter::TYPE_LOCATION) {
                 $lat = UserLocationUtil::getInstance()->lat;
