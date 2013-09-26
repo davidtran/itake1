@@ -9,5 +9,6 @@
 return array(
 	'env.code' => 'prod',       
     'api.checkToken'=>true,
-    'upload.maxImageNumber'=>4
+    'upload.maxImageNumber'=>4,
+    'showSortTab'=>false,
 );

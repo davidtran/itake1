@@ -122,8 +122,7 @@ class UploadController extends Controller
                         $this->solrImportProduct($product);
                         if($product->uploadToFacebook > 0){
                             $this->postProductToFacebook($product);
-                        }
-                        
+                        }                        
                         Yii::app()->session['PostedProductId'] = $product->id;
                         Yii::app()->user->setFlash('success', 'Chỉnh sửa tin thành công');
                         Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);

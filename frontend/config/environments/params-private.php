@@ -12,4 +12,5 @@ return array(
     'api.checkToken' => false,
     'request.baseUrl' => 'http://dev.itake', 
     'upload.maxImageNumber' => 4,
+    'showSortTab'=>true,
 );
