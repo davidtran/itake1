@@ -61,7 +61,10 @@ class ProductController extends Controller
             ", CClientScript::POS_END);
             $this->addMetaProperty('og:title', $product->title);
             $this->addMetaProperty('og:description', StringUtil::limitByWord($product->description, 100));
-            $this->addMetaProperty('og:image', Yii::app()->getBaseUrl(true) . '/' . $product->image);
+            if(count($product->images)>0)
+            {
+                $this->addMetaProperty('og:image', Yii::app()->getBaseUrl(true) . '/' . $product->images[0]->thumbnail);
+            }
             $this->addMetaProperty('og:url', $canonicalUrl."?v=1");
             $this->addMetaProperty('og:type', 'product');
             $this->addMetaProperty('fb:app_id', Yii::app()->params['facebook.appId']);
