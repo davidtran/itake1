@@ -103,8 +103,13 @@ $this->
                                     <div class="row-fluid">
                                         <div class="span12">
                                             <br>
-                                            <?php echo CHtml::link(LanguageUtil::t('Buying instruction'),'#showbuyinginstruction',array(
-                                                'class'=>'btnOpenDialogBuying btn btn-primary',
+                                            <?php echo CHtml::link('
+                                                             <span class="icon-stack">
+                                                              <i class="icon-circle icon-stack-base"></i>
+                                                              <i class="icon-shopping-cart" style="color:#51a351"></i>
+                                                            </span>
+                                                             '.LanguageUtil::t('Buying instruction'),'#showbuyinginstruction',array(
+                                                'class'=>'btnOpenDialogBuying btn btn-success pull-right',
                                                 'data-toggle'=>'modal'
                                             )); ?>
                                         </div>
