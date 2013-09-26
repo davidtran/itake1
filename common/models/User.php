@@ -36,6 +36,7 @@ class User extends CActiveRecord
     public $lastMessageDate;
     public $lastIsRead;
     public $captcha;
+    public $allowUpdateWithoutCaptcha = false;
 
     // public $oldPassword;
     /**
@@ -61,7 +62,7 @@ class User extends CActiveRecord
      */
     public function rules()
     {
-        return array(
+        $baseRules = array(
             array('email,username,password', 'required'),
             array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
             array('status,type,isFbUser,gender,role', 'numerical', 'integerOnly' => true),
@@ -70,13 +71,20 @@ class User extends CActiveRecord
             array('email ', 'length', 'max' => 200),
             array('target', 'length', 'max' => 500),
             array('email', 'email'),
-            array('captcha','captcha'),
+
             array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
             array('image,banner', 'length', 'max' => 100),
             array('username', 'length', 'max' => 50, 'min' => 5),
             array('uploadImage', 'file', 'allowEmpty' => true, 'types' => 'jpg,bmp,jpeg,png,gif', 'maxSize' => 10000000, 'maxFiles' => 1),
             array('id,username, create_date, update_date, type, email, image', 'safe', 'on' => 'search'),
         );
+        if(!$this->allowUpdateWithoutCaptcha)
+        {
+            return array_merge($baseRules, array('captcha','captcha'));
+        }
+        else{
+            return $baseRules;
+        }
     }
 
     /**

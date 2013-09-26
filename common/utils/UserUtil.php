@@ -207,8 +207,11 @@ HERE
         }else{
             $user->image = $result;
             @unlink($oldImage);
-            $user->save();
-            return true;
+            $user->allowUpdateWithoutCaptcha = true;
+            if($user->save())
+                return true;
+            else
+                return false;
         }        
             
     }

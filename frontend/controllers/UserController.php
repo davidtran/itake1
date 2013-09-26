@@ -199,7 +199,7 @@ class UserController extends Controller
             if ($result) {
                 $this->renderAjaxResult(true, Yii::app()->baseUrl . '/' . $user->image);
             }
-            $this->renderAjaxResult(false, array('error' => $user->getError('image')));
+            $this->renderAjaxResult(false, array('error' => $user->getErrors()));
         }
     }
 

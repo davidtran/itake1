@@ -12,6 +12,7 @@ $(document).ready(function() {
                                 var data = $.parseJSON(response_data);
                                 if (data.success) {
                                     $('.avatar img').attr('src', data.msg);
+                                    $('div.btn-group.user-bar.avatar-bar img').attr('src', data.msg);
                                 } else {
                                     alert(data.msg.error);
                                 }
