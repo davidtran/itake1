@@ -62,28 +62,43 @@ class User extends CActiveRecord
      */
     public function rules()
     {
-        $baseRules = array(
-            array('email,username,password', 'required'),
-            array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
-            array('status,type,isFbUser,gender,role', 'numerical', 'integerOnly' => true),
-            array('password', 'length', 'max' => 50),
-            array('salt', 'length', 'max' => 50),
-            array('email ', 'length', 'max' => 200),
-            array('target', 'length', 'max' => 500),
-            array('email', 'email'),
 
-            array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
-            array('image,banner', 'length', 'max' => 100),
-            array('username', 'length', 'max' => 50, 'min' => 5),
-            array('uploadImage', 'file', 'allowEmpty' => true, 'types' => 'jpg,bmp,jpeg,png,gif', 'maxSize' => 10000000, 'maxFiles' => 1),
-            array('id,username, create_date, update_date, type, email, image', 'safe', 'on' => 'search'),
-        );
         if(!$this->allowUpdateWithoutCaptcha)
         {
-            return array_merge($baseRules, array('captcha','captcha'));
+            return array(
+                array('email,username,password', 'required'),
+                array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
+                array('status,type,isFbUser,gender,role', 'numerical', 'integerOnly' => true),
+                array('password', 'length', 'max' => 50),
+                array('salt', 'length', 'max' => 50),
+                array('email ', 'length', 'max' => 200),
+                array('target', 'length', 'max' => 500),
+                array('email', 'email'),
+                array('captcha','captcha'),
+                array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
+                array('image,banner', 'length', 'max' => 100),
+                array('username', 'length', 'max' => 50, 'min' => 5),
+                array('uploadImage', 'file', 'allowEmpty' => true, 'types' => 'jpg,bmp,jpeg,png,gif', 'maxSize' => 10000000, 'maxFiles' => 1),
+                array('id,username, create_date, update_date, type, email, image', 'safe', 'on' => 'search'),
+            );
         }
         else{
-            return $baseRules;
+            return array(
+                array('email,username,password', 'required'),
+                array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
+                array('status,type,isFbUser,gender,role', 'numerical', 'integerOnly' => true),
+                array('password', 'length', 'max' => 50),
+                array('salt', 'length', 'max' => 50),
+                array('email ', 'length', 'max' => 200),
+                array('target', 'length', 'max' => 500),
+                array('email', 'email'),
+
+                array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
+                array('image,banner', 'length', 'max' => 100),
+                array('username', 'length', 'max' => 50, 'min' => 5),
+                array('uploadImage', 'file', 'allowEmpty' => true, 'types' => 'jpg,bmp,jpeg,png,gif', 'maxSize' => 10000000, 'maxFiles' => 1),
+                array('id,username, create_date, update_date, type, email, image', 'safe', 'on' => 'search'),
+            );
         }
     }
 

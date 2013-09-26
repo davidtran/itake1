@@ -225,14 +225,22 @@ class UserController extends Controller
             if ($model->resolveForgetPassword()) {
                 $this->render('forgetPassword', array(
                     'model' => $model,
-                    'sent' => true
+                    'sent' => 1
                 ));
-                Yii::app()->end();
+            }
+            else{
+                $this->render('forgetPassword', array(
+                    'model' => $model,
+                    'sent' => -1
+                ));
             }
         }
-        $this->render('forgetPassword', array(
-            'model' => $model
-        ));
+        else{
+            $this->render('forgetPassword', array(
+                'model' => $model,
+                'sent' => 0
+            ));
+        }
     }
 
     public function actionUpdateContactInfo()

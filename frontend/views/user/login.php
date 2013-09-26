@@ -10,7 +10,7 @@ $this->pageTitle = LanguageUtil::t('Sign In').' ITAKE';
         <hr/>
         </div>
     </div>
-    <div class="row-fluid">
+    <div class="row-fluid" style="margin-top: 30px;">
         <div class="span4 login-panel offset2" style="border-right:dashed 1px #ccc;">
             <?php
             $this->widget('bootstrap.widgets.TbAlert', array(

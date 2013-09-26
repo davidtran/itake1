@@ -2,9 +2,6 @@
 $this->pageTitle = LanguageUtil::t('Forgot password') ;
 ?>
 
-<?php if(isset($sent) && $sent == true):?>
-    Email kèm theo mật khẩu mới đã được gửi đến địa chỉ <?php echo $model->email; ?>
-<?php else:?>
     <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'htmlOptions' => array(
@@ -17,6 +14,17 @@ $this->pageTitle = LanguageUtil::t('Forgot password') ;
     <h2 class="form-signin-heading"><?php LanguageUtil::echoT('Forgot password') ?></h2>  
     <hr/>
     <p></p>
+    <?php
+    if($sent==1):
+        ?>
+        <p class="alert-success">
+            Email kèm mật khẩu mới đã được gởi đến địa chỉ <?php echo $model->email; ?>
+        </p>
+    <?php elseif($sent==-1): ?>
+        <p class="alert-warning">
+            Có lỗi trong quá trình lấy lại mật khẩu của bạn
+        </p>
+    <?php endif; ?>
     <?php echo $form->errorSummary($model); ?>
     <?php
     echo $form->textFieldRow($model, 'email', array(
@@ -38,7 +46,4 @@ $this->pageTitle = LanguageUtil::t('Forgot password') ;
     <br/>
     <br/>
 
-    <?php $this->endWidget(); ?> 
-
-
-<?php endif; ?>
+    <?php $this->endWidget(); ?>
