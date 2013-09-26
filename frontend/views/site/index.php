@@ -111,6 +111,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
         <div class="span9" style="margin-left:50px;">            
             <div class="row-fluid" id="wrapper_productContainer" style="margin-top:120px;"   >  
                 <hr style="position:relative; top:-40px;"/>
+                
                 <?php if (trim($keyword) != ''): ?>
                     <div class="alert alert-info">
                         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -124,10 +125,12 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                     </div>
                 <?php endif; ?>
                 <?php if($facebook && count($productList)==0):?>
+                <center>
                 <p>
                     Hiện tại chưa có sản phẩm nào được bán từ bạn bè của bạn, hãy mời họ sử dụng itake.  
                     <div class="fb-like" data-href="<?php echo Yii::app()->getBaseUrl(true); ?>" data-width="450" data-show-faces="true" data-send="true"></div>
                 </p>
+                </center>
                 <?php endif; ?>
                 <?php
                 Yii::beginProfile('RenderProductList'); 

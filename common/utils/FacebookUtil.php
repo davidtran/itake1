@@ -95,15 +95,17 @@ class FacebookUtil
         }
     }
 
-    public function getFacebookFriendInApp($userId)
+    public function getFacebookFriendInApp($userId,$includeSelf = false)
     {
-       
-                $facebookFriendList = $this->getFacebookFriendList($userId);                
-                $filterList = $this->filterFacebookFriendInApp($facebookFriendList);
+        if(!isset(Yii::app()->session[self::FACEBOOK_FRIEND_IN_APP_SESSION_NAME])){
+            $facebookFriendList = $this->getFacebookFriendList($userId);                
+            $filterList = $this->filterFacebookFriendInApp($facebookFriendList);
+            if($includeSelf){
                 $filterList[] = $userId;
-                Yii::app()->session[self::FACEBOOK_FRIEND_IN_APP_SESSION_NAME] = $filterList;
-                
-            return Yii::app()->session[self::FACEBOOK_FRIEND_IN_APP_SESSION_NAME];
+            }            
+            Yii::app()->session[self::FACEBOOK_FRIEND_IN_APP_SESSION_NAME] = $filterList;
+        }                            
+        return Yii::app()->session[self::FACEBOOK_FRIEND_IN_APP_SESSION_NAME];
         
        
     }
