@@ -26,15 +26,17 @@
                 </div>
                 <div class="row-fluid">
                     <div class="productItemDistance">
-                        <span class="icon-stack">
-                          <i class="icon-circle icon-stack-base"></i>
-                          <i class="icon-flag " style="color:graytext;"></i>
-                        </span>
                         <?php
                         if(SolrSortTypeUtil::getInstance()->getCurrentSortType() == SolrSearchAdapter::TYPE_LOCATION){
                             $lat = UserLocationUtil::getInstance()->lat;
                             $lng = UserLocationUtil::getInstance()->lng;
                             if($lat && $lng){
+                                ?>
+                                <span class="icon-stack">
+                                  <i class="icon-circle icon-stack-base"></i>
+                                  <i class="icon-flag " style="color:graytext;"></i>
+                                </span>
+                                <?php
                                 echo $product->getDistance($lat,$lng)." KM";
                             }
                         }
