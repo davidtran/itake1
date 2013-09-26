@@ -123,6 +123,12 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                         <?php echo CHtml::link('<i class="icon-remove"></i> Xóa vị trí',array('/site/removeLocation'));?>
                     </div>
                 <?php endif; ?>
+                <?php if($facebook && count($productList)==0):?>
+                <p>
+                    Hiện tại chưa có sản phẩm nào được bán từ bạn bè của bạn, hãy mời họ sử dụng itake.  
+                    <div class="fb-like" data-href="<?php echo Yii::app()->getBaseUrl(true); ?>" data-width="450" data-show-faces="true" data-send="true"></div>
+                </p>
+                <?php endif; ?>
                 <?php
                 Yii::beginProfile('RenderProductList'); 
                 $this->renderPartial('/site/_board', array(
