@@ -97,10 +97,11 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                     </div>
                                                     <div class="row-fluid">
                                                         <div class="span12">
-                                                         <?php echo CHtml::link(LanguageUtil::t('Buying instruction'),'#showbuyinginstruction',array(
-                                                                'class'=>'btnOpenDialogBuying btn btn-primary',
-                                                            'data-toggle'=>'modal'
-                                                        )); ?>
+                                                            <br>
+                                                             <?php echo CHtml::link(LanguageUtil::t('Buying instruction'),'#showbuyinginstruction',array(
+                                                                    'class'=>'btnOpenDialogBuying btn btn-primary',
+                                                                'data-toggle'=>'modal'
+                                                            )); ?>
                                                          </div>
                                                     </div>
                                                 </div>

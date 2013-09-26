@@ -102,13 +102,13 @@ $this->
                                     </div>
                                     <div class="row-fluid">
                                         <div class="span12">
+                                            <br>
                                             <?php echo CHtml::link(LanguageUtil::t('Buying instruction'),'#showbuyinginstruction',array(
                                                 'class'=>'btnOpenDialogBuying btn btn-primary',
                                                 'data-toggle'=>'modal'
                                             )); ?>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="tab-pane fade" id="bando">
                                     <?php if ($product->address->lat != null && $product->address->lon != null): ?>
