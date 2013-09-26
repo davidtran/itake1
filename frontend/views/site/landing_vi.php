@@ -13,13 +13,14 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
 	        <a class="logo" href="<?php echo $this->createUrl('/welcome'); ?>"><h1><span>i</span>Take</h1></a>
 	        <small class="visible-desktop"></small>               
 	    </div>
+	    <?php if( Yii::app()->user->isGuest) :?>
 	    <div class="frmSearch_wrapper">                          
         	<div class="frmSearch pull-right">     
         		<a href="<?php echo Yii::app()->createUrl('user/register') ?>" class="btn btn-top btn-info" title="Browse the market"><i class="icon-user"></i>  Đăng ký</a>
         		<a href="<?php echo Yii::app()->createUrl('user/login') ?>" class="btn btn-top btn-success" title="Browse the market"><i class="icon-signin"></i>  Đăng nhập</a>
         	</div>
         </div>  
-
+		 <?php endif; ?>
 	</div>
 	<div class="intro-top intro_item come-in">
 		<div class="row-fluid" style="margin-top:20px;max-width: 1200px;">
@@ -59,9 +60,11 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
                     <?php echo CHtml::link('Khám phá',array('site/index'),array(
                         'class'=>'btn btn-large btn-primary wide emphasis'
                     )); ?>
-                    <?php echo CHtml::link('Đăng ký ngay',array('/user/register'),array(
-                        'class'=>'btn btn-success btn-large wide emphasis'
-                    )); ?>
+                    <?php if( Yii::app()->user->isGuest) :?>
+	                    <?php echo CHtml::link('Đăng ký ngay',array('/user/register'),array(
+	                        'class'=>'btn btn-success btn-large wide emphasis'
+	                    )); ?>
+                	<?php endif; ?>
                 </div>
 			</div>
 			<div class="span6">

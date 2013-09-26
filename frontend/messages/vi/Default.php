@@ -125,6 +125,7 @@ return array(
     'Near you'=>'Gần bạn' ,
     'Product sold'=>'Đã bán',
     'Facebook friend'=>'Bạn bè Facebook',
-    'Buying instruction'=>'Hướng dẫn mua hàng'
+    'Buying instruction'=>'Hướng dẫn mua hàng',
+    'Date'=>'Ngày'
 
 );
