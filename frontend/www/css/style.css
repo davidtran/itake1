@@ -123,6 +123,11 @@ div.productImagePrice{
     bottom: 0;
     color:rgba(255, 255, 255, 0.9);
 }
+div.productItemDistance{
+    font-size: 1.5em;
+    font-family: "MNBTitleBold";
+    font-weight: 300;
+}
 div.nav-bar-top small{
     padding-top: 16px;
     float: left;
@@ -1434,6 +1439,7 @@ div.slim-scroll{
 }
 div.page-container{
     /*overflow-x:hidden;*/
+    margin-bottom: 35px;
 }
 div.btn-group.user-bar.avatar-bar
 {

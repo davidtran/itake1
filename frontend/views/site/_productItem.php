@@ -22,21 +22,25 @@
                     </div>    
                     <div class="span6">
                         <div class="productImagePrice"><?php echo number_format($product->price, 0); ?> đ</div>
-                        
-                        <?php 
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="productItemDistance">
+                        <span class="icon-stack">
+                          <i class="icon-circle icon-stack-base"></i>
+                          <i class="icon-flag " style="color:graytext;"></i>
+                        </span>
+                        <?php
                         if(SolrSortTypeUtil::getInstance()->getCurrentSortType() == SolrSearchAdapter::TYPE_LOCATION){
                             $lat = UserLocationUtil::getInstance()->lat;
                             $lng = UserLocationUtil::getInstance()->lng;
                             if($lat && $lng){
-                                echo $product->getDistance($lat,$lng);
+                                echo $product->getDistance($lat,$lng)." KM";
                             }
                         }
-                            
                         ?>
-                        
-                        
-                    </div> 
-                </div>            
+                    </div>
+                </div>
             </div>
 
         </div>
