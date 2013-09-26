@@ -27,26 +27,45 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
     <div class="row-fluid">
 
         <div class="sort-bar">
-                    <div class="pagination pagination-centered" >
-                      <ul>
-                         <?php foreach (SolrSortTypeUtil::getInstance()->getSortTypeLinkList() as $link): ?>
-                            <li><?php echo $link; ?></li>
-                        <?php endforeach; ?>               
-                        <li>
-                            <?php echo CHtml::link(LanguageUtil::t('Facebook friend'),
-                                $this->createUrl('/site/facebook'
-                                
-                                )
-                            );?>
-                        </li>
-                        <li>
-                            <?php echo CHtml::link(LanguageUtil::t('Product sold'),
-                                $this->createUrl('/site/sold'                                
-                                )
-                            );?>
-                        </li>
-                      </ul>
-                    </div>
+            <?php
+                $currentSortType = SolrSortTypeUtil::getInstance()->getCurrentSortType();
+                if($facebook==0&&(!isset($_GET['status'])||$_GET['status']!=3))
+                    $sortTypeLink = SolrSortTypeUtil::getInstance()->makeSortTypeUrl($currentSortType);
+                else
+                    $sortTypeLink = "nothing";
+            ?>
+            <div class="pagination pagination-centered" >
+              <ul>
+                 <?php foreach (SolrSortTypeUtil::getInstance()->getSortTypeLinkList() as $link): ?>
+                     <?php if(strpos($link, $sortTypeLink)!== FALSE):?>
+                        <li class="active"><?php echo $link; ?></li>
+                     <?php else: ?>
+                         <li><?php echo $link; ?></li>
+                     <?php endif; ?>
+                <?php endforeach; ?>
+                 <?php if($facebook==1&&isset($_GET['status'])&&$_GET['status']!=3):?>
+                <li class="active">
+                <?php else: ?>
+                <li >
+                <?php endif;?>
+                    <?php echo CHtml::link(LanguageUtil::t('Facebook friend'),
+                        $this->createUrl('/site/facebook'
+
+                        )
+                    );?>
+                </li>
+              <?php if(isset($_GET['status'])&&$_GET['status']==3):?>
+              <li class="active">
+                  <?php else: ?>
+              <li >
+                  <?php endif;?>
+                    <?php echo CHtml::link(LanguageUtil::t('Product sold'),
+                        $this->createUrl('/site/sold'
+                        )
+                    );?>
+                </li>
+              </ul>
+            </div>
         </div> 
         <div id="categories-bar">          
             <div class="row-fluid">     
