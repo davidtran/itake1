@@ -39,10 +39,12 @@ if(!isIE)
                 else if (State.data.productIdHtml != undefined)
                 {                
                     loadProduct(location.href,State.data.productIdHtml);
-                }                   
+                }
+
                 $dialog.on('hidden', function() {
                     History.pushState({}, itakeHistoryHandler.pageContextTitle, itakeHistoryHandler.pageContextUrl);
                 });
+
             }            
             lastUrl = State.url;
         });
@@ -53,6 +55,13 @@ var scrollbarWidth;
 $(window).resize(function() {
     alignDiv();
 });
+function loadImageSlider() {
+    $('.flexslider').flexslider({
+        animation: "slide",
+        controlNav: "thumbnails",
+        smoothHeight: false
+    });
+}
 $(document).ready(function() {
     if(!isIE)
     {

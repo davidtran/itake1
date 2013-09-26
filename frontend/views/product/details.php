@@ -149,6 +149,7 @@ $this->
         </div>
     </div>
 </div>
+<?php if(count($relateProductList)>0): ?>
 <div class="row-fluid">
     <div class="span12 custom">
         <div class="row-fluid">
@@ -164,6 +165,7 @@ $this->
         </div>
     </div>
 </div>
+<?php endif; ?>
 <?php if(Yii::app()->language!='vi'): ?>
     <?php $this->renderPartial('partial/buyinginstruction',array('product'=>$product)); ?>
 <?php else: ?>

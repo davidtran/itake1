@@ -138,17 +138,23 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                         <div class="fb-comments" data-href="<?php echo $canonicalUrl; ?>" data-width="" data-num-posts="10"></div>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12 custom">
-                        <h3 class="title_font" style="text-transform:uppercase;" ><?php LanguageUtil::echoT('More like this') ?></h3>
-                        <hr/>
-                        <div id="userProductList" style="display:none;">
-                            <?php foreach ($relateProductList as $relateProduct): ?>
-                                <?php echo $relateProduct->renderHtml('home-user-'); ?>
-                            <?php endforeach; ?>
+                    <?php if(count($relateProductList)>0): ?>
+                        <div class="row-fluid">
+                            <div class="span12 custom">
+                                <div class="row-fluid">
+                                    <h3>
+                                        <?php LanguageUtil::echoT('More like this') ?></h3>
+                                </div>
+                                <div class="row-fluid">
+                                    <div id="userProductList">
+                                        <?php foreach ($relateProductList as $relateProduct): ?>
+                                            <?php echo $relateProduct->
+                                                renderHtml('home-user-'); ?>
+                                        <?php endforeach; ?></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    <?php endif; ?>
 
 
             </div>
