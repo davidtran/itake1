@@ -2014,49 +2014,9 @@ div.sort-bar{
     background: transparent;
 }
 .intro_item{
-    opacity: 0;
-}
-.come-in {
     opacity: 1;
-    transform: translateY(150px);
-    -webkit-transform: translateY(150px);
-    -webkit-animation: come-in 1.8s ease forwards;
-    animation: come-in 1.8s ease forwards;
-
-    -webkit-transition: opacity 1.5s ease-in-out;
-    -moz-transition: opacity 1.5s ease-in-out;
-    -o-transition: opacity 1.5s ease-in-out;
-    transition: opacity 1.5s ease-in-out;
-}
-.come-in:nth-child(odd) {
-    animation-duration: 1.0s; /* So they look staggered */
-    -webkit-animation-duration: 1.0s; /* So they look staggered */
 }
 
-@keyframes come-in {
-    to {
-        transform: translateY(0);
-        -webkit-transform: translateY(0);
-    }
-}
-@-webkit-keyframes come-in {
-    to {
-        transform: translateY(0);
-        -webkit-transform: translateY(0);
-    }
-}
-@-moz-keyframes come-in {
-    to {
-        transform: translateY(0);
-        -webkit-transform: translateY(0);
-    }
-}
-@-o-keyframes come-in {
-    to {
-        transform: translateY(0);
-        -webkit-transform: translateY(0);
-    }
-}
 .margin-top-5{
     margin-top: 5px;
 }

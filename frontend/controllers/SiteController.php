@@ -353,7 +353,7 @@ class SiteController extends Controller
     }
 
     public function actionLanding()
-    {
+    {        
         $this->layout = '//layouts/noMenu';
         if (Yii::app()->language == 'en')
             $this->render('landing');
