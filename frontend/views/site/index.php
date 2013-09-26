@@ -127,7 +127,16 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                 <?php if($facebook && count($productList)==0):?>
                 <center>
                 <p>
+                    <?php if(Yii::app()->user->isFacebookUser ==false):?>
+                        Bạn cần kết nối tài khoản của bạn với Facebook để sử dụng chức năng này.
+                        <hr/>
+                        <br/>
+                        <?php echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($this->createUrl('/site/index')), array('class' => 'facebook-login')); ?>       
+                        <br/>
+                    <?php else:?>
                     Hiện tại chưa có sản phẩm nào được bán từ bạn bè của bạn, hãy mời họ sử dụng itake.  
+                    <?php endif; ?>
+                    
                     <div class="fb-like" data-href="<?php echo Yii::app()->getBaseUrl(true); ?>" data-width="450" data-show-faces="true" data-send="true"></div>
                 </p>
                 </center>

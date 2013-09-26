@@ -38,7 +38,7 @@ class UserController extends Controller
 
     public function actionLogin()
     {
-        if(Yii::app()->user->isGuest == false){
+        if (Yii::app()->user->isGuest == false) {
             $this->redirect('/site/index');
         }
         $loginForm = new LoginForm();
@@ -61,9 +61,10 @@ class UserController extends Controller
             'returnUrl' => $this->returnUrl,
         ));
     }
-    
-    public function actionFacebookLogin(){
-        $this->render('facebookLogin',array(
+
+    public function actionFacebookLogin()
+    {
+        $this->render('facebookLogin', array(
             'returnUrl' => $this->returnUrl,
         ));
     }
@@ -77,12 +78,16 @@ class UserController extends Controller
     {
         $user = new User();
         if (isset($_GET['code'])) {
-            try
-            {
+            try {
                 $profile = Yii::app()->facebook->api('/me');
                 //  var_dump($profile);exit;
                 if (isset($profile['email'])) {
-                    $user = UserUtil::getUserByEmail($profile['email']);
+                    if (Yii::app()->user->isGuest == false) {
+                        $user = Yii::app()->user->getModel();                        
+                    }
+                    else {
+                        $user = UserUtil::getUserByEmail($profile['email']);
+                    }
                     if ($user == null) {
                         $user = new User();
                         $user->email = $profile['email'];
@@ -90,8 +95,7 @@ class UserController extends Controller
                         $original = $profile['first_name'] . ' ' . $profile['last_name'];
                         $username = $original;
                         $increment = 1;
-                        while (UserUtil::isUserNameExist($username))
-                        {
+                        while (UserUtil::isUserNameExist($username)) {
                             $username = $original . '.' . $increment;
                             $increment++;
                         }
@@ -101,13 +105,15 @@ class UserController extends Controller
                         Yii::app()->session['LastFbId'] = $profile['id'];
                     }
                     else {
-                        if ($user->fbId == null) {
+                        
+                        if (trim($user->fbId) == '') {
                             $user->fbId = $profile['id'];
                         }
                         $user->isFbUser = 1;
                     }
-                    $user->save();
-                    if ( FacebookUtil::getInstance()->setExtendedAccessToken() !== false) {
+                    $user->allowUpdateWithoutCaptcha = true;
+                    $user->save();                    
+                    if (FacebookUtil::getInstance()->setExtendedAccessToken() !== false) {
                         FacebookPostQueueUtil::refreshFacebookCommandForUser($user->id);
                         FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
                         $loginForm = new FacebookLoginForm();
@@ -122,8 +128,7 @@ class UserController extends Controller
                     }
                 }
             }
-            catch (FacebookApiException $e)
-            {
+            catch (FacebookApiException $e) {
                 //do nothing
             }
         }
@@ -228,14 +233,14 @@ class UserController extends Controller
                     'sent' => 1
                 ));
             }
-            else{
+            else {
                 $this->render('forgetPassword', array(
                     'model' => $model,
                     'sent' => -1
                 ));
             }
         }
-        else{
+        else {
             $this->render('forgetPassword', array(
                 'model' => $model,
                 'sent' => 0
