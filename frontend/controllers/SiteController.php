@@ -176,10 +176,7 @@ class SiteController extends Controller
             $nextPageLink = CHtml::link('Next', $nextPageUrl, array(
                         'class' => 'nextPageLink',
             ));
-        }
-        
-
-        
+        }               
 
         if (!Yii::app()->request->isAjaxRequest) {
             $this->render('index', array(
