@@ -5,8 +5,9 @@ class SendMessageForm extends CFormModel{
     public $senderName;
     public $receiverId;      
     public $message;
-    
+    public $productId;
     protected $_receiver;
+    protected $_product;
     
     public function getReceiver(){
         if($this->_receiver == null){
@@ -19,16 +20,19 @@ class SendMessageForm extends CFormModel{
     public function getRules(){
         return array(
             array('captcha','captcha'),
-            array('captcha,senderName,receiverId,message','required'),
-            array('receiverId','numerical','integerOnly'=>true),
-            array('senderName','length','max'=>50),
-            array('message','length','max'=>500),
-            array('receiverId','exist','className'=>'User')
+            array('captcha,senderName,receiverId,message,productId','required'),
+            array('receiverId,productId','numerical','integerOnly'=>true),
+            array('senderName','length','max'=>50,'min'=>1),
+            array('message','length','max'=>500,'min'=>1),
+            array('productId','exist','Product'),            
+            array('userId','exist','User'),
+            
         );
     }
     
     public function beforeValidate()
     {        
+        $this->_product = Product::model()->findByPk($this->productId);
         return parent::beforeValidate();
     }
     
@@ -42,14 +46,16 @@ class SendMessageForm extends CFormModel{
     }
     
     public function send(){                
-        EmailUtil::queue(
+        return EmailUtil::queue(
                 Yii::app()->params['email.adminEmail'], 
                 $this->receiver->email, 
                 'receiveMessage', 
                 array(
                     'senderName'=>$this->senderName,
-                    'receiverName'=>$this->receiver->username,
+                    'receiverName'=>$this->_receiver->username,
                     'message'=>$this->message,                   
+                    'productLink'=>$this->_product->getDetailUrl(true),
+                    'productTitle'=>$this->_product->title,
                 ), Yii::t('Default','You just received a message from iTake.me'));
     }
     

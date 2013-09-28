@@ -256,11 +256,12 @@ $(document).ready(function(){
 $(document).ready(function(){
     $('.btnOpenProductMessageDialog').live('click',function(e){
         e.preventDefault();
-        var id = $(this).parents('.productItem').attr('data-product-id');
+        var id = $(this).attr('data-product-id');
         var that = $(this);
         $('#sendProductMessageDialog').remove();
         $.ajax({
             url:BASE_URL + '/product/sendMessageDialog',
+            type:'post',
             data:{
                 productId:id
             },
@@ -279,12 +280,24 @@ $(document).ready(function(){
     
     $('.btnSendProductMessage').live('click',function(e){
         e.preventDefault();
-        var id = $(this).parents('.productItem').attr('data-product-id');
+        var id = $(this).attr('data-product-id');
         var that = $(this);
+        var formData = $('#productMessageForm').serializeObject();
         $.ajax({
-            url:BASE_URL + '/product/sendMessage',
-            data:{
-                productId:id
+            url:BASE_URL + '/product/sendMessage?productId='+id,
+            data:formData,
+            type:'post',
+            success:function(jsons){
+                var data = $.parseJSON(jsons);
+                if(data.success){
+                    bootbox.alert(data.msg);
+                    $('#sendProductMessageDialog').modal('hide');
+                }else{
+                    bootbox.alert(data.msg);
+                    $('#refreshCaptcha').click();
+                }
+                
+                
             }
         });
         return false;
