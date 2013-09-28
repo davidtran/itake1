@@ -115,7 +115,9 @@
                                     </div>
                                 <?php else: ?>
                                 <!--                            <a href="<?php echo $this->createUrl('/user/register'); ?>" class="btn btn-info" ><i class="icon-user icon-white"></i>  Đăng ký</a>-->
-                                <a class="btn btn-success" href="<?php echo $this->createUrl('/user/login'); ?>"><i class="icon-user"></i>  <?php LanguageUtil::echoT('Member') ?></a>
+                                    <a href="<?php echo Yii::app()->createUrl('user/register') ?>" class="btn  btn-info" title="Browse the market"><i class="icon-user"></i>  <?php echo LanguageUtil::t('Sign Up') ?></a>
+                                    <a href="<?php echo Yii::app()->createUrl('user/login') ?>" class="btn btn-success" title="Browse the market"><i class="icon-signin"></i>  <?php echo LanguageUtil::t('Sign In') ?></a>
+            
                             <?php endif; ?>
                         </div>     
                     </div>
