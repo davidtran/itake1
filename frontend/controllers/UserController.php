@@ -281,22 +281,26 @@ class UserController extends Controller
         $this->canonical = $this->createAbsoluteUrl('/user/changePassword');
         if (Yii::app()->user->isGuest == false) {
             $model = new ChangePasswordForm();
-            $model->user_id = Yii::app()->user->getId();
+            $model->user_id = Yii::app()->user->getId();        
             if (isset($_POST['ChangePasswordForm'])) {
                 $model->attributes = $_POST['ChangePasswordForm'];
+                
                 if ($model->changePassword()) {
-                    $model->password = null;
-                    $model->retypePassword = null;
-                    $model->oldPassword = null;
+                    
+                    UserRegistry::getInstance()->setValue('HaveChangedPassword',true);
                     Yii::app()->user->setFlash('success', 'Đổi mật khẩu thành công');
                 }
                 else {
                     Yii::app()->user->setFlash('error', 'Không thể đổi mật khẩu, vui lòng kiểm tra lại mật khẩu cũ và mật khẩu mới của bạn.');
                 }
+                $model->password = null;
+                $model->retypePassword = null;
+                $model->oldPassword = null;
             }
-            $model->unsetAttributes();
+            //$model->unsetAttributes();
+            
             $this->render('changePassword', array(
-                'model' => $model
+                'model' => $model,                
             ));
         }
         else {

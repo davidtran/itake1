@@ -1,7 +1,10 @@
 <div class="productItem <?php echo $product->category->getStyleName(); ?>" id="<?php echo $prefix ?>product-<?php echo $product->id; ?>" data-product-id="<?php echo $product->id; ?>">
     <div class="row-fluid">
         <div class="product-detail">
-            <?php echo $product->renderImageLink(); ?>            
+            <?php echo Yii::app()->controller->renderPartial('/site/_productImage', array(
+                    'product' => $product,
+                    'showControl'=>$showControl
+                        ), true, false); ?>            
             <div class="productImageInfo">
                 <div class="productImageTitle"><?php echo StringUtil::limitCharacter(strtoupper($product->title), 25); ?></div>
                 <hr class="sep_item"/>
