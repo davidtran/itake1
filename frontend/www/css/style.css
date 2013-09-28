@@ -2001,7 +2001,7 @@ div.sort-bar{
 .fb_iframe_widget {
     display: inline-block;
     position: relative;
-    top: 20px;
+    /*top: 20px;*/
 }
 .btnDeleteImage{
     position: relative;
@@ -2022,4 +2022,11 @@ div.sort-bar{
 }
 .margin-top-10{
     margin-top: 10px;
+}
+.margin-top-20{
+    margin-top: 20px;
+}
+.align-bottom{
+    position: absolute;
+    bottom: 0;
 }
