@@ -53,12 +53,12 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                 <?php endif;?>
                     
                     <?php 
-                    if(Yii::app()->session->get('CheckedFacebookAccessToken',false)===true){
+               
                         echo CHtml::link(
                                 LanguageUtil::t('Facebook friend'),
                                 $this->createUrl('/site/facebook')
                         );
-                    }
+                    
                     ?>
                 </li>
               <?php if(isset($_GET['status'])&&$_GET['status']==3):?>
