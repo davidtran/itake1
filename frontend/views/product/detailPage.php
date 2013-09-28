@@ -90,7 +90,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane fade" id="bando">                                                  
-                                                    <?php if ($product->address->lat != null && $product->address->lon != null): ?>
+                                                    <?php if ($product->address!=null&&$product->address->lat != null && $product->address->lon != null): ?>
                                                         <div class="row-fluid">                                                                                                                                                        
                                                             <h4 class="product-detail-tag"><?php LanguageUtil::echoT('City') ?>: <?php echo CityUtil::getCityName($product->address->city); ?></h4>                                        
 
@@ -166,7 +166,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                         <div class="row-fluid">
                             <div class="span12 custom">
                                 <div class="row-fluid">
-                                    <h3 class="title_font">
+                                    <h3 class="title_font" style="text-transform:uppercase;">
                                         <?php LanguageUtil::echoT('More like this') ?></h3>
                                 </div>
                                 <div class="row-fluid">

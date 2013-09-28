@@ -76,6 +76,10 @@ class ProductController extends Controller
             if (count($product->images) > 0) {
                 $this->addMetaProperty('og:image', Yii::app()->getBaseUrl(true) . '/' . $product->images[0]->thumbnail);
             }
+            else if(strlen($product->image)>0)
+            {
+                $this->addMetaProperty('og:image', Yii::app()->getBaseUrl(true) . '/' . $product->image);
+            }
             $this->addMetaProperty('og:url', $canonicalUrl . "?v=1");
             $this->addMetaProperty('og:type', 'product');
             $this->addMetaProperty('fb:app_id', Yii::app()->params['facebook.appId']);
