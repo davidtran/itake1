@@ -159,14 +159,14 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
 
                                 </div>
                             </div>  
-                                <?php if(Yii::app()->user->isFacebookUser):?>
+                                <?php if(Yii::app()->user->isFacebookUser && Yii::app()->session['CheckedFacebookAccessToken'] == true):?>
                                     <div class="row-fluid" style="margin-left:10px;">
                                         <?php echo $form->checkBoxRow($product,'uploadToFacebook'); ?>
                                     </div>
                                 <?php endif; ?>
                                 
                                 <?php $pages = $this->getFacebookPageListData() ?>
-                                <?php if($pages !==false&&count($pages)>0):?>
+                                <?php if(Yii::app()->session['CheckedFacebookAccessToken'] == true && $pages !==false&&count($pages)>0):?>
                                 <div class="row-fluid" style="margin-left:10px;">
                                     <label><?php echo LanguageUtil::t('Please choose one or many fanpages to share your post (optional)'); ?></label>
                                     <?php echo CHtml::checkBoxList('FacebookPage[]', '', $pages); ?>

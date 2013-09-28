@@ -39,7 +39,7 @@ class UserController extends Controller
     public function actionLogin()
     {
         if (Yii::app()->user->isGuest == false) {
-            $this->redirect('/site/index');
+            //$this->redirect('/site/index');
         }
         $loginForm = new LoginForm();
         if (isset($_POST['LoginForm'])) {
