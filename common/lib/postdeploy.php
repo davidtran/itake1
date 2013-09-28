@@ -8,14 +8,6 @@
  * - Flushes runtime directories
  * - Runs migrations (will not on your local machine, unless you explicitly ask it to)
  */
-require_once('common' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'Yii' . DIRECTORY_SEPARATOR . 'yii.php');
-$config = require('frontend' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'main.php');
-require_once('common' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'WebApplication.php');
-require_once('common' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'global.php');
-
-
-$app = Yii::createApplication('WebApplication', $config);
-
 if ($argc < 2)
 {
 	echo "========================================================\n";
@@ -185,9 +177,6 @@ if (($envType != 'private' && !in_array('no-migrate', $argv)) || in_array('migra
 		runCommand(getPhpPath() . ' \'' . $root . "yiic' migrate --interactive=0 --connectionID=db");
 }
 
-if(Yii::app()->cache!=null){
-    Yii::app()->cache->flush();
-}
 echo 'Cache cleared !'.PHP_EOL;
 
 echo "Done!\n";
