@@ -41,6 +41,7 @@ return array(
      'Time'=>'Thời gian',
      'Trend'=>'Xu hướng',
      'Browse'=> 'Xem',
+     'Sign Up'=> 'Đăng ký',
 
      //PRODUCT
     'ID' => 'Mã',
