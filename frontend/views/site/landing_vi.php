@@ -68,16 +68,17 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
                 </div>
 			</div>
 			<div class="span6">
-				<h1 class="center title_font font-white font-large">Một nơi mà bạn dễ dàng bán hay mua bất kỳ thứ gì...</h1>
+				<h1 class="center title_font font-white font-large">Mua có thông tin - Bán được dễ dàng</h1>
 			</div>
 		</div>
 		<div class="intro-image">
 		</div>
 	</div>
 	<div class="row-fluid intro-sep intro_item" style="margin-top:560px;">
-		<h1 class="center title_font"><i class="icon-quote-left"></i>  ITAKE được thiết kế đẹp, đơn giản và hiệu quả kinh doanh cao <i class="icon-quote-right"></i></h1>
+		<h1 class="center title_font"><i class="icon-quote-left"></i>iTake - Trung tâm thương mại online đầu tiên của người Việt <i class="icon-quote-right"></i></h1>
 		<div class="row center">
-			<small>Bạn không cần tạo website, không cần phải đăng tin nhiều nơi, với giao diện đẹp và những chức năng vượt trội. ITAKE sẽ giúp công việc bán hàng thêm đơn giản và hiệu quả</small>
+			<small>Bạn không cần tốn tiền thuê mặt bằng để bán hàng, Bạn không cần tạo một website, Bạn không cần làm tối ưu hóa website hay hàng ngày cập nhật sản phẩm lên facebook. Dù bạn lớn hay nhỏ, Chỉ cần sản phẩm của bạn tốt Khách hàng sẽ tìm đến bạn.</small>
+                        <small>Thời đại của mua sắm Online Việt đã phát triển và uy tín hơn. Bạn sẽ dễ dàng và nhanh chóng tìm được những hàng hóa mình cần trên iTake </small>
 		</div>			
 		<div class="row center" style="margin-top:20px;">
 			<img src="<?php echo Yii::app()->baseUrl.'/images/bmarket.png' ?>"/>
@@ -85,80 +86,80 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
 	</div>
 	<div class="row-fluid intro-sep intro_item">
 	<div class="row-fluid" >
-		<h1 class="center title_font">Đơn giản để bán hàng</h1>
+		<h1 class="center title_font">Mua có thông tin</h1>
 		<div class="span3 offset1">
 			<h2 class="center">
 				<span class="icon-stack icon-2x green">
 				  <i class="icon-circle icon-stack-base"></i>
-				  <i class="icon-random icon-light"></i>
+				  <i class="icon-thumbs-up icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center intro_font">QUẢNG CÁO TỚI HÀNG TRIỆU NGƯỜI DÙNG</h4>
+			<h4 class="center intro_font">MUA HÀNG TỐT NHẤT</h4>
 			<div class="row center">
-				<small>ITAKE có mặt trên tất cả mọi nền tảng từ ứng dụng di động đến máy tính bảng và máy tính </small>
+				<small>Bạn muốn tham khảo bình chọn, đánh giá của người tiêu dùng trước khi mua hàng? Bạn không muốn mua phải những hàng xấu? iTake đã có chức năng bình chọn, nhận xét, hoặc báo xấu về một loại hàng hóa giúp bạn dễ dàng tìm những sản phẩm tốt nhất </small>
 			</div>
 		</div>
 		<div class="span3">
 			<h2 class="center" >
 				<span class="icon-stack icon-2x green">
 				  <i class="icon-circle icon-stack-base"></i>
-				  <i class="icon-tags icon-light"></i>
+				  <i class="icon-group  icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center intro_font">BÁN HÀNG CHỈ TRONG 3 CLICKS</h4>
+			<h4 class="center intro_font">MUA HÀNG TỪ NGƯỜI QUEN</h4>
 			<div class="row center">
-				<small>Với đơn giản 3 clicks bạn sẽ đưa sản phẩm của mình lên Facebook, Facebook fanpage, ứng dụng ITAKE trên điện thoại thông minh và trên website ITAKE</small>
+				<small>Bạn có thích xem bạn bè trên facebook của mình đang bán gì ? Mua hàng từ bạn bè sẽ đáng tin hơn? iTake sẽ giúp bạn dễ dàng thấy được những sản phẩm từ bạn bè trên facebook</small>
 			</div>
 		</div>
 		<div class="span3">
+			<h2 class="center">
+				<span class="icon-stack icon-2x green">
+				  <i class="icon-circle icon-stack-base"></i>
+				  <i class="icon-coffee icon-light"></i>
+				</span>
+			</h2>
+			<h4 class="center intro_font">MUA ĐƯỢC DỄ DÀNG</h4>
+			<div class="row center">
+				<small>Bạn muốn mua những sản phẩm mới nhất, gần mình nhất và đa dạng để lựa chọn. Chức năng tìm kiếm đơn giản của iTake giúp bạn dễ dàng kiếm những thứ mình cần</small>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid intro_item">
+		<h1 class="center title_font">Bán được dễ dàng</h1>
+		<div class="span3 offset1">
 			<h2 class="center">
 				<span class="icon-stack icon-2x green">
 				  <i class="icon-circle icon-stack-base"></i>
 				  <i class="icon-signal icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center intro_font">PHÂN TÍCH HIỆU QUẢ TIẾP THỊ</h4>
+			<h4 class="center intro_font">BÁN ĐƯỢC NHIỀU HƠN</h4>
 			<div class="row center">
-				<small>ITAKE sẽ thống kê sản phẩm của bạn khi bắt đầu tải lên thông qua lượt share, view và hiệu quả tổng thể của việc bán hàng trực tuyến với báo cáo đến bạn bán hàng hàng tuần</small>
-			</div>
-		</div>
-	</div>
-	<div class="row-fluid intro_item">
-		<h1 class="center title_font">Dễ dàng để mua</h1>
-		<div class="span3 offset1">
-			<h2 class="center">
-				<span class="icon-stack icon-2x green">
-				  <i class="icon-circle icon-stack-base"></i>
-				  <i class="icon-screenshot icon-light"></i>
-				</span>
-			</h2>
-			<h4 class="center intro_font">DỄ DÀNG TÌM THỨ BẠN MUỐN</h4>
-			<div class="row center">
-				<small>Tìm kiếm dễ dàng với công cụ tìm kiếm tối ưu và tìm kiếm dựa trên xu hướng, thời gian và địa điểm</small>
+				<small>iTake sẽ đưa sản phẩm của bạn đến hàng triệu người mua tìm kiếm ở bất kỳ đâu từ máy tính, máy tính bảng hay điện thoại</small>
 			</div>
 		</div>
 		<div class="span3">
 			<h2 class="center" >
 				<span class="icon-stack icon-2x green">
 				  <i class="icon-circle icon-stack-base"></i>
-				  <i class="icon-star icon-light"></i>
+				  <i class="icon-upload-alt icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center intro_font">MUA SẢN PHẨM TỪ BẠN BÈ</h4>
+			<h4 class="center intro_font">3 CLICK ĐỂ BÁN HÀNG</h4>
 			<div class="row center">
-				<small>ITAKE luôn xem trọng vào mối quan hệ từ Facebook vì vậy khi bạn của bạn bán một thứ gì đó thì bạn cũng dễ dàng tìm thấy trên Facebook, ứng dụng ITAKE hay Web ITAKE</small>
+				<small>Không cần phải làm một trang web, không phải cập nhật sản phẩm trên facebook hằng ngày. Chỉ cần 3 Click trên iTake sản phẩm của bạn sẽ tự được đưa lên tất cả 3 nơi bao gồm facebook, ứng dụng mobile và trang thông tin trên iTake</small>
 			</div>
 		</div>
 		<div class="span3">
 			<h2 class="center">
 				<span class="icon-stack icon-2x green">
 				  <i class="icon-circle icon-stack-base"></i>
-				  <i class="icon-filter icon-light"></i>
+				  <i class="icon-bar-chart icon-light"></i>
 				</span>
 			</h2>
-			<h4 class="center intro_font">BÁN HÀNG TIN CẬY</h4>
+			<h4 class="center intro_font">PHÂN TÍCH HIỆU QUẢ KINH DOANH</h4>
 			<div class="row center">
-				<small>Chúng tôi luôn kiểm soát chất lượng của người bán hàng khi tham gia bán hàng trên ITAKE để đảm bảo sản phẩm rao bán trên ITAKE là đáng tin cậy</small>
+				<small> iTake sẽ gửi báo cáo hàng tuần đến bạn các thống kê từ lượt view, click, like, share,….. Giúp bạn có thể điều chỉnh chiến lược để bán hàng tốt hơn</small>
 			</div>
 		</div>
 	</div>	
