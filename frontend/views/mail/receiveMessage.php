@@ -1,7 +1,7 @@
 <h3><span style="font-size:13px; line-height:1.2em">Dear</span><span style="font-size:13px; line-height:1.2em">&nbsp;<?php echo $receiverName; ?></span><span style="font-size:13px; line-height:1.2em">,</span></h3>
 
 <p>You have got a new message from <b><?php echo $senderName; ?></b> 
- cho sản phẩm <?php echo CHtml::link($productName,$productUrl); ?>
+ cho sản phẩm <?php echo CHtml::link($productTitle,$productLink); ?>
  </p>
 
 <blockquote>

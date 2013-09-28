@@ -9,8 +9,7 @@ class FacebookAccessCheckerFilter extends CFilter
         if (Yii::app()->user->isFacebookUser && !Yii::app()->request->isAjaxRequest && !$this->isSaved())
         {             
             try
-            {
-          
+            {          
                 $userId = Yii::app()->user->getId();
                 $fbUtil = FacebookUtil::getInstance();
                 $accessToken = $fbUtil->getSavedUserToken($userId);                
