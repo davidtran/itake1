@@ -9,7 +9,7 @@ $(document).ready(function() {
     if (canShowCityDialog){
         $('#cityDialog').modal({
             show:true,
-            backdrop:static
+            backdrop:'static'
         });
     }
     $container = $('#productContainer');
