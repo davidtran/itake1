@@ -39,13 +39,6 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
 
 
                                     </div>
-                                    <div class="row-fluid" style="margin-top: 20px;">
-                                        <div class="fb-like" href="<?php echo $canonicalUrl; ?>" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
-                                    </div>
-                                    <div class="row-fluid" style=" margin-top: 30px; ">
-                        <span class="" style="margin-bottom:10px;color:#005580;font-size:0.9em;"> <i class="icon-eye-open"></i>
-                            <?php echo Yii::t('Default','{number} view|{number} views',array($product->view,'{number}'=>$product->view));   ?></span>
-                                    </div>
                                 </div>
                                 <div class="span6 custom">
                                     <div class="row-fluid">
@@ -95,30 +88,6 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                             </div>   
                                                         </div>
                                                     </div>
-                                                    <div class="row-fluid">
-                                                        <div class="span12">
-                                                            <br>
-                                                             <?php echo CHtml::link('
-                                                             <span class="icon-stack">
-                                                              <i class="icon-circle icon-stack-base"></i>
-                                                              <i class="icon-shopping-cart" style="color:#51a351"></i>
-                                                            </span>
-                                                             '.LanguageUtil::t('Buying instruction'),'#showbuyinginstruction',array(
-                                                                    'class'=>'btnOpenDialogBuying btn btn-success pull-right',
-                                                                'data-toggle'=>'modal'
-                                                            )); ?>
-
-                                                            <?php echo CHtml::link('
-                                                            <span class="icon-stack">
-                                                              <i class="icon-circle icon-stack-base"></i>
-                                                              <i class="icon-comments" style="color:#2f96b4"></i>
-                                                            </span>'.'  Gửi tin nhắn','#',array(
-                                                                                'class'=>'btnOpenProductMessageDialog btn btn-info pull-right',
-                                                                                'style'=>'margin-right:10px;',
-                                                                                'data-product-id'=>$product->id
-                                                                            )); ?>
-                                                         </div>
-                                                    </div>
                                                 </div>
                                                 <div class="tab-pane fade" id="bando">                                                  
                                                     <?php if ($product->address->lat != null && $product->address->lon != null): ?>
@@ -139,8 +108,46 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                     </div>                                                           
 
                                 </div>                
-                            </div>  
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="row-fluid" style="margin-top: 30px;">
+                                        <div class="pull-left" style="margin-right: 10px;">
 
+                                            <div class="fb-like" data-href="<?php echo $canonicalUrl; ?>
+                                " data-send="false" data-layout="button_count" data-width="450" data-show-faces="false">
+                                            </div>
+                                            <!-- AddThis Button END -->
+                                        </div>
+                                        <div class="pull-left">
+                            <span class="" style="margin-bottom:10px;color:#005580;font-size:0.9em;"> <i class="icon-eye-open"></i>
+                                <?php echo Yii::t('Default','{number} view|{number} views',array($product->view,'{number}'=>$product->view));   ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="span6">
+                                    <br>
+                                    <?php echo CHtml::link('
+                                                             <span class="icon-stack">
+                                                              <i class="icon-circle icon-stack-base"></i>
+                                                              <i class="icon-shopping-cart" style="color:#51a351"></i>
+                                                            </span>
+                                                             '.LanguageUtil::t('Buying instruction'),'#showbuyinginstruction',array(
+                                        'class'=>'btnOpenDialogBuying btn btn-success pull-right',
+                                        'data-toggle'=>'modal'
+                                    )); ?>
+
+                                    <?php echo CHtml::link('
+                                            <span class="icon-stack">
+                                              <i class="icon-circle icon-stack-base"></i>
+                                              <i class="icon-comments" style="color:#2f96b4"></i>
+                                            </span>'.'  Gửi tin nhắn','#',array(
+                                        'class'=>'btnOpenProductMessageDialog btn btn-info pull-right',
+                                        'style'=>'margin-right:10px;'
+                                    )); ?>
+                                </div>
+                            </div>
 
                         </div>
 
@@ -150,8 +157,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                 <div class="row-fluid">
                     <div class="span12 custom">
                         <h3 class="title_font" style="text-transform:uppercase;"><?php LanguageUtil::echoT('Comments') ?></h3>
-                        <hr/>
-                        <div class="fb-comments" data-href="<?php echo $canonicalUrl; ?>" data-width="" data-num-posts="10"></div>
+                        <div class="fb-comments" data-href="<?php echo $canonicalUrl. "?v=1"; ?>" data-width="" data-num-posts="10"></div>
                     </div>
                 </div>
                     <?php if(count($relateProductList)>0): ?>
