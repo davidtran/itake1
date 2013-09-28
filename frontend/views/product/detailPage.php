@@ -69,7 +69,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                             <i class="icon-calendar"></i>  <?php echo DateUtil::convertDate('d-m-Y H:i:s', $product->create_date); ?>
                                                         </div>
                                                     </div>  
-                                                    <?php if ($product->address->lat != null && $product->address->lon != null): ?>
+                                                    <?php if ($product->address!=null&&$product->address->lat != null && $product->address->lon != null): ?>
                                                         <div class="row-fluid">
 
                                                             <?php if (trim($product->address->address) != ''): ?>
