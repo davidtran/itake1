@@ -133,21 +133,34 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                     </div>
                 <?php endif; ?>
                 <?php if($facebook && count($productList)==0):?>
-                <center>
-                <p>
-                    <?php if(Yii::app()->user->isFacebookUser ==false):?>
-                        Bạn cần kết nối tài khoản của bạn với Facebook để sử dụng chức năng này.
-                        <hr/>
-                        <br/>
-                        <?php echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($this->createUrl('/site/index')), array('class' => 'facebook-login')); ?>       
-                        <br/>
-                    <?php else:?>
-                    Hiện tại chưa có sản phẩm nào được bán từ bạn bè của bạn, hãy mời họ sử dụng itake.  
-                    <?php endif; ?>
-                    
-                    <div class="fb-like" data-href="<?php echo Yii::app()->getBaseUrl(true); ?>" data-width="450" data-show-faces="true" data-send="true"></div>
-                </p>
-                </center>
+                <div class="row-fluid">
+                    <div class="span6 offset3">
+                        <?php if(Yii::app()->user->isFacebookUser ==false):?>
+                            <p class="alert alert-info center">
+                                <span class="icon-stack icon-2x">
+                                  <i class="icon-circle icon-stack-base"></i>
+                                  <i class="icon-facebook icon-light"></i>
+                                </span>
+                                <br>
+                                Bạn cần kết nối tài khoản của bạn với Facebook để sử dụng chức năng này.
+                            </p>
+                            <div class="row-fluid center">
+                            <?php echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($this->createUrl('/site/index')), array('class' => 'facebook-login')); ?>
+                            </div>
+                        <?php else:?>
+                        <p class="alert alert-info">
+                             <span class="icon-stack icon-2x">
+                                  <i class="icon-circle icon-stack-base"></i>
+                                  <i class="icon-frown icon-light"></i>
+                                </span>
+                            <br>
+                            Hiện tại chưa có sản phẩm nào được bán từ bạn bè của bạn, hãy mời họ sử dụng itake.
+                        </p>
+                        <?php endif; ?>
+                        <hr class="margin-top-10"/>
+                        <div class="fb-like center margin-top-10" data-href="<?php echo Yii::app()->getBaseUrl(true); ?>" data-width="auto" data-show-faces="true" data-send="true"></div>
+                    </div>
+                </div>
                 <?php endif; ?>
                 <?php
                 Yii::beginProfile('RenderProductList'); 
