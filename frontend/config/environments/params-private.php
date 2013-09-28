@@ -13,5 +13,5 @@ return array(
     'request.baseUrl' => 'http://dev.itake', 
     'upload.maxImageNumber' => 4,
     'showSortTab'=>true,
-    'postLimitPerDay'=>3,
+    'postLimitPerDay'=>99,
 );
