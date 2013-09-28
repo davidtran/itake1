@@ -1,5 +1,5 @@
 <div class='addressItem' style="margin-top:10px;">
-    <div class="row-fluid" style="border-bottom:dashed 1px #ccc;margin-top:3px;margin:-5px;">    
+    <div class="row-fluid" style="margin-top:3px;margin:-5px;">
     <div class="span6">
     <?php echo CHtml::image(UploadProductUtil::getStaticGoogleMapUrl($address),'',array(
     'class'=>'googlemap img-rounded'

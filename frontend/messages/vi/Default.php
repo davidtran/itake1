@@ -106,7 +106,7 @@ return array(
     'Update'=>'Cập nhật',
     'Add your address'=>'Thêm địa chỉ',
     'Your+ad+image'=>'Hình+SP',
-    '<b>Notice:</b>Only allow {maxImage} images per product.'=>'<b>Lưu ý:</b>Chỉ cho phép upload {maxImage} ảnh mỗi sản phẩm',
+    '<b></b>Only allow {maxImage} images per product.'=>'<b></b>Chỉ cho phép upload {maxImage} ảnh mỗi sản phẩm',
     'Post to your Facebook profile'=>'Đăng tin lên trang cá nhân Facebook',
     ///Change password
     'Old password'=>'Mật khẩu cũ',

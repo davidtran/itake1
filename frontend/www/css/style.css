@@ -2030,3 +2030,27 @@ div.sort-bar{
     position: absolute;
     bottom: 0;
 }
+.fileinput-button {
+    float: none;
+    overflow: hidden;
+    display: block;
+    height: 50px;float: none;
+}
+.fileinput-button input {
+
+    position: relative;
+    top: -60px;
+    left: 50px;
+    right: 50px;
+    border: solid transparent;
+    border-width: 0 0 100px 200px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -moz-transform: translate(-300px, 0) scale(4);
+    direction: ltr;
+    cursor: pointer;
+    background: red;
+}
+.span5.in{
+    display: inline-block;
+}

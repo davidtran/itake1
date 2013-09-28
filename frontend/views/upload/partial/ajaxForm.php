@@ -11,11 +11,11 @@ if ($this->showForm)
         <!-- The fileinput-button span is used to style the file input field as button -->
         <span class="fileinput-button">
 
-            <div class="fileupload fileupload-new" data-provides="fileupload">
+            <div class="fileupload fileupload-new" style="text-align: center;" data-provides="fileupload">
 
                 <?php echo CHtml::link('<i class="icon-cloud-upload"></i>  '.LanguageUtil::t('Upload images'),'#',array(
                         'class'=>'btn btn-success btn-large',
-                        'style'=>'width:200px'
+                        'style'=>'width:200px;'
                     ));?>
                 <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 200px; line-height: 20px;"></div>        
             </div>
@@ -29,7 +29,7 @@ if ($this->showForm)
         </span>  
 
     </div>
-    <div class="span5">
+    <div class="span12">
         <!-- The global progress bar -->
         <div class="progress progress-success progress-striped active fade">
             <div class="bar" style="width:0%;"></div>
