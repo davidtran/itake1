@@ -155,7 +155,8 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                     </div>
 
                 </div>  
-                <div class="row-fluid">
+                <div class="row-fl   <h3>
+                <?php LanguageUtil::echoT('More like this') ?></h3>uid">
                     <div class="span12 custom">
                         <h3 class="title_font" style="text-transform:uppercase;"><?php LanguageUtil::echoT('Comments') ?></h3>
                         <div class="fb-comments" data-href="<?php echo $canonicalUrl. "?v=1"; ?>" data-width="" data-num-posts="10"></div>
@@ -165,7 +166,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                         <div class="row-fluid">
                             <div class="span12 custom">
                                 <div class="row-fluid">
-                                    <h3>
+                                    <h3 class="title_font">
                                         <?php LanguageUtil::echoT('More like this') ?></h3>
                                 </div>
                                 <div class="row-fluid">
