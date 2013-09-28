@@ -107,10 +107,15 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                                     'class'=>'btnOpenDialogBuying btn btn-success pull-right',
                                                                 'data-toggle'=>'modal'
                                                             )); ?>
-                                                            
-                                                            <?php echo CHtml::link('Gửi tin nhắn','#',array(
-                                                                'class'=>'btnOpenProductMessageDialog btn btn-primary',                                                
-                                                            )); ?>
+
+                                                            <?php echo CHtml::link('
+                                                            <span class="icon-stack">
+                                                              <i class="icon-circle icon-stack-base"></i>
+                                                              <i class="icon-comments" style="color:#2f96b4"></i>
+                                                            </span>'.'  Gửi tin nhắn','#',array(
+                                                                                'class'=>'btnOpenProductMessageDialog btn btn-info pull-right',
+                                                                                'style'=>'margin-right:10px;'
+                                                                            )); ?>
                                                          </div>
                                                     </div>
                                                 </div>
