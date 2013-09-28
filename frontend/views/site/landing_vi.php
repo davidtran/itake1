@@ -76,12 +76,11 @@ $this->pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to ev
 	</div>
 	<div class="row-fluid intro-sep intro_item" style="margin-top:560px;">
 		<h1 class="center title_font"><i class="icon-quote-left"></i>iTake - Trung tâm thương mại online đầu tiên của người Việt <i class="icon-quote-right"></i></h1>
-		<div class="row center">
-			<small>Bạn không cần tốn tiền thuê mặt bằng để bán hàng, Bạn không cần tạo một website, Bạn không cần làm tối ưu hóa website hay hàng ngày cập nhật sản phẩm lên facebook. Dù bạn lớn hay nhỏ, Chỉ cần sản phẩm của bạn tốt Khách hàng sẽ tìm đến bạn.</small>
-                        <small>Thời đại của mua sắm Online Việt đã phát triển và uy tín hơn. Bạn sẽ dễ dàng và nhanh chóng tìm được những hàng hóa mình cần trên iTake </small>
+		<div class="span9 offset1 center">
+			<small class="center">Bạn không cần tốn tiền thuê mặt bằng để bán hàng, Bạn không cần tạo một website, Bạn không cần làm tối ưu hóa website hay hàng ngày cập nhật sản phẩm lên facebook. Dù bạn lớn hay nhỏ, Chỉ cần sản phẩm của bạn tốt Khách hàng sẽ tìm đến bạn. Thời đại của mua sắm Online Việt đã phát triển và uy tín hơn. Bạn sẽ dễ dàng và nhanh chóng tìm được những hàng hóa mình cần trên iTake </small>
 		</div>			
-		<div class="row center" style="margin-top:20px;">
-			<img src="<?php echo Yii::app()->baseUrl.'/images/bmarket.png' ?>"/>
+		<div class="row center">
+			<img  style="padding-top:40px;"src="<?php echo Yii::app()->baseUrl.'/images/bmarket.png' ?>"/>
 		</div>
 	</div>
 	<div class="row-fluid intro-sep intro_item">
