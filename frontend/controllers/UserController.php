@@ -76,7 +76,10 @@ class UserController extends Controller
 
     public function actionRegister()
     {
-        $user = new User();
+        if (Yii::app()->user->isGuest == false) {
+            $this->redirect('/site/index');
+        }
+        $user = new User('register');
         if (isset($_GET['code'])) {
             try {
                 $profile = Yii::app()->facebook->api('/me');
@@ -111,7 +114,8 @@ class UserController extends Controller
                         }
                         $user->isFbUser = 1;
                     }
-                    $user->allowUpdateWithoutCaptcha = true;
+                    //$user->allowUpdateWithoutCaptcha = true;
+                    $user->setScenario('register');
                     $user->save();                    
                     if (FacebookUtil::getInstance()->setExtendedAccessToken() !== false) {
                         FacebookPostQueueUtil::refreshFacebookCommandForUser($user->id);
@@ -223,6 +227,9 @@ class UserController extends Controller
 
     public function actionForgetPassword()
     {
+        if (Yii::app()->user->isGuest == false) {
+            $this->redirect('/site/index');
+        }
         $model = new ForgetPassword();
         if (isset($_POST['ForgetPassword'])) {
 

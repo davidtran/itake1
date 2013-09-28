@@ -249,4 +249,44 @@ $(document).ready(function(){
         });
         return false;
     });
-})
+});
+
+//SEND MESSAGE
+
+$(document).ready(function(){
+    $('.btnOpenProductMessageDialog').live('click',function(e){
+        e.preventDefault();
+        var id = $(this).parents('.productItem').attr('data-product-id');
+        var that = $(this);
+        $('#sendProductMessageDialog').remove();
+        $.ajax({
+            url:BASE_URL + '/product/sendMessageDialog',
+            data:{
+                productId:id
+            },
+            success:function(jsons){
+                var data = $.parseJSON(jsons);
+                if(data.success){
+                    $('body').append(data.msg.html);
+                    $('#sendProductMessageDialog').modal('show');
+                }else{
+                    bootbox.alert(data.msg);
+                }
+            }
+        });
+        return false;
+    });
+    
+    $('.btnSendProductMessage').live('click',function(e){
+        e.preventDefault();
+        var id = $(this).parents('.productItem').attr('data-product-id');
+        var that = $(this);
+        $.ajax({
+            url:BASE_URL + '/product/sendMessage',
+            data:{
+                productId:id
+            }
+        });
+        return false;
+    });
+});

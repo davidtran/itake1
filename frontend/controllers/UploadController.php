@@ -3,8 +3,7 @@
 Yii::import("frontend.extensions.xupload.models.XUploadForm");
 
 class UploadController extends Controller
-{
-
+{    
     const IMAGE_STATE_VARIABLE = 'xuploadFiles';
 
     public function actions()
@@ -53,8 +52,11 @@ class UploadController extends Controller
     
     public function actionIndex($category)
     {
-        $returnUrl = $this->createUrl('/upload/index');
+        $returnUrl = $this->createUrl('/upload/index');        
         $this->checkLogin('Vui lòng đăng nhập được khi sử dụng tính năng này', $returnUrl);
+        if( false == $this->isLessThanPostLimit()){
+            //
+        }
         Yii::app()->session->add('EditingProduct',false);
         
         $product = new Product();      
@@ -96,12 +98,8 @@ class UploadController extends Controller
 
     public function actionEdit($id)
     {
-        $this->checkLogin("Cần đăng nhập để chỉnh sửa sản phẩm", Yii::app()->request->requestUri);
-        
-        
+        $this->checkLogin("Cần đăng nhập để chỉnh sửa sản phẩm", Yii::app()->request->requestUri);                
         $product = Product::model()->findByPk($id);
-
-
         if ($product != null) {            
             Yii::app()->session->add('EditingProduct',$id);
             if ($product->user_id !== Yii::app()->user->model->id)
@@ -372,6 +370,13 @@ class UploadController extends Controller
                 Yii::app()->session['PostedToFacebook'] = false;
             }
         }
+    }        
+    
+    protected function isLessThanPostLimit(){
+        $limit = UserRegistry::getInstance()->getValue('PostLimit', Yii::app()->params['postLimitPerDay']);        
+        $sql = 'select count(*) from product where create_date = now()';
+        $countToday = Yii::app()->db->createCommand($sql)->queryScalar();
+        return $countToday < $limit;
     }
 
 }

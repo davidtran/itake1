@@ -22,6 +22,18 @@ class ProductController extends Controller
         );
     }
 
+    public function actions()
+    {
+        return array(
+            'captcha' => array(
+                'class' => 'CCaptchaAction',
+                'backColor' => '0xFFFFFF',
+                'transparent' => true,
+                'testLimit' => 5
+            )
+        );
+    }
+
     public function actionDetails($id)
     {
         ProductViewCounterUtil::getInstance($id)->increaseView();
@@ -61,11 +73,10 @@ class ProductController extends Controller
             ", CClientScript::POS_END);
             $this->addMetaProperty('og:title', $product->title);
             $this->addMetaProperty('og:description', StringUtil::limitByWord($product->description, 100));
-            if(count($product->images)>0)
-            {
+            if (count($product->images) > 0) {
                 $this->addMetaProperty('og:image', Yii::app()->getBaseUrl(true) . '/' . $product->images[0]->thumbnail);
             }
-            $this->addMetaProperty('og:url', $canonicalUrl."?v=1");
+            $this->addMetaProperty('og:url', $canonicalUrl . "?v=1");
             $this->addMetaProperty('og:type', 'product');
             $this->addMetaProperty('fb:app_id', Yii::app()->params['facebook.appId']);
             $this->metaDescription = StringUtil::limitByWord($product->description, 100);
@@ -156,11 +167,12 @@ class ProductController extends Controller
         $result = $adapter->search();
         return $result->productList;
     }
-    
-    public function actionSold($productId){
+
+    public function actionSold($productId)
+    {
         $product = $this->loadProduct($productId);
         $product->status = Product::STATUS_SOLD;
-        if($product->save()){
+        if ($product->save()) {
             $solrImporter = new ProductModelSolrImporter();
             $solrImporter->addProduct($product);
             try {
@@ -168,11 +180,45 @@ class ProductController extends Controller
                 $this->renderAjaxResult(true);
             }
             catch (Exception $e) {
-                $this->renderAjaxResult(false,'Không thể lưu thông tin');
-            }            
-        }else{
-            $this->renderAjaxResult(false,'Không thể lưu thông tin');
-        }        
+                $this->renderAjaxResult(false, 'Không thể lưu thông tin');
+            }
+        }
+        else {
+            $this->renderAjaxResult(false, 'Không thể lưu thông tin');
+        }
+    }
+
+    public function actionSendMessage()
+    {
+        $this->checkLogin();
+        $productId = Yii::app()->request->getPost('productId');
+        $product = $this->loadProduct($productId);
+        $message = new SendMessageForm();
+        $message->receiverId = $product->user_id;
+        if (isset($_POST['SendMessageForm'])) {
+            $message->attributes = $_POST['SendMessageForm'];
+            if ($message->validate() && $message->send()) {
+                $this->renderAjaxResult(true, 'Gửi tin nhắn thành công.');
+            }
+            else {
+                $this->renderAjaxResult(false, 'Không thể gửi được tin nhắn. Vui lòng thử lại sau.');
+            }
+        }
+    }
+
+    public function actionSendMessageDialog()
+    {
+        $this->checkLogin();
+        $productId = Yii::app()->request->getPost('productId');
+        $product = $this->loadProduct($productId);
+        $message = new SendMessageForm();        
+        $message->receiverId = $product->user_id;
+        $html = $this->renderPartial('/product/partial/messageDialog', array(
+            'message' => $message
+                ), true, false);
+        $this->renderAjaxResult(true, array(
+            'html' => $html
+        ));
     }
 
 }

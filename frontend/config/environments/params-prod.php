@@ -10,5 +10,7 @@ return array(
 	'env.code' => 'prod',       
     'api.checkToken'=>true,
     'upload.maxImageNumber'=>4,
+    'request.baseUrl' => 'http://dev.itake', 
     'showSortTab'=>false,
+    'postLimitPerDay'=>3,
 );

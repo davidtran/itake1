@@ -112,6 +112,10 @@ $this->
                                                 'class'=>'btnOpenDialogBuying btn btn-success pull-right',
                                                 'data-toggle'=>'modal'
                                             )); ?>
+                                            
+                                            <?php echo CHtml::link('Gửi tin nhắn','#',array(
+                                                'class'=>'btnOpenProductMessageDialog btn btn-primary',                                                
+                                            )); ?>
                                         </div>
                                     </div>
                                 </div>
