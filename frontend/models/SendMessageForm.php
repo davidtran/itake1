@@ -17,15 +17,15 @@ class SendMessageForm extends CFormModel{
         
     }
     
-    public function getRules(){
+    public function rules(){
         return array(
             array('captcha','captcha'),
             array('captcha,senderName,receiverId,message,productId','required'),
             array('receiverId,productId','numerical','integerOnly'=>true),
             array('senderName','length','max'=>50,'min'=>1),
             array('message','length','max'=>500,'min'=>1),
-            array('productId','exist','Product'),            
-            array('userId','exist','User'),
+            array('productId','exist','className'=>'Product','attributeName'=>'id'),            
+            array('receiverId','exist','className'=>'User','attributeName'=>'id'),
             
         );
     }
