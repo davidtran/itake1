@@ -256,12 +256,13 @@ class Product extends CActiveRecord
         return Yii::app()->controller->createAbsoluteUrl('/product/details', array('id' => $this->id, 'title' => $this->title));
     }
 
-    public function renderHtml($prefix = "")
+    public function renderHtml($prefix = "",$showControl = false)
     {
         //like, comment
         $html = Yii::app()->controller->renderPartial('/site/_productItem', array(
             'product' => $this,
             'prefix' => $prefix,
+            'showControl'=>$showControl
                 ), true, false);
         return $html;
     }

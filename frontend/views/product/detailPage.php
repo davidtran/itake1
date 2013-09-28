@@ -144,7 +144,8 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                               <i class="icon-comments" style="color:#2f96b4"></i>
                                             </span>'.'  Gửi tin nhắn','#',array(
                                         'class'=>'btnOpenProductMessageDialog btn btn-info pull-right',
-                                        'style'=>'margin-right:10px;'
+                                        'style'=>'margin-right:10px;',
+                                        'data-product-id'=>$product->id
                                     )); ?>
                                 </div>
                             </div>

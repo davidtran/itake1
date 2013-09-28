@@ -92,15 +92,18 @@
                                     </ul>
                                 </div>
                                 <div class="btn-group user-bar avatar-bar">                                 
-                                    <a class="btn flat" style="height: 34px;border-radius:0px;background: transparent;line-height: 34px;border-top:none;border-bottom: none;">
+                                    <a href="<?php echo Yii::app()->user->model->getUserProfileUrl(); ?>" class="btn flat" style="height: 34px;border-radius:0px;background: transparent;line-height: 34px;border-top:none;border-bottom: none;">
                                         <?php echo UserImageUtil::renderImage(Yii::app()->user->model,array(
                                             'width'=>30,
                                             'height'=>30,   
                                             'class'=>'img img-circle',
                                             'style'=>'width:30px; height:30px'
-                                            )); ?>
-                                            <em style="color:#000;font-style:normal;"><?php echo Yii::app()->user->model->username; ?></em>                                    
-                                        </a>   
+                                        )); ?>                                                                                   
+                                   
+                                      <em style="color:#000;font-style:normal;">
+                                                <?php echo Yii::app()->user->model->username; ?>
+                                            </em> 
+                                           </a>   
                                         <button class="btn dropdown-toggle" style="height: 100%;border-radius:0px;background: transparent;border-top:none;border-bottom: none;" data-toggle="dropdown">
                                             <span class="caret"></span>
                                         </button>
@@ -112,7 +115,9 @@
                                     </div>
                                 <?php else: ?>
                                 <!--                            <a href="<?php echo $this->createUrl('/user/register'); ?>" class="btn btn-info" ><i class="icon-user icon-white"></i>  Đăng ký</a>-->
-                                <a class="btn btn-success" href="<?php echo $this->createUrl('/user/login'); ?>"><i class="icon-user"></i>  <?php LanguageUtil::echoT('Member') ?></a>
+                                    <a href="<?php echo Yii::app()->createUrl('user/register') ?>" class="btn  btn-info" title="Browse the market"><i class="icon-user"></i>  <?php echo LanguageUtil::t('Sign Up') ?></a>
+                                    <a href="<?php echo Yii::app()->createUrl('user/login') ?>" class="btn btn-success" title="Browse the market"><i class="icon-signin"></i>  <?php echo LanguageUtil::t('Sign In') ?></a>
+            
                             <?php endif; ?>
                         </div>     
                     </div>
