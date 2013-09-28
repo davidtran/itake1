@@ -56,6 +56,7 @@ class UploadController extends Controller
         $this->checkLogin('Vui lòng đăng nhập được khi sử dụng tính năng này', $returnUrl);
         if( false == $this->isLessThanPostLimit()){
             //
+            die('Excess limit');
         }
         Yii::app()->session->add('EditingProduct',false);
         
