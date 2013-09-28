@@ -374,7 +374,7 @@ class UploadController extends Controller
     
     protected function isLessThanPostLimit(){
         $limit = UserRegistry::getInstance()->getValue('PostLimit', Yii::app()->params['postLimitPerDay']);        
-        $sql = 'select count(*) from product where create_date = now()';
+        $sql = 'select count(*) from {{product}} where create_date = now()';
         $countToday = Yii::app()->db->createCommand($sql)->queryScalar();
         return $countToday < $limit;
     }

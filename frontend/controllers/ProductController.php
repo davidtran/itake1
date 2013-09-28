@@ -188,19 +188,19 @@ class ProductController extends Controller
         }
     }
 
-    public function actionSendMessage()
+    public function actionSendMessage($productId)
     {
-        $this->checkLogin();
-        $productId = Yii::app()->request->getPost('productId');
-        $product = $this->loadProduct($productId);
+        $this->checkLogin();        
+        $product = $this->loadProduct($productId);        
         $message = new SendMessageForm();
         $message->receiverId = $product->user_id;
+        $message->productId = $product->id;
         if (isset($_POST['SendMessageForm'])) {
             $message->attributes = $_POST['SendMessageForm'];
             if ($message->validate() && $message->send()) {
                 $this->renderAjaxResult(true, 'Gửi tin nhắn thành công.');
             }
-            else {
+            else {                
                 $this->renderAjaxResult(false, 'Không thể gửi được tin nhắn. Vui lòng thử lại sau.');
             }
         }
@@ -213,6 +213,7 @@ class ProductController extends Controller
         $product = $this->loadProduct($productId);
         $message = new SendMessageForm();        
         $message->receiverId = $product->user_id;
+        $message->productId = $product->id;
         $html = $this->renderPartial('/product/partial/messageDialog', array(
             'message' => $message
                 ), true, false);

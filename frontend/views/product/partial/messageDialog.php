@@ -18,13 +18,25 @@
                     )
                 )); ?>                
                 <?php echo $form->textFieldRow($message,'senderName'); ?>
-                <?php echo $form->textAreaRow($message,'message'); ?>
-                
-                <?php echo $form->textFieldRow($message,'captcha'); ?>
-                <?php $this->widget('CCaptcha'); ?>
+                <?php echo $form->textAreaRow($message,'message'); ?>                
+                <?php echo $form->textFieldRow($message,'captcha'); ?>                
+                <?php echo $form->hiddenField($message,'productId'); ?>
+                <?php $this->widget('CCaptcha',array(
+                                        'showRefreshButton'=>true,
+                                        'buttonType'=>'button',
+                                        'buttonOptions'=>
+                                            array(
+                                                'type'=>'image',
+                                                'src'=>"/path/images/refresh-icon.png",
+                                                'width'=>30,
+                                                'id'=>'refreshCaptcha'
+                                            ),                                                            
+                                        'buttonLabel'=>'Reload')
+                        ); ?>
                 <br/>
                 <?php echo CHtml::link('Gửi','#',array(
-                    'class'=>'btnSendProductMessage btn btn-primary btn-large'
+                    'class'=>'btnSendProductMessage btn btn-primary btn-large',
+                    'data-product-id'=>$message->productId
                 )); ?>
                 <?php $this->endWidget(); ?>
                 

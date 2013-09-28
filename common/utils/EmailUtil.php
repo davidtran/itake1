@@ -53,7 +53,7 @@ class EmailUtil extends CWidget
         $model->to_email = $to;
         $model->view = $view;
         $model->params = serialize($params);
-        $model->subject = $subject;
+        $model->subject = $subject;   
         return $model;
     }
 
@@ -74,10 +74,10 @@ class EmailUtil extends CWidget
         if (($checkUnique && $isUnique) || !$checkUnique)
         {
             
-            $model->save();
+            return $model->save();
             
         }
-        return true;
+        return false;
     }
 
     private static function queueUniqueHash($emailQueue, $uniqueParams = null)
