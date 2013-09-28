@@ -42,7 +42,7 @@ Yii::app()->clientScript->registerScript('userProductList',$script,  CClientScri
 ?>
 <div id="userProductBoard" style="display:none;" class='productBoard'>
     <?php foreach($productList as $userProduct):?>        
-            <?php echo $userProduct->renderHtml(); ?>        
+            <?php echo $userProduct->renderHtml("",true); ?>        
     <?php endforeach; ?>
 </div>
 <?php echo CHtml::link(

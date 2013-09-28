@@ -26,7 +26,7 @@ class SiteController extends Controller
     {
         return array(
             array(
-                'frontend.components.FacebookAccessCheckerFilter + index'
+                'frontend.components.FacebookAccessCheckerFilter + index,facebook'
             )
         );
     }

@@ -31,26 +31,28 @@
                 </small>                                            
             </div>                           
             <div class="row-fluid" style="margin-top: 10px;">
-                <?php
-                $myUserModel = Yii::app()->user->getModel();
-                if (isset($myUserModel) && ($myUserModel->id == $product->user_id)):
-                    ?>
+                <?php if($showControl):?>
                     <?php
-                    echo CHtml::link('<i class="icon-cog"></i>  ' . LanguageUtil::t('Edit'), array('/upload/edit', 'id' => $product->id), array(
-                        'class' => 'btn btn-square p-edit',
-                        'data-toggle' => 'tooltip',
-                        'title' => 'Sửa thông tin sản phẩm',
-                    ));
-                    ?>
+                    $myUserModel = Yii::app()->user->getModel();
+                    if (isset($myUserModel) && ($myUserModel->id == $product->user_id)):
+                        ?>
+                        <?php
+                        echo CHtml::link('<i class="icon-cog"></i>  ' . LanguageUtil::t('Edit'), array('/upload/edit', 'id' => $product->id), array(
+                            'class' => 'btn btn-square p-edit',
+                            'data-toggle' => 'tooltip',
+                            'title' => 'Sửa thông tin sản phẩm',
+                        ));
+                        ?>
 
-                    <?php
-                    echo CHtml::link('<i class="icon-shopping-cart"></i> ' . LanguageUtil::t('Sold'), array('/upload/delete'), array(
-                        'class' => 'btn btn-square p-sold',
-                        'data-toggle' => 'tooltip',
-                        'title' => 'Đã bán phẩm này',
-                    ));
-                    ?>             
-                <?php endif; ?>                            
+                        <?php
+                        echo CHtml::link('<i class="icon-shopping-cart"></i> ' . LanguageUtil::t('Sold'), array('/upload/delete'), array(
+                            'class' => 'btn btn-square p-sold',
+                            'data-toggle' => 'tooltip',
+                            'title' => 'Đã bán phẩm này',
+                        ));
+                        ?>             
+                    <?php endif; ?>
+                <?php endif; ?>
             </div> 
 
         </div>
