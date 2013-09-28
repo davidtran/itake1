@@ -148,7 +148,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                             <?php echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($this->createUrl('/site/index')), array('class' => 'facebook-login')); ?>
                             </div>
                         <?php else:?>
-                        <p class="alert alert-info">
+                        <p class="alert alert-info center">
                              <span class="icon-stack icon-2x">
                                   <i class="icon-circle icon-stack-base"></i>
                                   <i class="icon-frown icon-light"></i>
