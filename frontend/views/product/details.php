@@ -93,7 +93,7 @@ $this->
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="bando">
-                                    <?php if ($product->address->lat != null && $product->address->lon != null): ?>
+                                    <?php if ($product->address!=null&&$product->address->lat != null && $product->address->lon != null): ?>
                                         <div class="row-fluid">
                                             <h4 class="product-detail-tag">
                                                 <?php LanguageUtil::echoT('City') ?>
