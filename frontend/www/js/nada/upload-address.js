@@ -82,6 +82,12 @@ var UploadAddress = {
             alert('Bạn chưa click vào định vị trí để đánh dấu địa điểm trên bản đồ');
             return;
         }
+        var n = $('#Address_phone').val();
+        regex =  $('#Address_phone').attr('pattern');
+        if (!n.match(regex)) {
+            alert('Nhập số điện thoại bị sai. Xin vui lòng nhập lại');
+            return;
+        }
         $.ajax({
             url: BASE_URL + '/upload/addAddress',
             type: 'post',

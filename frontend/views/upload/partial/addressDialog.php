@@ -37,7 +37,8 @@
                          </div>
                         <?php echo $form->textFieldRow($address,'phone',array(
                             'placeholder'=>'Điện thoại liên hệ',
-                            'style' => 'min-width:260px;'
+                            'style' => 'min-width:260px;',
+                            'pattern'=>'\d{10}',
                             )); ?>
                             
                          
