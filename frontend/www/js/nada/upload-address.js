@@ -5,7 +5,8 @@ var UploadAddress = {
     addressList: $('#addressList'),
     saveAddressButton: $('#btnSaveAddress'),
     map: $('#map'),
-    addressField:'#Address_address',    
+    addressField:'#Address_address',
+    longLatIsSet:false,
     init: function() {
         UploadAddress.initShowDialogButton();
         UploadAddress.initDeleteButton();
@@ -76,6 +77,11 @@ var UploadAddress = {
         };
         errorCallback = errorCallback || function() {
         };
+        if(!UploadAddress.longLatIsSet)
+        {
+            alert('Bạn chưa click vào định vị trí để đánh dấu địa điểm trên bản đồ');
+            return;
+        }
         $.ajax({
             url: BASE_URL + '/upload/addAddress',
             type: 'post',
@@ -165,6 +171,7 @@ var UploadAddress = {
             }
         });
         $('#btnSearchLocation').click(function(e){
+            UploadAddress.longLatIsSet = true;
             e.preventDefault();
             UploadAddress.seachMapByAddress($(UploadAddress.addressField).val(), $('#Address_city option:selected').text());
             return false;
