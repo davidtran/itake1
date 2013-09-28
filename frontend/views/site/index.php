@@ -36,15 +36,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
             ?>
             <div class="pagination pagination-centered" >
               <ul>
-                 <?php if( isset(Yii::app()->params['showSortTab']) && Yii::app()->params['showSortTab'] == true):?>
-                    <?php foreach (SolrSortTypeUtil::getInstance()->getSortTypeLinkList() as $link): ?>
-                        <?php if(strpos($link, $sortTypeLink)!== FALSE):?>
-                           <li class="active"><?php echo $link; ?></li>
-                        <?php else: ?>
-                            <li><?php echo $link; ?></li>
-                        <?php endif; ?>
-                   <?php endforeach; ?>
-                <?php endif;?>
+         
               <?php foreach (SolrSortTypeUtil::getInstance()->getSortTypeLinkList() as $link): ?>
                   <?php if(strpos($link, $sortTypeLink)!== FALSE):?>
                       <li class="active"><?php echo $link; ?></li>
@@ -53,6 +45,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                   <?php endif; ?>
                   <?php break;?>
               <?php endforeach; ?>
+                  
                 <?php if($facebook==1&&isset($_GET['status'])&&$_GET['status']!=3):?>
                 <li class="active">
                 <?php else: ?>
