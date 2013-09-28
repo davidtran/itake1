@@ -103,6 +103,7 @@ return array(
     '<b>Notice:</b> The width of your image is larger than {width} pxs and its height is taller than {height} pxs'=>'<b>Lưu ý:</b> Bề ngang ảnh phải lớn hơn {width} pxs và bề cao ảnh phải lớn hơn {height} pxs',
     'Change'=>'Thay đổi',
     'Remove'=>'Xóa',
+    'Product List -'=>'Danh sách sản phẩm của',
     'Update'=>'Cập nhật',
     'Add your address'=>'Thêm địa chỉ',
     'Your+ad+image'=>'Hình+SP',

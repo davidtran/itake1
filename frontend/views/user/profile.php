@@ -7,17 +7,18 @@
     Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/upclick-min.js',CClientScript::POS_BEGIN);
     Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/user.js',CClientScript::POS_BEGIN);
     Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/productControl.js',CClientScript::POS_BEGIN);
+    $this->pageTitle = LanguageUtil::t('Product List -').'  '.LanguageUtil::t($user->username);
 ?>
 <div class='nd_profile'>
     <div class="top" style="background-image: url('<?php echo Yii::app()->baseUrl.'/'.$user->getBanner();?>');background-repeat: no-repeat; ">
         <div class="row-fluid">            
-            <div class="span6 profile-name">
+            <div class="span12 profile-name">
                 <div class="avatar">
             <?php echo UserImageUtil::renderImage($user,array(
-                'width'=>120,
-                'height'=>120,
-                'style'=>'width: 120px;
-                          height: 120px;',
+                'width'=>100,
+                'height'=>100,
+                'style'=>'width: 100px;
+                          height: 100px;',
                 'class'=>'img-circle',
             )); ?>
             <?php if(UserUtil::canEdit($user)):?>
@@ -28,8 +29,7 @@
         </div>   
                 <h3><?php echo $user->username;?></h3>
             </div>
-            <div class="span6"></div>
-        </div>         
+        </div>
         <?php if(UserUtil::canEdit($user)):?>
 <!--            <div id="bannerChanger">Đổi banner</div>-->
         <?php endif; ?>
@@ -44,25 +44,23 @@
         </ul>
     </div>        
 </div>
-<div class="row-fluid" id="fixWidthMasory"></div>
-<div class="row-fluid" id="wrapper_productContainer" style="margin-top:20px;">       
-         <?php 
-        if(count($productDataProvider->getData())>0)
-        {
-        ?>
-        <?php $this->renderPartial('_userProductBoard',array(
-            'productList'=>$productDataProvider->getData(),
-            'page'=>0,
-            'user'=>$user
-        ));
-        
-        }else {?>
-        <div class="alert alert-block">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4>Bạn chưa có sản phẩm nào!</h4>
-            
-        </div>
-        <?php } ?>
-        <div id="userProductLoading"></div>    
-    <?php echo $this->renderPartial('/site/_productDialog',array(),true,false); ?>
+<div class="row-fluid margin-top-20" id="fixWidthMasory"></div>
+ <?php
+if(count($productDataProvider->getData())>0)
+{
+?>
+<?php $this->renderPartial('_userProductBoard',array(
+    'productList'=>$productDataProvider->getData(),
+    'page'=>0,
+    'user'=>$user
+));
+
+}else {?>
+<div class="alert alert-block">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4>Bạn chưa có sản phẩm nào!</h4>
+
 </div>
+<?php } ?>
+<div id="userProductLoading"></div>
+<?php echo $this->renderPartial('/site/_productDialog',array(),true,false); ?>

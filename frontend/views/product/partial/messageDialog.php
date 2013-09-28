@@ -5,7 +5,7 @@
                 <h3 class="intro_font center">
                 	<span class="icon-stack">
 					  <i class="icon-circle icon-stack-base"></i>
-					  <i class="icon-shopping-cart icon-light"></i>
+					  <i class="icon-comments icon-light"></i>
 					</span>   
                 	   Gửi tin nhắn cho <?php echo $message->receiver->username; ?>
                 	</h3>
@@ -14,28 +14,29 @@
                     'enableClientValidation'=>true,
                     'enableAjaxValidation'=>true,
                     'htmlOptions'=>array(                        
-                        'id'=>'productMessageForm'
+                        'id'=>'productMessageForm',
+                        'class'=>'span11'
                     )
                 )); ?>                
-                <?php echo $form->textFieldRow($message,'senderName'); ?>
-                <?php echo $form->textAreaRow($message,'message'); ?>                
-                <?php echo $form->textFieldRow($message,'captcha'); ?>                
-                <?php echo $form->hiddenField($message,'productId'); ?>
+                <?php echo $form->textFieldRow($message,'senderName',array('class'=>'span12')); ?>
+                <?php echo $form->textAreaRow($message,'message',array('class'=>'span12')); ?>
+                <?php echo $form->textFieldRow($message,'captcha',array('class'=>'span12')); ?>
                 <?php $this->widget('CCaptcha',array(
-                                        'showRefreshButton'=>true,
-                                        'buttonType'=>'button',
-                                        'buttonOptions'=>
-                                            array(
-                                                'type'=>'image',
-                                                'src'=>"/path/images/refresh-icon.png",
-                                                'width'=>30,
-                                                'id'=>'refreshCaptcha'
-                                            ),                                                            
-                                        'buttonLabel'=>'Reload')
-                        ); ?>
+                        'showRefreshButton'=>true,
+                        'buttonType'=>'button',
+                        'buttonOptions'=>
+                        array(
+                            'type'=>'image',
+                            'src'=>"/path/images/refresh-icon.png",
+                            'width'=>30,
+                            'id'=>'refreshCaptcha'
+                        ),
+                        'buttonLabel'=>'Reload')
+                ); ?>
+                <?php echo $form->hiddenField($message,'productId',array('class'=>'span12')); ?>
                 <br/>
-                <?php echo CHtml::link('Gửi','#',array(
-                    'class'=>'btnSendProductMessage btn btn-primary btn-large',
+                <?php echo CHtml::link('<i class="icon-ok-sign"></i>  Gửi','#',array(
+                    'class'=>'btnSendProductMessage btn btn-success btn-large flat pull-right',
                     'data-product-id'=>$message->productId
                 )); ?>
                 <?php $this->endWidget(); ?>

@@ -425,8 +425,9 @@ div.nd_profile div.profile_detail ul li a:hover
     width: 120px;
     height: 25px;
     color:#d7d7d7;
-    margin-left: 5px;    
-    bottom: 20px;
+    left: 50%;
+    margin-left: -55px;
+    bottom: 40px;
     position: absolute;
     text-align: center;
     font-size:0.9em;
@@ -577,8 +578,9 @@ overflow: hidden;
 User profile
 */
 div.nd_profile{
-      margin-left: -180px;
-    margin-right: -20px;
+      /*margin-left: -180px;*/
+    /*margin-right: -20px;*/
+    text-align: center;
 }
 div.nd_profile div.top{
     position:relative;
@@ -592,12 +594,7 @@ div.nd_profile div.top{
     background-size: 100% 100%;
 }
 div.nd_profile div.top div.avatar{
-/*    position: absolute;*/
-/*    top:45px;*/
-    margin-left: 30px;          
     margin-top: 20px;
-    z-index:100;
-    float: left;
 }
 div.nd_profile div.profile_detail
 {
@@ -1787,8 +1784,10 @@ min-width: 400px;
 display: inline-block;
 }
 div.profile-name h3{
-    padding-top: 100px;
     color:#fff;
+    font-size: 1.2em;
+    position: relative;
+    top:-10px;
     text-rendering: optimizelegibility;
     text-shadow: 0 0 3px rgba(0,0,0,0.8);
 }
