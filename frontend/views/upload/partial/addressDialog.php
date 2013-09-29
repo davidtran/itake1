@@ -21,7 +21,7 @@
                              <div class="controls">
                                  <input placeholder="Nhập vào địa chỉ và nhấn tìm kiếm" style="min-width:260px;" name="Address[address]" id="Address_address" type="text" maxlength="200">
                                  <?php
-                            echo CHtml::link('<i class="icon-map-marker"></i> Tìm vị trí', '#', array(
+                            echo CHtml::link('<i class="icon-map-marker"></i> Định vị trên bản đồ', '#', array(
                                 'class' => 'btn btn-success',
                                 'id' => 'btnSearchLocation'
                                 ));
@@ -29,9 +29,16 @@
                                  <span class="help-inline error" id="Address_address_em_" style="display: none;"></span>
                              </div>
                          </div>
+                         <div class="control-group">
+                             <label class="control-label" for="te"></label>
+                             <div class="controls">
+                                <p class="alert alert-info" style="width: 230px;">Sau khi nhập vào địa chỉ Bạn cần click vào định vị trí trên bản đồ để người mua dễ dàng liên hê</p>
+                             </div>
+                         </div>
                         <?php echo $form->textFieldRow($address,'phone',array(
                             'placeholder'=>'Điện thoại liên hệ',
-                            'style' => 'min-width:260px;'
+                            'style' => 'min-width:260px;',
+                            'pattern'=>'\d{10}',
                             )); ?>
                             
                          
