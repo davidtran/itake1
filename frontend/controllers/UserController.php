@@ -90,7 +90,7 @@ class UserController extends Controller
                     }
                     else {
                         $user = UserUtil::getUserByEmail($profile['email']);
-                    }
+                    }                    
                     if ($user == null) {
                         $user = new User();
                         $user->email = $profile['email'];
@@ -115,8 +115,9 @@ class UserController extends Controller
                         $user->isFbUser = 1;
                     }
                     //$user->allowUpdateWithoutCaptcha = true;
-                    $user->setScenario('register');
+                    
                     $user->save();                    
+                    
                     if (FacebookUtil::getInstance()->setExtendedAccessToken() !== false) {
                         FacebookPostQueueUtil::refreshFacebookCommandForUser($user->id);
                         FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
@@ -143,6 +144,7 @@ class UserController extends Controller
                 $user->fbId = Yii::app()->session['LastFbId'];
             }
             $password = $_POST['User']['password'];
+            $user->setScenario('register');
             if ($user->save()) {
                 Yii::app()->user->setFlash('success', 'Chúc mừng bạn đã đăng ký thành công');
                 $loginForm = new LoginForm();
