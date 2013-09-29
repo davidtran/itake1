@@ -1,5 +1,5 @@
 <div class="row-fluid">    
-    <div class="modal" id='sendProductMessageDialog' style="top:50%;">        
+    <div class="modal hide fade" id='sendProductMessageDialog' style="top:50%;">        
         <div class="modal-body" > 
             <div class="row-fluid">
                 <h3 class="intro_font center">
@@ -21,17 +21,12 @@
                 <?php echo $form->textFieldRow($message,'senderName',array('class'=>'span12')); ?>
                 <?php echo $form->textAreaRow($message,'message',array('class'=>'span12')); ?>
                 <?php echo $form->textFieldRow($message,'captcha',array('class'=>'span12')); ?>
-                <?php $this->widget('CCaptcha',array(
-                        'showRefreshButton'=>true,
-                        'buttonType'=>'button',
-                        'buttonOptions'=>
-                        array(
-                            'type'=>'image',
-                            'src'=>"/path/images/refresh-icon.png",
-                            'width'=>30,
-                            'id'=>'refreshCaptcha'
-                        ),
-                        'buttonLabel'=>'Reload')
+                <?php $this->widget('Captcha',array(                      
+                        'clickableImage'=>true,                      
+                        'imageOptions'=>array(
+                            'id'=>'messageCaptchaImage'
+                        )
+                    )
                 ); ?>
                 <?php echo $form->hiddenField($message,'productId',array('class'=>'span12')); ?>
                 <br/>

@@ -203,3 +203,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
 <?php else: ?>
     <?php $this->renderPartial('partial/buyinginstruction_vi',array('product'=>$product)); ?>
 <?php endif; ?>
+
+<div id="messageDialogContainer">
+    
+</div>

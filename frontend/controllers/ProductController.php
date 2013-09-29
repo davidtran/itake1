@@ -29,7 +29,7 @@ class ProductController extends Controller
                 'class' => 'CCaptchaAction',
                 'backColor' => '0xFFFFFF',
                 'transparent' => true,
-                'testLimit' => 5
+                'testLimit' => 2
             )
         );
     }
@@ -61,7 +61,7 @@ class ProductController extends Controller
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/gmaps.js', CClientScript::POS_HEAD);
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.infinitescroll.min.js', CClientScript::POS_HEAD);
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/productDetails.js', CClientScript::POS_BEGIN);
-            $productAttributes = json_encode($product->attributes);
+            $productAttributes = json_encode(JsonRenderAdapter::renderProduct($product));
             Yii::app()->clientScript->registerScript("productdetails", "
                 var product = $productAttributes;
                 $(document).ready(function(){
@@ -224,6 +224,20 @@ class ProductController extends Controller
         $this->renderAjaxResult(true, array(
             'html' => $html
         ));
+    }
+    
+    public function renderMessageDialog()
+    {
+        $this->checkLogin();
+        $productId = Yii::app()->request->getPost('productId');
+        $product = $this->loadProduct($productId);
+        $message = new SendMessageForm();
+        $message->receiverId = $product->user_id;
+        $message->productId = $product->id;
+        $html = $this->renderPartial('/product/partial/messageDialog', array(
+            'message' => $message
+         ));
+        return $html;
     }
 
 }

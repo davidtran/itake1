@@ -198,15 +198,15 @@ function loadRelateProduct(product) {
 function loadProductMap(product) {
     var map = new GMaps({
         div: '#map',
-        lat: product.lat,
-        lng: product.lon,
+        lat: product.address.lat,
+        lng: product.address.lon,
         width: 300,
         height: 300,
         zoom: 15
     });
     map.addMarker({
-        lat: product.lat,
-        lng: product.lon,
+        lat: product.address.lat,
+        lng: product.address.lon,
         title: product.locationText
     });
     currentProduct = product;

@@ -53,7 +53,12 @@ $this->pageTitle = LanguageUtil::t('Participate in').' '.Yii::app()->name;
             ));
             ?>
        <?php
-        $this->widget('CCaptcha');
+        $this->widget('Captcha',array(
+            'clickableImage'=>true,                      
+            'imageOptions'=>array(
+                'id'=>'registerCaptchaImage'
+            )
+        ));
         echo $form->textFieldRow($user,'captcha',array(
             'placeholder' => LanguageUtil::t('Type your letters above to confirm'),
             'class' => 'input-block-level'

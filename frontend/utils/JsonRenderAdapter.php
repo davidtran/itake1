@@ -8,12 +8,10 @@ class JsonRenderAdapter{
             'description'=>$product->description,
             'create_date'=>$product->create_date,
             'price'=>$product->price,           
-            'locationText'=>$product->locationText,
-            'phone'=>$product->phone,
-            'city'=>$product->cityModel->attributes,            
+            'address'=>$product->address->attributes,            
+            'city'=>$product->address->cityModel->attributes,            
             'country'=>$product->countryModel->attributes,
-            'latitude'=>$product->lat,
-            'longitude'=>$product->lon
+            
         );
         if($product->user!=null){
             $data['user'] = self::renderUser($product->user);
