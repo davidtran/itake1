@@ -45,7 +45,7 @@ class Feedback extends CActiveRecord
 			array('username', 'length', 'max'=>50),
             array('email','email'),
 			array('email, url', 'length', 'max'=>100),
-            array('captcha','captcha'),
+       
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, username, email, url, message, create_date', 'safe', 'on'=>'search'),
