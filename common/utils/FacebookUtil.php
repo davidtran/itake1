@@ -159,11 +159,11 @@ class FacebookUtil
             $text = 'Đăng nhập bằng Facebook';
 
         return CHtml::link(
-                $text, self::makeFacebookLoginUrl($returnUrl), CMap::mergeArray(array(
-            'id' => 'fb-timeline-btn',
-            'class' => 'special-btn facebook badge-add-fb-timeline',
-            'target' => '_blank'
-                ), $options)
+                        $text, self::makeFacebookLoginUrl($returnUrl), CMap::mergeArray(array(
+                            'id' => 'fb-timeline-btn',
+                            'class' => 'special-btn facebook badge-add-fb-timeline',
+                            'target' => '_blank'
+                                ), $options)
         );
     }
 
@@ -302,25 +302,22 @@ class FacebookUtil
             return $album['id'];
         }
     }
-    
-    public function doUserHaveEnoughUploadPermission(){
-        $data = Yii::app()->facebook->api('/me/permissions','get',array(
-            'access_token'=>$this->_accessToken
-        ));
-        
-        if(is_array($data)){                        
-            
-                if(isset($data['data'][0]['manage_pages']) &&
+
+    public function doUserHaveEnoughUploadPermission()
+    {
+        if (Yii::app()->user->isFacebookUser) {
+            $data = Yii::app()->facebook->api('/me/permissions', 'get', array(
+                'access_token' => $this->_accessToken
+            ));
+            if (is_array($data)) {
+                if (isset($data['data'][0]['manage_pages']) &&
                         isset($data['data'][0]['email']) &&
                         isset($data['data'][0]['publish_stream']) &&
-                        isset($data['data'][0]['user_photos'])){
-                    
+                        isset($data['data'][0]['user_photos'])) {
+
                     return true;
-                }       
-                
-            
-        }else{
-            echo 'shit';
+                }
+            }
         }
         return false;
     }
