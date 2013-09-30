@@ -184,6 +184,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         </div>
                                     </div>
                                 </div>
+                                <br/>
+                                <hr/>
+                                <br/>
                                 <div class="row-fluid">
                                     <?php if(FacebookUtil::getInstance()->doUserHaveEnoughUploadPermission()== true):?>
                                     <?php if(Yii::app()->user->isFacebookUser && Yii::app()->session['CheckedFacebookAccessToken'] == true):?>
@@ -204,9 +207,13 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         </div>                                 
                                     <?php endif; ?>
                                     <?php else:?>
-                                    Cấp quyền để iTake đăng tin lên tài khoản của bạn
+                                    <div class="row-fluid" style="margin-left:10px;">
+                                        
+                                        iTake chưa đủ quyền để đăng tin lên profile và fanpage do bạn quản lý.
                                         <br/>
-                                        <?php echo FacebookUtil::getInstance()->makeFacebookLoginLink('Dang nhap voi Facebook',$this->createUrl('/user/register')); ?>
+                                        <?php echo FacebookUtil::getInstance()->makeFacebookLoginLink('Click để cấp quyền cho iTake',$this->createUrl('/user/register')); ?>
+                                    </div>
+                                    
                                         <?php endif; ?>
                                 </div>
 
