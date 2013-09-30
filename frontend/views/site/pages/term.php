@@ -10,32 +10,26 @@ $this->breadcrumbs=array(
 	<div class="span12 custom">
 		<h3 class="title-font" style="text-align:center;margin-top:15px;">ĐIỀU KHOẢN SỬ DỤNG ITAKE</h3>
 
+<p><strong>Quyền lợi của người MUA hàng trên iTake:</strong></p>
+<p>Người mua có quyền tìm kiếm sản phẩm theo nhu cầu của mình từ những sản phẩm được post mới nhất, gần nơi mình sống nhất, những sản phẩm bạn bè trên facebook đang bán hay những sản phẩm đang quan tâm.</p>
+<p>Người mua có quyền đánh giá, thảo luận về một sản phẩm với chức năng bấm like, và nhận xét về những sản phẩm mình quan tâm. Ngoài ra người mua có quyền báo xấu về một sản phẩm quảng cáo không đúng chất lượng, vi phạm các quy định làm xấu đi uy tín đối với iTake.</p>
+<p><strong>Quy định người BÁN hàng trên iTake</strong></p>
 
-<p><strong>Quy định đăng tin tr&ecirc;n ITAKE</strong></p>
+<p>1.&nbsp;&nbsp;&nbsp;&nbsp; Mọi doanh nghiệp hay cá nhân kinh doanh đều có thể đăng tin miễn phí và xây dựng thương hiệu sản phẩm của mình trên iTake.</p>
 
-<p>1.&nbsp;&nbsp;&nbsp;&nbsp; Mọi kh&aacute;ch h&agrave;ng đi&ecirc;̀u c&oacute; th&ecirc;̉ đăng tin miễn ph&iacute; v&agrave; kh&ocirc;ng giới han tr&ecirc;n <strong>ITAKE</strong></p>
+<p>2.&nbsp;&nbsp;&nbsp;&nbsp; Người bán hàng được tham khảo ý kiến của dùng về sản phẩm đang bán để thay đổi chất lượng tốt hơn.</p>
 
-<p>2.&nbsp;&nbsp;&nbsp;&nbsp; Kh&aacute;ch h&agrave;ng khi đăng tin phải chịu tr&aacute;ch nhi&ecirc;̣m v&ecirc;̀ n&ocirc;̣i dung v&agrave; th&ocirc;ng tin đăng rao vặt của m&igrave;nh tr&ecirc;n <strong>ITAKE</strong></p>
+<p>3.&nbsp;&nbsp;&nbsp;&nbsp; Người bán hàng khi đăng tin phải chịu trách nhiệm về nội dung và thông tin đăng rao vặt của mình trên iTake.</p>
 
-<p>3.&nbsp;&nbsp;&nbsp;&nbsp; Kh&aacute;ch h&agrave;ng đăng tin rao vặt phải đ&uacute;ng chuy&ecirc;n mục. Bản quy&ecirc;̀n v&ecirc;̀ tin đăng thu&ocirc;̣c ch&iacute;nh kh&aacute;ch h&agrave;ng đăng tin, kh&aacute;ch h&agrave;ng đảm bảo t&iacute;nh trung thực, ch&iacute;nh x&aacute;c của n&ocirc;̣i dung tin đăng.</p>
+<p>4.&nbsp;&nbsp;&nbsp;&nbsp; Nhằm đảm bảo chất lượng bài đăng, mỗi người chỉ đăng 5 tin / ngày</p>
 
-<p>4.&nbsp;&nbsp;&nbsp;&nbsp; Kh&ocirc;ng được đăng tin vi phạm những điều sau:</p>
+<p>5.&nbsp;&nbsp;&nbsp;&nbsp; Không được đăng tin lừa đảo, chất lượng sản phẩm sai với thông tin quảng cáo, trái với thuần phong mỹ tục Việt Nam, vi phạm pháp luật Việt Nam.</p>
 
-<ul>
-	<li>Ti&ecirc;u đ&ecirc;̀ c&oacute; k&yacute; tự đặc bi&ecirc;̣t.</li>
-	<li>Tin rao sai chuy&ecirc;n mục.</li>
-	<li>Tin rao spam (Rao nhi&ecirc;̀u tin gi&ocirc;́ng nhau).</li>
-	<li>Tin vi phạm n&ocirc;̣i quy (lừa đảo,vi phạm ph&aacute;p lu&acirc;̣t, từ ngữ th&ocirc; tục&hellip;).</li>
-	<li>Tin c&oacute; chứa đường d&acirc;̃n từ c&aacute;c website rao vặt kh&aacute;c,&hellip;</li>
-</ul>
+<p><strong>Quy&ecirc;̀n hạn của của iTake</strong></p>
 
-<p><strong>Quy&ecirc;̀n hạn của của ITAKE</strong></p>
+<p>a. &nbsp; iTake sẽ toàn quyền loại bỏ các tin đăng rao vặt của người bán nếu như tin đăng rao vặt vị phạm quy chế đăng tin như: Sai quy định của iTake, bị nhiều báo xấu từ người mua.</p>
 
-<p>a. &nbsp; <strong>ITAKE</strong>&nbsp;sẽ to&agrave;n quy&ecirc;̀n loại bỏ c&aacute;c tin đăng rao vặt của kh&aacute;ch h&agrave;ng n&ecirc;́u như tin đăng rao vặt vị phạm quy ch&ecirc;́ đăng tin</p>
-
-<p>b. &nbsp; <strong>ITAKE</strong>&nbsp;kh&ocirc;ng giải quy&ecirc;́t c&aacute;c tranh ch&acirc;́p giữa kh&aacute;ch h&agrave;ng , cũng như kh&ocirc;ng giải quy&ecirc;́t b&acirc;́t cứ khi&ecirc;́u nại n&agrave;o của kh&aacute;ch h&agrave;ng v&ecirc;̀ tin đăng.</p>
-
-<p>c.&nbsp;&nbsp;&nbsp;Ch&uacute;ng t&ocirc;i c&oacute; to&agrave;n quy&ecirc;̀n thay đ&ocirc;̉i m&ocirc;̣t hay nhi&ecirc;̀u đi&ecirc;̀u khoản c&oacute; trong quy định n&agrave;y m&agrave; kh&ocirc;ng c&acirc;̀n giải th&iacute;ch l&yacute; do v&agrave; cũng kh&ocirc;ng c&acirc;̀n phải th&ocirc;ng b&aacute;o trước.</p>
+<p>b. &nbsp; Ban quản trị  iTake không có thẩm quyền  giải quyết các tranh chấp giữa người mua và người bán, chỉ xem xét xử lý những hành động phá hoại iTake như lừa gạt, hack, bug, … .</p>
 
 	</div>
 </div>
