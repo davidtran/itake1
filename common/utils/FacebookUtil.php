@@ -153,16 +153,17 @@ class FacebookUtil
         ));
     }
 
-    public static function makeFacebookLoginLink($text = null, $returnUrl = null)
+    public static function makeFacebookLoginLink($text = null, $returnUrl = null, $options = array())
     {
         if ($text == null)
             $text = 'Đăng nhập bằng Facebook';
 
         return CHtml::link(
-                        $text, self::makeFacebookLoginUrl($returnUrl), array(
-                    'id' => 'fb-timeline-btn',
-                    'class' => 'special-btn facebook badge-add-fb-timeline',
-                        )
+                $text, self::makeFacebookLoginUrl($returnUrl), CMap::mergeArray(array(
+            'id' => 'fb-timeline-btn',
+            'class' => 'special-btn facebook badge-add-fb-timeline',
+            'target' => '_blank'
+                ), $options)
         );
     }
 
@@ -300,6 +301,28 @@ class FacebookUtil
         if ($album !== false && isset($album['id'])) {
             return $album['id'];
         }
+    }
+    
+    public function doUserHaveEnoughUploadPermission(){
+        $data = Yii::app()->facebook->api('/me/permissions','get',array(
+            'access_token'=>$this->_accessToken
+        ));
+        
+        if(is_array($data)){                        
+            
+                if(isset($data['data'][0]['manage_pages']) &&
+                        isset($data['data'][0]['email']) &&
+                        isset($data['data'][0]['publish_stream']) &&
+                        isset($data['data'][0]['user_photos'])){
+                    
+                    return true;
+                }       
+                
+            
+        }else{
+            echo 'shit';
+        }
+        return false;
     }
 
 }

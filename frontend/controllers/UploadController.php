@@ -116,7 +116,7 @@ class UploadController extends Controller
             if (isset($_POST['Product'])) {
                 $product->attributes = $_POST['Product'];
 
-                if ($product->validate(null, false)) {
+                if ($this->haveUploadedImage() && $product->validate(null, false)) {
                     if ($product->save(false)) {
                         $this->saveUploadedImage($product);
                         $this->solrImportProduct($product);

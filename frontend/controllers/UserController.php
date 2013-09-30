@@ -119,7 +119,7 @@ class UserController extends Controller
                     $user->save();                    
                     
                     if (FacebookUtil::getInstance()->setExtendedAccessToken() !== false) {
-                        FacebookPostQueueUtil::refreshFacebookCommandForUser($user->id);
+                       // FacebookPostQueueUtil::refreshFacebookCommandForUser($user->id);
                         FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
                         $loginForm = new FacebookLoginForm();
                         $loginForm->username = $user->email;

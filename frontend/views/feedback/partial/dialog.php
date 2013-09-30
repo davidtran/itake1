@@ -16,7 +16,16 @@
             ));?>
                 <?php echo $form->textFieldRow($feedback,'username'); ?>
                 <?php echo $form->textFieldRow($feedback,'email'); ?>
-                <?php echo $form->textAreaRow($feedback,'message'); ?>                                      
+                <?php echo $form->textAreaRow($feedback,'message'); ?>     
+                <?php echo $form->textFieldRow($feedback,'captcha'); ?>
+                <?php $this->widget('Captcha',array(                      
+                        'clickableImage'=>true,                      
+                        'imageOptions'=>array(
+                            'id'=>'feedbackCaptchaImage'
+                        )
+                    )
+                ); ?>
+            
             <?php $this->endWidget(); ?>
         </div>
         <div class="modal-footer">

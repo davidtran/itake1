@@ -185,19 +185,29 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                     </div>
                                 </div>
                                 <div class="row-fluid">
+                                    <?php if(FacebookUtil::getInstance()->doUserHaveEnoughUploadPermission()== true):?>
                                     <?php if(Yii::app()->user->isFacebookUser && Yii::app()->session['CheckedFacebookAccessToken'] == true):?>
                                         <div class="row-fluid" style="margin-left:10px;">
                                             <?php echo $form->checkBoxRow($product,'uploadToFacebook'); ?>
                                         </div>
+                                    <?php else:?>
+                                    <p>
+                                        
+                                    </p>
                                     <?php endif; ?>
-
+                                    
                                     <?php $pages = $this->getFacebookPageListData() ?>
                                     <?php if(Yii::app()->session['CheckedFacebookAccessToken'] == true && $pages !==false&&count($pages)>0):?>
                                         <div class="row-fluid" style="margin-left:10px;">
                                             <label><?php echo LanguageUtil::t('Please choose one or many fanpages to share your post (optional)'); ?></label>
                                             <?php echo CHtml::checkBoxList('FacebookPage[]', '', $pages); ?>
-                                        </div>
+                                        </div>                                 
                                     <?php endif; ?>
+                                    <?php else:?>
+                                    Cấp quyền để iTake đăng tin lên tài khoản của bạn
+                                        <br/>
+                                        <?php echo FacebookUtil::getInstance()->makeFacebookLoginLink('Dang nhap voi Facebook',$this->createUrl('/user/register')); ?>
+                                        <?php endif; ?>
                                 </div>
 
                             </div>

@@ -170,13 +170,9 @@ class SolrSearchAdapter
         if( ! Yii::app()->user->isFacebookUser){
             throw new CException('User must login to facebook first');
         }
-        $friendList = false;
-        try{
-            $friendList = FacebookUtil::getInstance()->getFacebookFriendInApp(Yii::app()->user->getId());                
-        }
-        catch(Exception $e){
-            
-        }
+       
+        $friendList = FacebookUtil::getInstance()->getFacebookFriendInApp(Yii::app()->user->getId());                
+       
         
         if($friendList !=false){
             $strList = '(';
