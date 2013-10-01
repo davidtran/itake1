@@ -309,5 +309,7 @@ class UserController extends Controller
             $this->redirect(array('login'));
         }
     }
-
+    public function  actionChat(){
+        $this->render('chat');
+    }
 }
