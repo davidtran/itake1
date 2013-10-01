@@ -371,11 +371,13 @@ class UploadController extends Controller
                         FacebookUtil::getInstance()->shareProductAlbumToFanpage($product, $page);
                     }
                 }
-                $postedToFacebook = true;
+                
+                
             }
             catch (FacebookApiException $e) {
-                $postedToFacebook = false;
-                Yii::app()->session['PostedToFacebook'] = false;
+                Yii::log('Post to facebook failed. '.$e->getMessage(),  CLogger::LEVEL_ERROR,'facebook');
+                Yii::app()->user->setFlash('error','Không thể đăng tin lên Facebook. Vui lòng thử lại sau.');
+                
             }
         }
     }

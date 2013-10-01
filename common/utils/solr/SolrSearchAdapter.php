@@ -170,8 +170,14 @@ class SolrSearchAdapter
         if( ! Yii::app()->user->isFacebookUser){
             throw new CException('User must login to facebook first');
         }
-       
-        $friendList = FacebookUtil::getInstance()->getFacebookFriendInApp(Yii::app()->user->getId());                
+        try{
+            $friendList = FacebookUtil::getInstance()->getFacebookFriendInApp(Yii::app()->user->getId());                
+        }
+        catch(Exception $e){
+            Yii::log($e->getMessage(),  CLogger::LEVEL_ERROR,'facebook');
+            return '(99999999999999999999999)'; //no one have this user id, so it can't show any product
+        }
+        
        
         
         if($friendList !=false){
@@ -185,7 +191,7 @@ class SolrSearchAdapter
             $strList.=')';
             return $strList;
         }
-        return false;
+        return '(99999999999999999999999)'; //no one have this user id, so it can't show any product
     }
 
 }

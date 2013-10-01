@@ -24,6 +24,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                 'closeText' => '×',
                                 'alerts' => array(
                                     'success' => array('block' => true, 'fade' => true, 'closeText' => '×'), // success, info, warning, error or danger
+                                    'error' => array('block' => true, 'fade' => true, 'closeText' => '×'), // success, info, warning, error or danger
                                 ),
                             ));
                             ?>
