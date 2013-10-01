@@ -117,20 +117,15 @@ class UserController extends Controller
                     //$user->allowUpdateWithoutCaptcha = true;
                     
                     $user->save();
-                    
-                    if (FacebookUtil::getInstance()->setExtendedAccessToken() !== false) {
-                       // FacebookPostQueueUtil::refreshFacebookCommandForUser($user->id);
-                        FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
-                        $loginForm = new FacebookLoginForm();
-                        $loginForm->username = $user->email;
-                        $loginForm->validate();
-                        $loginForm->login();
-                        $siteUrl = $this->createUrl('/site/index');
-                        $this->redirect($siteUrl);
-                    }
-                    else {
-                        throw new CHttpException(404, 'Không thể đăng nhập với Facebook, vui lòng đăng nhập với email.');
-                    }
+                    FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
+                    FacebookUtil::getInstance()->setExtendedAccessToken();
+                    Yii::app()->session->add('CheckedAccessToken', true);
+                    $loginForm = new FacebookLoginForm();
+                    $loginForm->username = $user->email;
+                    $loginForm->validate();
+                    $loginForm->login();
+                    $siteUrl = $this->createUrl('/site/index');
+                    $this->redirect($siteUrl);                    
                 }
             }
             catch (FacebookApiException $e) {
