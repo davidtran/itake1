@@ -27,6 +27,14 @@ class UploadController extends Controller
             'seo' => array('class' => 'frontend.extensions.seo.components.SeoControllerBehavior')
         );
     }
+    
+    public function filters(){
+        return array(
+            array(
+                'frontend.components.FacebookAccessCheckerFilter + index,edit'
+            )
+        );
+    }
 
     protected function solrImportProduct($product)
     {

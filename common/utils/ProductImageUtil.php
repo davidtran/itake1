@@ -26,22 +26,17 @@ class ProductImageUtil
         if ($image != null)
         {
             //resize image to 1024x768
-            $normalFontSize = 30;
-            $fontSize = $normalFontSize;
+            $normalFontSize = 30;            
             $marginLeft = 20;        
             if($image->getWidth() > 1024){
                 $image = $image->resize(1024, 768, 'inside', 'down');                
                 $titleFontSize = 50;
-                $textFontSize = 40;                
-                $priceOffset = 70;
-
-            }else if($image->getWidth() > 640){
-                $image = $image->resize(800,600,'inside','down');
+                $textFontSize = 40;                                
+            }else if($image->getWidth() > 640){                
                 $titleFontSize = 35;
                 $textFontSize = 27;
                 $marginLeft = 15;                                   
-            }else{
-                $image = $image->resize(420,420,'inside','down');
+            }else{                
                 $titleFontSize = 25;
                 $textFontSize = 20;
                 $marginLeft = 10;   
@@ -61,12 +56,7 @@ class ProductImageUtil
                 return false;
             }
 
-
-
-
-                  //Set our text string 
             $string = ($product->title);         
-            //Write our text to the existing image.
             $len = strlen($string);
             $titleFontSize = ($newImageWidth-2*$marginLeft)/$len/0.32;
             $baseTagHeight = $titleFontSize*6;            
@@ -107,44 +97,12 @@ class ProductImageUtil
             if ($product->address != null && $product->user != null)
             {                
                 imagettftext($gd_canvas, $titleFontSize*0.7, 0, $marginLeft, $newImageHeight-$titleFontSize*0.7, $dark_grey, $font_path, 'Liên hệ: ' . $product->user->username . ' - ' . $product->address->phone);
-            }            
-            
-
-
-
-            
-            imagepng($gd_canvas, $dest);
-            //imagepng($gd_canvas, Yii::app()->basePath.'/www/images/content/merged_image.png');
+            }                                
+            imagepng($gd_canvas, $dest);            
             imagedestroy($gd_canvas);
             imagedestroy($icon2);
             imagedestroy($icon1);
             return true;
-
-            // $background = WideImage::load('images/background.png');
-            // $backgroundHeight = $image->getHeight() * 25 / 100;
-            
-            // $image = $image->merge($background, 0, $image->getHeight() - $backgroundHeight, 50);
-            // $canvas = $image->getCanvas();
-
-                        
-            // $title = StringUtil::limitCharacter($product->title,60);
-            // LogUtil::d("AAA".$image->getWidth());            
-            // $titleFontSize = 1.1*$titleFontSize*$image->getWidth()/$selectedWidth;        
-            // LogUtil::d("titleFontSize $titleFontSize");
-            // $canvas->useFont('font/mnbtitlefont.ttf', $titleFontSize, $image->allocateColor(255, 255, 255));
-            // $canvas->writeText($marginLeft, "bottom-".$titleOffset, ($product->title));
-
-            // $priceText = preg_replace('/[^0-9]/', '', $product->price);
-            // $priceText = number_format($priceText) . ' VNÄ';
-            // $textFontSize = 1.1*$textFontSize*$image->getWidth()/$selectedWidth;  
-            // $canvas->useFont('font/mnbtitlefont.ttf', $textFontSize, $image->allocateColor(255, 255, 255));
-            // $canvas->writeText($marginLeft,"bottom-".$priceOffset, $priceText);
-            // if ($product->address != null && $product->user != null)
-            // {
-            //     $canvas->writeText($marginLeft,"bottom-".$addressOffset, 'LiÃªn há»‡: ' . $product->user->username . ' - ' . $product->address->phone);
-            // }
-
-            // return $image->saveToFile($dest);
         }
         return false;
     }
