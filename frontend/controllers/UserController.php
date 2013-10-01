@@ -106,17 +106,17 @@ class UserController extends Controller
                         //render login form/ redirect to returnUrl
                         //  FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
                         Yii::app()->session['LastFbId'] = $profile['id'];
+                        $user->fbId = $profile['id'];
+                        $user->isFbUser = 1;
                     }
                     else {
-                        
-                        if (trim($user->fbId) == '') {
-                            $user->fbId = $profile['id'];
-                        }
+
+                        $user->fbId = $profile['id'];
                         $user->isFbUser = 1;
                     }
                     //$user->allowUpdateWithoutCaptcha = true;
                     
-                    $user->save();                    
+                    $user->save();
                     
                     if (FacebookUtil::getInstance()->setExtendedAccessToken() !== false) {
                        // FacebookPostQueueUtil::refreshFacebookCommandForUser($user->id);
