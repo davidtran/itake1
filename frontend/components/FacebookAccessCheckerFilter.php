@@ -6,29 +6,42 @@ class FacebookAccessCheckerFilter extends CFilter
     public function preFilter($filterChain)
     {
         Yii::beginProfile('FacebookFilter');
-        if (Yii::app()->user->isFacebookUser && !Yii::app()->request->isAjaxRequest && !$this->isSaved())
-        {             
-            try
-            {          
-                $userId = Yii::app()->user->getId();
-                $fbUtil = FacebookUtil::getInstance();
-                $accessToken = $fbUtil->getSavedUserToken($userId);                
-                if ($accessToken != null)
-                {
-                    $fbUtil->setAccessToken($accessToken);                    
-                    Yii::app()->session['CheckedFacebookAccessToken'] = true;                    
-                }else{                    
-                    //Yii::app()->user->logout();
-                    Yii::app()->session['CheckedFacebookAccessToken'] = false;                    
-                    Yii::app()->controller->redirect('/site/index');
-                }
-            }
-            catch (Exception $e)
-            {
-                //Yii::app()->user->logout();
-                Yii::app()->session['CheckedFacebookAccessToken'] = false;                    
-                Yii::app()->controller->redirect('/market');
-            }
+        //only check if User is connected with Facebook and it's not a ajax request
+        if (Yii::app()->user->isFacebookUser && !Yii::app()->request->isAjaxRequest){
+            
+            //we only check the token once
+            $fbUtil = FacebookUtil::getInstance();
+            if(Yii::app()->session->get('CheckedAccessToken',false)===false){
+                 $userId = Yii::app()->user->getId();
+                 
+                 $accessToken = $fbUtil->getSavedUserToken($userId);                
+                 if($accessToken !=null){
+                     try{
+                         //set the flag on, so we won't check it again
+                         Yii::app()->session->add('CheckedAccessToken',true);
+                         //set the access token and check it's valid. If it's not throw the exception
+                         $fbUtil->setAccessToken($accessToken,true);  
+                         //now we store the access token in session
+                         Yii::app()->session->add('FacebookAccessToken',$accessToken);
+                     }
+                     catch(Exception $e){
+                         //remember our flag, we only logout once
+                         Yii::app()->user->logout();
+                         Yii::app()->controller->redirect('/site/index');
+                     }
+                     
+                 }
+                 //if we already have the access token, user it
+            }else if(false !== $accessToken = Yii::app()->session->get('FacebookAccessToken',false)){
+                //dont check for valid, just silent
+                $fbUtil->setAccessToken($accessToken,false);                    
+            }else {
+                //at here, we fail to check access token, use the old token anyway.
+                $accessToken = $fbUtil->getSavedUserToken($userId);                                
+                $fbUtil->setAccessToken($accessToken,false);                    
+            }            
+        
+        
         }
         Yii::endProfile('FacebookFilter');
          

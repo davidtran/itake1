@@ -27,16 +27,22 @@ class FacebookUtil
         return self::$instance;
     }
 
-    public function setAccessToken($accessToken)
+    public function setAccessToken($accessToken,$check = true)
     {
         //check token valid;
-        if ($this->checkTokenValid($accessToken)) {
-            $this->_accessToken = $accessToken;
+        if(false == $check){
+            $this->_accessToken = $accessToken;           
             Yii::app()->facebook->setAccessToken($accessToken);
+        }else{
+            if ($this->checkTokenValid($accessToken)) {
+                $this->_accessToken = $accessToken;           
+                Yii::app()->facebook->setAccessToken($accessToken);
+            }
+            else {
+                throw new CException('Invalid token');
+            }
         }
-        else {
-            throw new CException('Invalid token');
-        }
+        
     }
 
     public function setExtendedAccessToken()
@@ -82,23 +88,21 @@ class FacebookUtil
             $result = array();
             foreach ($friendList as $friend) {
                 $result[] = $friend['id'];
-            }
-            Yii::app()->session[self::FACEBOOK_FRIEND_IN_APP_SESSION_NAME] = $result;
+            }       
             return $result;
         }
     }
 
     public function getFacebookFriendInApp($userId, $includeSelf = false)
     {
-        if (!isset(Yii::app()->session[self::FACEBOOK_FRIEND_IN_APP_SESSION_NAME])) {
-            $facebookFriendList = $this->getFacebookFriendList($userId);
+    
+            $facebookFriendList = $this->getFacebookFriendList($userId);            
             $filterList = $this->filterFacebookFriendInApp($facebookFriendList);
+            
             if ($includeSelf) {
                 $filterList[] = $userId;
-            }
-            Yii::app()->session[self::FACEBOOK_FRIEND_IN_APP_SESSION_NAME] = $filterList;
-        }
-        return Yii::app()->session[self::FACEBOOK_FRIEND_IN_APP_SESSION_NAME];
+            }            
+            return $filterList;
     }
 
     public function getSavedUserToken($userId)

@@ -59,9 +59,9 @@ class ImageUploadUtil{
                 return false;
             }
 
-            if ($uploadImage->size > FileUtil::convertSizeToBytes(5, 'MB'))
+            if ($uploadImage->size > Yii::app()->params['postImageMaxSize'])
             {
-                $this->error ='Kích thước ảnh không được quá 5 MB';
+                $this->error ='Kích thước ảnh không được quá '.Yii::app()->params['postImageMaxSize']. 'KB';
                 return false;
             }
             

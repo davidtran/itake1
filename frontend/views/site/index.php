@@ -148,7 +148,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                         <p class="alert alert-info center">
                              <span class="icon-stack icon-2x">
                                   <i class="icon-circle icon-stack-base"></i>
-                                  <i class="icon-frown icon-light"></i>
+                                  <i class="icon-smile icon-light"></i>
                                 </span>
                             <br>
                             Hiện tại chưa có sản phẩm nào được bán từ bạn bè của bạn, hãy mời họ sử dụng itake.
