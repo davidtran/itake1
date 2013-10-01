@@ -56,7 +56,7 @@ class UploadController extends Controller
         $returnUrl = $this->createUrl('/upload/index');
         $this->checkLogin('Vui lòng đăng nhập được khi sử dụng tính năng này', $returnUrl);
         if (false == $this->isLessThanPostLimit()) {
-            die('Excess limit');
+            
         }
         Yii::app()->session->add('EditingProduct', false);
 
@@ -331,8 +331,13 @@ class UploadController extends Controller
     {
         $image = ProductImage::model()->findByPk($id);
         if ($image) {
-            $image->delete();
-            $this->renderAjaxResult(true);
+            if($image->product != null && $image->product->imageCount > 1){
+                $image->delete();
+                $this->renderAjaxResult(true);
+            }else{
+                $this->renderAjaxResult(false,'Sản phẩm phải có ít nhất một sản phẩm. Bạn cần upload hình ảnh khác trước khi xóa ảnh này.');
+            }
+            
         }
         else {
             $this->renderAjaxResult(false, Yii::t('Default', 'Image is not exist'));

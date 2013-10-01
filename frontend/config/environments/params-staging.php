@@ -7,5 +7,6 @@ return array(
     'request.baseUrl' => 'http://dev.itake', 
     'showSortTab'=>false,
     'postLimitPerDay'=>99,
+    'postImageMaxSize'=>3072
 );
 

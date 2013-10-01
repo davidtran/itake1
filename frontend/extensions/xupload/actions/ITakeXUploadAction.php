@@ -3,8 +3,23 @@ include_once 'XUploadAction.php';
 class ITakeXUploadAction extends XUploadAction{
     
     protected function handleUploading(){
-        $imageCount = 0;
         
+        if($this->checkMaxFileAllow() == false){
+            echo json_encode(
+                    array(
+                        array(
+                            "error" => Yii::t('xupload','Max number of files exceeded'),
+                            )
+                        )
+                    );
+            exit;
+        }
+       
+        return parent::handleUploading();
+    }
+    
+    protected function checkMaxFileAllow(){
+        $imageCount = 0;        
         $userFiles = Yii::app()->user->getState($this->stateVariable, array());       
         $imageCount += count($userFiles);        
         $productId = Yii::app()->session->get('EditingProduct',false);
@@ -16,16 +31,10 @@ class ITakeXUploadAction extends XUploadAction{
         }
         
         if($imageCount + 1 > Yii::app()->params['upload.maxImageNumber']){            
-            echo json_encode(
-                    array(
-                        array(
-                            "error" => Yii::t('xupload','Max number of files exceeded'),
-                            )
-                        )
-                    );
-            exit;
+            return false;
             
         }
-        return parent::handleUploading();
+        return true;
     }
+    
 }

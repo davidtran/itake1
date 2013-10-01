@@ -2,7 +2,7 @@
 
 class FacebookUtil
 {
-
+    
     const FB_LINE_BREAK = '#';
 
     protected $_accessToken;
@@ -161,8 +161,7 @@ class FacebookUtil
         return CHtml::link(
                         $text, self::makeFacebookLoginUrl($returnUrl), CMap::mergeArray(array(
                             'id' => 'fb-timeline-btn',
-                            'class' => 'special-btn facebook badge-add-fb-timeline',
-                            'target' => '_blank'
+                            'class' => 'special-btn facebook badge-add-fb-timeline',                        
                                 ), $options)
         );
     }
@@ -305,21 +304,28 @@ class FacebookUtil
 
     public function doUserHaveEnoughUploadPermission()
     {
-        if (Yii::app()->user->isFacebookUser) {
-            $data = Yii::app()->facebook->api('/me/permissions', 'get', array(
-                'access_token' => $this->_accessToken
-            ));
-            if (is_array($data)) {
-                if (isset($data['data'][0]['manage_pages']) &&
-                        isset($data['data'][0]['email']) &&
-                        isset($data['data'][0]['publish_stream']) &&
-                        isset($data['data'][0]['user_photos'])) {
+        try{
+            if (Yii::app()->user->isFacebookUser) {
+                $data = Yii::app()->facebook->api('/me/permissions', 'get', array(
+                    'access_token' => $this->_accessToken
+                ));
+                if (is_array($data)) {
+                    if (isset($data['data'][0]['manage_pages']) &&
+                            isset($data['data'][0]['email']) &&
+                            isset($data['data'][0]['publish_stream']) &&
+                            isset($data['data'][0]['user_photos'])) {
 
-                    return true;
+                        return true;
+                    }
                 }
             }
+            return false;
         }
-        return false;
+        catch(Exception $e){
+            Yii::log($e->getMessage(),  CLogger::LEVEL_ERROR,'facebook');
+            return false;
+        }
+        
     }
 
 }

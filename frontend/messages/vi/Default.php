@@ -109,6 +109,7 @@ return array(
     'Your+ad+image'=>'Hình+SP',
     '<b></b>Only allow {maxImage} images per product.'=>'<b></b>Chỉ cho phép upload {maxImage} ảnh mỗi sản phẩm',
     'Post to your Facebook profile'=>'Đăng tin lên trang cá nhân Facebook',
+    'Exceed maximum size allowed'=>'Quá dung lượng tối đa cho phép',
     ///Change password
     'Old password'=>'Mật khẩu cũ',
     'New password'=>'Mật khẩu mới',

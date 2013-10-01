@@ -208,10 +208,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                     <?php endif; ?>
                                     <?php else:?>
                                     <div class="row-fluid" style="margin-left:10px;">
-                                        
-                                        iTake chưa đủ quyền để đăng tin lên profile và fanpage do bạn quản lý.
+                                        Kết nối tới Facebook bị lỗi hoặc iTake chưa đủ quyền để đăng tin lên profile và fanpage do bạn quản lý.
                                         <br/>
-                                        <?php echo FacebookUtil::getInstance()->makeFacebookLoginLink('Click để cấp quyền cho iTake',$this->createUrl('/user/register')); ?>
+                                        <?php echo FacebookUtil::getInstance()->makeFacebookLoginLink('Click để kết nối iTake với Facebook',$this->createUrl('/upload')); ?>
                                     </div>
                                     
                                         <?php endif; ?>

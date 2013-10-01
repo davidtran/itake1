@@ -14,4 +14,5 @@ return array(
     'upload.maxImageNumber' => 4,
     'showSortTab'=>true,
     'postLimitPerDay'=>99,
+    'postImageMaxSize'=>5120
 );
