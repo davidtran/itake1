@@ -10,8 +10,8 @@ class FacebookAccessCheckerFilter extends CFilter
         if (Yii::app()->user->isFacebookUser && !Yii::app()->request->isAjaxRequest) {
             //we only check the token once
             $fbUtil = FacebookUtil::getInstance();
-            if (Yii::app()->session->get('CheckedAccessToken', false) === false) {
-                $userId = Yii::app()->user->getId();
+            $userId = Yii::app()->user->getId();
+            if (Yii::app()->session->get('CheckedAccessToken', false) == false) {                
                 $accessToken = $fbUtil->getSavedUserToken($userId);
                 if ($accessToken != null) {
                     try {
