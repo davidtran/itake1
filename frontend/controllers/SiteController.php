@@ -26,7 +26,7 @@ class SiteController extends Controller
     {
         return array(
             array(
-                'frontend.components.FacebookAccessCheckerFilter + index,facebook'
+                'frontend.components.FacebookAccessCheckerFilter + index,facebook,landing'
             )
         );
     }
@@ -50,7 +50,7 @@ class SiteController extends Controller
         }
         CityUtil::setSelectedCityId($id);
         //$redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/list');
-        $redirectUrl = $this->createAbsoluteUrl('/site/index', array('category' =>$category));
+        $redirectUrl = $this->createAbsoluteUrl('/site/index');
         $this->redirect($redirectUrl);
     }
 

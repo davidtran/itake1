@@ -11,6 +11,7 @@
 
         /**
          * Resize image and return the new filename of image
+         * Only resize if given width and height larger than original width and height
          * @param integer $width
          * @param integer $height
          * @return string 
@@ -55,7 +56,7 @@
                 }
                 $resizeWidth = $image->getWidth() / $scale;
                 $resizeHeight = $image->getHeight() / $scale;
-                $image->resize($resizeWidth, $resizeHeight,'outside')->saveToFile($resizedUrl, 80);
+                $image->resizeDown($resizeWidth, $resizeHeight,'outside')->saveToFile($resizedUrl, 80);
                 return true;
             }
             return false;

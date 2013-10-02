@@ -161,69 +161,24 @@ class Product extends CActiveRecord
             $this->lat = $this->address->lat;
             $this->lon = $this->address->lon;
         }
-        $this->title = filter_var($this->title,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $this->title = strip_tags($this->title);
         $description = strip_tags($this->description,'<br><p>');
         $this->description = filter_var($description);                
         return parent::beforeSave();
     }
+    
+    function Clean($string, $control = true)
+{
+        $string = iconv('UTF-8', 'UTF-8//IGNORE', $string);
 
-    public function saveImageFromForm()
-    {
-        $file = CUploadedFile::getInstance($this, 'image');
-        if ($file != null)
+        if ($control === true)
         {
-            $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($this->title)) .
-                    '_' .
-                    rand(0, 999) .
-                    '.' .
-                    'png';
-            $filename = 'images/content/' . $filename;
-            if ($file->saveAs($filename, true))
-            {
-                //$this->drawImage($filename);
-                $this->image = $filename;
-                return true;
-            }
+                return preg_replace('~\p{C}+~u', '', $string);
         }
-        return false;
+
+        return preg_replace(array('~\r\n?~', '~[^\P{C}\t\n]+~u'), array("\n", ''), $string);
     }
-
-    public function saveImage()
-    {
-        if (isset($_REQUEST['image']))
-        {
-            $binary = base64_decode($_REQUEST['image']);
-            $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($this->title)) .
-                    '_' .
-                    rand(0, 999) .
-                    '.' .
-                    'png';
-            $filename = 'images/content/' . $filename;
-            $processed = 'images/content/processed/' . $filename;
-            $f = fopen($filename, 'wb');
-
-            if ($f !== false)
-            {
-                fwrite($f, $binary);
-                fclose($f);
-                if (ProductImageUtil::drawImage($this, $filename, $processed))
-                {
-                    $this->image = $filename;
-                    $this->processed_image = $processed;
-                    return true;
-                }
-                else
-                {
-                    $this->addError('image', 'Draw image failed');
-                }
-            }
-        }
-        else
-        {
-            $this->addError('image', 'Image is not found');
-        }
-    }
-
+  
     public function getDistance($lat, $lon)
     {
         return round(DistanceUtil::calculate($this->lat, $this->lon, $lat, $lon), 3);
@@ -249,11 +204,6 @@ class Product extends CActiveRecord
                             )
             );
         }
-    }
-
-    public function getAbsoluteDetailUrl()
-    {
-        return Yii::app()->controller->createAbsoluteUrl('/product/details', array('id' => $this->id, 'title' => $this->title));
     }
 
     public function renderHtml($prefix = "",$showControl = false)

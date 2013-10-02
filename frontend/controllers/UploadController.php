@@ -180,19 +180,19 @@ class UploadController extends Controller
 
                 if (is_file($image["path"]))
                 {
-                    $titleCut = strlen($product->title)>20?substr($product->title,0,20):$product->title;
-                    $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($titleCut)) .
+                    $titleCut = mb_strlen($product->title,'utf-8')>20?mb_substr($product->title,0,20,'utf-8'):$product->title;
+                    $filename = str_replace(' ', '-', StringUtil::utf8ToAscii(StringUtil::removeSpecialCharacter($titleCut))) .
                             '_' .
                             $index .
                             '_' .
                             $product->id;
                     $ext = substr($image['filename'], strlen($image['filename']) - 3);
-                    if (rename($image["path"], Yii::getPathOfAlias('www') . '/images/content/' . $filename . '.' . $ext)) {
-
-                        $resize = ImageUtil::resize('images/content/' . $filename . '.' . $ext, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);
+                    if (rename($image["path"], Yii::getPathOfAlias('www') . '/images/content/' . $filename . '.' . $ext)) {                        
+                        $thumbnail = ImageUtil::resize('images/content/' . $filename . '.' . $ext, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);                                                
+                        $mainImage = ImageUtil::resize('images/content/' . $filename . '.' . $ext, Yii::app()->params['image.maxWidth'], Yii::app()->params['image.maxHeight']);                                                
                         $imageModel = new ProductImage();
-                        $imageModel->image = 'images/content/' . $filename . '.' . $ext;
-                        $imageModel->thumbnail = $resize;
+                        $imageModel->image = $mainImage;
+                        $imageModel->thumbnail = $thumbnail;
                         $processed = 'images/content/processed/' . $filename . '.' . $ext;
                         ProductImageUtil::drawImage($product, $imageModel->image, $processed);
                         $imageModel->facebook = $processed;
@@ -372,7 +372,7 @@ class UploadController extends Controller
     protected function postProductToFacebook($product)
     {
         if (Yii::app()->user->isFacebookUser) {
-            try {
+            try {                
                 if ($product->uploadToFacebook) {
                     FacebookUtil::getInstance()->shareProductAlbum($product);
                 }
@@ -380,14 +380,11 @@ class UploadController extends Controller
                     foreach ($_POST['FacebookPage'] as $page) {
                         FacebookUtil::getInstance()->shareProductAlbumToFanpage($product, $page);
                     }
-                }
-                
-                
+                }                                
             }
-            catch (FacebookApiException $e) {
-                Yii::log('Post to facebook failed. '.$e->getMessage(),  CLogger::LEVEL_ERROR,'facebook');
-                Yii::app()->user->setFlash('error','Không thể đăng tin lên Facebook. Vui lòng thử lại sau.');
-                
+            catch (Exception $e) {
+                Yii::log('Post to facebook failed. '.$e->getMessage(),  CLogger::LEVEL_ERROR,'facebook');                
+                Yii::app()->user->setFlash('error','Không thể đăng tin lên Facebook. Vui lòng thử lại sau.');                
             }
         }
     }
