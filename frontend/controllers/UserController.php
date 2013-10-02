@@ -77,7 +77,7 @@ class UserController extends Controller
     public function actionRegister()
     {
         if (Yii::app()->user->isGuest == false) {
-            $this->redirect('/site/index');
+            $this->redirect('/site/index',true);
         }
         $user = new User('register');
         if (isset($_GET['code'])) {
