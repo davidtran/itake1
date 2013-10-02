@@ -57,7 +57,7 @@ class Product extends CActiveRecord
         return array(
             array('title, description,address_id,price,category_id', 'required'),
             array('uploadToFacebook,status,country,address_id, view,price,category_id,city', 'numerical', 'integerOnly' => true),
-            array('title', 'length', 'max' => 500),
+            array('title', 'length', 'max' => 200),
             array('description', 'length', 'max' => 4000),         
             array('phone,lat,lon,locationText', 'safe'),
             array('address_id', 'exist', 'className' => 'Address', 'attributeName' => 'id'),

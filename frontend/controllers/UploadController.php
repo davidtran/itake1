@@ -178,8 +178,10 @@ class UploadController extends Controller
             $i = 1;
             foreach ($userImages as $index => $image) {
 
-                if (is_file($image["path"])) {
-                    $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($product->title)) .
+                if (is_file($image["path"]))
+                {
+                    $titleCut = strlen($product->title)>20?substr($product->title,0,20):$product->title;
+                    $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($titleCut)) .
                             '_' .
                             $index .
                             '_' .
