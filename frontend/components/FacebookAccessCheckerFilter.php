@@ -12,25 +12,13 @@ class FacebookAccessCheckerFilter extends CFilter
             $fbUtil = FacebookUtil::getInstance();
             $userId = Yii::app()->user->getId();
             if (Yii::app()->session->get('CheckedAccessToken', false) == false) {                
-                $accessToken = $fbUtil->getSavedUserToken($userId);
-                if ($accessToken != null) {
-                    try {
-                        //set the flag on, so we won't check it again
-                        Yii::app()->session->add('CheckedAccessToken', true);
-                        //set the access token and check it's valid. If it's not throw the exception
-                        $fbUtil->setAccessToken($accessToken, true);
-                        //now we store the access token in session
-                        Yii::app()->session->add('FacebookAccessToken', $accessToken);
-                    }
-                    catch (Exception $e) {
-                        //remember our flag, we only logout once
-                        Yii::app()->user->logout();
-                        Yii::app()->controller->redirect('/site/index');
-                    }
-                }
-                //if we already have the access token, user it
+                //set the flag on, so we won't check it again
+                Yii::app()->session->add('CheckedAccessToken', true);
+                //just logout so they have to login again by facebook, facebook is too buggy
+                Yii::app()->user->logout();                                                               
             }
-            else if (false !== $accessToken = Yii::app()->session->get('FacebookAccessToken', false)) {
+            
+            if (false !== $accessToken = Yii::app()->session->get('FacebookAccessToken', false)) {
                 //dont check for valid, just silent                
                 $fbUtil->setAccessToken($accessToken, false);
             }
