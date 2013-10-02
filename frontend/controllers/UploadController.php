@@ -79,7 +79,7 @@ class UploadController extends Controller
 
             $product->status = Product::STATUS_ACTIVE;
             if ($this->haveUploadedImage() && $product->validate(null, false)) {
-                if ($product->save(false)) {
+                if ($product->save(true)) {
                     $this->solrImportProduct($product);
                     $this->saveUploadedImage($product);
                     if ($product->uploadToFacebook > 0) {
@@ -125,7 +125,7 @@ class UploadController extends Controller
                 $product->attributes = $_POST['Product'];
 
                 if ($this->haveUploadedImage() && $product->validate(null, false)) {
-                    if ($product->save(false)) {
+                    if ($product->save(true)) {
                         $this->saveUploadedImage($product);
                         $this->solrImportProduct($product);
                         if ($product->uploadToFacebook > 0) {

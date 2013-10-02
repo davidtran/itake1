@@ -80,7 +80,7 @@ class ImageUploadUtil{
                 return false;
             }
             
-            if($resizeWidth !=null && $resizeHeight !=null){
+            if( ($imageInfo[0] < $resizeWidth || $imageInfo[1] < $resizeHeight) && $resizeWidth !=null && $resizeHeight !=null){
                 $resize = ImageUtil::resize($filename, $resizeWidth,$resizeHeight,'inside','down');            
                 return $resize;
             }
