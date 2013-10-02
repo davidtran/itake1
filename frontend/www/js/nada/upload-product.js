@@ -20,7 +20,16 @@ if (typeof contactInfo != "undefined"&&contactInfo!=null) {
 
 $(document).ready(function() {
     $('.fileupload').fileupload({
-        uploadtype: 'image'
+        uploadtype: 'image',
+        dataType: 'json',
+        // Enable image resizing, except for Android and Opera,
+        // which actually support image resizing, but fail to
+        // send Blob objects via XHR requests:
+        disableImageResize: /Android(?!.*Chrome)|Opera/
+            .test(window.navigator && navigator.userAgent),
+        imageMaxWidth: 800,
+        imageMaxHeight: 800,
+        imageCrop: true // Force cropped images
     });
      $('#imageUploadedWrapper').slimScroll({
             position: 'left',

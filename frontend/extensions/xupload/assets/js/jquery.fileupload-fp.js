@@ -39,7 +39,7 @@
         options: {
             // The list of file processing actions:
             process: [
-            /*
+
                 {
                     action: 'load',
                     fileTypes: /^image\/(gif|jpeg|png)$/,
@@ -47,15 +47,15 @@
                 },
                 {
                     action: 'resize',
-                    maxWidth: 1920,
-                    maxHeight: 1200,
-                    minWidth: 800,
-                    minHeight: 600
+                    maxWidth: 1280,
+                    maxHeight: 1280,
+                    minWidth: 400,
+                    minHeight: 400
                 },
                 {
                     action: 'save'
                 }
-            */
+
             ],
 
             // The add callback is invoked as soon as files are added to the

@@ -157,6 +157,7 @@ class XUpload extends CJuiInputWidget {
             if($this->imageProcessing){
                 Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/jquery.fileupload-ip.js', CClientScript::POS_END);
             }
+            Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/jquery.fileupload-fp.js', CClientScript::POS_END);
             //The File Upload user interface plugin
             Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/jquery.fileupload-ui.js', CClientScript::POS_END);
 

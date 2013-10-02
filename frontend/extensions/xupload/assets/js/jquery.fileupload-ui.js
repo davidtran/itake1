@@ -45,11 +45,11 @@
             autoUpload: false,
             // The following option limits the number of files that are
             // allowed to be uploaded using this widget:
-            maxNumberOfFiles: undefined,
+            maxNumberOfFiles: 6,
             // The maximum allowed file size:
-            maxFileSize: undefined,
+            maxFileSize: 5000000,
             // The minimum allowed file size:
-            minFileSize: undefined,
+            minFileSize: 100000,
             // The regular expression for allowed file types, matches
             // against either file type or file name:
             acceptFileTypes:  /.+$/i,
@@ -57,7 +57,7 @@
             // image is shown, matched against the file type:
             previewSourceFileTypes: /^image\/(gif|jpeg|png)$/,
             // The maximum file size of images that are to be displayed as preview:
-            previewSourceMaxFileSize: 5000000, // 5MB
+            previewSourceMaxFileSize: 1000000, // 5MB
             // The maximum width of the preview images:
             previewMaxWidth: 80,
             // The maximum height of the preview images:
@@ -94,14 +94,14 @@
                     data.context = that._renderUpload(files).data('data', data);
                     options.filesContainer[
                         options.prependFiles ? 'prepend' : 'append'
-                    ](data.context);
+                        ](data.context);
                     that._renderPreviews(files, data.context);
                     that._forceReflow(data.context);
                     that._transition(data.context).done(
                         function () {
                             if ((that._trigger('added', e, data) !== false) &&
-                                    (options.autoUpload || data.autoUpload) &&
-                                    data.autoUpload !== false && data.isValidated) {
+                                (options.autoUpload || data.autoUpload) &&
+                                data.autoUpload !== false && data.isValidated) {
                                 data.submit();
                             }
                         }
