@@ -6,7 +6,7 @@
                     'showControl'=>$showControl
                         ), true, false); ?>            
             <div class="productImageInfo">
-                <div class="productImageTitle"><?php echo StringUtil::limitCharacter(strtoupper($product->title), 25); ?></div>
+                <div class="productImageTitle"><?php echo StringUtil::limitCharacter(strtoupper($product->title), 100); ?></div>
                 <hr class="sep_item"/>
             </div>
             <div class="productDescription">

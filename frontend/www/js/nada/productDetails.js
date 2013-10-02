@@ -108,8 +108,8 @@ function loadProduct(href, htmlProductId)
 
                 loadUserProduct(product);
                 
-                $('.modal-scrollable').scrollTop(0); // work only in modal
-                $('body').scrollTop(0); // work in single page
+                //$('.modal-scrollable').scrollTop(0); // work only in modal
+                //$('body').scrollTop(0); // work in single page
                 if ($dialog.css('display') == 'none') {
                     $dialog.modal({
                         show: true,
