@@ -25,8 +25,7 @@ $(document).ready(function() {
         // Enable image resizing, except for Android and Opera,
         // which actually support image resizing, but fail to
         // send Blob objects via XHR requests:
-        disableImageResize: /Android(?!.*Chrome)|Opera/
-            .test(window.navigator && navigator.userAgent),
+        disableImageResize: false,
         imageMaxWidth: 800,
         imageMaxHeight: 800,
         imageCrop: true // Force cropped images
@@ -36,13 +35,13 @@ $(document).ready(function() {
              height: 350,
             railVisible: false,
             color: '#7e7e7e',
-            alwaysVisible:true,
+            alwaysVisible:true
         });
      $('#addressListWrapper').slimScroll({
             height: 250,
             railVisible: false,
             color: '#7e7e7e',
-            alwaysVisible:false,
+            alwaysVisible:false
         });
     updatePreview();   
 });
