@@ -49,9 +49,11 @@ class ProductController extends Controller
                     ), true, false);
             $html = utf8_encode($html);
             $html = iconv('utf-8', 'utf-8', $html);
+            $productAttributes = $product->attributes;
+            $productAttributes['address']=$product->address->attributes;
             $this->renderAjaxResult(true, array(
                 'html' => $html,
-                'product' => $product->attributes,
+                'product' => $productAttributes,
                 'canonicalUrl' => $canonicalUrl
             ));
         }
