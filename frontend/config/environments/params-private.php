@@ -14,5 +14,9 @@ return array(
     'upload.maxImageNumber' => 4,
     'showSortTab'=>true,
     'postLimitPerDay'=>99,
-    'postImageMaxSize'=>3145728,    
+    'postImageMaxSize'=>3145728,
+    /*
+     * Increment number is appended after $url so the script wont be cache
+     */
+    'clientScript.incrementNumber'=>1,
 );

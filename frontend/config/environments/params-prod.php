@@ -13,5 +13,6 @@ return array(
     'request.baseUrl' => 'http://dev.itake', 
     'showSortTab'=>false,
     'postLimitPerDay'=>5,
-    'postImageMaxSize'=>3145728
+    'postImageMaxSize'=>3145728,
+    'clientScript.incrementNumber'=>1,
 );

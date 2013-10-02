@@ -53,6 +53,7 @@ $config = CMap::mergeArray(
                     'responsiveCss' => true,
                 ),
                 'clientScript' => array(
+                    'class'=>'frontend.components.ClientScript',
                     'scriptMap' => array(
                         'jquery.js' => false,
                         'jquery.min.js' => false,
