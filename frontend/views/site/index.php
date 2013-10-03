@@ -142,7 +142,6 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                                 Bạn cần kết nối tài khoản của bạn với Facebook để sử dụng chức năng này.
                             </p>
                             <div class="row-fluid center">
-                            <?php// echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($this->createUrl('/site/index')), array('class' => 'facebook-login')); ?>
                             <?php echo FacebookUtil::getInstance()->makeFacebookLoginLink('Click để kết nối iTake với Facebook',  Yii::app()->controller->createUrl('site/index',array('facebook'=>1))); ?>
                             </div>
                         <?php else:?>
