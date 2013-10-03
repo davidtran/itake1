@@ -112,16 +112,7 @@ $(document).ready(function() {
         scrollText: '', // Text for element
         activeOverlay: false // Set CSS color to display scrollUp active point, e.g '#00FFFF'
     });
-    $('.popup-gallery').magnificPopup({
-        delegate: 'a',
-        type: 'image',
-        mainClass: 'mfp-img-mobile',
-        gallery: {
-            enabled: true,
-            navigateByImgClick: true,
-            preload: [0,1] 
-        },
-    });      
+   
 });
 function resetScroll(){
     $.scrollUp.destroy();

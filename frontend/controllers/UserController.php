@@ -117,7 +117,7 @@ class UserController extends Controller
                     //$user->allowUpdateWithoutCaptcha = true;
                     
                     $user->save();
-                    FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
+                    FacebookUtil::getInstance()->saveUserToken($user->id, $profile['access_token']);
                     FacebookUtil::getInstance()->setExtendedAccessToken();
                     Yii::app()->session->add('CheckedAccessToken', true);
                     $loginForm = new FacebookLoginForm();
