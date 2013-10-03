@@ -75,12 +75,21 @@ class UserController extends Controller
     }
     public function  actionBindAccountFacebook(){
         if (isset($_GET['code'])) {
-            $profile = Yii::app()->facebook->api('/me');
-            if (Yii::app()->user->isGuest == false) {
-                $currentUser = Yii::app()->user->model;
-                $currentUser->fbId = $profile['id'];
-                $currentUser->save();
-                Yii::app()->controller->redirect( Yii::app()->controller->getReturnUrl());
+            try {
+                $profile = Yii::app()->facebook->api('/me');
+                if (Yii::app()->user->isGuest == false) {
+                    $currentUser = Yii::app()->user->model;
+                    $currentUser->fbId = $profile['id'];
+                    $currentUser->save();
+                    Yii::app()->controller->redirect( Yii::app()->controller->getReturnUrl());
+                }
+            } catch (FacebookApiException $e) {
+                // in here you can look at the Exception $e, and determine if it's an expired
+                // access token error, and if it is, you can redirect your user somewhere to
+                // re-authenticate if you want - either by redirecting them to the login page,
+                // or by showing a Flash message with the JavaScript Login button, etc
+                //echo $e->getMessage();
+                Yii::app()->controller->redirect(FacebookUtil::getInstance()->makeFacebookLoginUrlNew(Yii::app()->controller->getReturnUrl()));
             }
         }
     }
