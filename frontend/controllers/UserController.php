@@ -73,7 +73,17 @@ class UserController extends Controller
     {
         
     }
-
+    public function  actionBindAccountFacebook(){
+        if (isset($_GET['code'])) {
+            $profile = Yii::app()->facebook->api('/me');
+            if (Yii::app()->user->isGuest == false) {
+                $currentUser = Yii::app()->user->model;
+                $currentUser->fbId = $profile['id'];
+                $currentUser->save();
+                Yii::app()->controller->redirect( Yii::app()->controller->getReturnUrl());
+            }
+        }
+    }
     public function actionRegister()
     {
         if (Yii::app()->user->isGuest == false) {

@@ -36,21 +36,36 @@ class UserIdentity extends CUserIdentity
         $user = User::model()->find('email=:email', array(
             'email' => $this->email
         ));
-
         if ($user == null)
             $this->errorCode = self::ERROR_EMAIL_INVALID;
-        else if ($user->password != md5(md5($this->password) . $user->salt))
-            $this->errorCode = self::ERROR_PASSWORD_INVALID;
-        else if ($user->status != User::STATUS_ACTIVE)
+        if($user!=null&&$user->isFbUser!=TRUE)
         {
-            $this->errorCode = self::ERROR_USER_BAN;
+            if ($user->password != md5(md5($this->password) . $user->salt))
+                $this->errorCode = self::ERROR_PASSWORD_INVALID;
+            else if ($user->status != User::STATUS_ACTIVE)
+            {
+                $this->errorCode = self::ERROR_USER_BAN;
+            }
+            else
+            {
+                $this->errorCode = self::ERROR_NONE;
+                $this->_id = $user->id;
+            }
         }
         else
         {
-            $this->errorCode = self::ERROR_NONE;
-            $this->_id = $user->id;
-        }
+            if ($user->status != User::STATUS_ACTIVE)
+            {
 
+                $this->errorCode = self::ERROR_USER_BAN;
+            }
+            else
+            {
+
+                $this->errorCode = self::ERROR_NONE;
+                $this->_id = $user->id;
+            }
+        }
         return !$this->errorCode;
     }
 

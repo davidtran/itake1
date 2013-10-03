@@ -27,7 +27,7 @@ class FacebookLoginForm extends LoginForm
     
     public function Login(){
         if ($this->_identity === null){
-            $this->_identity = new FacebookUserIdentity($this->username);
+            $this->_identity = new UserIdentity($this->username,NULL);
             $this->_identity->authenticate();
         }        
         if ($this->_identity->errorCode === UserIdentity::ERROR_NONE)

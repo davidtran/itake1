@@ -132,7 +132,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                 <?php if($facebook && count($productList)==0):?>
                 <div class="row-fluid">
                     <div class="span6 offset3">
-                        <?php if(Yii::app()->user->isFacebookUser ==false):?>
+                        <?php if(FacebookUtil::getInstance()->doUserHaveEnoughUploadPermission() ==false):?>
                             <p class="alert alert-info center">
                                 <span class="icon-stack icon-2x">
                                   <i class="icon-circle icon-stack-base"></i>
@@ -142,7 +142,8 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                                 Bạn cần kết nối tài khoản của bạn với Facebook để sử dụng chức năng này.
                             </p>
                             <div class="row-fluid center">
-                            <?php echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($this->createUrl('/site/index')), array('class' => 'facebook-login')); ?>
+                            <?php// echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($this->createUrl('/site/index')), array('class' => 'facebook-login')); ?>
+                            <?php echo FacebookUtil::getInstance()->makeFacebookLoginLink('Click để kết nối iTake với Facebook',  Yii::app()->controller->createUrl('site/index',array('facebook'=>1))); ?>
                             </div>
                         <?php else:?>
                         <p class="alert alert-info center">
