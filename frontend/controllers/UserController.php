@@ -94,7 +94,7 @@ class UserController extends Controller
                     if ($user == null) {
                         $user = new User();
                         $user->email = $profile['email'];
-                        //$user->password = StringUtil::generateRandomString(25);
+                        $user->password = StringUtil::generateRandomString(25);
                         $original = $profile['first_name'] . ' ' . $profile['last_name'];
                         $username = $original;
                         $increment = 1;
@@ -110,13 +110,14 @@ class UserController extends Controller
                         $user->isFbUser = 1;
                     }
                     else {
+
                         $user->fbId = $profile['id'];
                         $user->isFbUser = 1;
                     }
                     //$user->allowUpdateWithoutCaptcha = true;
                     
                     $user->save();
-                    FacebookUtil::getInstance()->saveUserToken($user->id, $profile['access_token']);
+                    FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
                     FacebookUtil::getInstance()->setExtendedAccessToken();
                     Yii::app()->session->add('CheckedAccessToken', true);
                     $loginForm = new FacebookLoginForm();
