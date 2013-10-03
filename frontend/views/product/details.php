@@ -48,8 +48,16 @@ $this->
                                         </div>
                                         <div class="span6">
                                             <h4 class="product-detail-tag">
-                                                <?php LanguageUtil::echoT('Seller') ?></h4>
-                                            <i class="icon-user"></i>
+                                            <?php LanguageUtil::echoT('Seller') ?></h4>
+                                            <?php
+                                            echo UserImageUtil::renderImage($product->user,array(
+                                            'width' => 30,
+                                            'height' => 30,
+                                            'style' => 'width: 30px;
+                                            height: 30px;',
+                                            'class' => 'img-circle',
+                                            ));
+                                            ?>
                                             <?php echo $product->
                                                 user->getUserProfileLink(); ?>
                                             <br/>
