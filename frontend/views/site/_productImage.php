@@ -10,7 +10,23 @@
             );
             ?>        
         <?php endif; ?>        
-    </a>     
+    </a>
+    <?php if($product->status==Product::STATUS_SOLD): ?>
+    <div class="productSoldBg">
+        <i class="icon-bookmark"></i>
+    </div>
+    <div class="productSoldWrapper">
+        <div class="row-fluid">
+            <span class="icon-stack icon-large">
+                  <i class="icon-circle icon-stack-base"></i>
+                  <i class="icon-flag icon-light"></i>
+            </span>
+            <div class="span12">
+                <span class="center;">Đã bán</span>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
      <div style="display:none" class="productControl">                        
             <div class="row-fluid" style="margin-top: 10px;">
                 <?php
@@ -45,11 +61,21 @@
                         ?>
 
                         <?php
-                        echo CHtml::link('<i class="icon-shopping-cart"></i> ' . LanguageUtil::t('Sold'), array('/upload/delete'), array(
-                            'class' => 'btn btn-square p-sold',
-                            'data-toggle' => 'tooltip',
-                            'title' => 'Đã bán phẩm này',
-                        ));
+                        if($product->status!=Product::STATUS_SOLD)
+                        {
+                            echo CHtml::link('<i class="icon-shopping-cart"></i> ' . LanguageUtil::t('Sold'), array('/upload/delete'), array(
+                                'class' => 'btn btn-square p-sold',
+                                'data-toggle' => 'tooltip',
+                                'title' => 'Đã bán phẩm này',
+                            ));
+                        }
+                        else{
+                            echo CHtml::link('<i class="icon-remove"></i> ' . LanguageUtil::t('Remove'), array('/upload/delete'), array(
+                                'class' => 'btn btn-square p-sold',
+                                'data-toggle' => 'tooltip',
+                                'title' => 'Xóa phẩm này',
+                            ));
+                        }
                         ?>             
                     <?php endif; ?>
                 <?php endif; ?>

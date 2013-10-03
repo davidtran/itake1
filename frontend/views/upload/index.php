@@ -209,13 +209,16 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                         <label><?php echo LanguageUtil::t('Please choose one or many fanpages to share your post (optional)'); ?></label>
                                         <?php echo CHtml::checkBoxList('FacebookPage[]', '', $pages); ?>
                                     </div>                                                                         
-                                <?php else: ?>
+                                <?php elseif(strlen(Yii::app()->user->model->fbId)>0): ?>
                                     <div class="row-fluid" style="margin-left:10px;">
                                         Kết nối tới Facebook bị lỗi hoặc iTake chưa đủ quyền để đăng tin lên profile và fanpage do bạn quản lý.
                                         <br/>
                                     <?php echo FacebookUtil::getInstance()->makeFacebookLoginLink('Click để kết nối iTake với Facebook', $this->createUrl('/upload')); ?>
                                     </div>
-
+                                <?php else:?>
+                                    Bạn chưa kết nối tài khoản với facebook nên bạn không thể đăng tin lên facebook của bạn và fanpage bán hàng.
+                                    <br/>
+                                    <?php echo FacebookUtil::getInstance()->makeFacebookLoginLink('Click để kết nối iTake với Facebook', $this->createUrl('/upload')); ?>
                                 <?php endif; ?>
                             </div>
 

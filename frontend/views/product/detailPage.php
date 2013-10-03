@@ -57,7 +57,16 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                         </div>
                                                         <div class="span6">
                                             <h4 class="product-detail-tag"><?php LanguageUtil::echoT('Seller') ?></h4>
-                                                            <i class="icon-user"></i>  <?php echo $product->user->getUserProfileLink(); ?><br/>
+                                                            <?php
+                                                            echo UserImageUtil::renderImage($product->user,array(
+                                                                'width' => 30,
+                                                                'height' => 30,
+                                                                'style' => 'width: 30px;
+                                            height: 30px;',
+                                                                'class' => 'img-circle',
+                                                            ));
+                                                            ?>
+                                                            <?php echo $product->user->getUserProfileLink(); ?><br/>
                                                         </div>
                                                     </div>                                                
                                                     <div class="row-fluid">

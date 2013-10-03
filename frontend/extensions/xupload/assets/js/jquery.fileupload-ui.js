@@ -47,9 +47,9 @@
             // allowed to be uploaded using this widget:
             maxNumberOfFiles: 6,
             // The maximum allowed file size:
-            maxFileSize: 5000000,
+            maxFileSize: 30000000,
             // The minimum allowed file size:
-            minFileSize: 100000,
+            minFileSize: 10000,
             // The regular expression for allowed file types, matches
             // against either file type or file name:
             acceptFileTypes:  /.+$/i,

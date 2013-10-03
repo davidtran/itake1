@@ -32,10 +32,9 @@ $(document).ready(function() {
     });
 
     $('#userProductContainer').height($('#mainProductInfo').height());
-
     commentWidth = $('#commentContainer').width();
     loadImageSlider();
-
+    loadImageSlideShow();
 });
 $(document).live("facebook:ready", function() {
     setCommentFullWidth();
@@ -107,7 +106,7 @@ function loadProduct(href, htmlProductId)
                 currentProduct = product;
 
                 loadUserProduct(product);
-                
+                loadImageSlideShow();
                 //$('.modal-scrollable').scrollTop(0); // work only in modal
                 //$('body').scrollTop(0); // work in single page
                 if ($dialog.css('display') == 'none') {
@@ -142,16 +141,7 @@ function loadProduct(href, htmlProductId)
                             alwaysVisible: false,
                         });
                     });
-                    $('.popup-gallery').magnificPopup({
-                          delegate: 'a',
-                          type: 'image',
-                          mainClass: 'mfp-img-mobile',
-                          gallery: {
-                            enabled: true,
-                            navigateByImgClick: true,
-                            preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-                          },
-                    });
+                    loadImageSlideShow();
                     addthis.toolbox('.addthis_toolbox');
                     $('#btnShowMap').live('click', function(e) {
                         e.preventDefault();
@@ -230,6 +220,18 @@ function loadUserProduct(product) {
         masonryHorizontal: {
             rowHeight: 360
         }
+    });
+}
+function loadImageSlideShow(){
+     $('.popup-gallery').magnificPopup({
+        delegate: 'a',
+        type: 'image',
+        mainClass: 'mfp-img-mobile',
+        gallery: {
+                enabled: true,
+                navigateByImgClick: true,
+                preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+            },
     });
 }
 ///

@@ -124,7 +124,7 @@ class UploadController extends Controller
             if (isset($_POST['Product'])) {
                 $product->attributes = $_POST['Product'];
 
-                if ($this->haveUploadedImage() && $product->validate(null, false)) {
+                if ($this->haveUploadedImage($product) && $product->validate(null, false)) {
                     if ($product->save(true)) {
                         $this->saveUploadedImage($product);
                         $this->solrImportProduct($product);
@@ -159,13 +159,19 @@ class UploadController extends Controller
         return $this->createUrl('step2', array('category' => $category->id, 'name' => $category->name));
     }
 
-    public function haveUploadedImage()
+    public function haveUploadedImage(Product $product=null)
     {
         $userFiles = Yii::app()->user->getState(self::IMAGE_STATE_VARIABLE, array());
+
         if (count($userFiles) > 0) {
             return true;
         }
         else {
+            if($product!=null)
+            {
+                $productImages =  ProductImage::model()->findAll("product_id=:product_id",array(':product_id'=>$product->id));
+                return count($productImages)>0;
+            }
             return false;
         }
     }

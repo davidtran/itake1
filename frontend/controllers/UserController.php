@@ -94,7 +94,7 @@ class UserController extends Controller
                     if ($user == null) {
                         $user = new User();
                         $user->email = $profile['email'];
-                        $user->password = StringUtil::generateRandomString(25);
+                        //$user->password = StringUtil::generateRandomString(25);
                         $original = $profile['first_name'] . ' ' . $profile['last_name'];
                         $username = $original;
                         $increment = 1;
@@ -110,7 +110,6 @@ class UserController extends Controller
                         $user->isFbUser = 1;
                     }
                     else {
-
                         $user->fbId = $profile['id'];
                         $user->isFbUser = 1;
                     }

@@ -111,9 +111,9 @@ $(document).ready(function() {
         animationOutSpeed: 200, // Animation out speed (ms)
         scrollText: '', // Text for element
         activeOverlay: false // Set CSS color to display scrollUp active point, e.g '#00FFFF'
-    });
-   
-});
+
+    });      
+
 function resetScroll(){
     $.scrollUp.destroy();
     $.scrollUp({
