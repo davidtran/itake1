@@ -142,6 +142,16 @@ function loadProduct(href, htmlProductId)
                             alwaysVisible: false,
                         });
                     });
+                    $('.popup-gallery').magnificPopup({
+                          delegate: 'a',
+                          type: 'image',
+                          mainClass: 'mfp-img-mobile',
+                          gallery: {
+                            enabled: true,
+                            navigateByImgClick: true,
+                            preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+                          },
+                    });
                     addthis.toolbox('.addthis_toolbox');
                     $('#btnShowMap').live('click', function(e) {
                         e.preventDefault();

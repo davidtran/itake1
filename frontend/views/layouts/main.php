@@ -39,6 +39,8 @@
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/flexslider/jquery.flexslider-min.js', CClientScript::POS_HEAD);       
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/common.js', CClientScript::POS_HEAD);
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/feedback.js', CClientScript::POS_HEAD);
+        Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/js/magnific/magnific-popup.css');
+         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/magnific/jquery.magnific-popup.min.js', CClientScript::POS_HEAD);
         ?>
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-combined.no-icons.min.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/font-awesome.min.css" />
