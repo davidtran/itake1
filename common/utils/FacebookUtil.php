@@ -156,6 +156,17 @@ class FacebookUtil
                     'redirect_uri' => Yii::app()->controller->createAbsoluteUrl('/user/register')
         ));
     }
+    public static function makeFacebookLoginUrlNew($returnUrl = null)
+    {
+        if ($returnUrl == null) {
+            $returnUrl = Yii::app()->controller->createAbsoluteUrl('/site/index');
+        }
+        Yii::app()->controller->setReturnUrl($returnUrl);
+        return Yii::app()->facebook->getLoginUrl(array(
+            'scope' => 'email,publish_stream,user_photos,manage_pages',
+            'redirect_uri' => Yii::app()->controller->createAbsoluteUrl('/user/bindAccountFacebook')
+        ));
+    }
 
     public static function makeFacebookLoginLink($text = null, $returnUrl = null, $options = array())
     {
@@ -163,7 +174,7 @@ class FacebookUtil
             $text = 'Đăng nhập bằng Facebook';
 
         return CHtml::link(
-                        $text, self::makeFacebookLoginUrl($returnUrl), CMap::mergeArray(array(
+                        $text, self::makeFacebookLoginUrlNew($returnUrl), CMap::mergeArray(array(
                             'id' => 'fb-timeline-btn',
                             'class' => 'special-btn facebook badge-add-fb-timeline',                        
                                 ), $options)
