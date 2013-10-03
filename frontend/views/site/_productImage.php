@@ -11,7 +11,7 @@
             ?>        
         <?php endif; ?>        
     </a>
-    <?php if($product->status==3): ?>
+    <?php if($product->status==Product::STATUS_SOLD): ?>
     <div class="productSoldBg">
         <i class="icon-bookmark"></i>
     </div>
@@ -61,7 +61,7 @@
                         ?>
 
                         <?php
-                        if($product->status!=3)
+                        if($product->status!=Product::STATUS_SOLD)
                         {
                             echo CHtml::link('<i class="icon-shopping-cart"></i> ' . LanguageUtil::t('Sold'), array('/upload/delete'), array(
                                 'class' => 'btn btn-square p-sold',
