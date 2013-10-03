@@ -15,7 +15,6 @@ var product;
 
 $(document).ready(function() {
     $('#special').hide();
-    loadImageSlideShow();
     $dialog = $('#productDialog');
     $relateProductContainer = $('#relateProductList');
     $side = $('#userProductList');
@@ -33,10 +32,9 @@ $(document).ready(function() {
     });
 
     $('#userProductContainer').height($('#mainProductInfo').height());
-
     commentWidth = $('#commentContainer').width();
     loadImageSlider();
-
+    loadImageSlideShow();
 });
 $(document).live("facebook:ready", function() {
     setCommentFullWidth();
@@ -108,7 +106,7 @@ function loadProduct(href, htmlProductId)
                 currentProduct = product;
 
                 loadUserProduct(product);
-                
+                loadImageSlideShow();
                 //$('.modal-scrollable').scrollTop(0); // work only in modal
                 //$('body').scrollTop(0); // work in single page
                 if ($dialog.css('display') == 'none') {
