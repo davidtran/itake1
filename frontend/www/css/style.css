@@ -2053,3 +2053,27 @@ div.sort-bar{
 .span5.in{
     display: inline-block;
 }
+.productSoldWrapper{
+    width:100px;
+    background: transparent;
+    text-align: center;
+    position: absolute;
+    top:0;
+    right:0;
+    padding-top:10px;
+    color:#006AA8;
+    height: 90px;
+    font-family: "Segoe UI Light",Arial,Helvetica,sans-serif;
+}
+div.productSoldBg{
+    font-size: 8em;
+    width:100px;
+    background: transparent;
+    text-align: center;
+    position: absolute;
+    top:-25px;
+    right:0;
+    padding-top:10px;
+    height: 90px;
+    color:rgba(255,255,255,0.7);
+}
