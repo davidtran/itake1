@@ -34,7 +34,7 @@ class FacebookUtil
             $this->_accessToken = $accessToken;           
             Yii::app()->facebook->setAccessToken($accessToken);
         }else{
-            if ($this->checkTokenValid($accessToken)) {
+            if ($this->checkTokenValid($accessToken)!==false) {
                 $this->_accessToken = $accessToken;           
                 Yii::app()->facebook->setAccessToken($accessToken);
             }
