@@ -149,7 +149,7 @@ class UserController extends Controller
                 }
             }
             catch (FacebookApiException $e) {
-                //do nothing
+                Yii::app()->controller->redirect(FacebookUtil::getInstance()->makeFacebookLoginUrl());
             }
         }
         $user = new User('register');
