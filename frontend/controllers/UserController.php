@@ -129,7 +129,7 @@ class UserController extends Controller
                     $user->save();
                     FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
                     FacebookUtil::getInstance()->setExtendedAccessToken();
-                    Yii::app()->session->add('CheckedAccessToken', true);
+                    Yii::app()->request->cookies['CheckedAccessToken'] = new CHttpCookie('CheckedAccessToken',1);
                     $loginForm = new FacebookLoginForm();
                     $loginForm->username = $user->email;
                     $loginForm->validate();

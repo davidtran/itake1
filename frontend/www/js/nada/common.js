@@ -113,7 +113,7 @@ $(document).ready(function() {
         activeOverlay: false // Set CSS color to display scrollUp active point, e.g '#00FFFF'
 
     });      
-
+});
 function resetScroll(){
     $.scrollUp.destroy();
     $.scrollUp({
