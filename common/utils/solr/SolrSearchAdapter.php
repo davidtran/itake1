@@ -167,7 +167,7 @@ class SolrSearchAdapter
      * return a solr friendly array of facebook friend
      */
     protected function getFacebookFriendString(){
-        if( ! Yii::app()->user->isFacebookUser){
+        if( !FacebookUtil::getInstance()->doUserHaveEnoughUploadPermission()){
             throw new CException('User must login to facebook first');
         }
         try{

@@ -37,7 +37,7 @@ class UserIdentity extends CUserIdentity
             'email' => $this->email
         ));
         if ($user == null)
-            $this->errorCode = self::ERROR_EMAIL_INVALID;
+            return self::ERROR_EMAIL_INVALID;
         if($user!=null&&$user->isFbUser!=TRUE)
         {
             if ($user->password != md5(md5($this->password) . $user->salt))

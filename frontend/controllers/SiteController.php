@@ -134,7 +134,7 @@ class SiteController extends Controller
         $numFound = 0;
         $locationAddress= null;
         $locationCity = null;
-        if($facebook && Yii::app()->user->isFacebookUser == false){
+        if($facebook && !FacebookUtil::getInstance()->doUserHaveEnoughUploadPermission()){
             $requiredFacebookLogin = true;            
         }else{
             $solrAdapter = new SolrSearchAdapter();
