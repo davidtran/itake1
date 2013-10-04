@@ -93,12 +93,13 @@ class UserController extends Controller
             }
         }
     }
+    
     public function actionRegister()
     {
         if (Yii::app()->user->isGuest == false) {
             $this->redirect('/site/index',true);
         }
-        $user = new User('register');
+        
         if (isset($_GET['code'])) {
             try {
                 $profile = Yii::app()->facebook->api('/me');
@@ -151,7 +152,7 @@ class UserController extends Controller
                 //do nothing
             }
         }
-
+        $user = new User('register');
         if (isset($_POST['User'])) {
             $user->attributes = $_POST['User'];
             if (isset(Yii::app()->session['LastFbId'])) {
