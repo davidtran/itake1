@@ -48,15 +48,8 @@
             $image = WideImage::load($url);
             if ($image)
             {
-                $scale = null;
-                if($width > $height){
-                    $scale = $width / $height;
-                }else{
-                    $scale = $height / $width;                    
-                }
-                $resizeWidth = $image->getWidth() / $scale;
-                $resizeHeight = $image->getHeight() / $scale;
-                $image->resizeDown($resizeWidth, $resizeHeight,'outside')->saveToFile($resizedUrl, 80);
+              
+                $image->resizeDown($width, $height,'inside')->saveToFile($resizedUrl, 80);
                 return true;
             }
             return false;
