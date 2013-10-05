@@ -64,7 +64,7 @@ $(document).ready(function() {
                 speed: 'fast',
                 start: undefined
             },
-            extraScrollPx: 150,
+            extraScrollPx: 150
             
         }, 
         function(newItems) {
