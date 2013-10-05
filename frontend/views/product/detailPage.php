@@ -8,7 +8,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
 <div class="row-fluid"  style="margin-top: 64px;">
     
         <div class="close_tag" style="top:45px;"> 
-            <a style="padding:20px;" class="close"  href="<?php $this->createUrl('/site/index'); ?>"><i class="icon-home"></i></a>
+            <a style="padding:20px;" class="close"  href="<?php echo $this->createUrl('/site/index'); ?>"><i class="icon-home"></i></a>
         </div>
 
         <div id="detailProduct"style="display: block; margin-top: 0px;">                    
