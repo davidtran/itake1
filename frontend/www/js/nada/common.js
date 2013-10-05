@@ -154,11 +154,12 @@ function alignDiv()
             productItem = $(this).parents('.productItem');
             productId = productItem.attr('data-product-id');
             productIdHtml = productItem.attr('id');
+            productTitle = productItem.attr('data-title');
             //loadProduct(link,productIdHtml);
             History.pushState({
                 productIdHtml: productIdHtml,
                 dlgPush: true
-            }, getProductTitle(link), link);
+            }, productTitle, link);
             return false;
         });
     });

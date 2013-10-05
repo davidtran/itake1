@@ -1,4 +1,7 @@
-<div class="productItem <?php echo $product->category->getStyleName(); ?>" id="<?php echo $prefix ?>product-<?php echo $product->id; ?>" data-product-id="<?php echo $product->id; ?>">
+<div class="productItem <?php echo $product->category->getStyleName(); ?>" 
+     id="<?php echo $prefix ?>product-<?php echo $product->id; ?>" 
+     data-product-id="<?php echo $product->id; ?>"
+     data-title="<?php echo $product->title; ?>">
     <div class="row-fluid">
         <div class="product-detail">
             <?php echo Yii::app()->controller->renderPartial('/site/_productImage', array(

@@ -3,6 +3,7 @@
 var $container;
 var ms;
 var page = 0;
+var stopLoad = false;
 $(document).ready(function(){
     $('.thumbnails li.span3:nth-child(4n+1)').css({clear:'left',marginLeft:0});	
 });
@@ -44,29 +45,35 @@ $(document).ready(function() {
           }
     });    
     initCheckBottom(function(){
-        page++;
-        $.ajax({
-            url:BASE_URL + '/site/index',
-            data:{
-                city:city,
-                category:category,
-                keyword:keyword,              
-                facebook:facebook,
-                status:status,
-                page:page
-            },
-            success:function(jsons){
-                var data = $.parseJSON(jsons);
-                if(data.success){
-                    if(data.msg.count > 0){
-                        $container.isotope('insert',$(data.msg.items));
-                        
-                    }else{
-                        console.log('out of stock');
+        if(stopLoad == false){
+            page++;
+            $.ajax({
+                url:BASE_URL + '/site/index',
+                data:{
+                    city:city,
+                    category:category,
+                    keyword:keyword,              
+                    facebook:facebook,
+                    status:status,
+                    page:page
+                },
+                success:function(jsons){
+                    var data = $.parseJSON(jsons);
+                    if(data.success){
+                        if(data.msg.count > 0){
+                            $container.isotope('insert',$(data.msg.items));
+
+                        }else{
+                            stopLoad = true;
+                            showMessage("Không còn sản phẩm nào nữa để tải");
+                        }
                     }
                 }
-            }
-        });
+            });
+        }else{
+            showMessage("Không còn sản phẩm nào nữa để tải");
+        }
+        
     });
 });
  setInterval(function(){
