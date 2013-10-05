@@ -1,4 +1,5 @@
 <?php
+
 $frontendConfigDir = dirname(__FILE__);
 
 $root = $frontendConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
@@ -21,9 +22,9 @@ $config = CMap::mergeArray(
                 array(
             'basePath' => 'frontend',
             'params' => $params,
-            'preload' => array('log', 'bootstrap','country'),
-            'language' => 'vi',      
-            'sourceLanguage'=>'en',      
+            'preload' => array('log', 'bootstrap', 'country'),
+            'language' => 'vi',
+            'sourceLanguage' => 'en',
             'import' => array(
                 'common.components.*',
                 'common.extensions.*',
@@ -32,18 +33,18 @@ $config = CMap::mergeArray(
                 'common.utils.solr.*',
                 'application.components.*',
                 'application.controllers.*',
-                'application.models.*',   
+                'application.models.*',
                 'application.utils.*',
             ),
-            'modules'=>array(
+            'modules' => array(
                 'api'
-            ),        
-            'name' => 'iTake.me',            
+            ),
+            'name' => 'iTake.me',
             'components' => array(
-                'country'=>array(
-                    'class'=>'application.components.CountryManagement',
-                    'defaultCountry'=>$params['country.default'],
-                    'isFixed'=>true,
+                'country' => array(
+                    'class' => 'application.components.CountryManagement',
+                    'defaultCountry' => $params['country.default'],
+                    'isFixed' => true,
                 ),
                 'errorHandler' => array(
                     'errorAction' => 'site/error'
@@ -53,7 +54,7 @@ $config = CMap::mergeArray(
                     'responsiveCss' => true,
                 ),
                 'clientScript' => array(
-                    'class'=>'frontend.components.ClientScript',
+                    'class' => 'frontend.components.ClientScript',
                     'scriptMap' => array(
                         'jquery.js' => false,
                         'jquery.min.js' => false,
@@ -72,11 +73,11 @@ $config = CMap::mergeArray(
                 ),
                 // uncomment the following to enable URLs in path-format
                 'urlManager' => array(
-                    'class'=>'frontend.components.UrlManager',
+                    'class' => 'frontend.components.UrlManager',
                     'urlFormat' => 'path',
                     'showScriptName' => false,
                     'caseSensitive' => false,
-                    'urlSuffix'=>'.html',
+                    'urlSuffix' => '.html',
                     'rules' => array(
                         'post/<id:\d+>/<title:.*?>' => '/product/details',
                         'register' => 'user/register',
@@ -84,14 +85,13 @@ $config = CMap::mergeArray(
                         'category/<category:\d+>/<name:.*?>' => '/site/category',
                         'city/<id:\d+>/<name:.*?>' => 'site/city',
                         'post-ad/<category:\d+>/<name:.*?>' => '/upload/uploadNew',
-                        'forgot-password'=>'user/forgetPassword',
-                        'change-password'=>'user/changePassword',  
-                        'welcome'=>'site/landing',
-                        'market/<action>'=>'site/<action>',
-                        'market'=>'site',                                                                
+                        'forgot-password' => 'user/forgetPassword',
+                        'change-password' => 'user/changePassword',
+                        'welcome' => 'site/landing',
+                        'market/<action>' => 'site/<action>',
+                        'market' => 'site',
                         'upload/<category:\d+>/<name:.*?>' => '/upload/index',
-                        'connect-facebook'=>'/user/facebookLogin',
-                        
+                        'connect-facebook' => '/user/facebookLogin',
                     ),
                     'hostInfo' => $params['urlManager.hostInfo'],
                     'secureHostInfo' => $params['urlManager.secureHostInfo'],
@@ -122,7 +122,19 @@ $config = CMap::mergeArray(
                     'errorAction' => 'site/error',
                 ),
                 'log' => array(
-                    'class' => 'CLogRouter',              
+                    'class' => 'CLogRouter',
+                    'routes' => array(
+                        array(
+                            'class' => 'CFileLogRoute',
+                            'levels' => 'trace, info',
+                            'categories' => 'system.*',
+                        ),
+                        array(
+                            'class' => 'CEmailLogRoute',
+                            'levels' => 'error, warning',
+                            'emails' => 'admin@example.com',
+                        ),
+                    ),
                 ),
                 'db' => array(
                     'connectionString' => $params['db.connectionString'],

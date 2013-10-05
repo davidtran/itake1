@@ -29,17 +29,9 @@ class ProductImageUtil
             $normalFontSize = 30;            
             $marginLeft = 20;        
             if($image->getWidth() > 1024){
-                $image = $image->resize(1024, 768, 'inside', 'down');                
+                $image = $image->resize(1024, 768, 'outside', 'down');                
                 $titleFontSize = 50;
                 $textFontSize = 40;                                
-            }else if($image->getWidth() > 640){                
-                $titleFontSize = 35;
-                $textFontSize = 27;
-                $marginLeft = 15;                                   
-            }else{                
-                $titleFontSize = 25;
-                $textFontSize = 20;
-                $marginLeft = 10;   
             }
             
             $newImageWidth =  $image->getWidth();

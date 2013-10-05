@@ -174,7 +174,7 @@ $this->
                 <?php LanguageUtil::echoT('Comments') ?></h3>
         </div>
         <div class="row-fluid">
-            <div class="fb-comments margin-top-20" data-href="<?php echo $canonicalUrl. "?v=1"; ?>" data-width="" data-num-posts="10"></div>
+            <div class="fb-comments margin-top-20" data-href="<?php echo $canonicalUrl; ?>" data-width="" data-num-posts="10"></div>
         </div>
     </div>
 </div>

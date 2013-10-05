@@ -5,16 +5,15 @@ class FacebookAccessCheckerFilter extends CFilter
 
     public function preFilter($filterChain)
     {
-        unset($_SESSION['Registry_FacebookAccessToken']);
-        unset($_SESSION['CheckedAccessToken']);
+//        unset($_SESSION['Registry_FacebookAccessToken']);
+//        unset($_SESSION['CheckedAccessToken']);
         Yii::beginProfile('FacebookFilter');
         //only check if User is connected with Facebook and it's not a ajax request                  
         if (Yii::app()->user->isFacebookUser && !Yii::app()->request->isAjaxRequest) {
             $fbUtil = FacebookUtil::getInstance();
             $userId = Yii::app()->user->getId();
-            if (isset(Yii::app()->request->cookies['CheckedAccessToken'])){
-                Yii::app()->request->cookies['CheckedAccessToken'] = new CHttpCookie('CheckedAccessToken',1);
-
+            if ( ! isset(Yii::app()->session['CheckedAccessToken'])){
+                Yii::app()->session['CheckedAccessToken'] = true;
                 $lastAccessToken = $fbUtil->getSavedUserToken($userId);
                 try {
                     $fbUtil->setAccessToken($lastAccessToken, true);
@@ -23,7 +22,8 @@ class FacebookAccessCheckerFilter extends CFilter
                 }
                 catch (Exception $e) {
                     Yii::app()->session->add('FacebookConnectFailed',true);
-                    Yii::app()->user->logout();
+                    Yii::app()->session->remove('FacebookAccessToken');                    
+                    Yii::app()->user->logout(false);
                 }
             }
             if (false !== $accessToken = Yii::app()->session->get('FacebookAccessToken', false)) {

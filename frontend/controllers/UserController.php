@@ -73,7 +73,9 @@ class UserController extends Controller
     {
         
     }
-    public function  actionBindAccountFacebook(){
+
+    public function actionBindAccountFacebook()
+    {
         if (isset($_GET['code'])) {
             try {
                 $profile = Yii::app()->facebook->api('/me');
@@ -81,9 +83,10 @@ class UserController extends Controller
                     $currentUser = Yii::app()->user->model;
                     $currentUser->fbId = $profile['id'];
                     $currentUser->save();
-                    Yii::app()->controller->redirect( Yii::app()->controller->getReturnUrl());
+                    Yii::app()->controller->redirect(Yii::app()->controller->getReturnUrl());
                 }
-            } catch (FacebookApiException $e) {
+            }
+            catch (FacebookApiException $e) {
                 // in here you can look at the Exception $e, and determine if it's an expired
                 // access token error, and if it is, you can redirect your user somewhere to
                 // re-authenticate if you want - either by redirecting them to the login page,
@@ -93,24 +96,26 @@ class UserController extends Controller
             }
         }
     }
-    
+
     public function actionRegister()
     {
         if (Yii::app()->user->isGuest == false) {
-            $this->redirect('/site/index',true);
+            $this->redirect('/site/index', true);
         }
-        
+
         if (isset($_GET['code'])) {
             try {
                 $profile = Yii::app()->facebook->api('/me');
                 //  var_dump($profile);exit;
                 if (isset($profile['email'])) {
                     if (Yii::app()->user->isGuest == false) {
-                        $user = Yii::app()->user->getModel();                        
+
+
+                        $user = Yii::app()->user->getModel();
                     }
                     else {
                         $user = UserUtil::getUserByEmail($profile['email']);
-                    }                    
+                    }
                     if ($user == null) {
                         $user = new User();
                         $user->email = $profile['email'];
@@ -135,17 +140,17 @@ class UserController extends Controller
                         $user->isFbUser = 1;
                     }
                     //$user->allowUpdateWithoutCaptcha = true;
-                    
+
                     $user->save();
                     FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
                     FacebookUtil::getInstance()->setExtendedAccessToken();
-                    Yii::app()->request->cookies['CheckedAccessToken'] = new CHttpCookie('CheckedAccessToken',1);
+                    Yii::app()->session['CheckedAccessToken'] = true;
                     $loginForm = new FacebookLoginForm();
                     $loginForm->username = $user->email;
                     $loginForm->validate();
                     $loginForm->login();
                     $siteUrl = $this->createUrl('/site/index');
-                    $this->redirect($siteUrl);                    
+                    $this->redirect($siteUrl);
                 }
             }
             catch (FacebookApiException $e) {
@@ -298,13 +303,13 @@ class UserController extends Controller
         $this->canonical = $this->createAbsoluteUrl('/user/changePassword');
         if (Yii::app()->user->isGuest == false) {
             $model = new ChangePasswordForm();
-            $model->user_id = Yii::app()->user->getId();        
+            $model->user_id = Yii::app()->user->getId();
             if (isset($_POST['ChangePasswordForm'])) {
                 $model->attributes = $_POST['ChangePasswordForm'];
-                
+
                 if ($model->changePassword()) {
-                    
-                    UserRegistry::getInstance()->setValue('HaveChangedPassword',true);
+
+                    UserRegistry::getInstance()->setValue('HaveChangedPassword', true);
                     Yii::app()->user->setFlash('success', 'Đổi mật khẩu thành công');
                 }
                 else {
@@ -315,16 +320,19 @@ class UserController extends Controller
                 $model->oldPassword = null;
             }
             //$model->unsetAttributes();
-            
+
             $this->render('changePassword', array(
-                'model' => $model,                
+                'model' => $model,
             ));
         }
         else {
             $this->redirect(array('login'));
         }
     }
-    public function  actionChat(){
+
+    public function actionChat()
+    {
         $this->render('chat');
     }
+
 }

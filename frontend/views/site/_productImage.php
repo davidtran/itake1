@@ -8,7 +8,11 @@
                 'onError' => "this.onerror=null;this.src='http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP';"
                     )
             );
-            ?>        
+            ?>   
+        <?php else:?>
+            <?php echo CHtml::image('http://www.placehold.it/400x400/EFEFEF/AAAAAA&text='.Yii::t('Default', 'Missing image'),$product->title,array(
+                'class'=>"productImage"
+            ));?>
         <?php endif; ?>        
     </a>
     <?php if($product->status==Product::STATUS_SOLD): ?>

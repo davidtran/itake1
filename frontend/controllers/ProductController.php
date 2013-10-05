@@ -82,11 +82,12 @@ class ProductController extends Controller
             {
                 $this->addMetaProperty('og:image', Yii::app()->getBaseUrl(true) . '/' . $product->image);
             }
-            $this->addMetaProperty('og:url', $canonicalUrl . "?v=1");
+            $this->addMetaProperty('og:url', $canonicalUrl);
             $this->addMetaProperty('og:type', 'product');
             $this->addMetaProperty('fb:app_id', Yii::app()->params['facebook.appId']);
             $this->metaDescription = StringUtil::limitByWord($product->description, 100);
             $this->metaKeywords = str_replace(' ', ',', strtolower(preg_replace('/[^0-9a-z\s]/', '', $product->title)));
+            $this->canonical = $canonicalUrl;
             $this->render('detailPage', array(
                 'product' => $product,
                 'relateProductList' => $relateProductList,

@@ -169,7 +169,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                 <?php LanguageUtil::echoT('More like this') ?></h3>uid">
                     <div class="span12 custom">
                         <h3 class="title_font" style="text-transform:uppercase;"><?php LanguageUtil::echoT('Comments') ?></h3>
-                        <div class="fb-comments" data-href="<?php echo $canonicalUrl. "?v=1"; ?>" data-width="" data-num-posts="10"></div>
+                        <div class="fb-comments" data-href="<?php echo $canonicalUrl; ?>" data-width="" data-num-posts="10"></div>
                     </div>
                 </div>
                     <?php if(count($relateProductList)>0): ?>

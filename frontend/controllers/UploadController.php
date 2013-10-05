@@ -346,14 +346,9 @@ class UploadController extends Controller
     public function actionDeleteImage($id)
     {
         $image = ProductImage::model()->findByPk($id);
-        if ($image) {
-            if($image->product != null && $image->product->imageCount > 1){
-                $image->delete();
-                $this->renderAjaxResult(true);
-            }else{
-                $this->renderAjaxResult(false,'Sản phẩm phải có ít nhất một sản phẩm. Bạn cần upload hình ảnh khác trước khi xóa ảnh này.');
-            }
-            
+        if ($image) {            
+            $image->delete();
+            $this->renderAjaxResult(true);            
         }
         else {
             $this->renderAjaxResult(false, Yii::t('Default', 'Image is not exist'));

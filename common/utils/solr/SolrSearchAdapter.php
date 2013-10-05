@@ -123,6 +123,10 @@ class SolrSearchAdapter
         $solr = Yii::app()->solrProduct->getClient();
         try {
             $response = $solr->search($this->makeQuery(), $this->getOffset(), $this->pageSize, $this->makeParam());
+            Yii::log(json_encode(array(
+                $this->makeQuery(),
+                $this->makeParam()
+            )),  CLogger::LEVEL_INFO,'solr');
             return $this->postSearch($response);
         }
         catch (Apache_Solr_HttpTransportException $e) {

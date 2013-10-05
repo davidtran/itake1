@@ -2,7 +2,7 @@
 $cs = Yii::app()->clientScript;
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/btfileupload/bootstrap-fileupload.min.js', CClientScript::POS_HEAD);
 $cs->registerCssFile(Yii::app()->baseUrl . '/js/btfileupload/bootstrap-fileupload.min.css');
-Yii::app()->clientScript->registerScriptFile('//maps.google.com/maps/api/js?sensor=false', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('//maps.google.com/maps/api/js?sensor=false', CClientScript::POS_END,false);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/gmaps.js', CClientScript::POS_END);
 $placeholderImage = "http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=" . Yii::t('Default', 'Your ad image');
 $productInfo = json_encode($product->attributes);
