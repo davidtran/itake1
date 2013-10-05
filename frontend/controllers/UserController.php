@@ -46,13 +46,20 @@ class UserController extends Controller
             $loginForm->username = $_POST['LoginForm']['username'];
             $loginForm->password = $_POST['LoginForm']['password'];
             if ($loginForm->validate() && $loginForm->login()) {
-                $siteUrl = $this->createUrl('/site/index');
-                if ($this->hasReturnUrl()) {
-                    $this->redirectToReturnUrl();
+                //a login user by email can still be a facebook user
+                if(Yii::app()->user->isGuest ==false && Yii::app()->user->isFacebookUser){
+                    $this->redirect(FacebookUtil::getInstance()->makeFacebookLoginUrl($this->createUrl('/site/index')));
+                }else{
+                    
+                    if ($this->hasReturnUrl()) {
+                        $this->redirectToReturnUrl();
+                    }
+                    else {
+                        $siteUrl = $this->createUrl('/site/index');
+                        $this->redirect($siteUrl);
+                    }
                 }
-                else {
-                    $this->redirect($siteUrl);
-                }
+                
             }
             $loginForm->password = '';
         }
@@ -98,20 +105,14 @@ class UserController extends Controller
     }
 
     public function actionRegister()
-    {
-        if (Yii::app()->user->isGuest == false) {
-            $this->redirect('/site/index', true);
-        }
-
+    {       
         if (isset($_GET['code'])) {
             try {
-                $profile = Yii::app()->facebook->api('/me');
-                //  var_dump($profile);exit;
+                $profile = Yii::app()->facebook->api('/me');               
                 if (isset($profile['email'])) {
                     if (Yii::app()->user->isGuest == false) {
-
-
                         $user = Yii::app()->user->getModel();
+                        
                     }
                     else {
                         $user = UserUtil::getUserByEmail($profile['email']);
@@ -154,7 +155,8 @@ class UserController extends Controller
                 }
             }
             catch (FacebookApiException $e) {
-                Yii::app()->controller->redirect(FacebookUtil::getInstance()->makeFacebookLoginUrl());
+                Yii::app()->user->setFlash('error','Kết nối với Facebook bị lỗi, vui lòng thử lại sau.');
+                $this->redirect($this->createUrl('/user/login'));
             }
         }
         $user = new User('register');

@@ -174,7 +174,7 @@ class FacebookUtil
             $text = 'Đăng nhập bằng Facebook';
 
         return CHtml::link(
-                        $text, self::makeFacebookLoginUrlNew($returnUrl), CMap::mergeArray(array(
+                        $text, self::makeFacebookLoginUrl($returnUrl), CMap::mergeArray(array(
                             'id' => 'fb-timeline-btn',
                             'class' => 'special-btn facebook badge-add-fb-timeline',                        
                                 ), $options)

@@ -14,7 +14,7 @@ class FacebookAccessCheckerFilter extends CFilter
             $userId = Yii::app()->user->getId();
             if ( ! isset(Yii::app()->session['CheckedAccessToken'])){
                 Yii::app()->session['CheckedAccessToken'] = true;
-                $lastAccessToken = $fbUtil->getSavedUserToken($userId);
+                $lastAccessToken = $fbUtil->getSavedUserToken($userId);                
                 try {
                     $fbUtil->setAccessToken($lastAccessToken, true);
                     Yii::app()->session->add('FacebookAccessToken', $lastAccessToken);
