@@ -1,6 +1,5 @@
 <?php
-$this->
-    pageTitle = $product->title;
+$this->pageTitle = $product->title;
 ?>
 <div class="row-fluid">
     <div class="productInfo">
