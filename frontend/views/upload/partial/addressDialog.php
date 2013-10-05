@@ -11,28 +11,25 @@
                 ));
                 ?>
                 <div class="row-fluid">
-                    <div class="span12">       
-                     <h3>Người mua sẽ liên hệ với bạn qua</h3>
+                   <div class="row-fluid">
+                       <h3 class="title_font center" style="text-transform: uppercase;">Người mua sẽ liên hệ với bạn qua</h3>
+
+                   </div>
+                    <div class="span6">
                      <?php echo $form->dropDownListRow($address, 'city', CityUtil::getCityListData(true), array('style' => 'min-width:274px;')); ?>
 
                      <div id="advanceFeature">  
                          <div class="control-group success">
                              <label class="control-label" for="Address_address">Địa chỉ</label>
                              <div class="controls">
-                                 <input placeholder="Nhập vào địa chỉ và nhấn tìm kiếm" style="min-width:260px;" name="Address[address]" id="Address_address" type="text" maxlength="200">
                                  <?php
-                            echo CHtml::link('<i class="icon-map-marker"></i> Định vị trên bản đồ', '#', array(
-                                'class' => 'btn btn-success',
-                                'id' => 'btnSearchLocation'
-                                ));
-                                ?>
+                                 echo CHtml::link('<i class="icon-map-marker"></i> Định vị', '#', array(
+                                     'class' => 'btn btn-success span5 pull-right',
+                                     'id' => 'btnSearchLocation'
+                                 ));
+                                 ?>
+                                 <input placeholder="Nhập vào địa chỉ và nhấn tìm kiếm" class="span7 pull-left" name="Address[address]" id="Address_address" type="text" maxlength="200">
                                  <span class="help-inline error" id="Address_address_em_" style="display: none;"></span>
-                             </div>
-                         </div>
-                         <div class="control-group">
-                             <label class="control-label" for="te"></label>
-                             <div class="controls">
-                                <p class="alert alert-info" style="width: 230px;">Sau khi nhập vào địa chỉ Bạn cần click vào định vị trí trên bản đồ để người mua dễ dàng liên hê</p>
                              </div>
                          </div>
                         <?php echo $form->textFieldRow($address,'phone',array(
@@ -49,9 +46,15 @@
                             </div>
                             <?php echo $form->hiddenField($address,'lat'); ?>
                             <?php echo $form->hiddenField($address,'lon'); ?>
-
-                            <label><span  class="label label-info"><i class="icon-info"></i></span>  Bạn có thể nhập vào địa chỉ và bấm Enter hoặc chọn trực tiếp trên bản đồ bằng cách nhấp chuột lên địa điểm trên bản đồ</label>
-                        </div>                        
+                        </div>
+                        <div class="span5 center">
+                            <div class="row-fluid alert" style="text-align: left;">
+                                <span class="icon-stack">
+                                    <i class="icon-circle icon-stack-base"></i>
+                                    <i class="icon-info icon-light"></i>
+                                </span>Sau khi nhập vào địa chỉ Bạn cần click vào "Định vị" để người mua dễ dàng liên hê hoặc Bạn có thể nhập vào địa chỉ và bấm Enter hoặc chọn trực tiếp trên bản đồ bằng cách nhấp chuột lên địa điểm trên bản đồ</label>
+                            </div>
+                        </div>
                     </div>
                     <div class='row-fluid'>
                         <div id='mapContainer'>
