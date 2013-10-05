@@ -320,7 +320,7 @@ class FacebookUtil
     public function doUserHaveEnoughUploadPermission()
     {
         try{
-            if (Yii::app()->user->model->fbId!=NULL&&strlen(Yii::app()->user->model->fbId)>0) {
+            if (Yii::app()->user->isFacebookUser) {
                 $data = Yii::app()->facebook->api('/me/permissions', 'get', array(
                     'access_token' => $this->_accessToken
                 ));
