@@ -79,7 +79,7 @@ class SiteController extends Controller
         $url = $this->createUrl('index', array(
             'keyword' => null,
             'category' => Yii::app()->session['LastCategory'],
-            'facebook' => true,
+            'facebook' => 1,
             'page' => 0,
             'status' => Product::STATUS_ACTIVE
         ));
@@ -91,14 +91,14 @@ class SiteController extends Controller
         $url = $this->createUrl('index', array(
             'keyword' => null,
             'category' => Yii::app()->session['LastCategory'],
-            'facebook' => false,
+            'facebook' => 0,
             'page' => 0,
             'status' => Product::STATUS_SOLD
         ));
         $this->redirect($url);
     }
 
-    public function actionIndex($keyword = null, $category = null, $facebook = false, $page = 0, $status = Product::STATUS_ACTIVE)
+    public function actionIndex($keyword = null, $category = null, $facebook = 0, $page = 0, $status = Product::STATUS_ACTIVE)
     {
         if (isset(Yii::app()->request->cookies['usercity_ck']) && Yii::app()->user->isGuest) {
             CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
@@ -187,6 +187,8 @@ class SiteController extends Controller
                 'nextPageLink' => $nextPageLink,
                 'keyword' => $keyword,
                 'categoryModel' => $categoryModel,
+                'category'=>$category,
+                'status'=>$status,
                 'facebook' => $facebook,
                 'empty' => $empty,
                 'locationAddress' => $locationAddress,
@@ -198,14 +200,18 @@ class SiteController extends Controller
         else {
             $html = '';
             if ($empty == false) {
-                $html = $this->renderPartial('/site/_board', array(
-                    'productList' => $productList,
-                    'nextPageLink' => $nextPageLink
+                foreach($productList as $product){
+                    $html.=$product->renderHtml('home-',false);
+                }
+                $this->renderAjaxResult(true,array(
+                    'items'=>$html,
+                    'count'=>count($productList)
+                ));
+            }else{
+                $this->renderAjaxResult(true,array(                    
+                    'count'=>0
                 ));
             }
-
-            echo $html;
-            Yii::app()->end();
         }
     }
 

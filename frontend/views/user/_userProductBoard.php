@@ -1,6 +1,7 @@
 <?php
 $script = <<<HERE
-var page = 1;        
+var page = 1;      
+var stopLoad = false;        
 $(document).ready(function() {
     var board = $('#userProductBoard');
     board.isotope({
@@ -11,27 +12,38 @@ $(document).ready(function() {
         }
     });
     board.isotope('reLayout');    
+        
+    setInterval(function(){
+        $('#productContainer').isotope('reLayout');
+    },500);
+        
     initCheckBottom(function(){
-        page++;
-        $.ajax({
-            url:BASE_URL + '/user/userProductList',
-            data:{
-                page:page,
-                userId:user.id
-            },
-            success:function(jsons){
-                var data = $.parseJSON(jsons);
-                if(data.success){
-                    if(data.msg.count > 0){                        
-                        board.isotope('insert',$(data.msg.items));
-                        page++;
-                    }else{
-                        showMessage("Không còn sản phẩm nào nữa để tải");
-                    }
+        if(false == stopLoad){
+            page++;
+            $.ajax({
+                url:BASE_URL + '/user/userProductList',
+                data:{
+                    page:page,
+                    userId:user.id
+                },
+                success:function(jsons){
+                    var data = $.parseJSON(jsons);
+                    if(data.success){
+                        if(data.msg.count > 0){                        
+                            board.isotope('insert',$(data.msg.items));
+                            page++;
+                        }else{
+                            stopLoad = true;
+                            showMessage("Không còn sản phẩm nào nữa để tải");
+                        }
 
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            showMessage("Không còn sản phẩm nào nữa để tải");
+        }
+        
     });
    
    
