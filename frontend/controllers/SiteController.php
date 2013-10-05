@@ -46,9 +46,8 @@ class SiteController extends Controller
             Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $id);
         }
         else{
-            UserMetaUtil::setMeta(Yii::app()->user->model->id,'user_city_key',$id);
-        }
-        CityUtil::setSelectedCityId($id);
+            CityUtil::setSelectedCityId($id);
+        }        
         //$redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/list');
         $redirectUrl = $this->createAbsoluteUrl('/site/index');
         $this->redirect($redirectUrl);
@@ -99,7 +98,7 @@ class SiteController extends Controller
 
     public function actionIndex($keyword = null, $category = null, $facebook = false, $page = 0,$status = Product::STATUS_ACTIVE)
     {
-       if (isset(Yii::app()->request->cookies['usercity_ck'])&&Yii::app()->user->isGuest) {
+       if (isset(Yii::app()->request->cookies['usercity_ck']) && Yii::app()->user->isGuest) {
              CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
         }
         if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
@@ -126,7 +125,7 @@ class SiteController extends Controller
         }
 
         
-        $city = UserRegistry::getInstance()->getValue('City',0);
+        $city = CityUtil::getSelectedCityId();
         $empty = true;
         $nextPageLink = false;
         $productList = array();
