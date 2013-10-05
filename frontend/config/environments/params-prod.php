@@ -14,5 +14,7 @@ return array(
     'showSortTab'=>false,
     'postLimitPerDay'=>5,
     'postImageMaxSize'=>3145728,
-    'clientScript.incrementNumber'=>1,
+    
+    //increase this number to remove all js, css cache of browser
+    'clientScript.incrementNumber'=>2,
 );
