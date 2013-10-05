@@ -17,7 +17,7 @@ if(!isIE)
         var lastUrl;
         History.Adapter.bind(window, 'statechange', function() { // Note: We are using statechange instead of popstate
             var State = History.getState();
-             History.log(State.data, State.title, State.url);
+             //History.log(State.data, State.title, State.url);
             if(State.url==itakeHistoryHandler.pageContextUrl){            
                 if (typeof $dialog!==undefined&&$dialog!=undefined&&$dialog.css('display') != 'none') {                
                     $dialog.modal('hide');
@@ -144,9 +144,14 @@ function alignDiv()
     //     $(".nd_profile").css('margin-left', marginLeftContainer2 + 'px');
     //     $(".nd_profile").css('margin-right', (marginLeftContainer2 - 15) + 'px');
     // }
-    $('.frmSearch_wrapper').css('width',$('.nav-bar-top').width());    
-    $('#wrapper_productContainer').parent().css('margin-left',180);
-    $('#wrapper_productContainer').css('width',$('#fixWidthMasory').width()-200);
+    $('.frmSearch_wrapper').css('width',$('.nav-bar-top').width());
+    $('#categories-bar').css('width',$('#menuWidthBase').width());
+    $('.selectedCategoryTab').css('left',$('#menuWidthBase').width());
+//    $('#wrapper_productContainer').parent().css('margin-left',180);
+//    var containerWidth = $('#fixWidthMasory').width()-200;
+//    containerWidth = Math.round(containerWidth/255)*255;
+//
+//    $('#wrapper_productContainer').css('width',containerWidth);
     $(function() {
         $('.productLink').live('click', function(e) {
             e.preventDefault();
