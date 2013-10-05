@@ -47,7 +47,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                         <i class="icon-circle icon-stack-base"></i>
                         <i class="icon-cloud-upload icon-light"></i>
                     </span>
-                    Tải những hình ảnh sản phẩm lên
+                    <small>Tải những hình ảnh sản phẩm lên</small>
                     <hr class="margin-top-10">
                 </div>
                 <div class="span5 center">
@@ -55,7 +55,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                         <i class="icon-circle icon-stack-base"></i>
                         <i class="icon-pencil icon-light"></i>
                     </span>
-                    Nhập thông tin và chọn địa chỉ liên hệ
+                    <small>Nhập thông tin và chọn địa chỉ liên hệ</small>
                     <hr class="margin-top-10">
                 </div>
                 <div class="span3 center">
@@ -63,7 +63,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                         <i class="icon-circle icon-stack-base"></i>
                         <i class="icon-flag icon-light"></i>
                     </span>
-                    Xem trước, chọn Fanpage và đăng
+                    <small>Xem trước, chọn Fanpage và đăng</small>
                     <hr class="margin-top-10">
                 </div>
 

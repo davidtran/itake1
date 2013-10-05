@@ -434,3 +434,10 @@ function ScrollHandler(e,callback) {
 
     }, _throttleDelay);
 }
+function showMessage(message){
+    $('.main-notification').show('fade');
+    $('.main-notification p span').html(message);
+    setTimeout(function () {
+        $('.main-notification').hide('fade');
+    },3000);
+}

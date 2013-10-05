@@ -31,7 +31,7 @@ $(document).ready(function() {
                         board.isotope('insert',$(data.msg.items));
                         page++;
                     }else{
-                        console.log('out of stock');
+                        showMessage("Không còn sản phẩm nào nữa để tải");
                     }
 
                 }
