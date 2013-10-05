@@ -11,6 +11,11 @@ $(document).ready(function() {
         }
     });
     board.isotope('reLayout');    
+        
+    setInterval(function(){
+        $('#productContainer').isotope('reLayout');
+    },500);
+        
     initCheckBottom(function(){
         page++;
         $.ajax({

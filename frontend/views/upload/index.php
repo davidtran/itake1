@@ -16,7 +16,9 @@ $cs->registerScript('product info', "
     var isNewRecord = $isNewRecord;
     var contactInfo = $contactInfo;
     var noAddress = $noAddress;
-    var placeholderImage = '$placeholderImage'    "
+    var placeholderImage = '$placeholderImage';        
+   "
+   
         , CClientScript::POS_HEAD);
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-product.js?id=1', CClientScript::POS_END);
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/map-util.js?id=1', CClientScript::POS_END);

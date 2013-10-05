@@ -15,8 +15,15 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/pro
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/map-util.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/user-location.js', CClientScript::POS_END);
 $cityList = json_encode(CityUtil::getCityList(true));
+$jsCategory = $category !=null ? $category:'null';
+$jsKeyword = $keyword!=null ? $keyword:'null';
 Yii::app()->clientScript->registerScript('data',"
     var cityList = $cityList;
+    var category = $jsCategory;
+    var facebook = $facebook;
+    var city = $city;
+    var status= $status;
+    var keyword = $jsKeyword;
     ",  CClientScript::POS_HEAD);
 $cityId = CityUtil::getSelectedCityId();
 $canShowCityDialog = $cityId !=0 ? 'false':'true';
