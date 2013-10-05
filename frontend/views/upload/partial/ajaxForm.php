@@ -29,7 +29,7 @@ if ($this->showForm)
         </span>  
 
     </div>
-    <div class="span12">
+    <div class="span12" style="text-align: center;">
         <!-- The global progress bar -->
         <div class="progress progress-success progress-striped active fade">
             <div class="bar" style="width:0%;"></div>
