@@ -108,6 +108,13 @@
                     </div>                   
                 </div>
             </div>
+            <div class="main-notification" style="display: none;">
+                <p>
+                    <i class="icon-bell-alt icon-2x"></i>
+                    <br>
+                    <span></span>
+                </p>
+            </div>
         </div>
     </body>
 </html>

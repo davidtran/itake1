@@ -2077,3 +2077,23 @@ div.productSoldBg{
     height: 90px;
     color:rgba(255,255,255,0.7);
 }
+.main-notification{
+    position: absolute;
+    height: 100px;
+    z-index: 99999999;
+    bottom: 20px;
+    left: 20px;
+    right: 0;
+    text-align: center;
+    float:none;
+}
+.main-notification p{
+    text-align: center;
+    width: 250px;
+    height: auto;
+    color: #fff;
+    padding: 10px;
+    background: rgba(0,0,0,.5);
+    border-radius: 10px;
+    margin: 0 auto;
+}
