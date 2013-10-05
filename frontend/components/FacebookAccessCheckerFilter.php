@@ -23,18 +23,13 @@ class FacebookAccessCheckerFilter extends CFilter
                 catch (Exception $e) {
                     Yii::app()->session->add('FacebookConnectFailed',true);
                     Yii::app()->session->remove('FacebookAccessToken');                    
-                    Yii::app()->user->logout(false);
+                    //Yii::app()->user->logout(false);
                 }
             }
             if (false !== $accessToken = Yii::app()->session->get('FacebookAccessToken', false)) {
                 //dont check for valid, just silent                
                 $fbUtil->setAccessToken($accessToken, false);
-            }
-            else {
-                //at here, we fail to check access token, use the old token anyway.
-                $accessToken = $fbUtil->getSavedUserToken($userId);
-                $fbUtil->setAccessToken($accessToken, false);
-            }
+            }            
         }
         Yii::endProfile('FacebookFilter');
         $filterChain->run();

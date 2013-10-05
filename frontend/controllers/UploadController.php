@@ -81,10 +81,8 @@ class UploadController extends Controller
             if ($this->haveUploadedImage() && $product->validate(null, false)) {
                 if ($product->save(true)) {
                     $this->solrImportProduct($product);
-                    $this->saveUploadedImage($product);
-                   
-                    $this->postProductToFacebook($product);
-                   
+                    $this->saveUploadedImage($product);                   
+                    $this->postProductToFacebook($product);                   
                     Yii::app()->session['PostedProductId'] = $product->id;
                     Yii::app()->user->setFlash('success', 'Đăng tin thành công');
                     Yii::app()->user->setState(self::IMAGE_STATE_VARIABLE, null);
@@ -194,8 +192,14 @@ class UploadController extends Controller
                             $product->id;
                     $ext = substr($image['filename'], strlen($image['filename']) - 3);
                     if (rename($image["path"], Yii::getPathOfAlias('www') . '/images/content/' . $filename . '.' . $ext)) {                        
-                        $thumbnail = ImageUtil::resize('images/content/' . $filename . '.' . $ext, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);                                                
-                        $mainImage = ImageUtil::resize('images/content/' . $filename . '.' . $ext, Yii::app()->params['image.maxWidth'], Yii::app()->params['image.maxHeight']);                                                
+                        $thumbnail = ImageUtil::resize(
+                                'images/content/' . $filename . '.' . $ext, 
+                                Yii::app()->params['image.minWidth'], 
+                                Yii::app()->params['image.minHeight']);                                                
+                        $mainImage = ImageUtil::resize(
+                                'images/content/' . $filename . '.' . $ext, 
+                                Yii::app()->params['image.maxWidth'], 
+                                Yii::app()->params['image.maxHeight']);                                                
                         $imageModel = new ProductImage();
                         $imageModel->image = $mainImage;
                         $imageModel->thumbnail = $thumbnail;

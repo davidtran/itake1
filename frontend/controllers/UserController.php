@@ -200,16 +200,24 @@ class UserController extends Controller
     public function actionUserProductList($userId, $page = 0)
     {
         $user = $this->loadUser($userId);
-        $dataProvider = $user->searchProduct(null, 20, $page);
+        $dataProvider = $user->searchProduct(null, 10, $page);
         $productList = $dataProvider->getData();
-        $empty = $page >= $dataProvider->pagination->pageCount;
+        $empty = $page >= $dataProvider->pagination->pageCount;        
         if (!$empty) {
-            echo $this->renderPartial('_userProductBoard', array(
-                'user' => $user,
-                'page' => $page,
-                'productList' => $productList
+            $html = '';
+            foreach($productList as $product){
+                $html.=$product->renderHtml('',true);
+            }
+            $this->renderAjaxResult(true,array(
+                'items'=>$html,
+                'count'=>count($productList)
             ));
             Yii::app()->end();
+        }else{
+            $this->renderAjaxResult(true,array(
+                'items'=>'',
+                'count'=>0
+            ));
         }
     }
 

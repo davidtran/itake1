@@ -8,6 +8,8 @@
     Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/user.js',CClientScript::POS_BEGIN);
     Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/productControl.js',CClientScript::POS_BEGIN);
     $this->pageTitle = LanguageUtil::t('Product List -').'  '.LanguageUtil::t($user->username);
+    $userData = CJSON::encode(JsonRenderAdapter::renderUser($user));
+    Yii::app()->clientScript->registerScript('userdata',"var user = $userData;",  CClientScript::POS_HEAD);
 ?>
 <div class='nd_profile'>
     <div class="top" style="background-image: url('<?php echo Yii::app()->baseUrl.'/'.$user->getBanner();?>');background-repeat: no-repeat; ">

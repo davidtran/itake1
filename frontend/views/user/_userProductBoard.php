@@ -1,5 +1,6 @@
-<?php 
+<?php
 $script = <<<HERE
+var page = 1;        
 $(document).ready(function() {
     var board = $('#userProductBoard');
     board.isotope({
@@ -10,50 +11,59 @@ $(document).ready(function() {
         }
     });
     board.isotope('reLayout');    
-    board.infinitescroll({
-        navSelector: '.nextUserProductListLink',
-        nextSelector: '.nextUserProductListLink',
-        itemSelector: '.productItem',
-        behavior:'local',
-        state: {              
-            currPage: 0
-        },
-        loading: {
-            finished: undefined,
-            finishedMsg: "<em>Chưa có thêm bài đăng vào lúc này.</em>",
-            img: BASE_URL + '/images/loading.gif',
-            msg: null,
-            msgText: "<em>Đang tải</em>",
-            selector: '#userProductLoading',
-            speed: 'fast',
-            start: undefined
-        },
-        extraScrollPx: 150,
-    }, function(newItems){
+    initCheckBottom(function(){
+        page++;
+        $.ajax({
+            url:BASE_URL + '/user/userProductList',
+            data:{
+                page:page,
+                userId:user.id
+            },
+            success:function(jsons){
+                var data = $.parseJSON(jsons);
+                if(data.success){
+                    if(data.msg.count > 0){                        
+                        board.isotope('insert',$(data.msg.items));
+                        page++;
+                    }else{
+                        console.log('out of stock');
+                    }
 
-        setTimeout(function(){
-            board.isotope('appended',$(newItems));
-            board.isotope('reLayout');    
-        },100);
+                }
+            }
+        });
     });
+   
+   
 });
 HERE;
-Yii::app()->clientScript->registerScript('userProductList',$script,  CClientScript::POS_END);
+Yii::app()->clientScript->registerScript('userProductList', $script, CClientScript::POS_END);
 ?>
-<div id="userProductBoard" style="display:none;" class='productBoard margin-top-20'>
-    <?php foreach($productList as $userProduct):?>        
-            <?php echo $userProduct->renderHtml("",true); ?>        
+<div id="userProductBoard" class='productBoard margin-top-20'>
+    <?php foreach ($productList as $userProduct): ?>        
+        <?php echo $userProduct->renderHtml("", true); ?>        
     <?php endforeach; ?>
 </div>
-<?php echo CHtml::link(
-        'Next',
+<?php
+echo CHtml::link(
+        'Next', array(
+    '/user/userProductList',
+    'userId' => $user->id,
+    'page' => $page
+        ), array(
+    'class' => 'currentUserProductLink',
+    'style' => 'display:none'
+));
+echo CHtml::link(
+        'current', 
         array(
             '/user/userProductList',
-            'userId'=>$user->id,
-            'page'=>$page+1
-        ),
-        array(
-            'class'=>'nextUserProductListLink',
-            'style'=>'display:none'
+            'userId' => $user->id,
+            'page' => $page + 1
+        ), array(
+            'class' => 'nextUserProductLink',
+            'style' => 'display:none'
         )
-); ?>
+);
+;
+?>

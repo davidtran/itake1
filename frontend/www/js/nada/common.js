@@ -396,3 +396,41 @@ function detectmob() {
     };
 
 })(jQuery);
+
+
+function elementInScroll(elem)
+{
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+ 
+    var elemTop = $(elem).offset().top;
+    var elemBottom = elemTop + $(elem).height();
+ 
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+}
+
+var _throttleTimer = null;
+var _throttleDelay = 100;
+
+
+function initCheckBottom(callback){
+    $(window)
+        .off('scroll', ScrollHandler)
+        
+        .on('scroll', function(e){
+            ScrollHandler(e,callback);
+        });
+}
+function ScrollHandler(e,callback) {
+    //throttle event:
+    clearTimeout(_throttleTimer);
+    _throttleTimer = setTimeout(function () {
+        console.log('scroll');
+
+        //do work
+        if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+            callback();
+        }
+
+    }, _throttleDelay);
+}
