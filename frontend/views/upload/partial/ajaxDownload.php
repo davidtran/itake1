@@ -7,13 +7,20 @@
                         <span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}
                     </div>
                 {% } else { %}
-                <img  class="img-polaroid" src="{%=file.thumbnail_url%}" width="200">
-                <span class='delete' style="position: relative;left: -42px;bottom: -59px;">
-                     <button class='' data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
-                        <i class="icon-trash"></i>
-                    </button>
-                    <input type="hidden" name="delete" value="1">
-                </span>
+                <div class="row-fluid" >
+                    <img  class="img-polaroid" src="{%=file.thumbnail_url%}" width="200">
+                </div>
+                <div class="row-fluid" style="height:1px;">
+                    <span class='delete' style="position: relative;top: -60px;">
+                         <button class='' data-toggle="tooltip" title="Click vào để xóa hình này" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}" style="background:transparent;border:none;">
+                            <span class="icon-stack icon-2x" style="color:rgba(0,0,0,.4)">
+                              <i class="icon-circle icon-stack-base"></i>
+                              <i class="icon-remove icon-light"></i>
+                            </span>
+                        </button>
+                        <input type="hidden" name="delete" value="1">
+                    </span>
+                </div>
                 {% } %}
         </div>
     </div>

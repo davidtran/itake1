@@ -13,6 +13,8 @@
  */
 class Address extends CActiveRecord
 {
+    const STATUS_ACTIVE = 0;
+    const STATUS_INACTIVE = 1;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.

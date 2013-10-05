@@ -318,7 +318,6 @@ class UploadController extends Controller
 
     public function actionDeleteAddress()
     {
-        return false;
         $this->checkLogin();
         $addressId = Yii::app()->request->getPost('addressId');
         $productId = Yii::app()->request->getPost('productId');
@@ -328,8 +327,11 @@ class UploadController extends Controller
         if ($address != null && $product != null) {
             if ($product->user_id == $userId && $address->user_id == $userId) {
                 if ($product->address_id != $address->id) {
-                    $address->delete();
-                    $this->renderAjaxResult(true);
+                    $address->status = Address::STATUS_INACTIVE;
+                    if($address->save())
+                        $this->renderAjaxResult(true);
+                    else
+                        $this->renderAjaxResult(false, 'Không thể xóa địa chỉ đang được sử dụng');
                 }
                 else {
                     $this->renderAjaxResult(false, 'Không thể xóa địa chỉ đang được sử dụng');
@@ -341,8 +343,11 @@ class UploadController extends Controller
         }
         else {
             if ($address != null && $product == null) {
-                $address->delete();
-                $this->renderAjaxResult(true);
+                $address->status = Address::STATUS_INACTIVE;
+                if($address->save())
+                    $this->renderAjaxResult(true);
+                else
+                    $this->renderAjaxResult(false, 'Không thể xóa địa chỉ đang được sử dụng');
             }
         }
     }
