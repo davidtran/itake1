@@ -37,7 +37,7 @@ class Product extends CActiveRecord
     {
         $this->view = 0;
         return parent::init();
-    }
+    }        
 
     /**
      * @return string the associated database table name
@@ -165,19 +165,7 @@ class Product extends CActiveRecord
         $description = strip_tags($this->description,'<br><p>');
         $this->description = filter_var($description);                
         return parent::beforeSave();
-    }
-    
-    function Clean($string, $control = true)
-{
-        $string = iconv('UTF-8', 'UTF-8//IGNORE', $string);
-
-        if ($control === true)
-        {
-                return preg_replace('~\p{C}+~u', '', $string);
-        }
-
-        return preg_replace(array('~\r\n?~', '~[^\P{C}\t\n]+~u'), array("\n", ''), $string);
-    }
+    }       
   
     public function getDistance($lat, $lon)
     {

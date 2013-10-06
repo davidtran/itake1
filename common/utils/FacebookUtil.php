@@ -234,6 +234,7 @@ class FacebookUtil
                 $args['picture'] = '@' . realpath($image->facebook);
                 $args['message'] = $desc;
                 $args['access_token'] = $this->_accessToken;
+                
                 Yii::app()->facebook->api('/' . $albumId . '/photos', 'POST', $args);
             }
             return true;

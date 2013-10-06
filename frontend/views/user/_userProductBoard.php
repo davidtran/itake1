@@ -30,8 +30,7 @@ $(document).ready(function() {
                     var data = $.parseJSON(jsons);
                     if(data.success){
                         if(data.msg.count > 0){                        
-                            board.isotope('insert',$(data.msg.items));
-                            page++;
+                            board.isotope('insert',$(data.msg.items));                 
                         }else{
                             stopLoad = true;
                             showMessage("Không còn sản phẩm nào nữa để tải");
@@ -42,8 +41,7 @@ $(document).ready(function() {
             });
         }else{
             showMessage("Không còn sản phẩm nào nữa để tải");
-        }
-        
+        }        
     });
    
    
