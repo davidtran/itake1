@@ -166,7 +166,7 @@ class SiteController extends Controller
 
             $productList = $resultSet->productList;
             $numFound = $resultSet->numFound;
-            $empty = $page * $solrAdapter->pageSize + $solrAdapter->pageSize > $resultSet->numFound;
+            $empty = $page * $solrAdapter->pageSize > $resultSet->numFound;
             $params = array(
                 'keyword' => $keyword,
                 'category' => $category,
