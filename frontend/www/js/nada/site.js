@@ -2,8 +2,6 @@
 
 var $container;
 var ms;
-var page = 0;
-var stopLoad = false;
 $(document).ready(function(){
     $('.thumbnails li.span3:nth-child(4n+1)').css({clear:'left',marginLeft:0});	
 });
@@ -29,7 +27,11 @@ $(document).ready(function() {
         masoryCenterAlign();
         $container.show('fade');
         $('#productContainer').isotope('reLayout');     
-     
+        //  setTimeout(function() {
+        //       $('#productContainer').isotope('reLayout');
+              
+        // }, 500);       
+         //$container.css('height',$(window).height()*2);
     }); 
     $(window).scroll(function() {
         if( $(window).scrollTop()!=0)
@@ -44,41 +46,43 @@ $(document).ready(function() {
                $('.selectedCategoryTab h1').css('background','#f6f6f6');
           }
     });    
-    initCheckBottom(function(){
-        if(stopLoad == false){
-            page++;
-            $.ajax({
-                url:BASE_URL + '/site/index',
-                data:{
-                    city:city,
-                    category:category,
-                    keyword:keyword,              
-                    facebook:facebook,
-                    status:status,
-                    page:page
-                },
-                success:function(jsons){
-                    var data = $.parseJSON(jsons);
-                    if(data.success){
-                        if(data.msg.count > 0){
-                            $container.isotope('insert',$(data.msg.items));
-
-                        }else{
-                            stopLoad = true;
-                            showMessage("Không còn sản phẩm nào nữa để tải");
-                        }
-                    }
-                }
-            });
-        }else{
-            showMessage("Không còn sản phẩm nào nữa để tải");
+    $container.infinitescroll(
+        {
+            navSelector: '.nextPageLink',
+            nextSelector: '.nextPageLink',
+            itemSelector: '.productItem',
+            state: {              
+                currPage: 0
+            },
+            loading: {
+                finished: undefined,
+                finishedMsg: "<em>Have no more post at the moment.</em>",
+                img:BASE_URL + '/images/loading.gif',
+                msg: null,
+                msgText: "<em>Loading</em>",
+                selector: '#loadingText',
+                speed: 'fast',
+                start: undefined
+            },
+            extraScrollPx: 150
+            
+        }, 
+        function(newItems) {
+            $('#productContainer').isotope('appended', $(newItems));      
+            $container.imagesLoaded(function(){                
+                $('#productContainer').isotope('reLayout');    
+                $('#productContainer').isotope('reLayout');          
+            });      
+            // setTimeout(function() {
+            //     $('#productContainer').isotope('reLayout');
+              
+            // }, 500);
         }
-        
-    });
+    );
 });
- setInterval(function(){
-     $('#productContainer').isotope('reLayout');
- },500);
+// setInterval(function(){
+//     $('#productContainer').isotope('reLayout');
+// },500);
 
 $(document).ready(function(){
     

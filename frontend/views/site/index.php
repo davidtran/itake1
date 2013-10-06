@@ -120,7 +120,9 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
 
         </div>        
         <div class="row-fluid" id="fixWidthMasory"></div>
-        <div class="span9" style="margin-left:50px;">            
+        <div class="row-fluid">
+        <div class="span2" id="menuWidthBase" style="height: 1000px;"><p>test</p></div>//do not remove
+        <div class="span10">
             <div class="row-fluid" id="wrapper_productContainer" style="margin-top:120px;min-height:1000px;"   >
                 <hr style="position:relative; top:-40px;"/>
                 
@@ -177,6 +179,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                 <div id="loadingText"></div>
             </div>
             </div>
+        </div>
     </div>
 </div>
 
