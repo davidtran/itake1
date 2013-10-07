@@ -19,7 +19,7 @@ $(document).ready(function() {
     $container.isotope({
         columnWidth: 30,
         itemSelector: '.productItem',
-        transformsEnabled:false,
+        transformsEnabled:true,
         straightAcross: {
             rowHeight: 360
         }
