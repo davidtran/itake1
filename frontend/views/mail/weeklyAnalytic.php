@@ -1,6 +1,6 @@
-<p>Dear <?php echo $username; ?>,</p>
+<p><?php echo Yii::t('translatemail','Dear');?> <?php echo $username; ?>,</p>
 
-<p><span style="line-height:1.6em">This email is sumary of result social share,view and like report. It will help you get better in your business</span></p>
+<p><span style="line-height:1.6em"><?php echo Yii::t('translatemail','This email is sumary of result social share,view and like report. It will help you get better in your business');?></span></p>
 
 <ul>
 	<li><span style="line-height:1.6em"><strong>Total &nbsp;Views &nbsp; &nbsp;</strong>&nbsp; &nbsp;<?php echo $summary['view']; ?>&nbsp;</span></li>
@@ -24,9 +24,9 @@ $table->set_heading('ID','Product','Views','Likes','Shares');
 <?php echo $table->generate(); ?>
 <br/>
 
-<h3>If your have any query, feel free to ask via <a href="mailto:support@itake.me?subject=Sale%20Report">support@itake.me</a></h3>
+<h3><?php echo Yii::t('translatemail','If your have any query, feel free to ask via');?> <a href="mailto:support@itake.me?subject=Sale%20Report">support@itake.me</a></h3>
 
-<h3>Best regards,</h3>
+<h3><?php echo Yii::t('translatemail','Best regards');?>,</h3>
 
 <h3><strong>ITAKE TEAM</strong></h3>
 
