@@ -81,9 +81,9 @@ $(document).ready(function() {
     });
     
 });
-// setInterval(function(){
-//     $('#productContainer').isotope('reLayout');
-// },500);
+ setInterval(function(){
+     $('#productContainer').isotope('reLayout');
+ },500);
 
 $(document).ready(function(){
     
