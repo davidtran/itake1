@@ -787,7 +787,7 @@ div#categories-bar
     background: #fff;   
     padding-top: 20px;
     border-right: 1px solid #ccc;
-    z-index: 8;
+    z-index: 1;
 }
 div#categories-bar ul{
     list-style:none;
@@ -1253,6 +1253,7 @@ div#categories-bar b{
     font-weight: 300;
     font-size:1.2em;
     line-height:40px;    
+    
 }
 .fb-comments, .fb-comments iframe[style] {width: 100% !important;}
 
@@ -2102,3 +2103,4 @@ div.productSoldBg{
     max-width:900px;
     margin: 0 auto;   
 }
+

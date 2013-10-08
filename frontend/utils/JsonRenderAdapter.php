@@ -1,6 +1,7 @@
 <?php
 
 class JsonRenderAdapter{
+        
     public static function renderProduct(Product $product){
         $data = array(
             'id'=>$product->id,
