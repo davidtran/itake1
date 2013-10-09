@@ -16,7 +16,7 @@ class WebUser extends CWebUser
 
     public function getIsFacebookUser()
     {
-        if ($this->model != null && $this->model->fbId != null && trim($this->model->fbId) != '') {
+        if ($this->_model != null && $this->_model->fbId != null && trim($this->_model->fbId) != '') {
             return true;
         }
         return false;

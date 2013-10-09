@@ -36,6 +36,8 @@ class ProductController extends Controller
 
     public function actionDetails($id)
     {
+        unset(Yii::app()->session['FacebookConnectFailed']);
+        unset(Yii::app()->session['CheckedAccessToken']);
         ProductViewCounterUtil::getInstance($id)->increaseView();
         $product = $this->loadProduct($id);
         $canonicalUrl = $this->createAbsoluteUrl('/product/details', array('id' => $id));
