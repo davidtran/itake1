@@ -12,7 +12,7 @@ return array(
     'upload.maxImageNumber'=>4,
     'request.baseUrl' => 'http://dev.itake', 
     'showSortTab'=>false,
-    'postLimitPerDay'=>5,
+    'postLimitPerDay'=>3,
     'postImageMaxSize'=>3145728,
     
     //increase this number to remove all js, css cache of browser
