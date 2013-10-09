@@ -121,6 +121,7 @@ class ProductController extends Controller
             $product = $this->loadModel($id);
             $solrImport = new ProductModelSolrImporter();
             $solrImport->deleteProduct($product);
+            $product->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if(!isset($_GET['ajax']))

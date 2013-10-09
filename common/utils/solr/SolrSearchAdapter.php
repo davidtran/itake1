@@ -120,7 +120,7 @@ class SolrSearchAdapter
 
     public function search()
     {
-        $solr = Yii::app()->solrProduct->getClient();
+        $solr = SolrServiceFactory::getInstance();
         try {
             $response = $solr->search($this->makeQuery(), $this->getOffset(), $this->pageSize, $this->makeParam());
             Yii::log(json_encode(array(

@@ -110,13 +110,7 @@ $config = CMap::mergeArray(
                         'port' => $params['email.port'],
                         'encryption' => $params['email.encryption'],
                     )
-                ),
-                'solrProduct' => array(
-                    'class' => 'common.extensions.solr.CSolrComponent',
-                    'host' => $params['solr.host'],
-                    'port' => $params['solr.port'],
-                    'indexPath' => $params['solr.indexPath'],
-                ),
+                ),               
                 'errorHandler' => array(
                     // use 'site/error' action to display errors
                     'errorAction' => 'site/error',

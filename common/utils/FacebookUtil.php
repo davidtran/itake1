@@ -262,6 +262,7 @@ class FacebookUtil
             $pageInfo = Yii::app()->facebook->api("/$page/?fields=access_token");
             $albumId = $this->createFanpageAlbum($product->title, $product->description, $accessToken, $page);
             if ($albumId !== false) {
+                $result = array();
                 foreach ($product->images as $image) {
                     $args = array();
                     //fix
@@ -271,8 +272,10 @@ class FacebookUtil
                     $args['message'] = $desc;
                     $args['page_id'] = $page;
                     $args['access_token'] = $accessToken;
-                    Yii::app()->facebook->api('/' . $albumId . '/photos', 'POST', $args);
+                    $data = Yii::app()->facebook->api('/' . $albumId . '/photos', 'POST', $args);
+                    $result[] = $data;
                 }
+                return $result;
             }
             return true;
         }

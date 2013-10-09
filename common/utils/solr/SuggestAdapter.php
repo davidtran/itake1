@@ -12,7 +12,7 @@ class SuggestAdapter
 
     public function __construct()
     {
-        $this->_solr = Yii::app()->solrProduct->getClient();
+        $this->_solr = SolrServiceFactory::getInstance();
     }
 
     public function setKeyword($keyword)

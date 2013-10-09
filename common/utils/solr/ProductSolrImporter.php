@@ -11,7 +11,7 @@ abstract class ProductSolrImporter
 
     public function __construct()
     {
-        $this->solr = Yii::app()->solrProduct->getClient();
+        $this->solr = SolrServiceFactory::getInstance();
     }
 
     /**

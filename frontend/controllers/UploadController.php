@@ -63,8 +63,12 @@ class UploadController extends Controller
     {
         $returnUrl = $this->createUrl('/upload/index');
         $this->checkLogin('Vui lòng đăng nhập được khi sử dụng tính năng này', $returnUrl);
-        if (false == $this->isLessThanPostLimit()) {
-            
+        if (false == $this->isLessThanPostLimit()) {            
+            $this->render('limited',array(
+                'limit'=>$this->getLimit(),
+                'countToday'=>$this->countTodayPost()
+            ));
+            Yii::app()->end();
         }
         Yii::app()->session->add('EditingProduct', false);
 
@@ -401,10 +405,20 @@ class UploadController extends Controller
 
     protected function isLessThanPostLimit()
     {
-        $limit = UserRegistry::getInstance()->getValue('PostLimit', Yii::app()->params['postLimitPerDay']);
-        $sql = 'select count(*) from {{product}} where create_date = now() and user_id = :user_id';
-        $countToday = Yii::app()->db->createCommand($sql)->bindValue('user_id',Yii::app()->user->getId())->queryScalar();        
+        $limit = $this->getLimit();
+        $countToday = $this->countTodayPost();        
         return $countToday < $limit;
+    }
+    
+    protected function countTodayPost(){
+        $sql = 'select count(*) from {{product}} where to_days(create_date) = to_days(now()) and user_id = :user_id';
+        $countToday = Yii::app()->db->createCommand($sql)->bindValue('user_id',Yii::app()->user->getId())->queryScalar();        
+        return $countToday;
+    }
+    
+    protected function getLimit(){
+        $limit = UserRegistry::getInstance()->getValue('PostLimit', Yii::app()->params['postLimitPerDay']);
+        return $limit;
     }
 
 }

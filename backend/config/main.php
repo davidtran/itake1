@@ -41,6 +41,7 @@ return CMap::mergeArray(
                 'common.components.*',
                 'common.extensions.*',
                 'common.utils.*',
+                'common.utils.solr.*',
                 /* uncomment if required */
                 /* 'common.extensions.behaviors.*', */
                 /* 'common.extensions.validators.*', */
