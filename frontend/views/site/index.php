@@ -23,7 +23,7 @@ Yii::app()->clientScript->registerScript('data',"
     var facebook = $facebook;
     var city = $city;
     var status= $status;
-    var keyword = $jsKeyword;
+    var keyword = '$jsKeyword';
     ",  CClientScript::POS_HEAD);
 $cityId = CityUtil::getSelectedCityId();
 $canShowCityDialog = $cityId !=0 ? 'false':'true';

@@ -13,9 +13,7 @@ class SiteController extends Controller
             'captcha' => array(
                 'class' => 'CCaptchaAction',
                 'backColor' => 0xFFFFFF,
-            ),
-            // page action renders "static" pages stored under 'protected/views/site/pages'
-            // They can be accessed via: index.php?r=site/page&view=FileName
+            ),          
             'page' => array(
                 'class' => 'CViewAction',
             ),
@@ -68,7 +66,7 @@ class SiteController extends Controller
         $category = Yii::app()->session->get('LastCategory', null);
         $keyword = Yii::app()->session->get('LastKeyword', null);
         $this->redirect($this->createUrl('index', array(
-                    'keyword' => $keyword,
+                    'keyword' => null,
                     'category' => $category,
                     'page' => 0
         )));
