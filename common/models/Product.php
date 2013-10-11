@@ -133,6 +133,18 @@ class Product extends CActiveRecord
             'criteria' => $criteria,
         ));
     }
+    
+    public function getStatusList(){
+        return array(
+            self::STATUS_ACTIVE=>'Active',
+            self::STATUS_INACTIVE=>'Inactive',
+            self::STATUS_DELETED=>'Deleted',
+            self::STATUS_SOLD=>'Sold'
+        );
+    }
+    public function getStatusText(){
+        return isset($this->statusList[$this->status]) ? $this->statusList[$this->status]:null; 
+    }
 
     public function beforeValidate()
     {
