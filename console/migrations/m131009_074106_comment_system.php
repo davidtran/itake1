@@ -8,7 +8,7 @@ class m131009_074106_comment_system extends CDbMigration
         $sql = "--
             -- Table structure for table `mp_comment`
             --
-            drop if exists `mp_comment`;
+            DROP TABLE IF EXISTS  `mp_comment`;
             CREATE TABLE IF NOT EXISTS `mp_comment` (
               `id` int(11) NOT NULL AUTO_INCREMENT,
               `content` varchar(5000) NOT NULL,
