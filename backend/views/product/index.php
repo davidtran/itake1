@@ -38,6 +38,10 @@ $this->menu=array(
 		'price',
 		'user_id',
 		'image',
+        array(
+            'header'=>'Status',
+            'value'=>'$data->getStatusText()'
+        ),
 		/*
 		'create_date',
 		'lat',
