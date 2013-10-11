@@ -2103,4 +2103,8 @@ div.productSoldBg{
     max-width:900px;
     margin: 0 auto;   
 }
+.tab-content{
+    padding-left: 30px;
+    padding-right: 30px;
+}
 

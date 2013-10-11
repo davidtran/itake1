@@ -345,4 +345,28 @@ class UserController extends Controller
         $this->render('chat');
     }
 
+    public function actionUpdate(){
+        Yii::import('bootstrap.widgets.TbEditableSaver');
+        $es = new TbEditableSaver('User');
+        $es->update();
+    }
+    public function actionEditProfile(){
+        $model = Yii::app()->user->model;
+        if(isset($_POST['User']))
+        {
+            $model->allowUpdateWithoutCaptcha = true;
+            $model->attributes=$_POST['User'];
+            if($model->save()){
+                $this->redirect($this->createUrl('profile',array('id' => $model->id,'username'=>$model->username)));
+            }
+             else
+            {
+                $this->render('editProfile', array('model'=>$model));
+            }
+        }
+        else
+        {
+            $this->render('editProfile', array('model'=>$model));
+        }
+    }
 }
