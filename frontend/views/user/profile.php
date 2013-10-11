@@ -28,12 +28,7 @@
                 'style'=>'width: 100px;
                           height: 100px;',
                 'class'=>'img-circle',
-            )); ?>
-            <?php if(UserUtil::canEdit($user)):?>
-                <div id="avatarChanger">
-                    <i class="icon-edit-sign icon-2x"></i> 
-                </div>
-            <?php endif; ?>
+            )); ?>            
         </div>   
                 <h3><?php echo $user->username;?></h3>
             </div>
