@@ -34,6 +34,32 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
     <div class="row-fluid">
 
         <div class="sort-bar">
+            <div class="selectedCategoryTab"> 
+            <?php if (isset($categoryModel) && $categoryModel != null): ?>
+                <?php $this->pageTitle = LanguageUtil::t($categoryModel->name) . " ".LanguageUtil::t('on')." ITAKE.ME" ?>
+            
+                <h1 class="title_font" style="font-size:1.5em;">
+                    <?php echo $categoryModel->getIconAndNameHtml()."   ";?>
+                    <?php if (strlen(CityUtil::getCityName($city))>0): ?>
+                        <?php LanguageUtil::echoT($categoryModel->name);echo ' '; LanguageUtil::echoT('in');?>  <?php echo CityUtil::getCityName($city); ?>
+                    <?php  else:?>     
+                        <?php LanguageUtil::echoT($categoryModel->name);?>
+                    <?php endif; ?>
+
+
+                </h1>                                     
+                <script>
+                    $(function() {
+                        var counter = 0;
+                        var styleName = '<?php echo $categoryModel->styleName ?>';
+                        $('.nav-text.all-cat-wrap').removeClass('selected');
+                        $(".nav-text."+styleName.replace(' ','.')).addClass('selected');
+                   
+                    });
+                </script>
+
+            <?php endif; ?>
+               </div>     
             <?php
                 $currentSortType = SolrSortTypeUtil::getInstance()->getCurrentSortType();
                 if($facebook==0&&(!isset($_GET['status'])||$_GET['status']!=3))
@@ -41,7 +67,8 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                 else
                     $sortTypeLink = "nothing";
             ?>
-            <div class="pagination pagination-centered" >
+            <div class="pagination pagination-centered" style="z-index: 999;
+position: relative;">
               <ul>
          
               <?php foreach (SolrSortTypeUtil::getInstance()->getSortTypeLinkList() as $link): ?>
@@ -90,41 +117,14 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                         <li><a href="<?php echo $category->getUrl(); ?>" data-toggle="tooltip" title='<?php echo LanguageUtil::t($category->name)?>'><span class="nav-text <?php echo $category->getStyleName(); ?>"><small><i class="<?php echo $category->icon; ?> icon-large"></i> <em></em></small>      &nbsp&nbsp<?php LanguageUtil::echoT( $category->name);  ?></span></a></li>
                     <?php endforeach; ?>                    
                 </ul>
-            </div>    
-            <div class="selectedCategoryTab"> 
-            <?php if (isset($categoryModel) && $categoryModel != null): ?>
-                <?php $this->pageTitle = LanguageUtil::t($categoryModel->name) . " ".LanguageUtil::t('on')." ITAKE.ME" ?>
-            
-                <h1>
-                    <?php echo $categoryModel->getIconAndNameHtml()."   ";?>
-                    <?php if (strlen(CityUtil::getCityName($city))>0): ?>
-                        <?php LanguageUtil::echoT($categoryModel->name);echo ' '; LanguageUtil::echoT('in');?>  <?php echo CityUtil::getCityName($city); ?>
-                    <?php  else:?>     
-                        <?php LanguageUtil::echoT($categoryModel->name);?>
-                    <?php endif; ?>
-
-
-                </h1>                                     
-                <script>
-                    $(function() {
-                        var counter = 0;
-                        var styleName = '<?php echo $categoryModel->styleName ?>';
-                        $('.nav-text.all-cat-wrap').removeClass('selected');
-                        $(".nav-text."+styleName.replace(' ','.')).addClass('selected');
-                   
-                    });
-                </script>
-
-            <?php endif; ?>
-               </div>        
-
+            </div>       
         </div>        
         <div class="row-fluid" id="fixWidthMasory"></div>
         <div class="row-fluid">
         <div class="span2" id="menuWidthBase" style="height: 1000px;"><p>test</p></div>//do not remove
         <div class="span10">
             <div class="row-fluid" id="wrapper_productContainer" style="margin-top:120px;min-height:1000px;"   >
-                <hr style="position:relative; top:-40px;"/>
+                <!-- <hr style="position:relative; top:-60px;"/> -->
                 
                 <?php if (trim($keyword) != ''): ?>
                     <div class="alert alert-info">

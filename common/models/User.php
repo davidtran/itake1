@@ -72,7 +72,10 @@ class User extends CActiveRecord
             array('salt', 'length', 'max' => 50),
             array('email ', 'length', 'max' => 200),
             array('target', 'length', 'max' => 500),
+            array('locationText', 'length', 'max' => 500),
+             array('birthday', 'length', 'max' => 100),
             array('email', 'email'),
+            array('phone', 'length', 'max' => 12),
             array('captcha','captcha','on'=>'register'),
             array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
             array('image,banner', 'length', 'max' => 100),
@@ -135,6 +138,8 @@ class User extends CActiveRecord
             'introduction' => LanguageUtil::t('Introduction'),
             'target' => 'Tự giới thiệu',
             'birthday' => LanguageUtil::t('Birthday'),
+            'locationText' => 'Địa chỉ',
+            'phone' => LanguageUtil::t('Phone'),
         );
     }
 
@@ -194,6 +199,10 @@ class User extends CActiveRecord
     public function beforeValidate()
     {
         $oldModel = $this->findByPk($this->id);
+        if($this->birthday!=NULL&&strlen($this->birthday)>0)
+        {
+            $this->birthday = DateUtil::convertDate("Y-m-d",$this->birthday);
+        }
         $this->username = filter_var($this->username, FILTER_SANITIZE_STRIPPED);
         $this->email = filter_var($this->email, FILTER_SANITIZE_EMAIL);
         if ($this->isNewRecord) {
