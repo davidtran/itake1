@@ -5,7 +5,9 @@
  */
 abstract class ProductSolrImporter
 {
-
+    /**
+     *  @return Apache_Solr_Service
+     */
     protected $solr;
     protected $documents = array();
 
@@ -44,7 +46,7 @@ abstract class ProductSolrImporter
     {
         try
         {
-            $this->solr->deleteById($product->id);
+            $this->solr->deleteById($id);
             $this->solr->commit();
             return true;
         }

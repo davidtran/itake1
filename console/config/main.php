@@ -40,6 +40,8 @@ return CMap::mergeArray(
             'preload' => array('log'),
             // setup import paths aliases
             // @see http://www.yiiframework.com/doc/api/1.1/YiiBase#import-detail
+            'language' => 'vi',
+            'sourceLanguage' => 'en',
             'import' => array(
                 'console.components.*',
                 'common.components.*',
@@ -102,7 +104,8 @@ return CMap::mergeArray(
                         'port' => $params['email.port'],
                         'encryption' => $params['email.encryption'],
                     )
-                ),               
+                ),          
+                'messages'=>array('basePath'=>Yiibase::getPathOfAlias('frontend.messages')),
                 'errorHandler' => array(
                     // use 'site/error' action to display errors
                     'errorAction' => 'site/error',

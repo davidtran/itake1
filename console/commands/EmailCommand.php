@@ -4,7 +4,7 @@ class EmailCommand extends ConsoleCommand
 {
  
     public function sendQueueEmail()
-    {
+    {     
         $criteria = new CDbCriteria(array(
                 'condition' => 'success=:success AND attempts < max_attempts',
                 'params' => array(

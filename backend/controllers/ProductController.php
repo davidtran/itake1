@@ -90,15 +90,7 @@ class ProductController extends Controller
 		if(isset($_POST['Product']))
 		{
 			$model->attributes=$_POST['Product'];
-			if($model->save()){
-                $solrImport = new ProductModelSolrImporter();
-                $solrImport->addProduct($model);
-                try{
-                    $solrImport->importProduct();
-                }
-                catch(Exception $e){
-                    throw new CException('Can not import product to solr. Message:'.$e->getMessage());
-                }
+			if($model->save()){             
                 $this->redirect(array('view','id'=>$model->id));
             }
 				
@@ -118,9 +110,7 @@ class ProductController extends Controller
 	{
         if(Yii::app()->user->checkAccess('deleteProduct')){
             
-            $product = $this->loadModel($id);
-            $solrImport = new ProductModelSolrImporter();
-            $solrImport->deleteProduct($product);
+            $product = $this->loadModel($id);           
             $product->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

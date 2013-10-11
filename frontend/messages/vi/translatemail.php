@@ -10,7 +10,7 @@ return array(
     'Best Regards' => 'Thân ái',
     
     //Forget password
-    'You have just requested a new password for ITAKE ACCOUNT. Please enter the auto generated password below when you sign in ITAKE next time' => 'Bạn đã yêu cầu đổi mật khẩu cho tài khoản iTake, vui lòng đăng nhập mật khẩu này vào lần đăng nhập tiếp theo',
+    'You have just requested a new password for itake ACCOUNT. Please enter the auto generated password below when you sign in ITAKE next time' => 'Bạn đã yêu cầu đổi mật khẩu cho tài khoản iTake, vui lòng đăng nhập mật khẩu này vào lần đăng nhập tiếp theo',
     'After you sign in' => 'Sau khi bạn đăng nhập',
     'please change password by your new password' => ' Vui lòng thay đổi mật khẩu',
     'If you get any query during change the password, you could send an email to support@itake.me.' => 'Nếu gặp bất cứ khó khăn trong việc thay đổi password, vui lòng liên lạc với chúng tôi thông qua địa chỉ email sau support@itake.me',

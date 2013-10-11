@@ -29,7 +29,7 @@ class Controller extends CController
 
     public function init()
     {
-        chdir(Yii::getPathOfAlias('www'));        
+        chdir(Yii::getPathOfAlias('www'));                
         parent::init();
         if(isset( $_POST['_lang']))
         {
@@ -43,7 +43,7 @@ class Controller extends CController
             else {
                 Yii::app()->language = 'vi';
             }
-        }  
+        }          
             
     }
 

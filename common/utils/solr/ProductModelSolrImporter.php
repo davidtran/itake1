@@ -10,7 +10,7 @@ class ProductModelSolrImporter extends ProductSolrImporter
     public function deleteProduct($product)
     {
 
-        $this->solr->deleteById($product->id);
+        return $this->deleteById($product->id);
     }
 
 

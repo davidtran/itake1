@@ -4,7 +4,7 @@
     {
 
         private $_controller = false;
-
+                
         public function getController()
         {
             if ($this->_controller === false)

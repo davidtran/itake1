@@ -33,7 +33,7 @@ $this->pageTitle = LanguageUtil::t('Forgot password') ;
     ));
     ?>
     <?php
-    $this->widget('CCaptcha');
+    $this->widget('Captcha');
     echo $form->textFieldRow($model,'captcha',array(
         'placeholder' => LanguageUtil::t('Type your letters above to confirm'),
         'class' => 'input-block-level'

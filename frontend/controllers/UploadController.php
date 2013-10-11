@@ -34,19 +34,7 @@ class UploadController extends Controller
                 'frontend.components.FacebookAccessCheckerFilter + index,edit'
             )
         );
-    }
-
-    protected function solrImportProduct($product)
-    {
-        $solrImporter = new ProductModelSolrImporter();
-        $solrImporter->addProduct($product);
-        try {
-            $solrImporter->importProduct();
-        }
-        catch (Exception $e) {
-            throw new CHttpException(500, 'Có lỗi trong khi đăng tin, chúng tôi đang khắc phục điều này');
-        }
-    }
+    } 
 
     protected function renderImage(Product &$product, $filename, $extension)
     {
@@ -83,8 +71,7 @@ class UploadController extends Controller
 
             $product->status = Product::STATUS_ACTIVE;
             if ($this->haveUploadedImage() && $product->validate(null, false)) {
-                if ($product->save(true)) {
-                    $this->solrImportProduct($product);
+                if ($product->save(true)) {                    
                     $this->saveUploadedImage($product);                   
                     $this->postProductToFacebook($product);                   
                     Yii::app()->session['PostedProductId'] = $product->id;
@@ -128,9 +115,7 @@ class UploadController extends Controller
 
                 if ($this->haveUploadedImage($product) && $product->validate(null, false)) {
                     if ($product->save(true)) {
-                        $this->saveUploadedImage($product);
-                        $this->solrImportProduct($product);
-                       
+                        $this->saveUploadedImage($product);                       
                         $this->postProductToFacebook($product);
                        
                         Yii::app()->session['PostedProductId'] = $product->id;
@@ -263,11 +248,13 @@ class UploadController extends Controller
         $productId = Yii::app()->request->getParam('id');
         if ($productId) {
             $product = Product::model()->findByPk($productId);
-            if ($product != null && $product->user_id == Yii::app()->user->getId()) {
-                $solrImport = new ProductModelSolrImporter();
-                $solrImport->deleteProduct($product);
-                $product->delete();
-                $this->renderAjaxResult(true);
+            if ($product != null && $product->user_id == Yii::app()->user->getId()) {                
+                if($product->delete()){
+                    $this->renderAjaxResult(true);
+                }else{
+                    $this->renderAjaxResult(false, 'Không thể xóa bài đăng này');
+                }
+                
             }
             else {
                 $this->renderAjaxResult(false, 'Không thể xóa bài đăng này');

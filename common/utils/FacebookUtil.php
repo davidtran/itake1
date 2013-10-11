@@ -57,11 +57,13 @@ class FacebookUtil
 
     public function checkTokenValid($token)
     {
-        try {
-            $user = Yii::app()->facebook->api('/me?access_token=' . $this->_accessToken);
+        $token = trim($token);        
+        try {                      
+            $user = Yii::app()->facebook->api("/".Yii::app()->user->model->fbId.'?access_token='.$token,'GET');
             return true;
         }
         catch (Exception $e) {
+            echo $e->getMessage();exit;
             return false;
         }
     }

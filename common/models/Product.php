@@ -164,8 +164,35 @@ class Product extends CActiveRecord
         $this->title = strip_tags($this->title);
         $description = nl2br(strip_tags($this->description,'<br><p>'));
         $this->description = $description;
+        
+        try{
+            $importer = new ProductModelSolrImporter();
+            $importer->addProduct($this);
+            $importer->importProduct();
+        }
+        catch(Exception $e){
+            $this->addError('id', 'Solr error');
+        }
         return parent::beforeSave();
-    }       
+    }     
+    
+    public function afterSave()
+    {        
+        return parent::afterSave();
+    }
+    
+    public function beforeDelete()
+    {
+        try{
+            $importer = new ProductModelSolrImporter();
+            $importer->deleteProduct($this);
+        }
+        catch(Exception $e){
+            $this->addError('id', 'Solr error');
+            return false;
+        }
+        return parent::beforeDelete();
+    }
   
     public function getDistance($lat, $lon)
     {
