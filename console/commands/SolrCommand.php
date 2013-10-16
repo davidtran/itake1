@@ -18,10 +18,8 @@ class SolrCommand extends ConsoleCommand{
     }
     
     public function clearIndex(){
-        $productList = Product::model()->findAll();
-        $importer = new ProductModelSolrImporter();
-        foreach($productList as $product){
-            $importer->deleteProduct($product);            
-        }        
+        $solr = SolrServiceFactory::getInstance();       
+        $solr->deleteByQuery('*:*');
+        $solr->commit();
     }
 }
