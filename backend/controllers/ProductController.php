@@ -127,8 +127,7 @@ class ProductController extends Controller
         if(Yii::app()->user->checkAccess('viewProduct')){
             $model=new Product('search');
             $model->unsetAttributes();  // clear any default values
-            if(isset($_GET['Product']))
-                $model->attributes=$_GET['Product'];
+            
 
             $this->render('index',array(
                 'model'=>$model,
@@ -136,6 +135,25 @@ class ProductController extends Controller
         }
 		
 	}
+    
+    public function searchProduct($model){
+        if(isset($_GET['Product']))
+                $model->attributes=$_GET['Product'];
+        $criteria = new CDbCriteria;
+
+        $criteria->compare('id', $model->id);
+        $criteria->compare('title', $model->title, true);
+        $criteria->compare('category_id',$model->category_id,true);
+        $criteria->compare('description', $model->description, true);
+        $criteria->compare('price', $model->price);
+        $criteria->compare('user_id', $model->user_id);        
+        $criteria->compare('create_date', $model->create_date, true);
+        $criteria->compare('status', $model->create_date, true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

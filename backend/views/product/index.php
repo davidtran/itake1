@@ -31,34 +31,44 @@ $this->menu=array(
         array(
             'header'=>'Image',
             'type'=>'raw',
-            'value'=>'CHtml::image(Yii::app()->params["frontendUrl"]."/".$data->getFirstImage(),"",array("width"=>100))'
+            'value'=>function($data){
+                $html = '';
+                foreach($data->images as $image){
+                    $html .= CHtml::image(Yii::app()->params["frontendUrl"]."/".$image->thumbnail,"",array("width"=>150));
+                }
+                echo $html;
+            }
         ),
 		'title',
 		'description',
 		'price',
+        array(
+            'name'=>'category_id',
+            'value'=>'$data->category->name'
+        ),
 		'user_id',
 		'image',
         array(
             'header'=>'Status',
             'value'=>'$data->getStatusText()'
+        ),		
+		'create_date',				
+        array(
+            'name'=>'Address',
+            'value'=>'$data->address->cityModel->name.",".$data->address->address'
+        ),        
+        array(
+            'name'=>'Phone',
+            'value'=>'$data->address->phone'
+        ),        
+		'view',		
+		array(
+            'name'=>'Status',
+            'value'=>'$data->getStatusText()'
         ),
-		/*
-		'create_date',
-		'lat',
-		'lon',
-		'phone',
-		'category_id',
-		'processed_image',
-		'city',
-		'locationText',
-		'image_thumbnail',
-		'view',
-		'address_id',
-		'country',
-		*/
 		array(
 			'class'=>'CButtonColumn',
-            'template'=>'{view}{delete}'
+            'template'=>'{update}{delete}'
 		),
 	),
 )); ?>
