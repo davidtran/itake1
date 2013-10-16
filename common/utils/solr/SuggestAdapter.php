@@ -25,7 +25,7 @@ class SuggestAdapter
      */
     public function getSuggestion()
     {
-        $url = 'http://' . Yii::app()->solrProduct->host . ':' . Yii::app()->solrProduct->port . Yii::app()->solrProduct->indexPath . '/' . 'suggest' . '/?';
+        $url = 'http://' . Yii::app()->params['solr.host'] . ':' . Yii::app()->params['solr.port'] . Yii::app()->params['solr.indexPath'] . '/' . 'suggest' . '/?';
         $url.='fq=suggest_terms:' . strtolower($this->keyword) . '*';        
         $data = $this->_solr->_sendRawGet($url);
        
