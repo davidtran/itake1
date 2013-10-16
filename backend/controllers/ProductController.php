@@ -28,7 +28,7 @@ class ProductController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','delete'),
+				'actions'=>array('index','view','delete','update'),
 				'users'=>  UserRoleConstant::getAdminUserList()
 			),			
 			array('deny',  // deny all users
@@ -80,25 +80,23 @@ class ProductController extends Controller
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id)
-	{
-        return;
-		$model=$this->loadModel($id);
+	{        
+        if(Yii::app()->user->checkAccess('updateProduct')){
+            $model=$this->loadModel($id);
+            if(isset($_POST['Product']))
+            {
+                $model->attributes=$_POST['Product'];
+                if($model->save()){             
+                    $this->redirect(array('update','id'=>$model->id));
+                }
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Product']))
-		{
-			$model->attributes=$_POST['Product'];
-			if($model->save()){             
-                $this->redirect(array('view','id'=>$model->id));
             }
-				
-		}
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
+            $this->render('update',array(
+                'model'=>$model,
+            ));
+        }
+		
 	}
 
 	/**
@@ -124,6 +122,7 @@ class ProductController extends Controller
 	 */
 	public function actionIndex()
 	{
+        $this->layout='//layouts/column1';
         if(Yii::app()->user->checkAccess('viewProduct')){
             $model=new Product('search');
             $model->unsetAttributes();  // clear any default values

@@ -54,16 +54,16 @@ $this->menu=array(
         ),		
 		'create_date',				
         array(
-            'name'=>'Address',
+            'header'=>'Address',
             'value'=>'$data->address->cityModel->name.",".$data->address->address'
         ),        
         array(
-            'name'=>'Phone',
+            'header'=>'Phone',
             'value'=>'$data->address->phone'
         ),        
 		'view',		
 		array(
-            'name'=>'Status',
+            'name'=>'status',
             'value'=>'$data->getStatusText()'
         ),
 		array(
