@@ -109,7 +109,7 @@
                                         </button>
                                         <ul class="dropdown-menu" style="border-radius: 0px;">
                                             <li><?php echo CHtml::link(LanguageUtil::t('My profile'),Yii::app()->user->model->getUserProfileUrl()); ?></li>
-                                            <li><?php echo CHtml::link(LanguageUtil::t('Change password'),$this->createUrl('/user/changePassword')); ?></li>                                    
+                                            <li><?php echo CHtml::link(LanguageUtil::t('Update information'),$this->createUrl('/user/editProfile')); ?></li>                                    
                                             <li><a href="<?php echo $this->createUrl('/user/logout'); ?>"><?php LanguageUtil::echoT('Sign out') ?></a></li>
                                         </ul>
                                     </div>
