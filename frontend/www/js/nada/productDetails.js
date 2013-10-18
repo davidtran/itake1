@@ -236,32 +236,7 @@ function loadImageSlideShow(){
 }
 ///
 
-$(document).ready(function(){
-    $('.p-sold').live('click',function(e){
-        e.preventDefault();        
-        var id = $(this).parents('.productItem').attr('data-product-id');
-        var that = $(this);
-        $.ajax({
-            url:BASE_URL + '/product/sold',
-            data:{
-                productId:id
-            },
-            success:function(jsons){
-                var data = $.parseJSON(jsons);
-                if(data.success){
-                    that.parents('.productItem').fadeOut(500,function(){
-                        $('#productContainer').isotope('remove',that.parents('.productItem'));
-                        bootbox.alert('Sản phẩm đã được đánh dấu là đã bán');                        
-                    });
-                }else{
-                    bootbox.alert(data.msg);
-                }
-            }
-            
-        });
-        return false;
-    });
-});
+
 
 //SEND MESSAGE
 

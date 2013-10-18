@@ -67,7 +67,7 @@
                         <?php
                         if($product->status!=Product::STATUS_SOLD)
                         {
-                            echo CHtml::link('<i class="icon-shopping-cart"></i> ' . LanguageUtil::t('Sold'), array('/upload/delete'), array(
+                            echo CHtml::link('<i class="icon-shopping-cart"></i> ' . LanguageUtil::t('Sold'), array('/upload/sold'), array(
                                 'class' => 'btn btn-square p-sold',
                                 'data-toggle' => 'tooltip',
                                 'title' => 'Đã bán phẩm này',
@@ -75,7 +75,7 @@
                         }
                         else{
                             echo CHtml::link('<i class="icon-remove"></i> ' . LanguageUtil::t('Remove'), array('/upload/delete'), array(
-                                'class' => 'btn btn-square p-sold',
+                                'class' => 'btn btn-square p-delete',
                                 'data-toggle' => 'tooltip',
                                 'title' => 'Xóa phẩm này',
                             ));

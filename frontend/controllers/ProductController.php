@@ -177,24 +177,41 @@ class ProductController extends Controller
         return $result->productList;
     }
 
-    public function actionSold($productId)
+    public function actionSold()
     {
-        $product = $this->loadProduct($productId);
-        $product->status = Product::STATUS_SOLD;
-        if ($product->save()) {
-            $solrImporter = new ProductModelSolrImporter();
-            $solrImporter->addProduct($product);
-            try {
-                $solrImporter->importProduct();
+        $id = Yii::app()->request->getPost('id');
+        if($id!=null){
+            $product = $this->loadProduct($id);
+            $product->status = Product::STATUS_SOLD;
+            if ($product->save()) {
                 $this->renderAjaxResult(true);
             }
-            catch (Exception $e) {
+            else {
                 $this->renderAjaxResult(false, 'Không thể lưu thông tin');
             }
         }
-        else {
-            $this->renderAjaxResult(false, 'Không thể lưu thông tin');
+        
+    }
+    
+    public function actionDelete()
+    {
+        $this->checkLogin('Vui lòng đăng nhập khi sử dụng chức năng này');
+        $productId = Yii::app()->request->getParam('id');
+        if ($productId) {
+            $product = Product::model()->findByPk($productId);
+            if ($product != null && $product->user_id == Yii::app()->user->getId()) {                
+                if($product->delete()){
+                    $this->renderAjaxResult(true);
+                }else{
+                    $this->renderAjaxResult(false, 'Không thể xóa bài đăng này');
+                }
+                
+            }
+            else {
+                $this->renderAjaxResult(false, 'Không thể xóa bài đăng này');
+            }
         }
+        $this->renderAjaxResult(false, 'Sai tham số');
     }
 
     public function actionSendMessage($productId)
