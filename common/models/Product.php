@@ -154,7 +154,9 @@ class Product extends CActiveRecord
             $this->view = 0;
            // $this->status = Product::STATUS_INACTIVE;
         }
-        
+        if(mb_strlen($this->title,'utf-8')> 200){
+            $this->title = mb_substr($this->title,0,200);
+        }
         $this->price = intval(StringUtil::removeSpecialCharacter($this->price));
         return parent::beforeValidate();
     }
