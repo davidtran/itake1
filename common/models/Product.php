@@ -152,7 +152,7 @@ class Product extends CActiveRecord
         {
             $this->create_date = date('Y-m-d H:i:s');
             $this->view = 0;
-            $this->status = Product::STATUS_INACTIVE;
+           // $this->status = Product::STATUS_INACTIVE;
         }
         
         $this->price = intval(StringUtil::removeSpecialCharacter($this->price));
