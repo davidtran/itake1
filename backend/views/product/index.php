@@ -47,7 +47,7 @@ $this->menu=array(
             'value'=>'$data->category->name'
         ),
 		'user_id',
-		'image',
+	
         array(
             'header'=>'Status',
             'value'=>'$data->getStatusText()'
@@ -60,8 +60,7 @@ $this->menu=array(
         array(
             'header'=>'Phone',
             'value'=>'$data->address->phone'
-        ),        
-		'view',		
+        ),        	
 		array(
             'name'=>'status',
             'value'=>'$data->getStatusText()'
