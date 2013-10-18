@@ -24,7 +24,7 @@ $this->menu=array(
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'product-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$this->searchProduct(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',

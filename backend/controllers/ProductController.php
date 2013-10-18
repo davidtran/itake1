@@ -135,9 +135,13 @@ class ProductController extends Controller
 		
 	}
     
-    public function searchProduct($model){
-        if(isset($_GET['Product']))
-                $model->attributes=$_GET['Product'];
+    protected function searchProduct(){
+        $model = new Product('search');
+        $model->unsetAttributes();
+        if(isset($_GET['Product'])){
+            $model->attributes=$_GET['Product'];
+        }
+                
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $model->id);
@@ -149,7 +153,7 @@ class ProductController extends Controller
         $criteria->compare('create_date', $model->create_date, true);
         $criteria->compare('status', $model->create_date, true);
         $criteria->order = 'create_date desc';
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider($model, array(
             'criteria' => $criteria,
         ));
     }
