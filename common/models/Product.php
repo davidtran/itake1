@@ -152,6 +152,7 @@ class Product extends CActiveRecord
         {
             $this->create_date = date('Y-m-d H:i:s');
             $this->view = 0;
+           // $this->status = Product::STATUS_INACTIVE;
         }
         
         $this->price = intval(StringUtil::removeSpecialCharacter($this->price));
@@ -177,6 +178,12 @@ class Product extends CActiveRecord
         $description = nl2br(strip_tags($this->description,'<br><p>'));
         $this->description = $description;
         
+        
+        return parent::beforeSave();
+    }     
+    
+    public function afterSave()
+    {        
         try{
             $importer = new ProductModelSolrImporter();
             $importer->addProduct($this);
@@ -185,11 +192,6 @@ class Product extends CActiveRecord
         catch(Exception $e){
             $this->addError('id', 'Solr error');
         }
-        return parent::beforeSave();
-    }     
-    
-    public function afterSave()
-    {        
         return parent::afterSave();
     }
     

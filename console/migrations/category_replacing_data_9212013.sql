@@ -11,10 +11,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Dumping database structure for nada
-CREATE DATABASE IF NOT EXISTS `nada` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `nada`;
-
-
 -- Dumping structure for table nada.mp_category
 CREATE TABLE IF NOT EXISTS `mp_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

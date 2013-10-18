@@ -19,6 +19,7 @@ class SolrSearchAdapter
     public $latitude = null;
     public $longitude = null;
     public $facebookFriend;
+    public $validateAfterSearch = true;
     /**
      * Product status filter
      * @var int 
@@ -152,11 +153,12 @@ class SolrSearchAdapter
         foreach ($docs as $doc) {
             if (!in_array($doc['id'], $this->excludeIdList, true)) {
                 $product = Product::model()->findByPk(trim($doc['id']));
-                if ($product != null && $product->status == $this->status) {
-                    $product->title = $doc['title'];
-                    $product->description = $doc['description'];
-                    $resultSet->productList[] = $product;
+                if($this->validateAfterSearch){
+                    if($product == null){
+                        continue;
+                    }
                 }
+                $resultSet->productList[] = $product;
             }
         }
         return $resultSet;

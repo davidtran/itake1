@@ -19,19 +19,44 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
+        array(
+            'label'=>'Image',
+            'type'=>'raw',
+            'value'=>function($model){
+                $html = '';
+                foreach($model->images as $image){
+                    $html .= CHtml::image(Yii::app()->params["frontendUrl"]."/".$image->thumbnail,"",array("width"=>150));
+                }
+                echo $html;
+            }
+        ),
 		'title',
 		'description',
 		'price',
+        array(
+            'name'=>'category_id',
+            'value'=>$model->category->name
+        ),
 		'user_id',
-		'create_date',
-		'lat',
-		'lon',
-		'phone',
-		'category_id',
-		'city',
-		'locationText',
-		'view',
-		'country',
+		'image',
+        array(
+            'label'=>'Status',
+            'value'=>$model->getStatusText()
+        ),		
+		'create_date',				
+        array(
+            'label'=>'Address',
+            'value'=>$model->address->cityModel->name.",".$model->address->address
+        ),        
+        array(
+            'label'=>'Phone',
+            'value'=>$model->address->phone
+        ),        
+		'view',		
+		array(
+            'name'=>'status',
+            'value'=>$model->getStatusText()
+        ),
 	),
 )); ?>
 <h3>Hình ảnh</h3>

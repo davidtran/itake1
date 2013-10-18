@@ -24,41 +24,50 @@ $this->menu=array(
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'product-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$this->searchProduct(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
         array(
             'header'=>'Image',
             'type'=>'raw',
-            'value'=>'CHtml::image(Yii::app()->params["frontendUrl"]."/".$data->getFirstImage(),"",array("width"=>100))'
+            'value'=>function($data){
+                $html = '';
+                foreach($data->images as $image){
+                    $html .= CHtml::image(Yii::app()->params["frontendUrl"]."/".$image->thumbnail,"",array("width"=>150));
+                }
+                echo $html;
+            }
         ),
 		'title',
 		'description',
 		'price',
+        array(
+            'name'=>'category_id',
+            'value'=>'$data->category->name'
+        ),
 		'user_id',
-		'image',
+	
         array(
             'header'=>'Status',
             'value'=>'$data->getStatusText()'
+        ),		
+		'create_date',				
+        array(
+            'header'=>'Address',
+            'value'=>'$data->address->cityModel->name.",".$data->address->address'
+        ),        
+        array(
+            'header'=>'Phone',
+            'value'=>'$data->address->phone'
+        ),        	
+		array(
+            'name'=>'status',
+            'value'=>'$data->getStatusText()'
         ),
-		/*
-		'create_date',
-		'lat',
-		'lon',
-		'phone',
-		'category_id',
-		'processed_image',
-		'city',
-		'locationText',
-		'image_thumbnail',
-		'view',
-		'address_id',
-		'country',
-		*/
 		array(
 			'class'=>'CButtonColumn',
-            'template'=>'{view}{delete}'
+            'template'=>'{update}{delete}'
 		),
 	),
 )); ?>

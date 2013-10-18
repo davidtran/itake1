@@ -16,4 +16,10 @@ class SolrCommand extends ConsoleCommand{
         }
         $importer->importProduct();
     }
+    
+    public function clearIndex(){
+        $solr = SolrServiceFactory::getInstance();       
+        $solr->deleteByQuery('*:*');
+        $solr->commit();
+    }
 }

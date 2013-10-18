@@ -152,7 +152,7 @@ class ProductController extends Controller
         $adapter = new SolrSearchAdapter();
         $adapter->keyword = $product->title;
         $adapter->categoryId = $product->category_id;
-        $adapter->city = $product->city;
+        $adapter->cityId = $product->address->city;
         $adapter->country = $product->country;
         $adapter->mm = 1;
         $adapter->setSortType(SolrSearchAdapter::TYPE_CREATE_DATE);
@@ -168,7 +168,7 @@ class ProductController extends Controller
     {
         $adapter = new SolrSearchAdapter();
         $adapter->categoryId = $product->category_id;
-        $adapter->city = $product->city;
+        $adapter->cityId = $product->address->city;
         $adapter->country = $product->country;
         $adapter->setSortType(SolrSearchAdapter::TYPE_CREATE_DATE);
         $adapter->pageSize = 10;

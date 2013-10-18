@@ -16,7 +16,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/map
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/user-location.js', CClientScript::POS_END);
 $cityList = json_encode(CityUtil::getCityList(true));
 $jsCategory = $category !=null ? $category:'null';
-$jsKeyword = $keyword!=null ? $keyword:'null';
+$jsKeyword = $keyword!=null ? $keyword:'';
 Yii::app()->clientScript->registerScript('data',"
     var cityList = $cityList;
     var category = $jsCategory;

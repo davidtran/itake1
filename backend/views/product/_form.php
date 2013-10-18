@@ -34,54 +34,15 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'user_id'); ?>
-		<?php echo $form->textField($model,'user_id',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'user_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'lat'); ?>
-		<?php echo $form->textField($model,'lat'); ?>
-		<?php echo $form->error($model,'lat'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'lon'); ?>
-		<?php echo $form->textField($model,'lon'); ?>
-		<?php echo $form->error($model,'lon'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'phone'); ?>
-		<?php echo $form->textField($model,'phone',array('size'=>15,'maxlength'=>15)); ?>
-		<?php echo $form->error($model,'phone'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'category_id'); ?>
-		<?php echo $form->textField($model,'category_id'); ?>
+		<?php echo $form->dropDownList($model,'category_id',CHtml::listData(Category::model()->findAll(),'id','name')); ?>
 		<?php echo $form->error($model,'category_id'); ?>
 	</div>
-
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'city'); ?>
-		<?php echo $form->textField($model,'city'); ?>
-		<?php echo $form->error($model,'city'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'locationText'); ?>
-		<?php echo $form->textField($model,'locationText',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'locationText'); ?>
-	</div>
-
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'view'); ?>
-		<?php echo $form->textField($model,'view'); ?>
-		<?php echo $form->error($model,'view'); ?>
-	</div>
+    <div class='row'>
+        <?php echo $form->labelEx($model,'status'); ?>
+		<?php echo $form->dropDownList($model,'status',$model->getStatusList()); ?>
+		<?php echo $form->error($model,'status'); ?>
+    </div>
 
 
 	

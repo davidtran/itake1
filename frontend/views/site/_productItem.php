@@ -13,7 +13,7 @@
                 <hr class="sep_item"/>
             </div>
             <div class="productDescription">
-                <?php echo StringUtil::limitCharacter($product->description, 50); ?>
+                <?php echo strip_tags(StringUtil::limitCharacter($product->description, 100)); ?>
             </div>            
             <div class="productCreateDate">
 

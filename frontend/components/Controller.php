@@ -167,6 +167,8 @@ class Controller extends CController
     
     public function redirectToReturnUrl($default = null){
         if(isset(Yii::app()->session['ReturnUrl'])){
+            if(strpos(Yii::app()->session['ReturnUrl'],$this->createAbsoluteUrl('/user/register'))!==false)
+                Yii::app()->session['ReturnUrl']=$this->createAbsoluteUrl('/site/index');
             $this->redirect(Yii::app()->session['ReturnUrl']);
         }else{
             if($default == null) $default = $this->createUrl('/site');
