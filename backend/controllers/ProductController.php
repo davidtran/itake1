@@ -148,7 +148,7 @@ class ProductController extends Controller
         $criteria->compare('user_id', $model->user_id);        
         $criteria->compare('create_date', $model->create_date, true);
         $criteria->compare('status', $model->create_date, true);
-
+        $criteria->order = 'create_date desc';
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
