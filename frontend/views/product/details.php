@@ -6,7 +6,7 @@ $this->pageTitle = $product->title;
         <div class='span12 custom customtop' id="mainProductInfo">
 
             <h1>
-                <?php echo StringUtil::limitCharacter(strtoupper($product->title), 100); ?>
+                <?php echo strtoupper($product->title); ?>
             </h1>
             <div class="row-fluid">
                 <div class="span6">

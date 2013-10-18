@@ -208,42 +208,6 @@ class UploadController extends Controller
         return $haveImage;
     }
 
-    /**
-     * Get image from upload form and check extension, file size, then resize to 1024x768 (max)
-     * Draw info to image
-     * @param Product $product
-     * @return boolean upload successful
-     */
-    protected function handleUploadImage(Product &$product)
-    {
-        $upload = ImageUploadUtil::getInstance('productImage');
-        $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($product->title)) .
-                '_' .
-                rand(0, 999);
-
-
-        $rs = $upload->handleUploadImage('images/content', $filename);
-        if ($rs == false) {
-            if ($product->image == null) {
-                $product->addError('image', $upload->getError());
-                return false;
-            }
-        }
-        else {
-
-            $raw = 'images/content/' . $filename . '.' . $upload->getExtension();
-            $product->image = $raw;
-            return array(
-                'filename' => $filename,
-                'extension' => $upload->getExtension(),
-                'fullpath' => $raw
-            );
-        }
-        return false;
-    }
-
-    
-
     public function actionGetGeoData($cityId)
     {
         $cityList = CityUtil::getCityList();

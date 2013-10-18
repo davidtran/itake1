@@ -127,7 +127,10 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                             ?>
                             <?php echo $form->errorSummary($product); ?>
                             <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>
-                            <?php echo $form->textFieldRow($product, 'title', array('class' => 'span12', 'require')); ?>
+                            <?php echo $form->textFieldRow($product, 'title', array(
+                                'class' => 'span12', 
+                                'require',
+                                'maxlength'=>200)); ?>
                             <?php
                             echo $form->textFieldRow($product, 'price', array(
                                 'class' => 'span12'

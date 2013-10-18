@@ -28,7 +28,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                 ),
                             ));
                             ?>
-                            <h1> <?php echo StringUtil::limitCharacter(strtoupper($product->title), 100); ?></h1>
+                            <h1> <?php echo strtoupper($product->title); ?></h1>
                             <div class="row-fluid">                            
                                 <div class="span6">
                                     <div class="row-fluid">
