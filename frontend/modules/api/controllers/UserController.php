@@ -87,7 +87,7 @@ class UserController extends MobileController
     {
         $profile = $this->getPayloadData();   
         if (isset($profile['email']) && isset($profile['access_token']) && isset($profile['id']))
-        {
+        {            
             $user = UserUtil::getUserByEmail($profile['email']);
             if ($user == null)
             {
