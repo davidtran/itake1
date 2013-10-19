@@ -9,7 +9,9 @@ class ApiModule extends CWebModule
 			'api.utils.*',  
             'api.components.*',
 		));
-        ApiUser::getInstance();
+        $apiUser = new ApiUser();
+        Yii::app()->setComponent('user', $apiUser);
+        AutoUserApiLogin::autoLogin();
 	}
 
 	public function beforeControllerAction($controller, $action)

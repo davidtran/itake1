@@ -10,8 +10,8 @@ class UserController extends MobileController
                 'CheckTokenFilter + detail'
             )            
         );
-    }     
-
+    }        
+    
     public function actionRegister()
     {
         $data = $this->getPayloadData();

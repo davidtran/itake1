@@ -11,7 +11,6 @@ $this->pageTitle = $product->title;
             <div class="row-fluid">
                 <div class="span6">
                     <div class="row-fluid">
-
                         <?php $this->
                             renderPartial('partial/images',array(
                                 'product'=>$product
