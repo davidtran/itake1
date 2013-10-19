@@ -101,10 +101,10 @@ class SiteController extends Controller
         if (isset(Yii::app()->request->cookies['usercity_ck']) && Yii::app()->user->isGuest) {
             CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
         }
-        if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
-            Yii::app()->session['VisitLanding'] = true;
-            $this->redirect($this->createUrl('landing'));
-        }
+        // if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
+        //     Yii::app()->session['VisitLanding'] = true;
+        //     $this->redirect($this->createUrl('landing'));
+        // }
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber'] = $page;
         Yii::app()->session['LastCategory'] = $category;
