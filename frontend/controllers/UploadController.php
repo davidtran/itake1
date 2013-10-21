@@ -168,38 +168,45 @@ class UploadController extends Controller
         $haveImage = true;
         if (Yii::app()->user->hasState(self::IMAGE_STATE_VARIABLE)) {
             $userImages = Yii::app()->user->getState(self::IMAGE_STATE_VARIABLE);
-            $i = 1;
+            $i = 0;
             foreach ($userImages as $index => $image) {
-
+                
                 if (is_file($image["path"]))
                 {
-                    $titleCut = mb_strlen($product->title,'utf-8')>20?mb_substr($product->title,0,20,'utf-8'):$product->title;
+                    
+                    $titleCut = mb_strlen($product->title,'utf-8')>50?mb_substr($product->title,0,50,'utf-8'):$product->title;
                     $filename = str_replace(' ', '-', StringUtil::utf8ToAscii(StringUtil::removeSpecialCharacter($titleCut))) .
-                            '_' .
-                            $index .
+                            '_'.
+                            $i.
                             '_' .
                             $product->id;
-                    $ext = substr($image['filename'], strlen($image['filename']) - 3);
-                    if (rename($image["path"], Yii::getPathOfAlias('www') . '/images/content/' . $filename . '.' . $ext)) {                        
-                        $thumbnail = ImageUtil::resize(
-                                'images/content/' . $filename . '.' . $ext, 
-                                Yii::app()->params['image.minWidth'], 
-                                Yii::app()->params['image.minHeight']);                                                
-                        $mainImage = ImageUtil::resize(
-                                'images/content/' . $filename . '.' . $ext, 
-                                Yii::app()->params['image.maxWidth'], 
-                                Yii::app()->params['image.maxHeight']);                                                
-                        $imageModel = new ProductImage();
-                        $imageModel->image = $mainImage;
-                        $imageModel->thumbnail = $thumbnail;
-                        $processed = 'images/content/processed/' . $filename . '.' . $ext;
-                        ProductImageUtil::drawImage($product, $imageModel->image, $processed);
-                        $imageModel->facebook = $processed;
-                        $imageModel->number = $i;
-                        $imageModel->product_id = $product->id;
-                        if ($imageModel->save()) {
-                            $i++;
-                            $haveImage = true;
+                    $fileNameArray = explode('.', $image['filename']);
+                 
+                    if(count($fileNameArray)>0){
+                        
+                        $ext = $fileNameArray[count($fileNameArray)-1];                                        
+                        if (rename($image["path"], Yii::getPathOfAlias('www') . '/images/content/' . $filename . '.' . $ext)) {                        
+                       
+                            $thumbnail = ImageUtil::resize(
+                                    'images/content/' . $filename . '.' . $ext, 
+                                    Yii::app()->params['image.minWidth'], 
+                                    Yii::app()->params['image.minHeight']);                                                
+                            $mainImage = ImageUtil::resize(
+                                    'images/content/' . $filename . '.' . $ext, 
+                                    Yii::app()->params['image.maxWidth'], 
+                                    Yii::app()->params['image.maxHeight']);                                                
+                            $imageModel = new ProductImage();
+                            $imageModel->image = $mainImage;
+                            $imageModel->thumbnail = $thumbnail;
+                            $processed = 'images/content/processed/' . $filename . '.' . $ext;
+                            ProductImageUtil::drawImage($product, $imageModel->image, $processed);
+                            $imageModel->facebook = $processed;
+                            $imageModel->number = $i;
+                            $imageModel->product_id = $product->id;
+                            if ($imageModel->save()) {
+                                $i++;
+                                $haveImage = true;
+                            }
                         }
                     }
                 }

@@ -93,7 +93,7 @@ $this->pageTitle = $product->title;
                                                 <?php LanguageUtil::echoT('Description') ?></h4>
                                             <div class="slim-scroll" data-height="150">
                                                 <p>
-                                                    <?php echo $product->description; ?></p>
+                                                    <?php echo nl2br($product->description); ?></p>
                                             </div>
                                         </div>
                                     </div>

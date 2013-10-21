@@ -94,7 +94,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                                                         <div class="span12">
                                             <h4 class="product-detail-tag"> <?php LanguageUtil::echoT('Description') ?></h4>
                                                             <div class="slim-scroll" data-height="150">
-                                                                <p><?php echo $product->description; ?></p>
+                                                                <p><?php echo nl2br($product->description); ?></p>
                                                             </div>   
                                                         </div>
                                                     </div>

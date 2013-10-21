@@ -9,11 +9,11 @@
                     'showControl'=>$showControl
                         ), true, false); ?>            
             <div class="productImageInfo">
-                <div class="productImageTitle"><?php echo StringUtil::limitCharacter(strtoupper($product->title), 100); ?></div>
+                <div class="productImageTitle"><?php echo strtoupper($product->title); ?></div>
                 <hr class="sep_item"/>
             </div>
             <div class="productDescription">
-                <?php echo strip_tags(StringUtil::limitCharacter($product->description, 100)); ?>
+                <?php echo strip_tags($product->description); ?>
             </div>            
             <div class="productCreateDate">
 

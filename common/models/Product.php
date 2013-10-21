@@ -177,7 +177,7 @@ class Product extends CActiveRecord
             $this->lon = $this->address->lon;
         }
         $this->title = strip_tags($this->title);
-        $description = nl2br(strip_tags($this->description,'<br><p>'));
+        $description = strip_tags($this->description,'<br><p>');
         $this->description = $description;
         
         

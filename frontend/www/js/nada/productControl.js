@@ -22,7 +22,8 @@ $(document).ready(function(){
                 success:function(jsons){                    
                     var json = $.parseJSON(jsons);
                     if(json.success){
-                        window.location.reload();
+                        productItem.replaceWith(json.msg.html);
+                        //window.location.reload();
                     }else{
                         alert(json.msg);
                     }

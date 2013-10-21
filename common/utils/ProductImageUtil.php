@@ -39,12 +39,12 @@ class ProductImageUtil
             $image->saveToFile($dest);
             $icon1 = null;
             $gd_canvas = imagecreatetruecolor($newImageWidth,$newImageHeight);
-            if (strpos($dest,'.png') !== false||strpos($dest,'.PNG') !== false) {
+            if (strpos(strtolower($dest),'.png') !== false) {
                 $icon1 = imagecreatefrompng($dest);
             }
-            else if (strpos($dest,'.jpg') !== false||strpos($dest,'.JPG') !== false) {
+            else if (strpos(strtolower($dest),'.jpg') !== false || strpos(strtolower($dest),'.jpeg') !== false) {
                $icon1 = imagecreatefromjpeg($dest);
-            }else if (condition) {
+            }else {
                 return false;
             }
 

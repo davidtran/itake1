@@ -184,7 +184,9 @@ class ProductController extends Controller
             $product = $this->loadProduct($id);
             $product->status = Product::STATUS_SOLD;
             if ($product->save()) {
-                $this->renderAjaxResult(true);
+                $this->renderAjaxResult(true,array(
+                    'html'=>$product->renderHtml('',true)
+                ));
             }
             else {
                 $this->renderAjaxResult(false, 'Không thể lưu thông tin');
@@ -260,6 +262,16 @@ class ProductController extends Controller
             'message' => $message
          ));
         return $html;
+    }
+    
+    protected function renderItem($id){
+        $product = $this->loadProduct($id);
+        $html = $this->render('/site/_productItem',array(
+            'product'=>$product
+        ),true,false);
+        $this->renderAjaxResult(true,array(
+            'html'=>$html
+        ));
     }
 
 }
