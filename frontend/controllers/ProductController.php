@@ -33,13 +33,28 @@ class ProductController extends Controller
             )
         );
     }
-
+    protected function newComment($product)
+    {
+        $comment=new Comment;
+        if(isset($_POST['Comment']))
+        {
+            $comment->attributes=$_POST['Comment'];
+            if($product->addComment($comment))
+            {
+                if($comment->status==Comment::STATUS_PENDING)
+                    Yii::app()->user->setFlash('commentSubmitted','Thank you for your comment. Your comment will be posted once it is approved.');
+                $this->refresh();
+            }
+        }
+        return $comment;
+    }
     public function actionDetails($id)
     {
         unset(Yii::app()->session['FacebookConnectFailed']);
         unset(Yii::app()->session['CheckedAccessToken']);
         ProductViewCounterUtil::getInstance($id)->increaseView();
         $product = $this->loadProduct($id);
+        $comment = $this->newComment($product);
         $canonicalUrl = $this->createAbsoluteUrl('/product/details', array('id' => $id));
         $relateProductList = $this->relatedProduct($product);
         if (Yii::app()->request->isAjaxRequest) {
@@ -47,7 +62,8 @@ class ProductController extends Controller
             $html = $this->renderPartial('details', array(
                 'product' => $product,
                 'relateProductList' => $relateProductList,
-                'canonicalUrl' => $canonicalUrl
+                'canonicalUrl' => $canonicalUrl,
+                'comment'=>$comment,
                     ), true, false);
             $html = utf8_encode($html);
             $html = iconv('utf-8', 'utf-8', $html);
@@ -56,7 +72,8 @@ class ProductController extends Controller
             $this->renderAjaxResult(true, array(
                 'html' => $html,
                 'product' => $productAttributes,
-                'canonicalUrl' => $canonicalUrl
+                'canonicalUrl' => $canonicalUrl,
+                'comment'=>$comment,
             ));
         }
         else {
@@ -93,7 +110,8 @@ class ProductController extends Controller
             $this->render('detailPage', array(
                 'product' => $product,
                 'relateProductList' => $relateProductList,
-                'canonicalUrl' => $canonicalUrl
+                'canonicalUrl' => $canonicalUrl,
+                'comment'=>$comment,
             ));
         }
     }

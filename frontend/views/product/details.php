@@ -172,7 +172,25 @@ $this->pageTitle = $product->title;
                 <?php LanguageUtil::echoT('Comments') ?></h3>
         </div>
         <div class="row-fluid">
-            <div class="fb-comments margin-top-20" data-href="<?php echo $canonicalUrl; ?>" data-width="" data-num-posts="10"></div>
+                <div id="comments">
+                    <br>
+                    <br>
+                    <?php 
+                    $this->renderPartial('partial/_frmcomment',array(
+                            'model'=>$comment,
+                    )); 
+                    ?>
+                    <?php if($product->commentCount>=1): ?>
+                        <h3>
+                            <?php echo $product->commentCount . 'comment(s)'; ?>
+                        </h3>
+                 
+                        <?php $this->renderPartial('partial/_comments',array(
+                            'product'=>$product,
+                            'comments'=>$product->comments,
+                        )); ?>
+                    <?php endif; ?>
+            </div>
         </div>
     </div>
 </div>

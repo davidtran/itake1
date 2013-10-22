@@ -107,6 +107,7 @@ function loadProduct(href, htmlProductId)
 
                 loadUserProduct(product);
                 loadImageSlideShow();
+                commentRegisterEventSubmit();
                 //$('.modal-scrollable').scrollTop(0); // work only in modal
                 //$('body').scrollTop(0); // work in single page
                 if ($dialog.css('display') == 'none') {

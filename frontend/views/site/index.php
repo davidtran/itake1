@@ -14,6 +14,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/pro
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/productControl.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/map-util.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/nada/user-location.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->getBaseUrl(true).'/js/nada/comment.js',CClientScript::POS_END); 
 $cityList = json_encode(CityUtil::getCityList(true));
 $jsCategory = $category !=null ? $category:'null';
 $jsKeyword = $keyword!=null ? $keyword:'';
