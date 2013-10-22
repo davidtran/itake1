@@ -13,11 +13,15 @@
 ?>
 <div class='nd_profile'>
     <div class="top" style="background-image: url('<?php echo Yii::app()->baseUrl.'/'.$user->getBanner();?>');background-repeat: no-repeat; ">
+        <?php if(UserUtil::canEdit($user)):?>
+        <!--
         <div style="position:absolute; bottom: 10px; right:10px;z-index:999;">
             <?php echo CHtml::link('<i class="icon-cogs"></i>    Cập nhật thông tin',$this->createUrl('user/editProfile'),array(
                         'class'=>'btnEditProfile btn btn-success pull-right',
                     )); ?>
         </div>
+        -->
+        <?php endif; ?>
           
         <div class="row-fluid">            
             <div class="span12 profile-name">

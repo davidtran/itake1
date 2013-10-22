@@ -434,3 +434,14 @@ function showMessage(message){
         $('.main-notification').hide('fade');
     },3000);
 }
+
+function loadImage( elem, img, state )
+{
+    if (
+        (typeof(elem.onerror) === 'function' && state === 'fail') 
+        || (elem.width === 0)
+        )
+         {
+           elem.src = img;           
+         }         
+}
