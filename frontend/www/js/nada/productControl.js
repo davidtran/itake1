@@ -22,10 +22,10 @@ $(document).ready(function(){
                 success:function(jsons){                    
                     var json = $.parseJSON(jsons);
                     if(json.success){
-                        productItem.replaceWith(json.msg.html);
+                        productItem.html($(json.msg.html).html());
                         //window.location.reload();
                     }else{
-                        alert(json.msg);
+                        bootbox.alert(json.msg);
                     }
                 }
             });
