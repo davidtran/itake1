@@ -51,7 +51,7 @@
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
-                        <div class="fb-comments-count" data-href='<?php echo ProductUtil::getCanonicalLink($product->id); ?>'/></div> <i class="icon-comments"></i>
+                        <i class="icon-comments"></i> <span class="fb-comments-count" data-href='<?php echo ProductUtil::getCanonicalLink($product->id); ?>'/></span> 
                     </div>
                 </div>
             </div>
