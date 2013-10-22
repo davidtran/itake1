@@ -49,7 +49,13 @@
                         ?>
                     </div>
                 </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <fb:comments-count href='<?php echo $product->getDetailUrl(true); ?>'/></fb:comments-count> <i class="icon-comments"></i>
+                    </div>
+                </div>
             </div>
+            
 
         </div>
     </div>
