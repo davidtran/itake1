@@ -115,13 +115,14 @@ div.nav-bar-top h1{
     font-weight: 300;
 }
 div.productImagePrice{
-     font-family: "MNBTitleBold";
-    font-weight: 300;
+    font-family: "MNBTitleBold";
+    font-weight: 100;
     font-size: 18px;
     float: right;
     position: relative;
     bottom: 0;
-    color:rgba(255, 255, 255, 0.9);
+    color: #FF0000;
+    
 }
 div.productItemDistance{
     font-size: 1.5em;
@@ -2108,3 +2109,6 @@ div.productSoldBg{
     padding-right: 30px;
 }
 
+.product-detail:hover, .productImage:hover{
+    cursor: -webkit-zoom-in; cursor: -moz-zoom-in;
+}

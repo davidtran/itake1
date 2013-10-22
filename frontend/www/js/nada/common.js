@@ -153,20 +153,7 @@ function alignDiv()
 //
 //    $('#wrapper_productContainer').css('width',containerWidth);
     $(function() {
-        $('.productLink').live('click', function(e) {
-            e.preventDefault();
-            link = $(this).attr('href');
-            productItem = $(this).parents('.productItem');
-            productId = productItem.attr('data-product-id');
-            productIdHtml = productItem.attr('id');
-            productTitle = productItem.attr('data-title');
-            //loadProduct(link,productIdHtml);
-            History.pushState({
-                productIdHtml: productIdHtml,
-                dlgPush: true
-            }, productTitle, link);
-            return false;
-        });
+        
     });
 }
 
