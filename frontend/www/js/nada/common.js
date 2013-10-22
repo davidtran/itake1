@@ -1,3 +1,7 @@
+//show comment count after ajax call
+$('body').ajaxComplete(function(){ FB.XFBML.parse(document.body) }); 
+
+
 var isIE = /*@cc_on!@*/false;
 var itakeHistoryHandler;
 $dialog = $('#productDialog');

@@ -51,7 +51,7 @@
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
-                        <i class="icon-comments"></i> <span class="fb-comments-count" data-href='<?php echo ProductUtil::getCanonicalLink($product->id); ?>'/></span> 
+                        <i class="icon-comments"></i> <iframe src="https://www.facebook.com/plugins/comments.php?href=<?php echo ProductUtil::getCanonicalLink($product->id); ?>" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:130px; height:16px;" allowTransparency="true"></iframe>
                     </div>
                 </div>
             </div>
