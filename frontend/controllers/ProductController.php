@@ -215,8 +215,7 @@ class ProductController extends Controller
     }
 
     public function actionSendMessage($productId)
-    {
-        $this->checkLogin();
+    {        
         $product = $this->loadProduct($productId);
         $message = new SendMessageForm();
         $message->receiverId = $product->user_id;
@@ -233,8 +232,7 @@ class ProductController extends Controller
     }
 
     public function actionSendMessageDialog()
-    {
-        $this->checkLogin();
+    {        
         $productId = Yii::app()->request->getPost('productId');
         $product = $this->loadProduct($productId);
         $message = new SendMessageForm();

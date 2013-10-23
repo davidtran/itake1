@@ -86,7 +86,7 @@ class SiteController extends Controller {
         $this->redirect($url);
     }
 
-    public function actionIndex($keyword = null, $category = null, $facebook = 0, $page = 0, $status = Product::STATUS_ACTIVE) {
+    public function actionIndex($keyword = null, $category = null, $facebook = 0, $page = 0, $status = Product::STATUS_ACTIVE) {              
         if (isset(Yii::app()->request->cookies['usercity_ck']) && Yii::app()->user->isGuest) {
             CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
         }
