@@ -36,7 +36,7 @@ class WebUser extends CWebUser
 
     public function logout($destroySession = true)
     {
-        //   Yii::app()->request->cookies->remove('CheckedAccessToken');
+        Yii::app()->session->remove('FilterFriendList');
         return parent::logout($destroySession);
     }
 
