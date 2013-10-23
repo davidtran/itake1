@@ -5,7 +5,7 @@ class UserImageUtil
     const USER_IMAGE_PLACEHOLDER = 'images/user-placeholder.jpg';
     public static function renderImage($user, $options = array())
     {
-        $baseUrl = Yii::app()->getBaseUrl(true).DIRECTORY_SEPARATOR;
+        $baseUrl = Yii::app()->getBaseUrl(true);
 
         $url = '';
         if ( !empty($user->image)) {
@@ -14,9 +14,9 @@ class UserImageUtil
         else if (!empty($user->fbId)) {
             $url = "http://graph.facebook.com/" . $user->fbId . "/picture?type=large";
         }       
-        $options = CMap::mergeArray($options, array(
-            'baseUrl'=>$baseUrl,
-            'onError'=>"this.onerror=null;this.src='".$baseUrl. DIRECTORY_SEPARATOR. self::USER_IMAGE_PLACEHOLDER."';"
+        $options = CMap::mergeArray($options, array(      
+            'onerror'=>"loadImage(this,'".$baseUrl. DIRECTORY_SEPARATOR. self::USER_IMAGE_PLACEHOLDER."','fail');return false;",
+            'onload'=>"loadImage(this,'".$baseUrl. DIRECTORY_SEPARATOR. self::USER_IMAGE_PLACEHOLDER."','');return false;"
         ));
         return CHtml::image($url, $user->username, $options);
     }

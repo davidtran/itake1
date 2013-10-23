@@ -13,12 +13,12 @@
                 <hr class="sep_item"/>
             </div>
             <div class="productDescription">
-                <?php echo strip_tags($product->description); ?>
+                <?php echo StringUtil::smartLimit(strip_tags($product->description),50); ?>
             </div>            
             <div class="productCreateDate">
 
                 <div class="row-fluid">
-                    <div class="span6">                                               
+                    <div class="span8">                                               
                         <div class="row-fluid">
                             <?php echo $product->displayDateTime(); ?>  
 
@@ -26,7 +26,7 @@
 
 
                     </div>    
-                    <div class="span6">
+                    <div class="span4">
                         <div class="productImagePrice"><?php echo number_format($product->price, 0); ?> đ</div>
                     </div>
                 </div>
@@ -49,7 +49,13 @@
                         ?>
                     </div>
                 </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <i class="icon-comments"></i> <span class="fb-comments-count" data-href='<?php echo ProductUtil::getCanonicalLink($product->id); ?>'/></span> 
+                    </div>
+                </div>
             </div>
+            
 
         </div>
     </div>

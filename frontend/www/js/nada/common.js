@@ -1,3 +1,9 @@
+//show comment count after ajax call
+$(document).ready(function(){
+    $('body').ajaxComplete(function(){ FB.XFBML.parse(document.body) }); 
+});
+
+
 var isIE = /*@cc_on!@*/false;
 var itakeHistoryHandler;
 $dialog = $('#productDialog');
@@ -153,20 +159,7 @@ function alignDiv()
 //
 //    $('#wrapper_productContainer').css('width',containerWidth);
     $(function() {
-        $('.productLink').live('click', function(e) {
-            e.preventDefault();
-            link = $(this).attr('href');
-            productItem = $(this).parents('.productItem');
-            productId = productItem.attr('data-product-id');
-            productIdHtml = productItem.attr('id');
-            productTitle = productItem.attr('data-title');
-            //loadProduct(link,productIdHtml);
-            History.pushState({
-                productIdHtml: productIdHtml,
-                dlgPush: true
-            }, productTitle, link);
-            return false;
-        });
+        
     });
 }
 
@@ -446,4 +439,15 @@ function showMessage(message){
     setTimeout(function () {
         $('.main-notification').hide('fade');
     },3000);
+}
+
+function loadImage( elem, img, state )
+{
+    if (
+        (typeof(elem.onerror) === 'function' && state === 'fail') 
+        || (elem.width === 0)
+        )
+         {
+           elem.src = img;           
+         }         
 }
