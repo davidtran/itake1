@@ -42,12 +42,12 @@ class Comment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('content, create_date, user_id, product_id, status, parent_id', 'required'),
+			// array('content, create_date, user_id, product_id, status', 'required'),
 			array('user_id, product_id, status, parent_id', 'numerical', 'integerOnly'=>true),
 			array('content', 'length', 'max'=>5000),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, content, create_date, user_id, product_id, status, parent_id', 'safe', 'on'=>'search'),
+			array('id, content, create_date, user_id, product_id, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,6 +59,7 @@ class Comment extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			 'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 
@@ -101,4 +102,56 @@ class Comment extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	public function beforeValidate(){
+		if ($this->isNewRecord)
+        {
+            $this->create_date = date('Y-m-d H:i:s');
+           $this->user_id = (int)Yii::app()->user->id;
+        }
+        return parent::beforeValidate();
+	}
+
+	public function displayDateTime()
+    {
+        $day = 3600 * 24;
+        $threeDays = $day * 3;
+        $elapseTime = time() - strtotime($this->create_date);
+        $week = $day * 7;
+        $year = $day * 365;
+        $dateFormatter = new CDateFormatter(Yii::app()->getLocale(Yii::app()->language));
+        if ($elapseTime < $day || $elapseTime > $year)
+        {
+        	$timeString = DateUtil::elapseTime($this->create_date);
+        	if (strlen($timeString)==0) {
+        		$timeString = "1 ".Yii::t('Default','second',null);
+        	}
+            return $timeString. ' '.Yii::t('Default','ago',null).'';
+        }
+        else if ($elapseTime < $day * 2)
+        {
+            return Yii::t('Default', 'Yesterday at {time}', array(
+                        '{time}' => $dateFormatter->format('HH:mm', strtotime($this->create_date)
+                        )
+            ));
+        }
+        else
+        {
+
+
+            $pattern = null;
+            if ($elapseTime < $week)
+            {
+                $pattern = 'EEEE';
+            }
+            else
+            {
+                $pattern = 'd, MMMM';
+            }
+
+            return Yii::t('Default', '{date} at {time}', array(
+                        '{date}' => $dateFormatter->format($pattern, strtotime($this->create_date)),
+                        '{time}' => $dateFormatter->format('HH:mm', strtotime($this->create_date))
+            ));
+        }
+    }
 }

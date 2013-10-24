@@ -33,20 +33,68 @@ class ProductController extends Controller
             )
         );
     }
-    protected function newComment($product)
+    public function ListComments($product){
+            $contents = $product->comments;
+            $listcomment = array();
+            foreach ($contents as $con) {
+                array_push($listcomment, $con->content);
+            }
+            echo CJSON::encode($listcomment);
+            Yii::app()->end();
+
+    }
+    public function actionPostComment()
     {
-        $comment=new Comment;
+        $comment = new Comment;
         if(isset($_POST['Comment']))
         {
             $comment->attributes=$_POST['Comment'];
+            $product = Product::model()->findByPk($comment->product_id);
             if($product->addComment($comment))
             {
-                if($comment->status==Comment::STATUS_PENDING)
-                    Yii::app()->user->setFlash('commentSubmitted','Thank you for your comment. Your comment will be posted once it is approved.');
-                $this->refresh();
+                $html = $this->renderPartial('partial/_comment_item',array('model'=>$comment),true, false);
+                $html = utf8_encode($html);
+                $html = iconv('utf-8', 'utf-8', $html);
+                $result = array('error_code' =>1 ,'msg'=>array('html'=>$html));
+                echo CJSON::encode($result);
+                Yii::app()->end();
             }
+            else {
+                $result = array('error_code' =>0 ,'msg'=>'Fail to save comment' );
+                echo CJSON::encode($result);
+                Yii::app()->end();
+            }
+            
         }
-        return $comment;
+    }
+    public function actionCommentLoadMore($product_id){
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'product_id = :product_id';
+        $criteria->params = array (':product_id'=> $product_id);
+        $criteria->order = 'create_date DESC';
+
+        //get count
+        $count = Comment::model()->count($criteria);
+         
+        //pagination
+        $pages = new CPagination($count);
+        $pages->setPageSize(5);
+        $pages->applyLimit($criteria);
+       //result to show on page
+        $result = Comment::model()->findAll($criteria);
+        $dataProvider = new CArrayDataProvider($result);
+
+        $comments = $dataProvider->getData();
+        $returnHtml = "";
+        foreach ($comments as $comment) {
+            $html = $this->renderPartial('partial/_comment_item',array('model'=>$comment),true, false);
+            $html = utf8_encode($html);
+            $html = iconv('utf-8', 'utf-8', $html);
+            $returnHtml.=$html;
+        }
+        $result = array('error_code' =>1 ,'msg'=>array('html'=>$returnHtml,'pageCount'=>$pages->pageCount));
+                echo CJSON::encode($result);
+                Yii::app()->end();
     }
     public function actionDetails($id)
     {
@@ -54,7 +102,6 @@ class ProductController extends Controller
         unset(Yii::app()->session['CheckedAccessToken']);
         ProductViewCounterUtil::getInstance($id)->increaseView();
         $product = $this->loadProduct($id);
-        $comment = $this->newComment($product);
         $canonicalUrl = $this->createAbsoluteUrl('/product/details', array('id' => $id));
         $relateProductList = $this->relatedProduct($product);
         if (Yii::app()->request->isAjaxRequest) {
@@ -63,7 +110,6 @@ class ProductController extends Controller
                 'product' => $product,
                 'relateProductList' => $relateProductList,
                 'canonicalUrl' => $canonicalUrl,
-                'comment'=>$comment,
                     ), true, false);
             $html = utf8_encode($html);
             $html = iconv('utf-8', 'utf-8', $html);
@@ -73,7 +119,6 @@ class ProductController extends Controller
                 'html' => $html,
                 'product' => $productAttributes,
                 'canonicalUrl' => $canonicalUrl,
-                'comment'=>$comment,
             ));
         }
         else {
@@ -111,7 +156,6 @@ class ProductController extends Controller
                 'product' => $product,
                 'relateProductList' => $relateProductList,
                 'canonicalUrl' => $canonicalUrl,
-                'comment'=>$comment,
             ));
         }
     }

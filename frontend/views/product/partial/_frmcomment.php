@@ -6,6 +6,11 @@
 	'action'=>'postComment'
 )); ?>
 	<div class="row-fluid">
+		<?php echo $form->hiddenField($model,'create_date',array('rows'=>3, 'class'=>'span12')); ?>
+		<?php echo $form->hiddenField($model,'user_id',array('rows'=>3, 'class'=>'span12')); ?>
+		<?php echo $form->hiddenField($model,'product_id',array('rows'=>3, 'class'=>'span12')); ?>
+		<?php echo $form->hiddenField($model,'status',array('rows'=>3, 'class'=>'span12')); ?>
+		<?php echo $form->hiddenField($model,'parent_id',array('rows'=>3, 'class'=>'span12')); ?>
 		<?php echo $form->textArea($model,'content',array('rows'=>3, 'class'=>'span12')); ?>
 		<?php echo $form->error($model,'content'); ?>
 	</div>

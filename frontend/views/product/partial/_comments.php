@@ -1,12 +1,13 @@
-<?php foreach($comments as $comment): ?>
-<div class="comment" id="c<?php echo $comment->id; ?>">
-	<div class="time">
-		<?php echo date('F j, Y \a\t h:i a',$comment->create_date); ?>
-	</div>
+<div class="row-fluid" id="comment-container">
+	<?php foreach($comments as $comment): ?>
+	<?php $this->renderPartial('partial/_comment_item',array('model'=>$comment))?>
+	<?php endforeach; ?>
+</div>
+<?php if (count($comments)>0):?>
+<div class="row-fluid">
+	<a class="btn btn-warn center span12" href="#" id="commentLoadMore" product_id="<?php echo $product_id; ?>">
+		Xem thêm ...
+	</a>
+</div>
+<?php endif; ?>
 
-	<div class="content">
-		<?php echo nl2br(CHtml::encode($comment->content)); ?>
-	</div>
-
-</div><!-- comment -->
-<?php endforeach; ?>

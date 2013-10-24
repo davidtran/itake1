@@ -83,7 +83,7 @@ class Product extends CActiveRecord
             'firstImage'=>array(self::HAS_ONE,'ProductImage','product_id','order'=>'number'),
             'images'=>array(self::HAS_MANY,'ProductImage','product_id','order'=>'number'),  
             'imageCount'=>array(self::STAT,'ProductImage','product_id'),
-            'comments' => array(self::HAS_MANY, 'Comment', 'product_id', 'condition'=>'comments.status='.Comment::STATUS_APPROVED, 'order'=>'comments.create_time DESC'),
+            'comments' => array(self::HAS_MANY, 'Comment', 'product_id', 'condition'=>'comments.status='.Comment::STATUS_APPROVED, 'order'=>'comments.create_date DESC','limit'=>5),
             'commentCount' => array(self::STAT, 'Comment', 'product_id', 'condition'=>'status='.Comment::STATUS_APPROVED),
         );
     }
@@ -318,11 +318,11 @@ class Product extends CActiveRecord
     }
     public function addComment($comment)
     {
-        if(Yii::app()->params['commentNeedApproval'])
-            $comment->status=Comment::STATUS_PENDING;
-        else
+        // if(Yii::app()->params['commentNeedApproval'])
+        //     $comment->status=Comment::STATUS_PENDING;
+        // else
             $comment->status=Comment::STATUS_APPROVED;
-        $comment->product_id=$this->id;
+        $comment->product_id=(int)$this->id;
         return $comment->save();
     }
 
