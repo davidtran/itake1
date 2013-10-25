@@ -172,10 +172,9 @@ $this->pageTitle = $product->title;
         <div class="row-fluid">
                 <div id="comments">
                     <?php 
-                    $comment = new Comment ;
-                    $comment->product_id = (int)$product->id;
+                    
                     $this->renderPartial('partial/_frmcomment',array(
-                            'model'=>$comment,
+                        'product'=>$product
                     )); 
                     ?>
                     <?php if($product->commentCount>=1): ?>

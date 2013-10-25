@@ -1,5 +1,8 @@
 <div class="form">
-
+<?php
+$model = new Comment ;
+$model->product_id = (int)$product->id;
+?>
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'comment-form',
 	'enableAjaxValidation'=>true,
