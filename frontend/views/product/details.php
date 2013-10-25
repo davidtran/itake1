@@ -9,7 +9,7 @@ $this->pageTitle = $product->title;
                 <?php echo strtoupper($product->title); ?>
             </h1>
             <div class="row-fluid">
-                <div class="span6">
+                <div class="span7">
                     <div class="row-fluid">
                         <?php $this->
                             renderPartial('partial/images',array(
@@ -17,7 +17,7 @@ $this->pageTitle = $product->title;
                             )); ?>
                     </div>
                 </div>
-                <div class="span6 custom">
+                <div class="span5 custom">
                     <div class="row-fluid">
                         <div class="bs-docs-example">
                             <ul id="myTab" class="nav nav-tabs">
@@ -51,6 +51,7 @@ $this->pageTitle = $product->title;
                                             <br/>
                                             
                                         </div>
+                                   
                                         <div class="span6">
                                             <h4 class="product-detail-tag">
                                                 <?php LanguageUtil::echoT('Price') ?></h4>
@@ -72,12 +73,14 @@ $this->pageTitle = $product->title;
                                             <?php echo $product->phone; ?>
                                             <br/>
                                         </div>
+                                   
                                         <div class="span6">
                                             <h4 class="product-detail-tag">
                                                 <?php LanguageUtil::echoT('Date') ?></h4>
                                             <i class="icon-calendar"></i>
                                             <?php echo $product->displayDateTime(); ?>  
                                         </div>
+                                        
                                         
                                     </div>
                                     <?php if ($product->address!=null &&  $product->address->lat != null && $product->address->lon != null): ?>

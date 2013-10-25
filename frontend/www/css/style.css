@@ -525,9 +525,9 @@ form.form-signin label{
 #productDialog{    
      position:absolute;   
     background: transparent;
-    left: 15%;
-    right: 15%;
-    width: 70%;
+    left: 10%;
+    right: 10%;
+    width: 80%;
     margin-left: 0px;    
     border:none;    
     -webkit-border-radius: 0px;
@@ -1131,7 +1131,7 @@ div.close_tag
     position: fixed;
     z-index: 3000;
     top: 0;
-    right: 50px;   
+    right: 82px;   
     background-color: rgb(245, 245, 245);
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ebebeb));
     background: -webkit-linear-gradient(#ffffff,#ebebeb);
@@ -1153,7 +1153,7 @@ div.scrollUp_tag
     position: fixed;
     z-index: 998;
     bottom: -5px;
-    right: 50px;
+    right: 82px;
     background-color: rgb(245, 245, 245);
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ebebeb));
     background: -webkit-linear-gradient(#ffffff,#ebebeb);
@@ -1227,7 +1227,7 @@ hr{
 }
 #scrollUp {
     bottom: 40%;
-    right: 20px;
+    right: 75px;
     padding: 7px;
     width: 50px;
     height: 50px;
@@ -1793,7 +1793,7 @@ div.profile-name h3{
     text-shadow: 0 0 3px rgba(0,0,0,0.8);
 }
 #detailProductBody{
-    width: 75%;
+    width: 80%;
     margin: 0 auto;
 }
 .slim-scroll p{    
@@ -2100,7 +2100,7 @@ div.productSoldBg{
 }
 
 #wrapper_productContainer{
-    max-width:900px;
+    
     margin: 0 auto;   
 }
 .tab-content{
@@ -2110,4 +2110,17 @@ div.productSoldBg{
 
 .product-detail:hover, .productImage:hover{
     cursor: -webkit-zoom-in; cursor: -moz-zoom-in;
+}
+
+#wrapper_productContainer {
+    max-width: 1090px;
+    min-width: 1090px;
+    margin: 0 auto;
+}
+
+/*workaround for flexslider*/
+.flexslider .slides > li {
+    margin-left:1px;
+    display: none;
+    -webkit-backface-visibility: hidden;
 }

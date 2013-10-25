@@ -70,8 +70,8 @@ class ProductController extends Controller
                     loadRelateProduct(product);
                     loadUserProduct(product);
                     loadProductMap(product);
-                });
-                
+                    trackingLink('$canonicalUrl');
+                });                
             ", CClientScript::POS_END);
             $this->addMetaProperty('og:title', $product->title);
             $this->addMetaProperty('og:description', StringUtil::limitByWord($product->description, 100));

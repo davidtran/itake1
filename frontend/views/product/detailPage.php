@@ -30,7 +30,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
                             ?>
                             <h1> <?php echo strtoupper($product->title); ?></h1>
                             <div class="row-fluid">                            
-                                <div class="span6">
+                                <div class="span7">
                                     <div class="row-fluid">
                                         
                                         <?php $this->renderPartial('partial/images',array(
@@ -41,7 +41,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.
 
                                     </div>
                                 </div>
-                                <div class="span6 custom">
+                                <div class="span5 custom">
                                     <div class="row-fluid">
                                         <div class="bs-docs-example">
                                             <ul id="myTab" class="nav nav-tabs">

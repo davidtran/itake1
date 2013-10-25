@@ -72,6 +72,9 @@
           }());
         </script>         
         <script type="text/javascript">
+             var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-42949373-1']);
+            _gaq.push(['_trackPageview']);
           (function() {
            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
            po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';

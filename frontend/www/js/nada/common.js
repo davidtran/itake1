@@ -451,3 +451,8 @@ function loadImage( elem, img, state )
            elem.src = img;           
          }         
 }
+
+function trackingLink(link){
+    _gaq.push(['myTracker._setAccount', 'UA-42949373-1']);
+    _gaq.push(['_trackPageview', link]);
+}

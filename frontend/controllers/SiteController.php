@@ -35,11 +35,9 @@ class SiteController extends Controller {
     public function actionCity($id, $category) {
         //change city
         //redirect to index with selected category
-        if (Yii::app()->user->isGuest) {
-            Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $id);
-        } else {
-            CityUtil::setSelectedCityId($id);
-        }
+        Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $id);
+        CityUtil::setSelectedCityId($id);
+        
         //$redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/list');
         $redirectUrl = $this->createAbsoluteUrl('/site/index');
         $this->redirect($redirectUrl);
@@ -87,13 +85,13 @@ class SiteController extends Controller {
     }
 
     public function actionIndex($keyword = null, $category = null, $facebook = 0, $page = 0, $status = Product::STATUS_ACTIVE) {              
-        if (isset(Yii::app()->request->cookies['usercity_ck']) && Yii::app()->user->isGuest) {
+        if (Yii::app()->user->isGuest && isset(Yii::app()->request->cookies['usercity_ck'])) {
             CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
         }
-        // if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
-        //     Yii::app()->session['VisitLanding'] = true;
-        //     $this->redirect($this->createUrl('landing'));
-        // }
+         if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
+             Yii::app()->session['VisitLanding'] = true;
+             $this->redirect($this->createUrl('landing'));
+         }
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber'] = $page;
         Yii::app()->session['LastCategory'] = $category;

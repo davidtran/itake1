@@ -134,6 +134,7 @@ function loadProduct(href, htmlProductId)
                     loadImageSlider();
                 }
                 $dialog.on('shown', function() {
+                    trackingLink(href);
                     loadImageSlider();
                     $('.slim-scroll').each(function() {
                         var $this = $(this);
@@ -293,3 +294,4 @@ $(document).ready(function(){
         return false;
     });
 });
+
