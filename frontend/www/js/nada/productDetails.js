@@ -18,7 +18,7 @@ $(document).ready(function() {
     $dialog = $('#productDialog');
     $relateProductContainer = $('#relateProductList');
     $side = $('#userProductList');
-    $('.product-detail').live('click', function(e) {
+    $('.productImageLink, .product-detail').live('click', function(e) {       
         e.preventDefault();
         link = $(this).find('.productLink').attr('href');     
         productItem = $(this).parents('.productItem');
