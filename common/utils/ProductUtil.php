@@ -16,6 +16,10 @@ class ProductUtil
             'productId'=>$productId
         ))->query();
     }        
+    
+    public static function getCanonicalLink($id){
+        return Yii::app()->createAbsoluteUrl('/product/details', array('id' => $id));
+    }
 
 }
 

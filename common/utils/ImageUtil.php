@@ -38,9 +38,15 @@
          */
         protected static function getResizedImageFileName($width, $height)
         {
-            $ext = substr(self::$filename, strlen(self::$filename) - 3, 3);
-            $name = substr(self::$filename, 0, strlen(self::$filename) - 4);
-            return $name . '_' . $width . 'x' . $height . '.' . $ext;
+            
+            $filenameArray = explode('.',self::$filename);
+            if(count($filenameArray) > 0){
+                $ext = $filenameArray[count($filenameArray)-1];
+                $name = substr(self::$filename,0,strlen(self::$filename) - strlen($ext));
+                return $name . '_' . $width . 'x' . $height . '.' . $ext;
+            }
+            return false;
+            
         }
 
         protected static function doResize($url, $resizedUrl, $width, $height)

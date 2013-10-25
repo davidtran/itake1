@@ -97,9 +97,7 @@ class ProductController extends Controller
                 Yii::app()->end();
     }
     public function actionDetails($id)
-    {
-        unset(Yii::app()->session['FacebookConnectFailed']);
-        unset(Yii::app()->session['CheckedAccessToken']);
+    {   
         ProductViewCounterUtil::getInstance($id)->increaseView();
         $product = $this->loadProduct($id);
         $canonicalUrl = $this->createAbsoluteUrl('/product/details', array('id' => $id));
@@ -134,8 +132,8 @@ class ProductController extends Controller
                     loadRelateProduct(product);
                     loadUserProduct(product);
                     loadProductMap(product);
-                });
-                
+                    trackingLink('$canonicalUrl');
+                });                
             ", CClientScript::POS_END);
             $this->addMetaProperty('og:title', $product->title);
             $this->addMetaProperty('og:description', StringUtil::limitByWord($product->description, 100));
@@ -246,7 +244,9 @@ class ProductController extends Controller
             $product = $this->loadProduct($id);
             $product->status = Product::STATUS_SOLD;
             if ($product->save()) {
-                $this->renderAjaxResult(true);
+                $this->renderAjaxResult(true,array(
+                    'html'=>$product->renderHtml('',true)
+                ));
             }
             else {
                 $this->renderAjaxResult(false, 'Không thể lưu thông tin');
@@ -277,8 +277,7 @@ class ProductController extends Controller
     }
 
     public function actionSendMessage($productId)
-    {
-        $this->checkLogin();
+    {        
         $product = $this->loadProduct($productId);
         $message = new SendMessageForm();
         $message->receiverId = $product->user_id;
@@ -295,8 +294,7 @@ class ProductController extends Controller
     }
 
     public function actionSendMessageDialog()
-    {
-        $this->checkLogin();
+    {        
         $productId = Yii::app()->request->getPost('productId');
         $product = $this->loadProduct($productId);
         $message = new SendMessageForm();
@@ -322,6 +320,16 @@ class ProductController extends Controller
             'message' => $message
          ));
         return $html;
+    }
+    
+    protected function renderItem($id){
+        $product = $this->loadProduct($id);
+        $html = $this->render('/site/_productItem',array(
+            'product'=>$product
+        ),true,false);
+        $this->renderAjaxResult(true,array(
+            'html'=>$html
+        ));
     }
 
 }

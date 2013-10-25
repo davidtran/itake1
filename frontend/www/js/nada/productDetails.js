@@ -18,18 +18,21 @@ $(document).ready(function() {
     $dialog = $('#productDialog');
     $relateProductContainer = $('#relateProductList');
     $side = $('#userProductList');
-    $('.productLink').live('click', function(e) {
+    $('.product-detail').live('click', function(e) {
         e.preventDefault();
-        link = $(this).attr('href');
+        link = $(this).find('.productLink').attr('href');     
         productItem = $(this).parents('.productItem');
-        //productId = productItem.attr('data-product-id');
+        productId = productItem.attr('data-product-id');
         productIdHtml = productItem.attr('id');
-        loadedMap = false;
-        if (detectmob() || isIE)
-            location.href = link;
-
+        productTitle = productItem.attr('data-title');
+        //loadProduct(link,productIdHtml);
+        History.pushState({
+            productIdHtml: productIdHtml,
+            dlgPush: true
+        }, productTitle, link);
         return false;
     });
+  
 
     $('#userProductContainer').height($('#mainProductInfo').height());
     commentWidth = $('#commentContainer').width();
@@ -132,6 +135,7 @@ function loadProduct(href, htmlProductId)
                     loadImageSlider();
                 }
                 $dialog.on('shown', function() {
+                    trackingLink(href);
                     loadImageSlider();
                     $('.slim-scroll').each(function() {
                         var $this = $(this);
@@ -291,3 +295,4 @@ $(document).ready(function(){
         return false;
     });
 });
+

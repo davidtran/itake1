@@ -14,7 +14,7 @@ $(document).ready(function() {
     board.isotope('reLayout');    
         
     setInterval(function(){
-        $('#productContainer').isotope('reLayout');
+        $('#userProductBoard').isotope('reLayout');
     },500);
         
     initCheckBottom(function(){

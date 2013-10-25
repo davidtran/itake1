@@ -16,7 +16,7 @@ class UploadController extends MobileController {
         if ($categoryId != null) {
             $product = new Product();                                          
             if (isset($_POST['Product'])) {
-                $product->attributes = $_POST['Product'];
+                $product->attributes = $_POST['Product'];                
                 if($product->address_id == null){
                     $address = $this->createAddressFromRequest();
                     if($address){
