@@ -183,12 +183,14 @@ $this->pageTitle = $product->title;
                                 <?php echo $product->commentCount . 'comment(s)'; ?>
                             </h3>
                         </div>
-                 
+                      <?php endif; ?> 
+                    <!-- <div class="row-fluid" id="comment-container">   -->
                         <?php $this->renderPartial('partial/_comments',array(
-                            'product_id'=>$product->id,
-                            'comments'=>$product->comments,
+                            'product'=>$product,
+                            'comments'=>$product->rootComments,
                         )); ?>
-                    <?php endif; ?>
+                    <!-- </div> -->
+                   
             </div>
         </div>
     </div>

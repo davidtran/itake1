@@ -3,9 +3,9 @@
 	<?php $this->renderPartial('partial/_comment_item',array('model'=>$comment))?>
 	<?php endforeach; ?>
 </div>
-<?php if (count($comments)>0):?>
+<?php if ($product->commentCount > 5):?>
 <div class="row-fluid">
-	<a class="btn btn-warn center span12" href="#" id="commentLoadMore" product_id="<?php echo $product_id; ?>">
+	<a class="btn btn-warn center span12" href="#" id="commentLoadMore" product_id="<?php echo $product->id; ?>">
 		Xem thêm ...
 	</a>
 </div>

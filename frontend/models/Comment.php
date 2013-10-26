@@ -42,7 +42,7 @@ class Comment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			// array('content, create_date, user_id, product_id, status', 'required'),
+			array('content, create_date, user_id, product_id, status', 'required'),
 			array('user_id, product_id, status, parent_id', 'numerical', 'integerOnly'=>true),
 			array('content', 'length', 'max'=>5000),
 			// The following rule is used by search().
@@ -60,6 +60,8 @@ class Comment extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			 'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+			 // 'parent' => array(self::BELONGS_TO, 'Comment', 'parent_id'),
+			 'parentModel' => array(self::HAS_MANY, 'Comment', 'parent_id'),
 		);
 	}
 

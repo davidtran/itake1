@@ -80,11 +80,13 @@ class Product extends CActiveRecord
             'address' => array(self::BELONGS_TO, 'Address', 'address_id'),
             'countryModel' => array(self::BELONGS_TO, 'Country', 'country'),
             'cityModel' => array(self::BELONGS_TO, 'City', 'city'),
+            
             'firstImage'=>array(self::HAS_ONE,'ProductImage','product_id','order'=>'number'),
             'images'=>array(self::HAS_MANY,'ProductImage','product_id','order'=>'number'),  
             'imageCount'=>array(self::STAT,'ProductImage','product_id'),
             'comments' => array(self::HAS_MANY, 'Comment', 'product_id', 'condition'=>'comments.status='.Comment::STATUS_APPROVED, 'order'=>'comments.create_date DESC','limit'=>5),
-            'commentCount' => array(self::STAT, 'Comment', 'product_id', 'condition'=>'status='.Comment::STATUS_APPROVED),
+            'rootComments' => array(self::HAS_MANY, 'Comment', 'product_id', 'condition'=>'rootComments.status='.Comment::STATUS_APPROVED.' and rootComments.parent_id is null', 'order'=>'rootComments.create_date DESC','limit'=>5),
+            'commentCount' => array(self::STAT, 'Comment', 'product_id', 'condition'=>'status='.Comment::STATUS_APPROVED.' and parent_id is null'),
         );
     }
 

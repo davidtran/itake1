@@ -50,6 +50,7 @@ class ProductController extends Controller
         {
             $comment->attributes=$_POST['Comment'];
             $product = Product::model()->findByPk($comment->product_id);
+            
             if($product->addComment($comment))
             {
                 $html = $this->renderPartial('partial/_comment_item',array('model'=>$comment),true, false);
@@ -64,6 +65,7 @@ class ProductController extends Controller
                 echo CJSON::encode($result);
                 Yii::app()->end();
             }
+
             
         }
     }
