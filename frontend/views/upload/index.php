@@ -132,10 +132,13 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                                 'require',
                                 'maxlength'=>200)); ?>
                             <?php
+                            $disabled = ! $product->isNewRecord && $product->no_price ? 'true':null;
                             echo $form->textFieldRow($product, 'price', array(
-                                'class' => 'span12'
+                                'class' => 'span12',
+                                'disabled'=> $disabled,
                             ));
                             ?>
+                            <?php echo $form->checkBoxRow($product,'no_price',array());?>
                             <?php //echo $form->textFieldRow($product, 'phone');  ?>
                             <?php echo $form->textAreaRow($product, 'description', array('rows' => 4, 'class' => 'span12')); ?>
                             <?php echo $form->hiddenField($product, 'address_id'); ?>

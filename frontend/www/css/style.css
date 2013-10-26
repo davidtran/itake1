@@ -525,9 +525,9 @@ form.form-signin label{
 #productDialog{    
      position:absolute;   
     background: transparent;
-    left: 10%;
-    right: 10%;
-    width: 80%;
+    left: 15%;
+    right: 15%;
+    width: 70%;
     margin-left: 0px;    
     border:none;    
     -webkit-border-radius: 0px;
@@ -1432,7 +1432,7 @@ div.slim-scroll{
     border: solid 1px #ececec;
     padding:10px;
     margin-bottom:10px;
-    min-height: 150px;
+   
     word-wrap:break-word;
 }
 div.page-container{
