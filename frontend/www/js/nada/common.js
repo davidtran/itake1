@@ -1,5 +1,9 @@
 //show comment count after ajax call
+var $mainNotification = $('.main-notification');
+var $notificationSpan = $('.main-notification p span');
 $(document).ready(function(){
+    $mainNotification = $('.main-notification');
+    $notificationSpan = $('.main-notification p span');
     $('body').ajaxComplete(function(){ FB.XFBML.parse(document.body) }); 
 });
 
@@ -95,9 +99,11 @@ $(document).ready(function() {
         });
     });    
     alignDiv();
+    
+    var $introItem = $(".intro_item")
     $(window).scroll(function(event) {
 
-        $(".intro_item").each(function(i, el) {
+        $introItem.each(function(i, el) {
             var el = $(el);
             if (el.visible(true)) {
                 el.addClass("come-in");
@@ -146,18 +152,11 @@ function alignDiv()
     {
         // $('#categories-bar').css('margin-left', (marginLeftContainer3) + 'px');
     }
-    // if (marginLeftContainer2 * 2 != $('body').width()) {
-    //     $(".nd_profile").css('margin-left', marginLeftContainer2 + 'px');
-    //     $(".nd_profile").css('margin-right', (marginLeftContainer2 - 15) + 'px');
-    // }
+
     $('.frmSearch_wrapper').css('width',$('.nav-bar-top').width());
     $('#categories-bar').css('width',$('#menuWidthBase').width());
     $('.selectedCategoryTab').css('left',$('#menuWidthBase').width());
-//    $('#wrapper_productContainer').parent().css('margin-left',180);
-//    var containerWidth = $('#fixWidthMasory').width()-200;
-//    containerWidth = Math.round(containerWidth/255)*255;
-//
-//    $('#wrapper_productContainer').css('width',containerWidth);
+
     $(function() {
         
     });
@@ -433,12 +432,17 @@ function ScrollHandler(e,callback) {
 
     }, _throttleDelay);
 }
-function showMessage(message){
-    $('.main-notification').show('fade');
-    $('.main-notification p span').html(message);
+
+
+
+
+function showMessage(message,timeout){
+    timeout = timeout || 3000;
+    $mainNotification.show('fade');
+    $notificationSpan.html(message);
     setTimeout(function () {
-        $('.main-notification').hide('fade');
-    },3000);
+        $mainNotification.hide('fade');
+    },timeout);
 }
 
 function loadImage( elem, img, state )

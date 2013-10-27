@@ -1196,7 +1196,8 @@ div#productDialogBody.modal-body div.row-fluid div.span12 h3{
     font-weight: 300;
     font-size:1.5em;
     text-transform: uppercase;
-    margin-bottom: -20px;
+    margin-bottom: -10px;
+    
 }
 div#addAddressDialog div.modal-body div.row-fluid div.span12 h3{
     font-family: "MNBTitleBold";
@@ -1409,6 +1410,7 @@ div#mapContainer,div#map
 }
 div#productContainer
 {
+    display:none;
      margin: 0 auto !important;     
 }
 .scrollbar-measure {
@@ -2113,8 +2115,8 @@ div.productSoldBg{
 }
 
 #wrapper_productContainer {
-    max-width: 1090px;
-    min-width: 1090px;
+    max-width: 1000px;
+   
     margin: 0 auto;
 }
 

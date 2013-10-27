@@ -18,6 +18,7 @@ $(document).ready(function() {
     $dialog = $('#productDialog');
     $relateProductContainer = $('#relateProductList');
     $side = $('#userProductList');
+    $userProductList = $('#userProductList');
     $('.productImageLink, .product-detail').live('click', function(e) {       
         e.preventDefault();
         link = $(this).find('.productLink').attr('href');     
@@ -104,7 +105,7 @@ function loadProduct(href, htmlProductId)
                 $('#productDialogBody').html('');
                 $('#productDialogBody').html(utf8_decode(json.msg.html));
                 $relateProductContainer = $('#relateProductList');
-                $side = $('#userProductList');
+                $userProductList = $('#userProductList');
                 product = json.msg.product;
                 currentProduct = product;
 
@@ -156,12 +157,12 @@ function loadProduct(href, htmlProductId)
 
                         return false;
                     });
-                    $('#userProductList').imagesLoaded(function() {
+                    $userProductList.imagesLoaded(function() {
                         masoryCenterAlign();
-                        $('#userProductList').show('fade');
-                        $('#userProductList').isotope('reLayout');
+                        $userProductList.show('fade');
+                        $userProductList.isotope('reLayout');
                         setTimeout(function() {
-                            $('#userProductList').isotope('reLayout');
+                            $userProductList.isotope('reLayout');
                         }, 200);
                     });
                 });
