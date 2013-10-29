@@ -56,7 +56,7 @@ class ProductController extends Controller
                 $html = $this->renderPartial('partial/_comment_item',array('model'=>$comment),true, false);
                 $html = utf8_encode($html);
                 $html = iconv('utf-8', 'utf-8', $html);
-                $result = array('error_code' =>1 ,'msg'=>array('html'=>$html));
+                $result = array('error_code' =>1 ,'msg'=>array('html'=>$html,'parent_id'=>$comment->parent_id));
                 echo CJSON::encode($result);
                 Yii::app()->end();
             }

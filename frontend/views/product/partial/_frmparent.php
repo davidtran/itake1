@@ -1,7 +1,7 @@
 <div class="row-fluid">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'farent-form',
+	'id'=>'farent-form_'.$model_id,
 	'enableAjaxValidation'=>true,
 	'action'=>'postParentComment'
 )); ?>

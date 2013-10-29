@@ -45,16 +45,16 @@ function commentRegisterEventSubmit(){
             });
         });
 
-      $( "#farent-form" ).live( "submit", function(event) {
+      $( "form[id^='farent-form_']" ).live( "submit", function(event) {
       // alert( "Handler for .submit() called." );
       event.preventDefault();
       var datos = $(this).serialize();
-      // datos[0].product_id= 1;
+      $('#'+$(this).attr('id')).get(0).reset();
+
          $.post(BASE_URL + "/product/postComment", datos, function(data) {
-            $( "#farent-form" )[0].reset();
             var _result = $.parseJSON(data);
             if (_result.error_code == 1) {
-                $('#comment-container-parent').prepend(utf8_decode(_result.msg.html));
+                $('#comment_id_'+_result.msg.parent_id+' #comment-container-parent').prepend(utf8_decode(_result.msg.html));
             } else {
                 console.log('error')
             }

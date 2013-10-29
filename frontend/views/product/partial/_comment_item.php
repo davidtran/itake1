@@ -16,7 +16,7 @@
 				<p><?php echo nl2br(CHtml::encode($model->content)); ?></p>
 			</div>
 			<?php if($model->parent_id==NULL): ?>
-			<a href="#" class="parent" parent_id="<?php $model->id ?>" >Reply</a>
+			<a href="#" class="parent" parent_id_"<?php $model->id ?>" >Reply</a>
 			<div id="comment_id_<?php echo $model->id; ?>">
 				<div class="form-comment-child"  style="display:none;">
 				<?php 
@@ -29,6 +29,7 @@
 				<?php 
 					$this->renderPartial('partial/_frmparent',array(
                             'model'=>$modelparent,
+                            'model_id'=>$model->id,
                     )); 
 				 ?>
 				 <?php 
@@ -37,6 +38,7 @@
 				 	$this->renderPartial('partial/_comments_parent',array(
                             // 'product'=>$product,
                             'comments'=>$model->parentModel,
+                            'model_id'=>$model->id,
                         )); 
 				  ?>
 				</div>
