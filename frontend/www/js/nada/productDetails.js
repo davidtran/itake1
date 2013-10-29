@@ -18,7 +18,8 @@ $(document).ready(function() {
     $dialog = $('#productDialog');
     $relateProductContainer = $('#relateProductList');
     $side = $('#userProductList');
-    $('.product-detail').live('click', function(e) {
+    $userProductList = $('#userProductList');
+    $('.productImageLink, .product-detail').live('click', function(e) {       
         e.preventDefault();
         link = $(this).find('.productLink').attr('href');     
         productItem = $(this).parents('.productItem');
@@ -104,7 +105,7 @@ function loadProduct(href, htmlProductId)
                 $('#productDialogBody').html('');
                 $('#productDialogBody').html(utf8_decode(json.msg.html));
                 $relateProductContainer = $('#relateProductList');
-                $side = $('#userProductList');
+                $userProductList = $('#userProductList');
                 product = json.msg.product;
                 currentProduct = product;
 
@@ -134,6 +135,7 @@ function loadProduct(href, htmlProductId)
                     loadImageSlider();
                 }
                 $dialog.on('shown', function() {
+                    trackingLink(href);
                     loadImageSlider();
                     $('.slim-scroll').each(function() {
                         var $this = $(this);
@@ -155,12 +157,12 @@ function loadProduct(href, htmlProductId)
 
                         return false;
                     });
-                    $('#userProductList').imagesLoaded(function() {
+                    $userProductList.imagesLoaded(function() {
                         masoryCenterAlign();
-                        $('#userProductList').show('fade');
-                        $('#userProductList').isotope('reLayout');
+                        $userProductList.show('fade');
+                        $userProductList.isotope('reLayout');
                         setTimeout(function() {
-                            $('#userProductList').isotope('reLayout');
+                            $userProductList.isotope('reLayout');
                         }, 200);
                     });
                 });
@@ -293,3 +295,4 @@ $(document).ready(function(){
         return false;
     });
 });
+

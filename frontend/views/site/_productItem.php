@@ -3,11 +3,12 @@
      data-product-id="<?php echo $product->id; ?>"
      data-title="<?php echo $product->title; ?>">
     <div class="row-fluid">
-        <div class="product-detail">
+        
             <?php echo Yii::app()->controller->renderPartial('/site/_productImage', array(
                     'product' => $product,
                     'showControl'=>$showControl
-                        ), true, false); ?>            
+                        ), true, false); ?>         
+        <div class="product-detail">
             <div class="productImageInfo">
                 <div class="productImageTitle"><?php echo strtoupper($product->title); ?></div>
                 <hr class="sep_item"/>

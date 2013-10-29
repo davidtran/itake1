@@ -1,8 +1,7 @@
 <?php
 
-class FacebookUtil
-{
-    
+class FacebookUtil {
+
     const FB_LINE_BREAK = '#';
 
     protected $_accessToken;
@@ -10,8 +9,7 @@ class FacebookUtil
 
     const FACEBOOK_FRIEND_IN_APP_SESSION_NAME = 'facebookFriendInApp';
 
-    protected function __construct()
-    {
+    protected function __construct() {
         
     }
 
@@ -19,62 +17,53 @@ class FacebookUtil
      * Get singleton instance
      * @return FacebookUtil
      */
-    public static function getInstance()
-    {
+    public static function getInstance() {
         if (self::$instance == null) {
             self::$instance = new static();
         }
         return self::$instance;
     }
 
-    public function setAccessToken($accessToken,$check = true)
-    {
+    public function setAccessToken($accessToken, $check = true) {
         //check token valid;
-        if(false == $check){
-            $this->_accessToken = $accessToken;           
+        if (false == $check) {
+            $this->_accessToken = $accessToken;
             Yii::app()->facebook->setAccessToken($accessToken);
-        }else{
-            if ($this->checkTokenValid($accessToken)!==false) {
-                $this->_accessToken = $accessToken;           
+        } else {
+            if ($this->checkTokenValid($accessToken) !== false) {
+                $this->_accessToken = $accessToken;
                 Yii::app()->facebook->setAccessToken($accessToken);
-            }
-            else {
+            } else {
                 throw new CException('Invalid token');
             }
         }
-        
     }
 
-    public function setExtendedAccessToken()
-    {
+    public function setExtendedAccessToken() {
         return Yii::app()->facebook->setExtendedAccessToken();
     }
 
-    public function getAccessToken()
-    {
+    public function getAccessToken() {
         return $this->_accessToken;
     }
 
-    public function checkTokenValid($token)
-    {
-        $token = trim($token);        
-        try {                      
-            $user = Yii::app()->facebook->api("/".Yii::app()->user->model->fbId.'?access_token='.$token,'GET');
+    public function checkTokenValid($token) {
+        $token = trim($token);
+        try {
+            $user = Yii::app()->facebook->api("/" . Yii::app()->user->model->fbId . '?access_token=' . $token, 'GET');
             return true;
-        }
-        catch (Exception $e) {
-            echo $e->getMessage();exit;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            exit;
             return false;
         }
     }
 
-    public function getFacebookFriendList()
-    {
+    public function getFacebookFriendList() {
         return Yii::app()->facebook->api('/me/friends?access_token=' . $this->_accessToken);
     }
 
-    public function filterFacebookFriendInApp($facebookFriendList)
-    {
+    public function filterFacebookFriendInApp($facebookFriendList) {
         $result = array();
         if ($facebookFriendList != null) {
             $friendIdArray = array();
@@ -90,35 +79,34 @@ class FacebookUtil
             $result = array();
             foreach ($friendList as $friend) {
                 $result[] = $friend['id'];
-            }       
+            }
             return $result;
         }
     }
 
-    public function getFacebookFriendInApp($userId, $includeSelf = false)
-    {
-    
-            $facebookFriendList = $this->getFacebookFriendList($userId);            
-            $filterList = $this->filterFacebookFriendInApp($facebookFriendList);
-            
+    public function getFacebookFriendInApp($userId, $includeSelf = false, $cache = false) {
+        if($cache && null !== $filtererFriendList = Yii::app()->session->get('FilterFriendList')){
+            return $filtererFriendList;
+        }else{
+            $facebookFriendList = $this->getFacebookFriendList($userId);
+            $filtererFriendList = $this->filterFacebookFriendInApp($facebookFriendList);
             if ($includeSelf) {
-                $filterList[] = $userId;
-            }            
-            return $filterList;
+                $filtererFriendList[] = $userId;
+            }               
+            Yii::app()->session->add('FilterFriendList',$filtererFriendList);
+            return $filtererFriendList;
+        }   
     }
 
-    public function getSavedUserToken($userId)
-    {
+    public function getSavedUserToken($userId) {
         return UserRegistry::getInstance()->getValue('FacebookAccessToken', false);
     }
 
-    public function saveUserToken($userId, $token)
-    {
+    public function saveUserToken($userId, $token) {
         UserRegistry::getInstance()->setValue('FacebookAccessToken', $token);
     }
 
-    protected function makePostDescription(Product $product)
-    {
+    protected function makePostDescription(Product $product) {
         $address = '';
         if ($product->locationText != '') {
             $address = $product->locationText . ',';
@@ -129,8 +117,7 @@ class FacebookUtil
         return $html;
     }
 
-    protected static function fbLinkDescriptionNewLines($string)
-    {
+    protected static function fbLinkDescriptionNewLines($string) {
         $parts = explode(self::FB_LINE_BREAK, $string);
         $row_limit = 80;
         $message = '';
@@ -147,8 +134,7 @@ class FacebookUtil
         return $message;
     }
 
-    public static function makeFacebookLoginUrl($returnUrl = null)
-    {
+    public static function makeFacebookLoginUrl($returnUrl = null) {
         if ($returnUrl == null) {
             $returnUrl = Yii::app()->controller->createAbsoluteUrl('/site/index');
         }
@@ -158,33 +144,31 @@ class FacebookUtil
                     'redirect_uri' => Yii::app()->controller->createAbsoluteUrl('/user/register')
         ));
     }
-    public static function makeFacebookLoginUrlNew($returnUrl = null)
-    {
+
+    public static function makeFacebookLoginUrlNew($returnUrl = null) {
         if ($returnUrl == null) {
             $returnUrl = Yii::app()->controller->createAbsoluteUrl('/site/index');
         }
         Yii::app()->controller->setReturnUrl($returnUrl);
         return Yii::app()->facebook->getLoginUrl(array(
-            'scope' => 'email,publish_stream,user_photos,manage_pages',
-            'redirect_uri' => Yii::app()->controller->createAbsoluteUrl('/user/bindAccountFacebook')
+                    'scope' => 'email,publish_stream,user_photos,manage_pages',
+                    'redirect_uri' => Yii::app()->controller->createAbsoluteUrl('/user/bindAccountFacebook')
         ));
     }
 
-    public static function makeFacebookLoginLink($text = null, $returnUrl = null, $options = array())
-    {
+    public static function makeFacebookLoginLink($text = null, $returnUrl = null, $options = array()) {
         if ($text == null)
             $text = 'Đăng nhập bằng Facebook';
 
         return CHtml::link(
                         $text, self::makeFacebookLoginUrl($returnUrl), CMap::mergeArray(array(
                             'id' => 'fb-timeline-btn',
-                            'class' => 'special-btn facebook badge-add-fb-timeline',                        
+                            'class' => 'special-btn facebook badge-add-fb-timeline',
                                 ), $options)
         );
     }
 
-    public function getManagePageList()
-    {
+    public function getManagePageList() {
         try {
             $uid = Yii::app()->user->model->fbId;
             $pages = Yii::app()->facebook->api(array(
@@ -194,14 +178,12 @@ class FacebookUtil
                     )
             );
             return $pages;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
 
-    public function shareProductToPage($product, $page)
-    {
+    public function shareProductToPage($product, $page) {
         $args = array();
         $args['picture'] = '@' . realpath($product->firstImage->facebook);
         $desc = $this->makePostDescription($product);
@@ -215,8 +197,7 @@ class FacebookUtil
         return Yii::app()->facebook->api('/' . $page . '/photos', 'POST', $args);
     }
 
-    public function shareProductToFacebook(Product $product)
-    {
+    public function shareProductToFacebook(Product $product) {
         $args = array();
         $args['picture'] = '@' . realpath($product->firstImage->facebook);
         $desc = $this->makePostDescription($product);
@@ -226,8 +207,7 @@ class FacebookUtil
         return Yii::app()->facebook->api('/me/photos', 'POST', $args);
     }
 
-    public function shareProductAlbum($product)
-    {
+    public function shareProductAlbum($product) {
         try {
             $albumId = $this->createAlbum($product->title, $product->description);
             $desc = $this->makePostDescription($product);
@@ -236,19 +216,17 @@ class FacebookUtil
                 $args['picture'] = '@' . realpath($image->facebook);
                 $args['message'] = $desc;
                 $args['access_token'] = $this->_accessToken;
-                
+
                 Yii::app()->facebook->api('/' . $albumId . '/photos', 'POST', $args);
             }
             return true;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Yii::log($e, CLogger::LEVEL_ERROR, 'facebook');
             return false;
         }
     }
 
-    public function shareProductAlbumToFanpage($product, $page)
-    {
+    public function shareProductAlbumToFanpage($product, $page) {
         try {
             $accessToken = UserRegistry::getInstance()->getValue($page . '_accessToken', null);
             if ($accessToken == null) {
@@ -256,8 +234,7 @@ class FacebookUtil
                 if (!empty($pageInfo)) {
                     $accessToken = $pageInfo['access_token'];
                     UserRegistry::getInstance()->setValue($page . '_accessToken', $accessToken);
-                }
-                else {
+                } else {
                     return false;
                 }
             }
@@ -280,15 +257,13 @@ class FacebookUtil
                 return $result;
             }
             return true;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Yii::log($e, CLogger::LEVEL_ERROR, 'facebook');
             return false;
         }
     }
 
-    protected function createFanpageAlbum($title, $description, $accessToken, $pageID)
-    {
+    protected function createFanpageAlbum($title, $description, $accessToken, $pageID) {
         $album_details = array(
             'access_token' => $accessToken,
             'name' => $title,
@@ -308,8 +283,7 @@ class FacebookUtil
      * @param string $facebookObjectId id of user
      * @return type
      */
-    protected function createAlbum($title, $description)
-    {
+    protected function createAlbum($title, $description) {
 
         $album_details = array(
             'access_token' => $this->_accessToken,
@@ -323,9 +297,8 @@ class FacebookUtil
         }
     }
 
-    public function doUserHaveEnoughUploadPermission()
-    {
-        try{
+    public function doUserHaveEnoughUploadPermission() {
+        try {
             if (Yii::app()->user->isFacebookUser) {
                 $data = Yii::app()->facebook->api('/me/permissions', 'get', array(
                     'access_token' => $this->_accessToken
@@ -341,12 +314,10 @@ class FacebookUtil
                 }
             }
             return false;
-        }
-        catch(Exception $e){
-            Yii::log($e->getMessage(),  CLogger::LEVEL_ERROR,'facebook');
+        } catch (Exception $e) {
+            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'facebook');
             return false;
         }
-        
     }
 
 }

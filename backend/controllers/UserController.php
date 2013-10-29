@@ -62,6 +62,7 @@ class UserController extends Controller
                 $model->attributes=$_POST['User'];
                 
                 if($model->save()){
+                    UserMetaUtil::updateMetaByPost($model);
                     $this->updateUserAccess($model,$lastRole);
                     $this->redirect(array('view','id'=>$model->id));
                 }
@@ -90,6 +91,7 @@ class UserController extends Controller
                 $lastRole = $model->role;
                 $model->attributes=$_POST['User'];
                 if($model->save()){
+                    UserMetaUtil::updateMetaByPost($model);
                     $this->updateUserAccess($model,$lastRole);
                     $this->redirect(array('update','id'=>$model->id));
                 }
@@ -173,4 +175,6 @@ class UserController extends Controller
         Yii::app()->authManager->assign(strtolower($roleName),$user->id);
         
     }
+    
+  
 }

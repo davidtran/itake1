@@ -72,15 +72,16 @@
           }());
         </script>         
         <script type="text/javascript">
+             var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-42949373-1']);
+            _gaq.push(['_trackPageview']);
           (function() {
            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
            po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
          })();
         </script>
-         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5165a11f04e5f961">
-                addthis.toolbox('.addthis_toolbox');
-        </script>     
+        
         <div id="footer">  
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
