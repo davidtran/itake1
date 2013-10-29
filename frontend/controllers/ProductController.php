@@ -71,7 +71,7 @@ class ProductController extends Controller
     }
     public function actionCommentLoadMore($product_id){
         $criteria = new CDbCriteria();
-        $criteria->condition = 'product_id = :product_id';
+        $criteria->condition = 'product_id = :product_id and parent_id is null';
         $criteria->params = array (':product_id'=> $product_id);
         $criteria->order = 'create_date DESC';
 
@@ -97,6 +97,10 @@ class ProductController extends Controller
         $result = array('error_code' =>1 ,'msg'=>array('html'=>$returnHtml,'pageCount'=>$pages->pageCount));
                 echo CJSON::encode($result);
                 Yii::app()->end();
+    }
+    public function actionDelComment($comment_id){
+        $comment=Comment::model()->findByPk($comment_id);
+        $comment->delete();
     }
     public function actionDetails($id)
     {   

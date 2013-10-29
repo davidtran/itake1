@@ -15,8 +15,9 @@
 			<div class="content">
 				<p><?php echo nl2br(CHtml::encode($model->content)); ?></p>
 			</div>
+			<a href="#" class="deletecomment" id="del-comment-<?php echo $model->id ?>" comment_id="<?php echo $model->id ?>" >Del</a>
 			<?php if($model->parent_id==NULL): ?>
-			<a href="#" class="parent" parent_id_"<?php $model->id ?>" >Reply</a>
+			<a href="#" class="replycomment" id="comment-child-<?php echo $model->id ?>" replyId = "<?php echo $model->id ?>">Reply</a>
 			<div id="comment_id_<?php echo $model->id; ?>">
 				<div class="form-comment-child"  style="display:none;">
 				<?php 

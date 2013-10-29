@@ -36,15 +36,26 @@ function commentRegisterEventSubmit(){
               
                });
         });
-        $( "div[id^='comment_id_']" ).live( "click", function(event) {
+        //reply
+        $( "a[id^='comment-child-']" ).live( "click", function(event) {
             // alert( "Handler for .click() called." );
             event.stopPropagation();
-            $(this).find(".form-comment-child" ).show('fade');
+            $(this).parent().find(".form-comment-child" ).show('fade');
             $(document).live( "click", function() {
-                $(this).find(".form-comment-child" ).hide('fade');
+                // $(this).find(".form-comment-child" ).hide('fade');
             });
         });
-
+        // del
+         $( "a[id^='del-comment-']" ).live( "click", function(event) {
+              event.preventDefault();
+              var datos = {comment_id:$(this).attr('comment_id')};
+              if(confirm("Xoa?")==true){
+              $(this).parent().find(".content").hide('fade');
+              // $(this).parent().find(".replycomment").hide('fade');
+              $.get(BASE_URL + "/product/delComment/", datos, function(data) {
+              });
+              }
+          });
       $( "form[id^='farent-form_']" ).live( "submit", function(event) {
       // alert( "Handler for .submit() called." );
       event.preventDefault();
