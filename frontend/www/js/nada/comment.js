@@ -15,6 +15,7 @@ function commentRegisterEventSubmit(){
             }
             
         });
+
 	});
         $( "#commentLoadMore" ).click(function(event) {
           // alert( "Handler for .click() called." )
@@ -35,16 +36,16 @@ function commentRegisterEventSubmit(){
               
                });
         });
-        $( "div[id^='comment_id_']" ).click(function() {
+        $( "div[id^='comment_id_']" ).live( "click", function(event) {
             // alert( "Handler for .click() called." );
             event.stopPropagation();
             $(this).find(".form-comment-child" ).show('fade');
-            $(document).click( function(){
+            $(document).live( "click", function() {
                 $(this).find(".form-comment-child" ).hide('fade');
             });
         });
 
-      $( "#farent-form" ).submit(function( event ) {
+      $( "#farent-form" ).live( "submit", function(event) {
       // alert( "Handler for .submit() called." );
       event.preventDefault();
       var datos = $(this).serialize();
