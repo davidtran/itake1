@@ -218,7 +218,7 @@ function loadProductMap(product) {
 }
 
 function loadUserProduct(product) {
-    $('#userProductList').isotope({
+    $userProductList.isotope({
         columnWidth: 28,
         itemSelector: '.productItem',
         transformsEnabled: false,
@@ -226,6 +226,12 @@ function loadUserProduct(product) {
             rowHeight: 360
         }
     });
+    setTimeout(function(){
+        $userProductList.isotope('reLayout');
+    },500);
+    setTimeout(function(){
+        $userProductList.isotope('reLayout');
+    },1500);
 }
 function loadImageSlideShow(){
      $('.popup-gallery').magnificPopup({

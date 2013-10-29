@@ -126,11 +126,18 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                             ));
                             ?>
                             <?php echo $form->errorSummary($product); ?>
-                            <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>
+                            <?php if($product->isNewRecord): ?>
+                                <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>
+                            <?php else:?>
+                                <?php echo $form->dropDownListRow($product,'category_id',  CHtml::listData(CategoryUtil::getCategoryList(), 'id', 'name')); ?>
+                            <?php endif; ?>
                             <?php echo $form->textFieldRow($product, 'title', array(
-                                'class' => 'span12', 
-                                'require',
-                                'maxlength'=>200)); ?>
+                                    'class' => 'span12', 
+                                    'require',
+                                    'maxlength'=>50,
+                                    'placeholder'=>'Tối đa 50 ký tự'
+                                )
+                            ); ?>
                             <?php
                             $disabled = ! $product->isNewRecord && $product->no_price ? 'true':null;
                             echo $form->textFieldRow($product, 'price', array(

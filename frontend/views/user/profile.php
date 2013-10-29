@@ -63,7 +63,7 @@ clientScript->registerScriptFile('http://maps.google.com/maps/api/js?sensor=true
     </div>
 </div>
 </div>
-<div class="span10">
+<div class="span10" id="userProductWrapper">
 <div class="row-fluid">
     <div class="span8">
         <h1 class="title_font">
@@ -75,10 +75,10 @@ clientScript->registerScriptFile('http://maps.google.com/maps/api/js?sensor=true
 position: relative;right:30px;">
             <ul>
                 <li class="active">
-                    <a id="linkSort_0" href="/market/sortType.html?type=0">Đang bán</a>
+                    <?php echo CHtml::link('Đang bán',array('/user/profile','id'=>$user->id,'sort'=>0)); ?>
                 </li>
                 <li>
-                    <a href="/market/sold.html">Đã bán</a>
+                    <?php echo CHtml::link('Đang bán',array('/user/profile','id'=>$user->id,'sort'=>1)); ?>
                 </li>
             </ul>
         </div>

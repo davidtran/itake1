@@ -7,8 +7,9 @@ $(document).ready(function() {
     board.isotope({
         columnWidth: 10,
         itemSelector: '.productItem',
-        masonryHorizontal: {
-            rowHeight: 360
+        transformsEnabled:true,
+        straightAcross: {
+            rowHeight: 160
         }
     });
     board.isotope('reLayout');    

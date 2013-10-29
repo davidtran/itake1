@@ -36,7 +36,7 @@ class UserController extends Controller
         $this->redirect(array('/site'));
     }
 
-    public function actionLogin()
+    public function actionLogin($returnUrl = null)
     {
         if (Yii::app()->user->isGuest == false) {
             //$this->redirect('/site/index');
@@ -47,9 +47,7 @@ class UserController extends Controller
             $loginForm->password = $_POST['LoginForm']['password'];
             if ($loginForm->validate() && $loginForm->login()) {
                 //a login user by email can still be a facebook user
-                if(Yii::app()->user->isGuest ==false && Yii::app()->user->isFacebookUser){
-                    $this->redirect(FacebookUtil::getInstance()->makeFacebookLoginUrl($this->createUrl('/site/index')));
-                }else{
+               
                     
                     if ($this->hasReturnUrl()) {
                         $this->redirectToReturnUrl();
@@ -58,7 +56,7 @@ class UserController extends Controller
                         $siteUrl = $this->createUrl('/site/index');
                         $this->redirect($siteUrl);
                     }
-                }
+                
                 
             }
             $loginForm->password = '';
