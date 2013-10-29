@@ -50,7 +50,7 @@ function commentRegisterEventSubmit(){
               event.preventDefault();
               var datos = {comment_id:$(this).attr('comment_id')};
               if(confirm("Xoa?")==true){
-              $(this).parent().find(".content").hide('fade');
+              $(this).parent().parent().find(".pull-left").hide('fade');
               // $(this).parent().find(".replycomment").hide('fade');
               $.get(BASE_URL + "/product/delComment/", datos, function(data) {
               });

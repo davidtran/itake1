@@ -1,3 +1,6 @@
+<?php 
+	$product = Product::model()->findByPk($model->id)
+ ?>
 <div class="row-fluid">
 	<div class="comment_item" id="comment_id_<?php echo $model->id; ?>">
 		<div class="pull-left">
@@ -15,7 +18,10 @@
 			<div class="content">
 				<p><?php echo nl2br(CHtml::encode($model->content)); ?></p>
 			</div>
+			<?php if(UserUtil::canEdit($model->user) || UserUtil::canEdit($product->user)):	
+			?>
 			<a href="#" class="deletecomment" id="del-comment-<?php echo $model->id ?>" comment_id="<?php echo $model->id ?>" >Del</a>
+			<?php endif; ?>
 			<?php if($model->parent_id==NULL): ?>
 			<a href="#" class="replycomment" id="comment-child-<?php echo $model->id ?>" replyId = "<?php echo $model->id ?>">Reply</a>
 			<div id="comment_id_<?php echo $model->id; ?>">
