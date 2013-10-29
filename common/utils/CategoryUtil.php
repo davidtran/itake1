@@ -12,10 +12,18 @@
  */
 class CategoryUtil
 {
+    /**
+     * Return a list of translated category model
+     * @return array
+     */
     public static function getCategoryList(){
-        return Category::model()->findAll(array(
+        $list = Category::model()->findAll(array(
             'order'=>'sort asc'
         ));
+        foreach($list as $item){
+            $item->name = Yii::t("Default",$item->name);
+        }
+        return $list;
     }        
     public static function getCategoryColor($index){
     	switch ($index) {
