@@ -5,7 +5,7 @@ $this->pageTitle = LanguageUtil::t('Participate in').' '.Yii::app()->name;
 ?>
 
 
-<div class="container-fluid" style="margin-top: 74px;">
+<div class="container-fluid" style="margin-top: 24px;">
    <div class="row-fluid">
         <div class="span8 offset2">
         <h2 class="form-signin-heading"><i class="icon-group"></i> <?php LanguageUtil::echoT('Participate in')?> itake</h2>  
