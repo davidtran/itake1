@@ -56,7 +56,7 @@
 
     <body class="ostyle">                        
         <div class="page-container">            
-            <div class="container-fluid" >
+            <div class="container-fluid" style="margin-top:54px;" >
                 
                 <?php echo $content ?>
                 
