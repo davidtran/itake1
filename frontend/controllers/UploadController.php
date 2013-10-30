@@ -68,8 +68,9 @@ class UploadController extends Controller
         $photos = new XUploadForm;
         if (isset($_POST['Product'])) {
             $product->attributes = $_POST['Product'];
-
+            //echo mb_detect_encoding($product->title);exit;
             $product->status = Product::STATUS_ACTIVE;
+            
             if ($this->haveUploadedImage() && $product->validate(null, false)) {
                 if ($product->save(true)) {                    
                     $this->saveUploadedImage($product);                   
@@ -168,99 +169,51 @@ class UploadController extends Controller
         $haveImage = true;
         if (Yii::app()->user->hasState(self::IMAGE_STATE_VARIABLE)) {
             $userImages = Yii::app()->user->getState(self::IMAGE_STATE_VARIABLE);
-            $i = 1;
+            $i = 0;
             foreach ($userImages as $index => $image) {
-
+                
                 if (is_file($image["path"]))
                 {
-                    $titleCut = mb_strlen($product->title,'utf-8')>20?mb_substr($product->title,0,20,'utf-8'):$product->title;
+                    
+                    $titleCut = mb_strlen($product->title,'utf-8')>50?mb_substr($product->title,0,50,'utf-8'):$product->title;
                     $filename = str_replace(' ', '-', StringUtil::utf8ToAscii(StringUtil::removeSpecialCharacter($titleCut))) .
-                            '_' .
-                            $index .
+                            '_'.
+                            $i.
                             '_' .
                             $product->id;
-                    $ext = substr($image['filename'], strlen($image['filename']) - 3);
-                    if (rename($image["path"], Yii::getPathOfAlias('www') . '/images/content/' . $filename . '.' . $ext)) {                        
-                        $thumbnail = ImageUtil::resize(
-                                'images/content/' . $filename . '.' . $ext, 
-                                Yii::app()->params['image.minWidth'], 
-                                Yii::app()->params['image.minHeight']);                                                
-                        $mainImage = ImageUtil::resize(
-                                'images/content/' . $filename . '.' . $ext, 
-                                Yii::app()->params['image.maxWidth'], 
-                                Yii::app()->params['image.maxHeight']);                                                
-                        $imageModel = new ProductImage();
-                        $imageModel->image = $mainImage;
-                        $imageModel->thumbnail = $thumbnail;
-                        $processed = 'images/content/processed/' . $filename . '.' . $ext;
-                        ProductImageUtil::drawImage($product, $imageModel->image, $processed);
-                        $imageModel->facebook = $processed;
-                        $imageModel->number = $i;
-                        $imageModel->product_id = $product->id;
-                        if ($imageModel->save()) {
-                            $i++;
-                            $haveImage = true;
+                    $fileNameArray = explode('.', $image['filename']);
+                 
+                    if(count($fileNameArray)>0){
+                        
+                        $ext = $fileNameArray[count($fileNameArray)-1];                                        
+                        if (rename($image["path"], Yii::getPathOfAlias('www') . '/images/content/' . $filename . '.' . $ext)) {                        
+                       
+                            $thumbnail = ImageUtil::resize(
+                                    'images/content/' . $filename . '.' . $ext, 
+                                    Yii::app()->params['image.minWidth'], 
+                                    Yii::app()->params['image.minHeight']);                                                
+                            $mainImage = ImageUtil::resize(
+                                    'images/content/' . $filename . '.' . $ext, 
+                                    Yii::app()->params['image.maxWidth'], 
+                                    Yii::app()->params['image.maxHeight']);                                                
+                            $imageModel = new ProductImage();
+                            $imageModel->image = $mainImage;
+                            $imageModel->thumbnail = $thumbnail;
+                            $processed = 'images/content/processed/' . $filename . '.' . $ext;
+                            ProductImageUtil::drawImage($product, $imageModel->image, $processed);
+                            $imageModel->facebook = $processed;
+                            $imageModel->number = $i;
+                            $imageModel->product_id = $product->id;
+                            if ($imageModel->save()) {
+                                $i++;
+                                $haveImage = true;
+                            }
                         }
                     }
                 }
             }
         }
         return $haveImage;
-    }
-
-    /**
-     * Get image from upload form and check extension, file size, then resize to 1024x768 (max)
-     * Draw info to image
-     * @param Product $product
-     * @return boolean upload successful
-     */
-    protected function handleUploadImage(Product &$product)
-    {
-        $upload = ImageUploadUtil::getInstance('productImage');
-        $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter($product->title)) .
-                '_' .
-                rand(0, 999);
-
-
-        $rs = $upload->handleUploadImage('images/content', $filename);
-        if ($rs == false) {
-            if ($product->image == null) {
-                $product->addError('image', $upload->getError());
-                return false;
-            }
-        }
-        else {
-
-            $raw = 'images/content/' . $filename . '.' . $upload->getExtension();
-            $product->image = $raw;
-            return array(
-                'filename' => $filename,
-                'extension' => $upload->getExtension(),
-                'fullpath' => $raw
-            );
-        }
-        return false;
-    }
-
-    public function actionDelete()
-    {
-        $this->checkLogin('Vui lòng đăng nhập khi sử dụng chức năng này');
-        $productId = Yii::app()->request->getParam('id');
-        if ($productId) {
-            $product = Product::model()->findByPk($productId);
-            if ($product != null && $product->user_id == Yii::app()->user->getId()) {                
-                if($product->delete()){
-                    $this->renderAjaxResult(true);
-                }else{
-                    $this->renderAjaxResult(false, 'Không thể xóa bài đăng này');
-                }
-                
-            }
-            else {
-                $this->renderAjaxResult(false, 'Không thể xóa bài đăng này');
-            }
-        }
-        $this->renderAjaxResult(false, 'Sai tham số');
     }
 
     public function actionGetGeoData($cityId)

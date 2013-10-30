@@ -121,9 +121,9 @@ position: relative;">
         </div>        
         <div class="row-fluid" id="fixWidthMasory"></div>
         <div class="row-fluid">
-        <div class="span2" id="menuWidthBase" style="height: 1000px;"><p>test</p></div>//do not remove
+        <div class="span2" id="menuWidthBase" style="height: 1000px;"><p></p></div>
         <div class="span10">
-            <div class="row-fluid" id="wrapper_productContainer" style="margin-top:120px;min-height:1000px;"   >
+            <div class="row-fluid" id="wrapper_productContainer" style="margin-top:70px;min-height:1000px;"   >
                 <!-- <hr style="position:relative; top:-60px;"/> -->
                 
                 <?php if (trim($keyword) != ''): ?>

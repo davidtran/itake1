@@ -28,11 +28,7 @@ class CheckTokenFilter extends CFilter
                 }
             }else{
                 Yii::app()->controller->renderAjaxResult(false, 'Invalid token.');
-            }
-            if(ApiUser::getInstance()->isGuest != false){
-                Yii::app()->controller->renderAjaxResult(false, 'Invalid token, need to login again');
-            }
-            
+            }                    
         }else{
             $filterChain->run();
         }

@@ -13,6 +13,7 @@ $(document).ready(function() {
         });
     }
     $container = $('#productContainer');
+    
     // initialize
     $container.isotope({
         columnWidth: 30,
@@ -22,16 +23,13 @@ $(document).ready(function() {
             rowHeight: 360
         }
     });
-    $container.imagesLoaded(function(){
-        console.log('loaded image');
+    
+   $container.imagesLoaded(function(){
         masoryCenterAlign();
         $container.show('fade');
-        $('#productContainer').isotope('reLayout');     
-        //  setTimeout(function() {
-        //       $('#productContainer').isotope('reLayout');
-              
-        // }, 500);       
-         //$container.css('height',$(window).height()*2);
+        setInterval(function(){
+                $container.isotope('reLayout');
+            },500);
     }); 
     $(window).scroll(function() {
         if( $(window).scrollTop()!=0)
@@ -50,6 +48,7 @@ $(document).ready(function() {
     initCheckBottom(function(){
         if(false == stopLoad){
             page++;
+            showMessage('Đang lấy thêm sản phẩm...',1000);
             $.ajax({
                 url:BASE_URL + '/site/index',
                 data:{
@@ -67,7 +66,7 @@ $(document).ready(function() {
                             $container.isotope('insert',$(data.msg.items));                            
                         }else{
                             stopLoad = true;
-                            showMessage("Không còn sản phẩm nào nữa để tải");
+                            showMessage("Không còn sản phẩm nào nữa để tải",1000);
                         }
 
                     }
@@ -79,9 +78,7 @@ $(document).ready(function() {
     });
     
 });
- setInterval(function(){
-     $('#productContainer').isotope('reLayout');
- },500);
+
 
 $(document).ready(function(){
     

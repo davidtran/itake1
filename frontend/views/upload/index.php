@@ -126,13 +126,26 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
                             ));
                             ?>
                             <?php echo $form->errorSummary($product); ?>
-                            <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>
-                            <?php echo $form->textFieldRow($product, 'title', array('class' => 'span12', 'require')); ?>
+                            <?php if($product->isNewRecord): ?>
+                                <input type="hidden" value ="<?php echo $product->category_id ?>" id="Product_category_id" name="Product[category_id]"/>
+                            <?php else:?>
+                                <?php echo $form->dropDownListRow($product,'category_id',  CHtml::listData(CategoryUtil::getCategoryList(), 'id', 'name')); ?>
+                            <?php endif; ?>
+                            <?php echo $form->textFieldRow($product, 'title', array(
+                                    'class' => 'span12', 
+                                    'require',
+                                    'maxlength'=>50,
+                                    'placeholder'=>'Tối đa 50 ký tự'
+                                )
+                            ); ?>
                             <?php
+                            $disabled = ! $product->isNewRecord && $product->no_price ? 'true':null;
                             echo $form->textFieldRow($product, 'price', array(
-                                'class' => 'span12'
+                                'class' => 'span12',
+                                'disabled'=> $disabled,
                             ));
                             ?>
+                            <?php echo $form->checkBoxRow($product,'no_price',array());?>
                             <?php //echo $form->textFieldRow($product, 'phone');  ?>
                             <?php echo $form->textAreaRow($product, 'description', array('rows' => 4, 'class' => 'span12')); ?>
                             <?php echo $form->hiddenField($product, 'address_id'); ?>

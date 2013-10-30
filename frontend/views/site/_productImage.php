@@ -1,20 +1,23 @@
-<div class="productImageLink">
-    <a target="_blank" href="<?php echo $product->getDetailUrl(); ?>" class="productLink"  title="<?php echo $product->description; ?>">
-        <?php if (isset($product->firstImage)): ?>
-            <?php
-            echo CHtml::image(
-                    Yii::app()->baseUrl . '/' . $product->firstImage->thumbnail, $product->title, array(
-                'class' => 'productImage',
-                'onError' => "this.onerror=null;this.src='http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP';"
-                    )
-            );
-            ?>   
-        <?php else:?>
-            <?php echo CHtml::image('http://www.placehold.it/400x400/EFEFEF/AAAAAA&text='.Yii::t('Default', 'Missing image'),$product->title,array(
-                'class'=>"productImage"
-            ));?>
-        <?php endif; ?>        
-    </a>
+<div class="productImageContainer">
+    <div class="productImageLink">
+    
+        <a target="_blank" href="<?php echo $product->getDetailUrl(); ?>" class="productLink"  title="<?php echo $product->description; ?>">
+            <?php if (isset($product->firstImage)): ?>
+                <?php
+                echo CHtml::image(
+                        Yii::app()->baseUrl . '/' . $product->firstImage->thumbnail, $product->title, array(
+                    'class' => 'productImage',
+                    'onError' => "this.onerror=null;this.src='http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=Hình+SP';"
+                        )
+                );
+                ?>   
+            <?php else:?>
+                <?php echo CHtml::image('http://www.placehold.it/400x400/EFEFEF/AAAAAA&text='.Yii::t('Default', 'Missing image'),$product->title,array(
+                    'class'=>"productImage"
+                ));?>
+            <?php endif; ?>        
+        </a>
+    </div>
     <?php if($product->status==Product::STATUS_SOLD): ?>
     <div class="productSoldBg">
         <i class="icon-bookmark"></i>
@@ -67,7 +70,7 @@
                         <?php
                         if($product->status!=Product::STATUS_SOLD)
                         {
-                            echo CHtml::link('<i class="icon-shopping-cart"></i> ' . LanguageUtil::t('Sold'), array('/upload/delete'), array(
+                            echo CHtml::link('<i class="icon-shopping-cart"></i> ' . LanguageUtil::t('Sold'), array('/upload/sold'), array(
                                 'class' => 'btn btn-square p-sold',
                                 'data-toggle' => 'tooltip',
                                 'title' => 'Đã bán phẩm này',
@@ -75,7 +78,7 @@
                         }
                         else{
                             echo CHtml::link('<i class="icon-remove"></i> ' . LanguageUtil::t('Remove'), array('/upload/delete'), array(
-                                'class' => 'btn btn-square p-sold',
+                                'class' => 'btn btn-square p-delete',
                                 'data-toggle' => 'tooltip',
                                 'title' => 'Xóa phẩm này',
                             ));

@@ -132,8 +132,19 @@ var UploadForm = {
         }
         UploadForm.initPriceField();
         UploadForm.initDeleteUploadedImage();
-    },    
+    },              
+    resolveEnablePrice:function(){
+        if($('#Product_no_price').attr('checked') == 'checked'){
+            $('#Product_price').attr('disabled',1);
+        }else{
+            $('#Product_price').removeAttr('disabled');
+        }
+    },
     initPriceField:function(){
+        UploadForm.resolveEnablePrice();
+        $('#Product_no_price').click(function(){
+            UploadForm.resolveEnablePrice();
+        });
         var priceDisplayValue = $('#Product_priceDisplay').val();
         $('#Product_price').keyup(function(event){
             
@@ -200,21 +211,7 @@ var UploadForm = {
             $('#productImageHolder').removeClass('error').addClass('valid');
         } else {
             $('#productImageHolder').removeClass('valid').addClass('error');
-        }
-        
-
-        $(UploadForm.numberField).each(function() {
-            UploadForm.startChecking = true;
-            if ($(this).val().trim() != '' && $.isNumeric($(this).val()) == false) {
-              
-                $(this).addClass('error');
-                $(this).removeClass('valid');
-                valid = false;
-            } else {
-                $(this).addClass('valid');
-                $(this).removeClass('error');
-            }
-        });
+        }               
         
         $(UploadForm.fieldList).each(function() {
             UploadForm.startChecking = true;

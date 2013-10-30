@@ -1,10 +1,13 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
 <div class="nav-bar-top">
-    <div class="nd_logo">
-        <a class="logo" href="<?php echo $this->createUrl('/site'); ?>"><h1><span>i</span>Take</h1></a>
-        <small class="visible-desktop"></small>               
-    </div>
+    <div class="nd_logo ">
+            <a class="logo" href="<?php echo $this->
+                createUrl('/site'); ?>">
+                <img src="/images/logo.png"/>
+            </a>
+            <small class="visible-desktop"></small>
+        </div>
     <div class="frmSearch_wrapper">                          
         <div class="frmSearch">     
             <div class="locations hidden-phone">               

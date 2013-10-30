@@ -1,10 +1,8 @@
 <?php
 
-class TokenUtil
-{
+class TokenUtil {
 
-    public static function createTokenModel($user_id)
-    {       
+    public static function createTokenModel($user_id) {
         $model = new LoginToken();
         $model->token = self::generateToken($user_id);
         $model->user_id = $user_id;
@@ -13,40 +11,27 @@ class TokenUtil
         return $model;
     }
 
-    public static function generateToken($user_id)
-    {
+    public static function generateToken($user_id) {
         return md5(md5($user_id) . uniqid('secret'));
     }
 
-    public static function loadToken()
-    {
+    public static function loadToken($token) {
 
-        if (isset($_REQUEST['token']))
-        {
-            $token = TokenUtil::findTokenModel($_REQUEST['token']);
-            if ($token != null)
-            {
-                return $token;
-            }
-        }
-        return false;
+        return $token = TokenUtil::findTokenModel($token);
     }
 
-    public static function findTokenModel($token)
-    {
+    public static function findTokenModel($token) {
         $model = LoginToken::model()->find(array(
             'condition' => 'token=:token',
             'params' => array(
-                'token' => $token,                
+                'token' => $token,
             ),
             'order' => 'create_date desc'
         ));
-        if ($model != null)
-        {
+        if ($model != null) {
             $tokenTime = strtotime($model->create_date);
             $elapse = time() - $tokenTime;
-            if ($elapse < 60 * 60 * 24)
-            {
+            if ($elapse < 60 * 60 * 24) {
                 return $model;
             }
         }

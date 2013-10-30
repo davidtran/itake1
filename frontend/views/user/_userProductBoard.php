@@ -7,18 +7,20 @@ $(document).ready(function() {
     board.isotope({
         columnWidth: 10,
         itemSelector: '.productItem',
-        masonryHorizontal: {
-            rowHeight: 360
+        transformsEnabled:true,
+        straightAcross: {
+            rowHeight: 160
         }
     });
     board.isotope('reLayout');    
         
     setInterval(function(){
-        $('#productContainer').isotope('reLayout');
+        $('#userProductBoard').isotope('reLayout');
     },500);
         
     initCheckBottom(function(){
         if(false == stopLoad){
+            showMessage('Đang lấy thêm sản phẩm...',1000);
             page++;
             $.ajax({
                 url:BASE_URL + '/user/userProductList',

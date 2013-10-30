@@ -18,18 +18,22 @@ $(document).ready(function() {
     $dialog = $('#productDialog');
     $relateProductContainer = $('#relateProductList');
     $side = $('#userProductList');
-    $('.productLink').live('click', function(e) {
+    $userProductList = $('#userProductList');
+    $('.productImageLink, .product-detail').live('click', function(e) {       
         e.preventDefault();
-        link = $(this).attr('href');
+        link = $(this).find('.productLink').attr('href');     
         productItem = $(this).parents('.productItem');
-        //productId = productItem.attr('data-product-id');
+        productId = productItem.attr('data-product-id');
         productIdHtml = productItem.attr('id');
-        loadedMap = false;
-        if (detectmob() || isIE)
-            location.href = link;
-
+        productTitle = productItem.attr('data-title');
+        //loadProduct(link,productIdHtml);
+        History.pushState({
+            productIdHtml: productIdHtml,
+            dlgPush: true
+        }, productTitle, link);
         return false;
     });
+  
 
     $('#userProductContainer').height($('#mainProductInfo').height());
     commentWidth = $('#commentContainer').width();
@@ -101,7 +105,7 @@ function loadProduct(href, htmlProductId)
                 $('#productDialogBody').html('');
                 $('#productDialogBody').html(utf8_decode(json.msg.html));
                 $relateProductContainer = $('#relateProductList');
-                $side = $('#userProductList');
+                $userProductList = $('#userProductList');
                 product = json.msg.product;
                 currentProduct = product;
 
@@ -131,6 +135,7 @@ function loadProduct(href, htmlProductId)
                     loadImageSlider();
                 }
                 $dialog.on('shown', function() {
+                    trackingLink(href);
                     loadImageSlider();
                     $('.slim-scroll').each(function() {
                         var $this = $(this);
@@ -152,12 +157,12 @@ function loadProduct(href, htmlProductId)
 
                         return false;
                     });
-                    $('#userProductList').imagesLoaded(function() {
+                    $userProductList.imagesLoaded(function() {
                         masoryCenterAlign();
-                        $('#userProductList').show('fade');
-                        $('#userProductList').isotope('reLayout');
+                        $userProductList.show('fade');
+                        $userProductList.isotope('reLayout');
                         setTimeout(function() {
-                            $('#userProductList').isotope('reLayout');
+                            $userProductList.isotope('reLayout');
                         }, 200);
                     });
                 });
@@ -213,7 +218,7 @@ function loadProductMap(product) {
 }
 
 function loadUserProduct(product) {
-    $('#userProductList').isotope({
+    $userProductList.isotope({
         columnWidth: 28,
         itemSelector: '.productItem',
         transformsEnabled: false,
@@ -221,6 +226,12 @@ function loadUserProduct(product) {
             rowHeight: 360
         }
     });
+    setTimeout(function(){
+        $userProductList.isotope('reLayout');
+    },500);
+    setTimeout(function(){
+        $userProductList.isotope('reLayout');
+    },1500);
 }
 function loadImageSlideShow(){
      $('.popup-gallery').magnificPopup({
@@ -236,32 +247,7 @@ function loadImageSlideShow(){
 }
 ///
 
-$(document).ready(function(){
-    $('.p-sold').live('click',function(e){
-        e.preventDefault();        
-        var id = $(this).parents('.productItem').attr('data-product-id');
-        var that = $(this);
-        $.ajax({
-            url:BASE_URL + '/product/sold',
-            data:{
-                productId:id
-            },
-            success:function(jsons){
-                var data = $.parseJSON(jsons);
-                if(data.success){
-                    that.parents('.productItem').fadeOut(500,function(){
-                        $('#productContainer').isotope('remove',that.parents('.productItem'));
-                        bootbox.alert('Sản phẩm đã được đánh dấu là đã bán');                        
-                    });
-                }else{
-                    bootbox.alert(data.msg);
-                }
-            }
-            
-        });
-        return false;
-    });
-});
+
 
 //SEND MESSAGE
 
@@ -315,3 +301,4 @@ $(document).ready(function(){
         return false;
     });
 });
+

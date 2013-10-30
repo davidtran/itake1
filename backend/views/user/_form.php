@@ -51,6 +51,11 @@
 		<?php echo $form->dropDownList($model,'role',  UserRoleConstant::getRoleList()); ?>
 		<?php echo $form->error($model,'role'); ?>
 	</div>
+    <hr/>
+    <h3>User Meta</h3>
+    <div class="row">
+        <?php echo UserMetaUtil::renderMetaInput('textfield', array(), $model, UserMetaUtil::POST_LIMIT) ?>
+    </div>
 
 
 	<div class="row buttons">

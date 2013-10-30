@@ -68,7 +68,7 @@ return array(
     'My profile'=>'Trang cá nhân',
     'Change password'=>'Đổi mật khẩu',
     'Sign out'=>'Đăng xuất',
-    
+    'Contact price'=>'Giá liên hệ',
     'More like this'=>'Tin tương tự',
 
     ////Category

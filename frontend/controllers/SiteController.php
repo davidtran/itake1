@@ -1,27 +1,24 @@
 <?php
 
-class SiteController extends Controller
-{
+class SiteController extends Controller {
 
     /**
      * Declares class-based actions.
      */
-    public function actions()
-    {
+    public function actions() {
         return array(
             // captcha action renders the CAPTCHA image displayed on the contact page
             'captcha' => array(
                 'class' => 'CCaptchaAction',
                 'backColor' => 0xFFFFFF,
-            ),          
+            ),
             'page' => array(
                 'class' => 'CViewAction',
             ),
         );
     }
 
-    public function filters()
-    {
+    public function filters() {
         return array(
             array(
                 'frontend.components.FacebookAccessCheckerFilter + index,facebook,landing'
@@ -29,38 +26,31 @@ class SiteController extends Controller
         );
     }
 
-    public function behaviors()
-    {
+    public function behaviors() {
         return array(
             'seo' => array('class' => 'frontend.extensions.seo.components.SeoControllerBehavior')
         );
     }
 
-    public function actionCity($id, $category)
-    {
+    public function actionCity($id, $category) {
         //change city
         //redirect to index with selected category
-        if (Yii::app()->user->isGuest) {
-            Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $id);
-        }
-        else {
-            CityUtil::setSelectedCityId($id);
-        }
+        Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $id);
+        CityUtil::setSelectedCityId($id);
+        
         //$redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/list');
         $redirectUrl = $this->createAbsoluteUrl('/site/index');
         $this->redirect($redirectUrl);
     }
 
-    public function actionSuggest($term)
-    {
+    public function actionSuggest($term) {
         $adapter = new SuggestAdapter();
         $adapter->setKeyword($term);
         $suggests = $adapter->getSuggestion();
         echo json_encode($suggests);
     }
 
-    public function actionSortType($type)
-    {
+    public function actionSortType($type) {
         SolrSortTypeUtil::getInstance()->setSortType($type);
         $city = UserRegistry::getInstance()->getValue('City');
         $category = Yii::app()->session->get('LastCategory', null);
@@ -72,8 +62,7 @@ class SiteController extends Controller
         )));
     }
 
-    public function actionFacebook()
-    {
+    public function actionFacebook() {
         $url = $this->createUrl('index', array(
             'keyword' => null,
             'category' => Yii::app()->session['LastCategory'],
@@ -84,8 +73,7 @@ class SiteController extends Controller
         $this->redirect($url);
     }
 
-    public function actionSold()
-    {
+    public function actionSold() {
         $url = $this->createUrl('index', array(
             'keyword' => null,
             'category' => Yii::app()->session['LastCategory'],
@@ -96,15 +84,14 @@ class SiteController extends Controller
         $this->redirect($url);
     }
 
-    public function actionIndex($keyword = null, $category = null, $facebook = 0, $page = 0, $status = Product::STATUS_ACTIVE)
-    {
-        if (isset(Yii::app()->request->cookies['usercity_ck']) && Yii::app()->user->isGuest) {
+    public function actionIndex($keyword = null, $category = null, $facebook = 0, $page = 0, $status = Product::STATUS_ACTIVE) {              
+        if (Yii::app()->user->isGuest && isset(Yii::app()->request->cookies['usercity_ck'])) {
             CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
         }
-        if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
-            Yii::app()->session['VisitLanding'] = true;
-            $this->redirect($this->createUrl('landing'));
-        }
+         if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
+             Yii::app()->session['VisitLanding'] = true;
+             $this->redirect($this->createUrl('landing'));
+         }
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber'] = $page;
         Yii::app()->session['LastCategory'] = $category;
@@ -116,11 +103,9 @@ class SiteController extends Controller
         }
         if ($keyword != '') {
             $this->pageTitle = Yii::app()->name . ' - Kết quả tìm kiếm cho từ khóa ' . $keyword;
-        }
-        else if ($categoryModel != null) {
+        } else if ($categoryModel != null) {
             $this->pageTitle = Yii::app()->name . ' - Danh mục ' . $categoryModel->name;
-        }
-        else if ($facebook) {
+        } else if ($facebook) {
             $this->pageTitle = Yii::app()->name . ' - Sản phẩm được đăng từ bạn bè của bạn';
         }
 
@@ -135,8 +120,7 @@ class SiteController extends Controller
         $locationCity = null;
         if ($facebook && !FacebookUtil::getInstance()->doUserHaveEnoughUploadPermission()) {
             $requiredFacebookLogin = true;
-        }
-        else {
+        } else {
             $solrAdapter = new SolrSearchAdapter();
             $solrAdapter->setSortType(SolrSortTypeUtil::getInstance()->getCurrentSortType());
             $solrAdapter->categoryId = $category;
@@ -185,8 +169,8 @@ class SiteController extends Controller
                 'nextPageLink' => $nextPageLink,
                 'keyword' => $keyword,
                 'categoryModel' => $categoryModel,
-                'category'=>$category,
-                'status'=>$status,
+                'category' => $category,
+                'status' => $status,
                 'facebook' => $facebook,
                 'empty' => $empty,
                 'locationAddress' => $locationAddress,
@@ -194,65 +178,32 @@ class SiteController extends Controller
                 'city' => $city,
                 'requiredFacebookLogin' => $requiredFacebookLogin
             ));
-        }
-        else {
+        } else {
             $html = '';
             if ($empty == false) {
-                foreach($productList as $product){
-                    $html.=$product->renderHtml('home-',false);
+                foreach ($productList as $product) {
+                    $html.=$product->renderHtml('home-', false);
                 }
-                $this->renderAjaxResult(true,array(
-                    'items'=>$html,
-                    'count'=>count($productList)
+                $this->renderAjaxResult(true, array(
+                    'items' => $html,
+                    'count' => count($productList)
                 ));
-            }else{
-                $this->renderAjaxResult(true,array(                    
-                    'count'=>0
+            } else {
+                $this->renderAjaxResult(true, array(
+                    'count' => 0
                 ));
             }
         }
     }
 
-//    public function actionIndex()
-//    {
-//        if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
-//            Yii::app()->session['VisitLanding'] = true;
-//            $this->redirect($this->createUrl('landing'));
-//        }
-//        $categoryList = Category::model()->findAll();
-//        $this->render('index', array(
-//            'categoryList' => $categoryList
-//        ));
-//    }
-    // public function actionIndex()
-    // {
-    //     if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
-    //         Yii::app()->session['VisitLanding'] = true;
-    //         $this->redirect($this->createUrl('landing'));
-    //     }
-    //     if(!Yii::app()->user->isGuest&&UserMetaUtil::findMeta(Yii::app()->user->model->id,'user_city_key')!=NULL){
-    //         $cityId  = UserMetaUtil::findMeta(Yii::app()->user->model->id,'user_city_key')->value;
-    //         UserRegistry::getInstance()->setValue('City',$cityId);
-    //     }elseif (isset(Yii::app()->request->cookies['usercity_ck'])) {
-    //          UserRegistry::getInstance()->setValue('City', Yii::app()->request->cookies['usercity_ck']->value);
-    //     }
-    //     $categoryList = Category::model()->findAll();
-    //     $this->render('index', array(
-    //         'categoryList' => $categoryList
-    //     ));
-    // }
-
-
-    protected function createNextUrl($params)
-    {
+    protected function createNextUrl($params) {
         return Yii::app()->controller->createAbsoluteUrl('/site/index', $params);
     }
 
     /**
      * This is the action to handle external exceptions.
      */
-    public function actionError()
-    {
+    public function actionError() {
         if ($error = Yii::app()->errorHandler->error) {
             if (Yii::app()->request->isAjaxRequest)
                 $this->renderAjaxResult(false, array(
@@ -267,8 +218,7 @@ class SiteController extends Controller
     /**
      * Displays the contact page
      */
-    public function actionContact()
-    {
+    public function actionContact() {
         $model = new ContactForm;
         if (isset($_POST['ContactForm'])) {
             $model->attributes = $_POST['ContactForm'];
@@ -291,8 +241,7 @@ class SiteController extends Controller
     /**
      * Displays the login page
      */
-    public function actionLogin()
-    {
+    public function actionLogin() {
         $model = new LoginForm;
 
         // if it is ajax validation request
@@ -315,27 +264,23 @@ class SiteController extends Controller
     /**
      * Logs out the current user and redirect to homepage.
      */
-    public function actionLogout()
-    {
+    public function actionLogout() {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
     }
 
-    public function actionDetail()
-    {
+    public function actionDetail() {
         $this->render('detail_view');
     }
 
-    public function actionTerms()
-    {
+    public function actionTerms() {
         if (Yii::app()->language == 'en')
             $this->render('pages/term_en');
         else
             $this->render('pages/term');
     }
 
-    public function actionIntroduction()
-    {
+    public function actionIntroduction() {
         $this->layout = '//layouts/noMenu';
         if (Yii::app()->language == 'en')
             $this->render('pages/intro_en');
@@ -343,22 +288,19 @@ class SiteController extends Controller
             $this->render('pages/intro');
     }
 
-    public function actionEnLang()
-    {
+    public function actionEnLang() {
         $currentUrl = Yii::app()->request->urlReferrer;
         UserRegistry::getInstance()->setValue('itake_lang', 'en');
         $this->redirect($currentUrl);
     }
 
-    public function actionViLang()
-    {
+    public function actionViLang() {
         $currentUrl = Yii::app()->request->urlReferrer;
         UserRegistry::getInstance()->setValue('itake_lang', 'vi');
         $this->redirect($currentUrl);
     }
 
-    public function actionLanding()
-    {
+    public function actionLanding() {
         $this->layout = '//layouts/noMenu';
         if (Yii::app()->language == 'en')
             $this->render('landing');
@@ -366,13 +308,11 @@ class SiteController extends Controller
             $this->render('landing_vi');
     }
 
-    public function actionFAQ()
-    {
+    public function actionFAQ() {
         //waiting for KHOA
     }
 
-    public function actionLocationDialog()
-    {
+    public function actionLocationDialog() {
         $location = new LocationForm();
         $location->city = CityUtil::getSelectedCityId();
         $lat = UserLocationUtil::getInstance()->lat;
@@ -383,8 +323,7 @@ class SiteController extends Controller
                 'alreadyHaveLocation' => true,
                 'url' => $url
             ));
-        }
-        else {
+        } else {
             $html = $this->renderPartial('/site/partial/selectLocationDialog', array(
                 'location' => $location
                     ), true, false);
@@ -395,8 +334,7 @@ class SiteController extends Controller
         }
     }
 
-    public function actionSaveLocation()
-    {
+    public function actionSaveLocation() {
         $lat = Yii::app()->request->getPost('lat');
         $lng = Yii::app()->request->getPost('lng');
         $address = Yii::app()->request->getPost('address');
@@ -408,14 +346,12 @@ class SiteController extends Controller
             UserLocationUtil::getInstance()->city = $city;
             $url = $this->createUrl('/site/sortType', array('type' => SolrSearchAdapter::TYPE_LOCATION));
             $this->renderAjaxResult(true, array('url' => $url));
-        }
-        else {
+        } else {
             $this->renderAjaxResult(false, 'Invalid data');
         }
     }
 
-    public function actionRemoveLocation()
-    {
+    public function actionRemoveLocation() {
         UserLocationUtil::getInstance()->removeLocation();
         $this->redirect($this->createUrl('/site/sortType', array(
                     'type' => SolrSearchAdapter::TYPE_CREATE_DATE

@@ -8,13 +8,37 @@ $(document).ready(function(){
         
     });
     
+    $('.p-sold').live('click',function(e){
+        e.preventDefault();
+        if(confirm('Bạn muốn đánh dấu sản phẩm là đã bán ?')){
+            productItem = $(this).parents('.productItem');
+            productId = productItem.attr('data-product-id');
+            $.ajax({
+                url:BASE_URL + '/product/sold',
+                data:{
+                    id:productId
+                },
+                type:'post',
+                success:function(jsons){                    
+                    var json = $.parseJSON(jsons);
+                    if(json.success){
+                        productItem.html($(json.msg.html).html());
+                        //window.location.reload();
+                    }else{
+                        bootbox.alert(json.msg);
+                    }
+                }
+            });
+        }
+        return false;
+    });
     $('.p-delete').live('click',function(e){
         e.preventDefault();
         if(confirm('Bạn có muốn xóa sản phẩm này ?')){
             productItem = $(this).parents('.productItem');
             productId = productItem.attr('data-product-id');
             $.ajax({
-                url:BASE_URL + '/upload/delete',
+                url:BASE_URL + '/product/delete',
                 data:{
                     id:productId
                 },
@@ -37,7 +61,6 @@ function removeProductItemFromBoard(productItem){
     var board = productItem.parents('.productBoard');
     productItem.fadeOut(100,function(){
         board.isotope('reLayout');
-    });
-    location.reload();
+    });    
 }
 

@@ -25,8 +25,9 @@ class SuggestAdapter
      */
     public function getSuggestion()
     {
+        $cityId = CityUtil::getSelectedCityId();
         $url = 'http://' . Yii::app()->params['solr.host'] . ':' . Yii::app()->params['solr.port'] . Yii::app()->params['solr.indexPath'] . '/' . 'suggest' . '/?';
-        $url.='fq=suggest_terms:' . strtolower($this->keyword) . '*';        
+        $url.='fq=suggest_terms:' . strtolower($this->keyword) . '*&fq=city_id:'.$cityId;        
         $data = $this->_solr->_sendRawGet($url);
        
         $response = CJSON::decode($data->getRawResponse());

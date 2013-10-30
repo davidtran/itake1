@@ -6,7 +6,7 @@
  * 
  */
 ?>
-<div class='container-fluid' style='margin-top:54px;'>
+<div class='container-fluid'>
 	<div class="row-fluid">
 		<div class="span12 center ">
       <div class="avatar">

@@ -2,8 +2,7 @@
 
 //researching
 //http://dev.solr:8983/solr/select/?q=laptop&defType=dismax&fl=id,title,city_name,create_date,view,category_name,score&qf=title^60%20category_name^10%20description^30&bf=product(1.1,view)&bf=recip(ms(NOW,create_date),3.16e-11,1,1)
-class SolrSearchAdapter
-{
+class SolrSearchAdapter {
 
     const TYPE_CREATE_DATE = 0;
     const TYPE_TREND = 1;
@@ -20,6 +19,7 @@ class SolrSearchAdapter
     public $longitude = null;
     public $facebookFriend;
     public $validateAfterSearch = true;
+
     /**
      * Product status filter
      * @var int 
@@ -31,24 +31,21 @@ class SolrSearchAdapter
 
     const DEFAULT_KEYWORD = '*:*';
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->page = 0;
         $this->cityId = null;
         $this->sortType = self::TYPE_CREATE_DATE;
     }
 
-    public function setSortType($value)
-    {
+    public function setSortType($value) {
         $this->sortType = $value;
     }
-    
-    public function getSortType(){
+
+    public function getSortType() {
         return $this->sortType;
     }
 
-    public function makeParam()
-    {
+    public function makeParam() {
         $fq = '';
         $params = array();
 
@@ -61,19 +58,19 @@ class SolrSearchAdapter
         if ($this->categoryId != null) {
             $fq[] = 'category_id:' . $this->categoryId;
         }
-        $fq[] = 'status:'.$this->status;
-        if($this->facebookFriend){
+        $fq[] = 'status:' . $this->status;
+        if ($this->facebookFriend) {
             $fq['user_id'] = $this->getFacebookFriendString();
         }
         $params['fq'] = $fq;
         $params['bf'] = array(
-            'recip(abs(ms(NOW/DAY,create_date)),1,6.3E10,6.3E10)',            
+            'recip(abs(ms(NOW/DAY,create_date)),1,6.3E10,6.3E10)',
         );
         $params['defType'] = 'edismax';
         $params['qf'] = 'title^60 description^20';
         $params['q.alt'] = '*:*';
         $params['mm'] = $this->mm;
-        
+
         switch ($this->sortType) {
             case self::TYPE_CREATE_DATE:
                 $params['sort'] = 'create_date desc';
@@ -88,49 +85,43 @@ class SolrSearchAdapter
                 }
                 $params['sort'] = 'score desc';
                 break;
-        }        
+        }
 
         return $params;
     }
 
-    public function setLocation($lat, $lng)
-    {
+    public function setLocation($lat, $lng) {
         $this->latitude = floatval($lat);
         $this->longitude = floatval($lng);
     }
 
-    public function makeQuery()
-    {
+    public function makeQuery() {
         $keyword = null;
         if (trim($this->keyword) == '') {
             $keyword = self::DEFAULT_KEYWORD;
-        }
-        else {
+        } else {
             $keyword = $this->keyword;
         }
-        if($this->facebookFriend && (false !== $facebookParam = $this->getFacebookFriendString())){
-            $keyword='user_id:'.$facebookParam;
+        if ($this->facebookFriend && (false !== $facebookParam = $this->getFacebookFriendString())) {
+            $keyword = 'user_id:' . $facebookParam;
         }
         return strtolower($keyword);
     }
 
-    protected function getOffset()
-    {
+    protected function getOffset() {
         return $this->page * $this->pageSize;
     }
 
-    public function search()
-    {
+    public function search() {
         $solr = SolrServiceFactory::getInstance();
         try {
             $response = $solr->search($this->makeQuery(), $this->getOffset(), $this->pageSize, $this->makeParam());
             Yii::log(json_encode(array(
                 $this->makeQuery(),
                 $this->makeParam()
-            )),  CLogger::LEVEL_INFO,'solr');
+                    )), CLogger::LEVEL_INFO, 'solr');
             return $this->postSearch($response);
-        }
-        catch (Apache_Solr_HttpTransportException $e) {
+        } catch (Apache_Solr_HttpTransportException $e) {
             throw $e;
         }
     }
@@ -139,8 +130,7 @@ class SolrSearchAdapter
      * Transform 
      * @param type $response
      */
-    protected function postSearch(Apache_Solr_Response $response)
-    {
+    protected function postSearch(Apache_Solr_Response $response) {
         $rawBody = $response->getRawResponse();
         $parsed = CJSON::decode($rawBody);
         $resultSet = new ProductSearchResult();
@@ -153,8 +143,8 @@ class SolrSearchAdapter
         foreach ($docs as $doc) {
             if (!in_array($doc['id'], $this->excludeIdList, true)) {
                 $product = Product::model()->findByPk(trim($doc['id']));
-                if($this->validateAfterSearch){
-                    if($product == null){
+                if ($this->validateAfterSearch) {
+                    if ($product == null) {
                         continue;
                     }
                 }
@@ -164,40 +154,43 @@ class SolrSearchAdapter
         return $resultSet;
     }
 
-    public function excludeProduct($id)
-    {
+    public function excludeProduct($id) {
         $this->excludeIdList[] = $id;
     }
-    
+
     /**
      * return a solr friendly array of facebook friend
      */
-    protected function getFacebookFriendString(){
-        if( !FacebookUtil::getInstance()->doUserHaveEnoughUploadPermission()){
+    protected function getFacebookFriendString() {
+        Yii::beginProfile('SolrFriendList');
+        if (!FacebookUtil::getInstance()->doUserHaveEnoughUploadPermission()) {
             throw new CException('User must login to facebook first');
         }
-        try{
-            $friendList = FacebookUtil::getInstance()->getFacebookFriendInApp(Yii::app()->user->getId());                
-        }
-        catch(Exception $e){
-            Yii::log($e->getMessage(),  CLogger::LEVEL_ERROR,'facebook');
+
+        try {
+            $friendList = FacebookUtil::getInstance()->getFacebookFriendInApp(Yii::app()->user->getId(), false, true);
+        } catch (Exception $e) {
+            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'facebook');
             return '(99999999999999999999999)'; //no one have this user id, so it can't show any product
         }
         
-       
-        
-        if($friendList !=false){
+        if ($friendList != false) {
             $strList = '(';
-            foreach($friendList as $index=>$friendId){
+            foreach ($friendList as $index => $friendId) {
                 $strList .= $friendId;
-                if( count($friendList) -1  > $index){
+                if (count($friendList) - 1 > $index) {
                     $strList.=' or ';
                 }
             }
             $strList.=')';
-            return $strList;
+            $filteredFriendList = $strList;
+            
+        }else{
+            $filteredFriendList = '(99999999999999999999999)'; //no one have this user id, so it can't show any product
         }
-        return '(99999999999999999999999)'; //no one have this user id, so it can't show any product
+        
+        Yii::endProfile('SolrFriendList');
+        return $filteredFriendList;
     }
 
 }
