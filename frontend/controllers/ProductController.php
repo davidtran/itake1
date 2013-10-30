@@ -71,7 +71,7 @@ class ProductController extends Controller
     }
     public function actionCommentLoadMore($product_id){
         $criteria = new CDbCriteria();
-        $criteria->condition = 'product_id = :product_id and parent_id is null';
+        $criteria->condition = 'product_id = :product_id and parent_id = 0';
         $criteria->params = array (':product_id'=> $product_id);
         $criteria->order = 'create_date DESC';
 
