@@ -82,14 +82,23 @@ class ProductImageUtil
                    
             imagettftext($gd_canvas, $titleFontSize, 0, $marginLeft, $offsetPos+$titleFontSize*2, $shadow, $font_path, $string);
             imagettftext($gd_canvas, $titleFontSize, 0, $marginLeft-1, $offsetPos+$titleFontSize*2-1, $white, $font_path, $string);
-            $priceText = preg_replace('/[^0-9]/', '', $product->price);
-            $priceText = number_format($priceText) . ' VNĐ';
-            imagettftext($gd_canvas, $titleFontSize*0.9, 0, $marginLeft, $offsetPos+$titleFontSize*3.8, $dark_grey, $font_path, $priceText);
+            if( ! $product->no_price){
+                $priceText = preg_replace('/[^0-9]/', '', $product->price);
+                $priceText = number_format($priceText) . ' VNĐ';
+                imagettftext($gd_canvas, $titleFontSize*0.9, 0, $marginLeft, $offsetPos+$titleFontSize*3.8, $dark_grey, $font_path, $priceText);            
+                if ($product->address != null && $product->user != null)
+                {                
+                    imagettftext($gd_canvas, $titleFontSize*0.7, 0, $marginLeft, $newImageHeight-$titleFontSize*0.7, $dark_grey, $font_path, 'Liên hệ: ' . $product->user->username . ' - ' . $product->address->phone);
+                }                                
+            }else{
+                if ($product->address != null && $product->user != null)
+                {                
+                    imagettftext($gd_canvas, $titleFontSize*0.7, 0, $marginLeft, $offsetPos+$titleFontSize*3.8, $dark_grey, $font_path, 'Liên hệ: ' . $product->user->username . ' - ' . $product->address->phone);
+                }                                
+            }
+            
+            
             imagefilledrectangle($gd_canvas,0, $newImageHeight-$titleFontSize*0.2, $newImageWidth, $newImageHeight, $bgColor);    
-            if ($product->address != null && $product->user != null)
-            {                
-                imagettftext($gd_canvas, $titleFontSize*0.7, 0, $marginLeft, $newImageHeight-$titleFontSize*0.7, $dark_grey, $font_path, 'Liên hệ: ' . $product->user->username . ' - ' . $product->address->phone);
-            }                                
             imagepng($gd_canvas, $dest);            
             imagedestroy($gd_canvas);
             imagedestroy($icon2);

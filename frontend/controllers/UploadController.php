@@ -68,8 +68,9 @@ class UploadController extends Controller
         $photos = new XUploadForm;
         if (isset($_POST['Product'])) {
             $product->attributes = $_POST['Product'];
-
+            //echo mb_detect_encoding($product->title);exit;
             $product->status = Product::STATUS_ACTIVE;
+            
             if ($this->haveUploadedImage() && $product->validate(null, false)) {
                 if ($product->save(true)) {                    
                     $this->saveUploadedImage($product);                   

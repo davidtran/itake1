@@ -54,7 +54,6 @@ $(document).ready(function() {
         masoryCenterAlign();
         $container.show('fade');
         //have to call 2 times for relayout correctly
-          $('#userProductBoard').isotope('reLayout');            
-          $('#userProductBoard').isotope('reLayout');     
+        $('#userProductBoard').isotope('reLayout');                   
     });
 })

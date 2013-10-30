@@ -44,7 +44,7 @@
         ?>
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-combined.no-icons.min.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/font-awesome.min.css" />
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/itakestyle.css" />
         <!--[if IE 7]>
           <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome-ie7.min.css">
         <![endif]-->
@@ -56,7 +56,7 @@
 
     <body class="ostyle">                        
         <div class="page-container">            
-            <div class="container-fluid" >
+            <div class="container-fluid" style="margin-top:54px;" >
                 
                 <?php echo $content ?>
                 
@@ -81,9 +81,7 @@
            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
          })();
         </script>
-         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5165a11f04e5f961">
-                addthis.toolbox('.addthis_toolbox');
-        </script>     
+        
         <div id="footer">  
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -3,3 +3,4 @@
 	<?php $this->renderPartial('partial/_comment_item',array('model'=>$comment))?>
 	<?php endforeach; ?>
 </div>
+

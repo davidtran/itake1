@@ -1,5 +1,5 @@
 
-<div class="container-fluid " style="margin-top:44px;">
+<div class="container-fluid ">
 	<div class="span12 custom">
 		<h3 class="title-font" style="text-align:center;margin-top:15px;">Hết lượt đăng tin</h3>
         <p>

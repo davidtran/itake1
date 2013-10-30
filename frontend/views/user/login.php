@@ -3,7 +3,7 @@ $this->pageTitle = LanguageUtil::t('Sign In').' ITAKE';
 
 //$this->showHeader = false;
 ?>
-<div class="container-fluid" style="margin-top: 74px;">
+<div class="container-fluid" style="margin-top: 24px;">
     <div class="row-fluid">
         <div class="span8 offset2">
         <h2 class="form-signin-heading"><i class="icon-signin"></i>  <?php LanguageUtil::echoT('Sign In'); ?></h2>          

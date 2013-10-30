@@ -17,6 +17,7 @@
 	<div class="row-fluid buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Reply' : 'Cập nhật',array('class'=>'pull-right btn btn-success' )); ?>
 	</div>
+
 <?php $this->endWidget(); ?>
 
 

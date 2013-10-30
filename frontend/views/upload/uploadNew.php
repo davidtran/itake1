@@ -13,7 +13,7 @@ $cs->registerScript('product info', "
         "   
         , CClientScript::POS_HEAD);
 ?>
-<div class="row-fluid" style="margin-top: 44px;">
+<div class="row-fluid">
 <?php
 $this->widget('ext.xupload.XUpload', array(
                     'url' => Yii::app()->createUrl("upload/upload"),

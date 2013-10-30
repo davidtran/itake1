@@ -18,7 +18,8 @@ $(document).ready(function() {
     $dialog = $('#productDialog');
     $relateProductContainer = $('#relateProductList');
     $side = $('#userProductList');
-    $('.product-detail').live('click', function(e) {
+    $userProductList = $('#userProductList');
+    $('.productImageLink, .product-detail').live('click', function(e) {       
         e.preventDefault();
         link = $(this).find('.productLink').attr('href');     
         productItem = $(this).parents('.productItem');
@@ -104,7 +105,7 @@ function loadProduct(href, htmlProductId)
                 $('#productDialogBody').html('');
                 $('#productDialogBody').html(utf8_decode(json.msg.html));
                 $relateProductContainer = $('#relateProductList');
-                $side = $('#userProductList');
+                $userProductList = $('#userProductList');
                 product = json.msg.product;
                 currentProduct = product;
 
@@ -157,12 +158,12 @@ function loadProduct(href, htmlProductId)
 
                         return false;
                     });
-                    $('#userProductList').imagesLoaded(function() {
+                    $userProductList.imagesLoaded(function() {
                         masoryCenterAlign();
-                        $('#userProductList').show('fade');
-                        $('#userProductList').isotope('reLayout');
+                        $userProductList.show('fade');
+                        $userProductList.isotope('reLayout');
                         setTimeout(function() {
-                            $('#userProductList').isotope('reLayout');
+                            $userProductList.isotope('reLayout');
                         }, 200);
                     });
                 });
@@ -218,7 +219,7 @@ function loadProductMap(product) {
 }
 
 function loadUserProduct(product) {
-    $('#userProductList').isotope({
+    $userProductList.isotope({
         columnWidth: 28,
         itemSelector: '.productItem',
         transformsEnabled: false,
@@ -226,6 +227,12 @@ function loadUserProduct(product) {
             rowHeight: 360
         }
     });
+    setTimeout(function(){
+        $userProductList.isotope('reLayout');
+    },500);
+    setTimeout(function(){
+        $userProductList.isotope('reLayout');
+    },1500);
 }
 function loadImageSlideShow(){
      $('.popup-gallery').magnificPopup({

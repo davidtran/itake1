@@ -55,9 +55,10 @@ class Product extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title, description,address_id,price,category_id', 'required'),
-            array('uploadToFacebook,status,country,address_id, view,price,category_id,city', 'numerical', 'integerOnly' => true),
+            array('title, description,address_id,category_id', 'required'),
+            array('no_price,uploadToFacebook,status,country,address_id, view,price,category_id,city', 'numerical', 'integerOnly' => true),
             array('title', 'length', 'max' => 200),
+            array('price','checkPrice'),
             array('description', 'length', 'max' => 4000),         
             array('phone,lat,lon,locationText', 'safe'),
             array('address_id', 'exist', 'className' => 'Address', 'attributeName' => 'id'),
@@ -65,6 +66,12 @@ class Product extends CActiveRecord
             // Please remove those attributes that should not be searched.
             array('id, title, description, price, user_id, image, create_date', 'safe', 'on' => 'search'),
         );
+    }
+    
+    public function checkPrice($attr,$value){
+        if($this->no_price == 0 && empty($this->price)){
+            $this->addError('price', 'Price can not be zeno.');
+        }
     }
 
     /**
@@ -109,7 +116,8 @@ class Product extends CActiveRecord
             'city' => Yii::t('Default','City'),
             'category_id' => Yii::t('Default','Category'),
             'address_id' => Yii::t('Default','Address'),
-            'uploadToFacebook'=>  Yii::t('Default','Post to your Facebook profile')
+            'uploadToFacebook'=>  Yii::t('Default','Post to your Facebook profile'),
+            'no_price'=>Yii::t('Default','Contact price'),
         );
     }
 
@@ -158,8 +166,8 @@ class Product extends CActiveRecord
             $this->view = 0;
            // $this->status = Product::STATUS_INACTIVE;
         }
-        if(mb_strlen($this->title,'utf-8')> 200){
-            $this->title = mb_substr($this->title,0,200);
+        if(mb_strlen($this->title,'utf-8')> 50){
+            $this->title = mb_substr($this->title,0,50,'utf-8');
         }
         $this->price = intval(StringUtil::removeSpecialCharacter($this->price));
         return parent::beforeValidate();
