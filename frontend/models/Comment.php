@@ -62,6 +62,7 @@ class Comment extends CActiveRecord
 			 'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			 // 'parent' => array(self::BELONGS_TO, 'Comment', 'parent_id'),
 			 'parentModel' => array(self::HAS_MANY, 'Comment', 'parent_id','order'=>'parentModel.create_date DESC','limit'=>5),
+			 'childCommentCount' => array(self::STAT, 'Comment', 'parent_id'),
 		);
 	}
 

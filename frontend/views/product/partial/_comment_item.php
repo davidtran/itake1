@@ -36,17 +36,19 @@
                             'model_id'=>$model->id,
                     )); 
 				 ?>
-				 <?php 
+				
+				</div>
+				<div class="form-comment-child">
+					 <?php 
 				 	// var_dump($model->parentModel);
 				 	// die;
 				 	$this->renderPartial('partial/_comments_parent',array(
                             // 'product'=>$product,
-                            'comments'=>$model->parentModel,
-                            'model_id'=>$model->id,
+                            'model'=>$model,
+                            
                         )); 
 				  ?>
 				</div>
-				
 
 			</div>
 		<?php endif; ?>

@@ -98,6 +98,35 @@ class ProductController extends Controller
                 echo CJSON::encode($result);
                 Yii::app()->end();
     }
+    public function actionCommentChildLoadMore($parent_id){
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'parent_id = :parent_id';
+        $criteria->params = array (':parent_id'=> $parent_id);
+        $criteria->order = 'create_date DESC';
+
+        //get count
+        $count = Comment::model()->count($criteria);
+         
+        //pagination
+        $pages = new CPagination($count);
+        $pages->setPageSize(5);
+        $pages->applyLimit($criteria);
+       //result to show on page
+        $result = Comment::model()->findAll($criteria);
+        $dataProvider = new CArrayDataProvider($result);
+
+        $comments = $dataProvider->getData();
+        $returnHtml = "";
+        foreach ($comments as $comment) {
+            $html = $this->renderPartial('partial/_comment_item',array('model'=>$comment),true, false);
+            $html = utf8_encode($html);
+            $html = iconv('utf-8', 'utf-8', $html);
+            $returnHtml.=$html;
+        }
+        $result = array('error_code' =>1 ,'msg'=>array('html'=>$returnHtml,'pageCount'=>$pages->pageCount));
+                echo CJSON::encode($result);
+                Yii::app()->end();
+    }
     public function actionDelComment($comment_id){
         $comment=Comment::model()->findByPk($comment_id);
         $comment->delete();
