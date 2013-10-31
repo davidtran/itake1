@@ -20,6 +20,12 @@ class SolrSearchAdapter {
     public $facebookFriend;
     public $validateAfterSearch = true;
 
+    /*
+    Tuan add
+    If API request facebookFriend is user_id. So, dont need to check facebook instance on webserver
+    */
+    private $isAPIRequest = false;
+
     /**
      * Product status filter
      * @var int 
@@ -35,6 +41,11 @@ class SolrSearchAdapter {
         $this->page = 0;
         $this->cityId = null;
         $this->sortType = self::TYPE_CREATE_DATE;
+    }
+
+    public function setApiRequest($value=false)
+    {
+        $this->isAPIRequest = $value;
     }
 
     public function setSortType($value) {
@@ -60,7 +71,18 @@ class SolrSearchAdapter {
         }
         $fq[] = 'status:' . $this->status;
         if ($this->facebookFriend) {
-            $fq['user_id'] = $this->getFacebookFriendString();
+             /*
+            Tuan add
+            If API request facebookFriend is user_id. So, dont need to check facebook instance on webserver
+            */
+            if($this->isAPIRequest)
+            {
+                $fq['user_id'] = $this->facebookFriend;
+            }
+            else
+            {
+                $fq['user_id'] = $this->getFacebookFriendString();
+            }
         }
         $params['fq'] = $fq;
         $params['bf'] = array(
@@ -102,9 +124,19 @@ class SolrSearchAdapter {
         } else {
             $keyword = $this->keyword;
         }
-        if ($this->facebookFriend && (false !== $facebookParam = $this->getFacebookFriendString())) {
+         /*
+        Tuan add
+        If API request facebookFriend is user_id. So, dont need to check facebook instance on webserver
+        */
+        if(!$this->isAPIRequest)
+        {
+            if ($this->facebookFriend && (false !== $facebookParam = $this->getFacebookFriendString())) {
             $keyword = 'user_id:' . $facebookParam;
-        }
+            }
+        }   
+        else{
+             $keyword = 'user_id:' . $this->facebookFriend;
+        }     
         return strtolower($keyword);
     }
 

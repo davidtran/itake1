@@ -59,6 +59,9 @@ class ProductController extends MobileController
         $solrAdapter->longitude = $longitude;
         $solrAdapter->status = $status;
         $solrAdapter->facebookFriend = $facebook;
+
+         $solrAdapter->setApiRequest(true);
+
         $solrAdapter->setSortType(SolrSearchAdapter::TYPE_CREATE_DATE);
         $resultSet = $solrAdapter->search();        
         $productList = $resultSet->productList;
