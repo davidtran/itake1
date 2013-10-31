@@ -96,6 +96,7 @@ class User extends CActiveRecord
         return array(
             'products'=>array(self::HAS_MANY,'Product','user_id'),
             'addressCount'=>array(self::STAT,'Address','user_id'),
+            'address' => array(self::HAS_MANY, 'Address', 'user_id'),
             
         );
     }

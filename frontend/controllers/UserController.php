@@ -186,6 +186,12 @@ class UserController extends Controller
     {
         $user = $this->loadUser($id);
         //load product,sort by time
+        if($user->phone==NULL && $user->address!=NULl ){
+            $phone = $user->address[0]->phone;
+            Yii::app()->db->createCommand()->update('mp_user', array(
+                'phone'=>$phone,
+            ), 'id=:id', array(':id'=>$id));
+        }
         $productDataProvider = $user->searchProduct(null, 20, 0);
         $this->render('profile', array(
             'productDataProvider' => $productDataProvider,
