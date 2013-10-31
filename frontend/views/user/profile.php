@@ -46,10 +46,11 @@ clientScript->registerScriptFile('http://maps.google.com/maps/api/js?sensor=true
                     <p><?php echo count($productDataProvider->getData());?> sản phẩm</p>
                 </div>                
                 <hr>                
-                 
+                 <?php if($user->phone!=NULL): ?>
                  <div class="row-fluid">
                     <p><strong>Hotline mua hàng </strong><?php echo $user->phone;?></p>
                 </div>
+                <?php endif; ?>
                 <hr>
                  <?php if(UserUtil::canEdit($user)):?>               
                 <div class="row-fluid">
@@ -70,7 +71,7 @@ clientScript->registerScriptFile('http://maps.google.com/maps/api/js?sensor=true
             Danh sách sản phẩm của
             <?php echo $user->username ?></h1>
     </div>
-    <div class="span4 ">
+   <!--  <div class="span4 ">
         <div class="pagination pagination-centered pull-right" style="z-index: 999;
 position: relative;right:30px;">
             <ul>
@@ -82,7 +83,7 @@ position: relative;right:30px;">
                 </li>
             </ul>
         </div>
-    </div>
+    </div> -->
 
 </div>
 <div class="row-fluid" id="fixWidthMasory"></div>
