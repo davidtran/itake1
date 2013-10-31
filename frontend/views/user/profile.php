@@ -38,15 +38,17 @@ clientScript->registerScriptFile('http://maps.google.com/maps/api/js?sensor=true
             <?php endif; ?>
 
             <div class="profile_detail">
+                <?php if($user->target!=NULL): ?>
                 <div class="row-fluid">
                      <p class="alert alert-success"><?php echo $user->target;?></p>
                 </div>
+                <?php endif; ?>
                 <hr>
                  <div class="row-fluid">
                     <p><?php echo count($productDataProvider->getData());?> sản phẩm</p>
-                </div>                
+                </div> 
+                <?php if($user->phone!=NULL): ?>               
                 <hr>                
-                 <?php if($user->phone!=NULL): ?>
                  <div class="row-fluid">
                     <p><strong>Hotline mua hàng </strong><?php echo $user->phone;?></p>
                 </div>
