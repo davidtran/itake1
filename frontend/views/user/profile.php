@@ -50,7 +50,7 @@ clientScript->registerScriptFile('http://maps.google.com/maps/api/js?sensor=true
                 <?php if($user->phone!=NULL): ?>               
                 <hr>                
                  <div class="row-fluid">
-                    <p><strong>Hotline mua hàng </strong><?php echo $user->phone;?></p>
+                    <p><strong>Hotline mua hàng </strong><br/><?php echo $user->phone;?></p>
                 </div>
                 <?php endif; ?>
                 <hr>

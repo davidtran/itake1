@@ -12,12 +12,6 @@ class UserController extends Controller
         );
     }
 
-//    public function filters()
-//    {
-//        return array(
-//            array('frontend.components.ForceHttpsFilter + login,register,changePassword,forgetPassword')
-//        );
-//    }
     public function actions()
     {
         return array(
@@ -102,15 +96,15 @@ class UserController extends Controller
         }
     }
 
-    public function actionRegister()
+    public function actionRegister($returnUrl = null)
     {       
         if (isset($_GET['code'])) {
             try {
-                $profile = Yii::app()->facebook->api('/me');               
+                $accessToken = Yii::app()->facebook->getAccessToken();
+                $profile = Yii::app()->facebook->api('/me?access_token='.$accessToken);                               
                 if (isset($profile['email'])) {
                     if (Yii::app()->user->isGuest == false) {
-                        $user = Yii::app()->user->getModel();
-                        
+                        $user = Yii::app()->user->getModel();                        
                     }
                     else {
                         $user = UserUtil::getUserByEmail($profile['email']);
@@ -127,8 +121,6 @@ class UserController extends Controller
                             $increment++;
                         }
                         $user->username = $username;
-                        //render login form/ redirect to returnUrl
-                        //  FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
                         Yii::app()->session['LastFbId'] = $profile['id'];
                         $user->fbId = $profile['id'];
                         $user->isFbUser = 1;
@@ -138,21 +130,26 @@ class UserController extends Controller
                         $user->fbId = $profile['id'];
                         $user->isFbUser = 1;
                     }
-                    //$user->allowUpdateWithoutCaptcha = true;
 
                     $user->save();
-                    FacebookUtil::getInstance()->saveUserToken($user->id, Yii::app()->facebook->getAccessToken());
+                    FacebookUtil::getInstance()->saveUserToken($user->id, $accessToken);
                     FacebookUtil::getInstance()->setExtendedAccessToken();
                     Yii::app()->session['CheckedAccessToken'] = true;
                     $loginForm = new FacebookLoginForm();
                     $loginForm->username = $user->email;
                     $loginForm->validate();
                     $loginForm->login();
-                    $siteUrl = $this->createUrl('/site/index');
-                    $this->redirect($siteUrl);
+                    Yii::app()->user->getFlash('success','Kết nối với Facebook thành công');
+                    $siteUrl = $this->createUrl('/site/index');                    
+                    if($returnUrl!=null){
+                        $this->redirect($returnUrl);
+                    }else{
+                        $this->redirect($siteUrl);
+                    }
                 }
             }
             catch (FacebookApiException $e) {
+                throw $e;
                 Yii::app()->user->setFlash('error','Kết nối với Facebook bị lỗi, vui lòng thử lại sau.');
                 $this->redirect($this->createUrl('/user/login'));
             }
@@ -173,7 +170,11 @@ class UserController extends Controller
                 $loginForm->validate();
                 $loginForm->login();
                 $siteUrl = $this->createUrl('/site/index');
-                $this->redirect($siteUrl);
+                if($returnUrl!=null){
+                    $this->redirect($returnUrl);
+                }else{
+                    $this->redirect($siteUrl);
+                }
             }
         }
         $user->password = '';

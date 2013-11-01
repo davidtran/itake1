@@ -4,7 +4,9 @@ class DefaultController extends Controller
 {
 	public function actionIndex()
 	{
-		$this->render('index');
+		$this->renderAjaxResult(true,array(
+            'sessionID'=>Yii::app()->session->sessionID
+        ));
 	}
     
     public function actionCategoryList(){
@@ -15,4 +17,5 @@ class DefaultController extends Controller
         }
         echo CJSON::encode($result);
     }
+    
 }

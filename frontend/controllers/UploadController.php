@@ -36,17 +36,6 @@ class UploadController extends Controller
         );
     } 
 
-    protected function renderImage(Product &$product, $filename, $extension)
-    {
-        $thumbnail = ImageUtil::resize($product->image, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);
-        $product->image_thumbnail = $thumbnail;
-
-
-        $processed = 'images/content/processed/' . $filename . '.' . $extension;
-        ProductImageUtil::drawImage($product, $product->image, $processed);
-        $product->processed_image = $processed;
-    }
-
     public function actionIndex($category)
     {
         $returnUrl = $this->createUrl('/upload/index');

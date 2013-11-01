@@ -141,7 +141,9 @@ class FacebookUtil {
         Yii::app()->controller->setReturnUrl($returnUrl);
         return Yii::app()->facebook->getLoginUrl(array(
                     'scope' => 'email,publish_stream,user_photos,manage_pages',
-                    'redirect_uri' => Yii::app()->controller->createAbsoluteUrl('/user/register')
+                    'redirect_uri' => Yii::app()->controller->createAbsoluteUrl('/user/register',array(
+                        'returnUrl'=>$returnUrl
+                    ))
         ));
     }
 

@@ -13,6 +13,10 @@ class ProductController extends MobileController
         return array(
             array(
                 'CheckTokenFilter + suggest,post,search,share,detail'
+            ),
+            array(
+                'FacebookAccessCheckerFilter + search,share',
+                'allowAjaxRequest'=>true
             )
         );
     }
@@ -42,12 +46,7 @@ class ProductController extends MobileController
         $this->logRequest();
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
 
-        $city = 0;
-        if (isset(Yii::app()->session['LastCity']))
-        {
-            $city = Yii::app()->session['LastCity'];
-        }
-
+        $city = 0;       
         $solrAdapter = new SolrSearchAdapter();
         $solrAdapter->categoryId = $category;
         $solrAdapter->cityId = $city;
@@ -110,9 +109,7 @@ class ProductController extends MobileController
                 if(count($fanpageList) > 0){
                     foreach($fanpageList as $fanpage){
                         $fanpageResult = $fb->shareProductAlbumToFanpage($model, $fanpage);
-                        
                     }
-                    
                 }
                 $this->renderAjaxResult(true, array(
                     'data' => array(
