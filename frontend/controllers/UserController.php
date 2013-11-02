@@ -101,7 +101,7 @@ class UserController extends Controller
         if (isset($_GET['code'])) {
             try {
                 $accessToken = Yii::app()->facebook->getAccessToken();
-                $profile = Yii::app()->facebook->api('/me?access_token='.$accessToken);                               
+                $profile = Yii::app()->facebook->api('/me');                               
                 if (isset($profile['email'])) {
                     if (Yii::app()->user->isGuest == false) {
                         $user = Yii::app()->user->getModel();                        
@@ -139,10 +139,12 @@ class UserController extends Controller
                     $loginForm->username = $user->email;
                     $loginForm->validate();
                     $loginForm->login();
-                    Yii::app()->user->getFlash('success','Kết nối với Facebook thành công');
+                    Yii::app()->user->setFlash('success','Kết nối với Facebook thành công.');
                     $siteUrl = $this->createUrl('/site/index');                    
                     if($returnUrl!=null){
                         $this->redirect($returnUrl);
+                    }else if($this->hasReturnUrl()){
+                        $this->redirectToReturnUrl();                        
                     }else{
                         $this->redirect($siteUrl);
                     }
@@ -373,5 +375,11 @@ class UserController extends Controller
         {
             $this->render('editProfile', array('model'=>$model));
         }
+    }
+    
+    public function actionClearFacebookSession(){
+        $nextUrl = Yii::app()->session->get('FacebookLoginUrl');
+        $this->redirect($nextUrl);
+        Yii::app()->end();
     }
 }

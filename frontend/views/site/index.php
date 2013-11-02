@@ -67,8 +67,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                 else
                     $sortTypeLink = "nothing";
             ?>
-            <div class="pagination pagination-centered" style="z-index: 999;
-position: relative;">
+            <div class="pagination pagination-centered" style="z-index: 999;position: relative;">
               <ul>
          
               <?php foreach (SolrSortTypeUtil::getInstance()->getSortTypeLinkList() as $link): ?>

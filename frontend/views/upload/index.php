@@ -30,6 +30,17 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/nada/upload-address.js?id=1',
             <div class="row-fluid" style="margin-bottom:20px;">
                 <div class="span12">
                     <div class="row-fluid">
+                        <?php
+                        $this->widget('bootstrap.widgets.TbAlert', array(
+                            'block' => true,
+                            'fade' => true,
+                            'closeText' => '×',
+                            'alerts' => array(
+                                'success' => array('block' => true, 'fade' => true, 'closeText' => '×'), // success, info, warning, error or danger
+                                'error' => array('block' => true, 'fade' => true, 'closeText' => '×'), // success, info, warning, error or danger
+                            ),
+                        ));
+                        ?>
                         <h3 style="text-align: center;text-transform: uppercase;margin-bottom: 0px;" class="title_font"> <?php
                             echo LanguageUtil::t('Post Ad to') . '  ' . LanguageUtil::t($product->category->name);
                             $this->pageTitle = LanguageUtil::t('Post Ad to') . '  ' . LanguageUtil::t($product->category->name);
