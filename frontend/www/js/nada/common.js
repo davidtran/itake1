@@ -460,3 +460,11 @@ function trackingLink(link){
     _gaq.push(['myTracker._setAccount', 'UA-42949373-1']);
     _gaq.push(['_trackPageview', link]);
 }
+
+function detectMobile() {
+   if(window.innerWidth <= 800 && window.innerHeight <= 600) {
+     return true;
+   } else {
+     return false;
+   }
+}
