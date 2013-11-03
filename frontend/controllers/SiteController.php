@@ -301,11 +301,12 @@ class SiteController extends Controller {
     }
 
     public function actionLanding() {
-        $this->layout = '//layouts/noMenu';
+        $this->layout = '//layouts/noMenu';        
+        $listProducts = Product::model()->findAll(array('limit'=>28,'order'=>'create_date DESC'));
         if (Yii::app()->language == 'en')
             $this->render('landing');
         else
-            $this->render('landing_vi');
+            $this->render('landing_vi',array('listProducts'=>$listProducts));
     }
 
     public function actionFAQ() {
