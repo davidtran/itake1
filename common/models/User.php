@@ -67,7 +67,7 @@ class User extends CActiveRecord
         return array(
             array('email,username,password', 'required'),
             array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
-            array('status,type,isFbUser,gender,role', 'numerical', 'integerOnly' => true),
+            array('post_limit,status,type,isFbUser,gender,role', 'numerical', 'integerOnly' => true),
             array('password', 'length', 'max' => 50),
             array('salt', 'length', 'max' => 50),
             array('email ', 'length', 'max' => 200),
@@ -81,7 +81,7 @@ class User extends CActiveRecord
             array('image,banner', 'length', 'max' => 100),
             array('username', 'length', 'max' => 50, 'min' => 5),
             array('uploadImage', 'file', 'allowEmpty' => true, 'types' => 'jpg,bmp,jpeg,png,gif', 'maxSize' => 10000000, 'maxFiles' => 1),
-            array('id,username, create_date, update_date, type, email, image', 'safe', 'on' => 'search'),
+            array('post_limit,id,username, create_date, update_date, type, email, image', 'safe', 'on' => 'search'),
         );
       
     }
@@ -141,6 +141,7 @@ class User extends CActiveRecord
             'birthday' => LanguageUtil::t('Birthday'),
             'locationText' => 'Địa chỉ',
             'phone' => LanguageUtil::t('Phone'),
+            'post_limit'=>Yii::t('Default','Post limit'),
         );
     }
 
@@ -164,6 +165,7 @@ class User extends CActiveRecord
 
         $criteria->compare('email', $this->email, true);
         $criteria->compare('image', $this->image, true);
+        $criteria->compare('post_limit', $this->image, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
