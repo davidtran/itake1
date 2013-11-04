@@ -1381,6 +1381,7 @@ div#mapContainer,div#map
 div#productContainer
 {
     margin: 0 auto !important;
+    display:none;
 }
 .scrollbar-measure {
     width: 100px;
