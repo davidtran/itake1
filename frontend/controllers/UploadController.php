@@ -165,9 +165,9 @@ class UploadController extends Controller
                 {
                     
                     $titleCut = mb_strlen($product->title,'utf-8')>50?mb_substr($product->title,0,50,'utf-8'):$product->title;
-                    $filename = str_replace(' ', '-', StringUtil::utf8ToAscii(StringUtil::removeSpecialCharacter($titleCut))) .
+                    $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter(StringUtil::utf8ToAscii($titleCut))) .
                             '_'.
-                            $i.
+                            rand(0,9999).
                             '_' .
                             $product->id;
                     $fileNameArray = explode('.', $image['filename']);
