@@ -34,7 +34,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
 <div class="container-fluid">
     <div class="row-fluid">
 
-        <div class="sort-bar">
+        <div class="sort-bar visible-desktop">
             <div class="selectedCategoryTab"> 
             <?php if (isset($categoryModel) && $categoryModel != null): ?>
                 <?php $this->pageTitle = LanguageUtil::t($categoryModel->name) . " ".LanguageUtil::t('on')." ITAKE.ME" ?>
@@ -68,8 +68,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                 else
                     $sortTypeLink = "nothing";
             ?>
-            <div class="pagination pagination-centered" style="z-index: 999;
-position: relative;">
+            <div class="pagination pagination-centered" style="z-index: 999;position: relative;">
               <ul>
          
               <?php foreach (SolrSortTypeUtil::getInstance()->getSortTypeLinkList() as $link): ?>
@@ -109,7 +108,7 @@ position: relative;">
               </ul>
             </div>
         </div> 
-        <div id="categories-bar">          
+        <div id="categories-bar" class="visible-desktop">          
             <div class="row-fluid">     
 
                 <ul>
@@ -120,13 +119,14 @@ position: relative;">
                 </ul>
             </div>       
         </div>        
-        <div class="row-fluid" id="fixWidthMasory"></div>
+        <div class="row-fluid" id="fixWidthMasory" class="visible-desktop"></div>
         <div class="row-fluid">
-        <div class="span2" id="menuWidthBase" style="height: 1000px;"><p></p></div>
+        <div class="span2 visible-desktop" id="menuWidthBase" style="height: 1000px;" class=""><p></p></div>
         <div class="span10">
-            <div class="row-fluid" id="wrapper_productContainer" style="margin-top:70px;min-height:1000px;"   >
-                <!-- <hr style="position:relative; top:-60px;"/> -->
-                
+            <div class="row-fluid" id="wrapper_productContainer">
+                <div class="hidden-desktop">
+                    <center><?php echo CHtml::dropDownList('selectCategory', $category,  CHtml::listData(CategoryUtil::getCategoryList(),'id','name'));?></center>
+                </div>                
                 <?php if (trim($keyword) != ''): ?>
                     <div class="alert alert-info">
                         <button type="button" class="close" data-dismiss="alert">×</button>

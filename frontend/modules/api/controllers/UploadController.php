@@ -78,9 +78,9 @@ class UploadController extends MobileController {
             $image = new ProductImage();
             $image->product_id = $product->id;
             $titleCut = mb_strlen($product->title, 'utf-8') > 20 ? mb_substr($product->title, 0, 20, 'utf-8') : $product->title;
-            $filename = str_replace(' ', '-', StringUtil::utf8ToAscii(StringUtil::removeSpecialCharacter($titleCut))) .
+            $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter(StringUtil::utf8ToAscii($titleCut))) .
                     '_' .
-                    0 .
+                    rand(0, 9999999) .
                     '_' .
                     $product->id;                                             
             $thumbnail = ImageUtil::resize(

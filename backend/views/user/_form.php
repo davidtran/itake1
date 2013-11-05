@@ -51,12 +51,13 @@
 		<?php echo $form->dropDownList($model,'role',  UserRoleConstant::getRoleList()); ?>
 		<?php echo $form->error($model,'role'); ?>
 	</div>
-    <hr/>
-    <h3>User Meta</h3>
+    
     <div class="row">
-        <?php echo UserMetaUtil::renderMetaInput('textfield', array(), $model, UserMetaUtil::POST_LIMIT) ?>
-    </div>
-
+		<?php echo $form->labelEx($model,'post_limit'); ?>
+		<?php echo $form->textField($model,'post_limit'); ?>
+		<?php echo $form->error($model,'post_limit'); ?>
+	</div>
+    
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

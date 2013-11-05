@@ -72,9 +72,9 @@ $this->pageTitle = LanguageUtil::t('Participate in').' '.Yii::app()->name;
            <h4 class="rb-h4" style="text-align: center;"><?php LanguageUtil::echoT('OR SIGN UP BY') ?></h4>       
               <div class="fb-login-wrapper"> 
                     <?php if(Yii::app()->language=='vi'): ?>
-                     <?php echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($this->createAbsoluteUrl('register')), array('class' => 'facebook-login')); ?> 
+                     <?php echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($this->createAbsoluteUrl('/site')), array('class' => 'facebook-login')); ?> 
                     <?php else: ?>            
-                       <?php echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($this->createAbsoluteUrl('register')), array('class' => 'facebook-login2')); ?>   
+                       <?php echo CHtml::link('', FacebookUtil::makeFacebookLoginUrl($this->createAbsoluteUrl('/site')), array('class' => 'facebook-login2')); ?>   
                     <?php endif; ?>            
                 </div>      
           </div>

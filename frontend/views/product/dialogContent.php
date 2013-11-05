@@ -14,7 +14,7 @@
             ?>
             <h1> <?php echo strtoupper($product->title); ?></h1>
             <div class="row-fluid">                            
-                <div class="span7">
+                <div class="span6">
                     <div class="row-fluid">
 
                         <?php $this->renderPartial('partial/images',array(
@@ -25,12 +25,12 @@
 
                     </div>
                 </div>
-                <div class="span5 custom">
+                <div class="span6 custom">
                     <div class="row-fluid">
                         <div class="bs-docs-example">
                             <ul id="myTab" class="nav nav-tabs">
-                                <li class="active"><a href="#thongtinchung" data-toggle="tab"><i class="icon-tags"></i> <?php LanguageUtil::echoT('General info') ?></a></li>
-                                <li class=""><a id='btnShowMap' href="#bando" data-toggle="tab"><i class="icon-map-marker"></i>  <?php LanguageUtil::echoT('Map') ?></a></li>                              
+                                <li class="active"><a href="#thongtinchung" data-toggle="tab"><i class="icon-tags icon-large"></i> <?php LanguageUtil::echoT('General info') ?></a></li>
+                                <li class=""><a id='btnShowMap' href="#bando" data-toggle="tab"><i class="icon-map-marker icon-large"></i>  <?php LanguageUtil::echoT('Map') ?></a></li>                              
                             </ul>
                             <div id="myTabContent" class="tab-content">
                                 <div class="tab-pane fade active in" id="thongtinchung">

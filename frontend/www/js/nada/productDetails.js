@@ -19,19 +19,22 @@ $(document).ready(function() {
     $relateProductContainer = $('#relateProductList');
     $side = $('#userProductList');
     $userProductList = $('#userProductList');
-    $('.productImageLink, .product-detail').live('click', function(e) {       
-        e.preventDefault();
-        link = $(this).find('.productLink').attr('href');     
-        productItem = $(this).parents('.productItem');
-        productId = productItem.attr('data-product-id');
-        productIdHtml = productItem.attr('id');
-        productTitle = productItem.attr('data-title');
-        //loadProduct(link,productIdHtml);
-        History.pushState({
-            productIdHtml: productIdHtml,
-            dlgPush: true
-        }, productTitle, link);
-        return false;
+    $('.productImageLink, .product-detail').live('click', function(e) {      
+        if(!detectMobile()){
+            e.preventDefault();
+            link = $(this).find('.productLink').attr('href');     
+            productItem = $(this).parents('.productItem');
+            productId = productItem.attr('data-product-id');
+            productIdHtml = productItem.attr('id');
+            productTitle = productItem.attr('data-title');
+            //loadProduct(link,productIdHtml);
+            History.pushState({
+                productIdHtml: productIdHtml,
+                dlgPush: true
+            }, productTitle, link);
+            return false;
+        }
+        return true;
     });
   
 
