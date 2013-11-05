@@ -49,12 +49,19 @@ function commentRegisterEventSubmit(){
         // del
          $( "a[id^='del-comment-']" ).live( "click", function(event) {
               event.preventDefault();
-              var datos = {comment_id:$(this).attr('comment_id')};
-              if(confirm("Xoa?")==true){
-              $(this).parent().parent().find(".pull-left").hide('fade');
-              // $(this).parent().find(".replycomment").hide('fade');
-              $.get(BASE_URL + "/product/delComment/", datos, function(data) {
-              });
+              var that = $(this);
+              if(confirm("Bạn có muốn xóa bình luận này ?")==true){               
+                $.get(BASE_URL + "/product/deleteComment/", {
+                    comment_id:that.attr('comment_id')
+                }, function(json) {
+                        var data = $.parseJSON(json);
+                        if(data.success){
+                            that.parents('.comment_item').hide('fade');
+                        }else{
+                            bootbox.alert(data.msg);
+                        }
+                    }
+                );
               }
           });
       $( "form[id^='farent-form_']" ).live( "submit", function(event) {
@@ -74,7 +81,7 @@ function commentRegisterEventSubmit(){
         });
      });
       // load more child comment
-      $( "a[id^='commentChildLoadMore_']" ).click(function(event) {
+      $( "a[id^='commentChildLoadMore_']" ).live('click',function(event) {
           // alert( "Handler for .click() called." )
            event.preventDefault();
            var parentid = $(this).attr("parent_id");
@@ -93,6 +100,16 @@ function commentRegisterEventSubmit(){
               }
               
                });
+        });
+        
+        $('#Comment_content').live('click',function(e){
+            e.preventDefault();
+            if(typeof(loginUser) =='undefined'){
+                url = $(this).parent().find('.commentLoginUrl').val();
+                console.log(url);
+                window.location = url;
+            }
+            return false;
         });
 
 }

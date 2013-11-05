@@ -45,12 +45,13 @@ class ProductController extends Controller
     }
     public function actionPostComment()
     {
+        $this->checkLogin();
         $comment = new Comment;
         if(isset($_POST['Comment']))
         {
             $comment->attributes=$_POST['Comment'];
             $product = Product::model()->findByPk($comment->product_id);
-            
+            $comment->user_id = Yii::app()->user->getId();
             if($product->addComment($comment))
             {
                 $html = $this->renderPartial('partial/_comment_item',array('model'=>$comment),true, false);
@@ -80,7 +81,7 @@ class ProductController extends Controller
          
         //pagination
         $pages = new CPagination($count);
-        $pages->setPageSize(5);
+        $pages->setPageSize(Comment::INITIAL_COMMENT_NUMBER);
         $pages->applyLimit($criteria);
        //result to show on page
         $result = Comment::model()->findAll($criteria);
@@ -109,7 +110,7 @@ class ProductController extends Controller
          
         //pagination
         $pages = new CPagination($count);
-        $pages->setPageSize(5);
+        $pages->setPageSize(Comment::INITIAL_COMMENT_NUMBER);
         $pages->applyLimit($criteria);
        //result to show on page
         $result = Comment::model()->findAll($criteria);
@@ -127,9 +128,21 @@ class ProductController extends Controller
                 echo CJSON::encode($result);
                 Yii::app()->end();
     }
-    public function actionDelComment($comment_id){
-        $comment=Comment::model()->findByPk($comment_id);
-        $comment->delete();
+    public function actionDeleleComment($comment_id){
+        if(false == Yii::app()->user->isGuest){
+            $comment=Comment::model()->findByPk($comment_id);
+            if($comment!=null){            
+                if($comment->user_id == Yii::app()->user->getId()
+                        && $comment->product->user_id == Yii::app()->user->getId()
+                        && Yii::app()->user->email == UserRoleConstant::getAdminUserList()){
+                    $comment->delete();
+                    $this->renderAjaxResult(true);
+                }            
+            }
+        }
+        
+        $this->renderAjaxResult(false,'Bạn không thể xóa bình luận này');
+        
     }
     public function actionDetails($id)
     {   

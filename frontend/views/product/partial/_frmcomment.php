@@ -14,8 +14,16 @@ $model->product_id = (int)$product->id;
 		<?php echo $form->hiddenField($model,'product_id',array('rows'=>3, 'class'=>'span12')); ?>
 		<?php echo $form->hiddenField($model,'status',array('rows'=>3, 'class'=>'span12')); ?>
 		<?php echo $form->hiddenField($model,'parent_id',array('rows'=>3, 'class'=>'span12')); ?>
-		<?php echo $form->textArea($model,'content',array('rows'=>3, 'class'=>'span12')); ?>
+		<?php echo $form->textArea($model,'content',array(
+                'rows'=>3, 
+                'class'=>'span12',
+                'placeholder'=>Yii::t('Default','Login to comment')
+            )
+        ); ?>
 		<?php echo $form->error($model,'content'); ?>
+        <?php echo CHtml::hiddenField('loginUrl',
+                $this->createUrl('/user/login',array('returnUrl'=>$model->product->getDetailUrl())),
+                array('class'=>'commentLoginUrl')); ?>
 	</div>
 	<div class="row-fluid buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Bình luận' : 'Cập nhật',array('class'=>'pull-right btn btn-success')); ?>

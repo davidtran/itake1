@@ -70,7 +70,7 @@ return array(
     'Sign out'=>'Đăng xuất',
     'Contact price'=>'Giá liên hệ',
     'More like this'=>'Tin tương tự',
-
+    'Login to comment'=>'Đăng nhập để bình luận',
     ////Category
     'Fashion'=>'Thời trang',
     'Mobile & Tablet'=>'Điện thoại, máy tính bảng',

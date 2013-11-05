@@ -60,10 +60,12 @@ class UserController extends Controller
                 
             }
             $loginForm->password = '';
+        }else{
+            $this->setReturnUrl($returnUrl);
         }
         $this->render('login', array(
             'model' => $loginForm,
-            'returnUrl' => $this->returnUrl,
+            'returnUrl' => $returnUrl
         ));
     }
 
