@@ -53,7 +53,7 @@
 			</div>
 		<?php endif; ?>
 			<div class="time">
-				<small><?php echo ($model->displayDateTime()); ?></small>
+                <small><?php echo DateUtil::displayTime($model->create_date); ?></small>
 			</div>
 		</div>
 

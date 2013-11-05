@@ -1,5 +1,6 @@
 <?php
 $this->pageTitle = $product->title;
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/comment.js',  CClientScript::POS_END);
 ?>
 <div id="productDialogBody">
     <?php $this->renderPartial('dialogContent',array(

@@ -45,30 +45,31 @@ class ProductController extends Controller
     }
     public function actionPostComment()
     {
-        $this->checkLogin();
-        $comment = new Comment;
-        if(isset($_POST['Comment']))
-        {
-            $comment->attributes=$_POST['Comment'];
-            $product = Product::model()->findByPk($comment->product_id);
-            $comment->user_id = Yii::app()->user->getId();
-            if($product->addComment($comment))
+        if(Yii::app()->user->isGuest == false){
+            $comment = new Comment;
+            if(isset($_POST['Comment']))
             {
-                $html = $this->renderPartial('partial/_comment_item',array('model'=>$comment),true, false);
-                $html = utf8_encode($html);
-                $html = iconv('utf-8', 'utf-8', $html);
-                $result = array('error_code' =>1 ,'msg'=>array('html'=>$html,'parent_id'=>$comment->parent_id));
-                echo CJSON::encode($result);
-                Yii::app()->end();
+                $comment->attributes=$_POST['Comment'];
+                $product = Product::model()->findByPk($comment->product_id);
+                $comment->user_id = Yii::app()->user->getId();
+                if($product->addComment($comment))
+                {
+                    $html = $this->renderPartial('partial/_comment_item',array('model'=>$comment),true, false);
+                    $html = utf8_encode($html);
+                    $html = iconv('utf-8', 'utf-8', $html);
+                    $result = array('error_code' =>1 ,'msg'=>array('html'=>$html,'parent_id'=>$comment->parent_id));
+                    echo CJSON::encode($result);
+                    Yii::app()->end();
+                }
+                else {
+                    $result = array('error_code' =>0 ,'msg'=>'Fail to save comment' );
+                    echo CJSON::encode($result);
+                    Yii::app()->end();
+                }
             }
-            else {
-                $result = array('error_code' =>0 ,'msg'=>'Fail to save comment' );
-                echo CJSON::encode($result);
-                Yii::app()->end();
-            }
-
-            
         }
+        $this->renderAjaxResult(false,'Không thể đăng lời bình');
+        
     }
     public function actionCommentLoadMore($product_id){
         $criteria = new CDbCriteria();
@@ -128,13 +129,13 @@ class ProductController extends Controller
                 echo CJSON::encode($result);
                 Yii::app()->end();
     }
-    public function actionDeleleComment($comment_id){
+    public function actionDeleteComment($comment_id){
         if(false == Yii::app()->user->isGuest){
             $comment=Comment::model()->findByPk($comment_id);
             if($comment!=null){            
                 if($comment->user_id == Yii::app()->user->getId()
-                        && $comment->product->user_id == Yii::app()->user->getId()
-                        && Yii::app()->user->email == UserRoleConstant::getAdminUserList()){
+                        || $comment->product->user_id == Yii::app()->user->getId()
+                        || Yii::app()->user->model->email == UserRoleConstant::getAdminUserList()){
                     $comment->delete();
                     $this->renderAjaxResult(true);
                 }            

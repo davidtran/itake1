@@ -1,12 +1,6 @@
 //show comment count after ajax call
 var $mainNotification = $('.main-notification');
 var $notificationSpan = $('.main-notification p span');
-$(document).ready(function(){
-    $mainNotification = $('.main-notification');
-    $notificationSpan = $('.main-notification p span');
-    $('body').ajaxComplete(function(){ FB.XFBML.parse(document.body) }); 
-});
-
 
 var isIE = /*@cc_on!@*/false;
 var itakeHistoryHandler;
