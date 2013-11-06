@@ -9,7 +9,7 @@
 	'id'=>'user-_formProfile-form',
 	'enableAjaxValidation'=>false,
     'type'=>'vertical',
-    'htmlOptions'=>array('class'=>'form','role'=>'form'),
+    'htmlOptions'=>array('class'=>'form itake-form','role'=>'form'),
 )); ?>
 
 	<!-- <p class="note">Fields with <span class="required">*</span> are required.</p>
@@ -21,16 +21,29 @@
 		    <?php echo $form->textFieldRow($model,'username',array('class'=>'controls','labelOptions'=>array('class'=>'control-label'))); ?>
         </div>
         <div class="control-group">
-		 <?php echo $form->datepickerRow(
-            $model,
-            'birthday',
-            array(
-                'options' => array('format' => 'dd/mm/yyyy' , 'weekStart'=> 1),
+                <?php echo $form->labelEx($model,'birthday',array('class'=>'control-label')); ?>
+                <?php
+
+        $this->widget('zii.widgets.jui.CJuiDatePicker',array(
+            'model'=>$model,
+            'attribute'=>'birthday',
+            'language'=>'vi',
+            // additional javascript options for the date picker plugin
+            'options'=>array(
+                'showAnim'=>'slide',
+                'changeMonth'=>true,
+                'changeYear'=>true,
+                'yearRange'=> '1980:+30',
+                'dateFormat' => 'dd-mm-yy',
+            ),
+            'htmlOptions'=>array(
+                'style'=>'height:20px;',
                 'class'=>'controls',
-                'labelOptions'=>array('class'=>'control-label'),
-                'prependOptions'=>array('class'=>'span2')
-            )
-        ); ?>
+                'value' => ($model->birthday) ? date('d-m-Y', strtotime($model->birthday)) : null,
+            ),
+        ));
+
+         ?>
         </div>
 
         <div class="control-group">

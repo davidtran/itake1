@@ -71,7 +71,7 @@ class User extends CActiveRecord
             array('password', 'length', 'max' => 50),
             array('salt', 'length', 'max' => 50),
             array('email ', 'length', 'max' => 200),
-            array('target', 'length', 'max' => 500),
+            array('target', 'length', 'max' => 100),
             array('locationText', 'length', 'max' => 500),
              array('birthday', 'length', 'max' => 100),
             array('email', 'email'),
