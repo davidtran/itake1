@@ -115,7 +115,7 @@ a:hover .nav-text small{background-position:20px 50%;padding-left:15px;}
 div.close_tag{display:block;position:fixed;z-index:3000;top:0;right:50px;background-color:#f5f5f5;background:linear-gradient(#ffffff,#ebebeb);-webkit-border-radius:0 0 3px 3px;-moz-border-radius:0 0 3px 3px;-ms-border-radius:0 0 3px 3px;-o-border-radius:0 0 3px 3px;border-radius:0 0 3px 3px;-webkit-box-shadow:0 1px 4px rgba(0,0,0,0.34),1px 0 0 rgba(255,255,255,0.9) inset;-moz-box-shadow:0 1px 4px rgba(0,0,0,0.34),1px 0 0 rgba(255,255,255,0.9) inset;box-shadow:0 1px 4px rgba(0,0,0,0.34),1px 0 0 rgba(255,255,255,0.9) inset;}
 div.scrollUp_tag{display:block;position:fixed;z-index:998;bottom:-5px;right:50px;background-color:#f5f5f5;background:linear-gradient(#ffffff,#ebebeb);-webkit-border-radius:0 0 3px 3px;-moz-border-radius:0 0 3px 3px;-ms-border-radius:0 0 3px 3px;-o-border-radius:0 0 3px 3px;border-radius:0 0 3px 3px;-webkit-box-shadow:0 1px 4px rgba(0,0,0,0.34),1px 0 0 rgba(255,255,255,0.9) inset;-moz-box-shadow:0 1px 4px rgba(0,0,0,0.34),1px 0 0 rgba(255,255,255,0.9) inset;box-shadow:0 1px 4px rgba(0,0,0,0.34),1px 0 0 rgba(255,255,255,0.9) inset;}
 #mainProductInfo.span12 h1{font-family:MNBTitleBold;font-weight:300;font-size:2em;text-transform:uppercase;margin-top:-10px;}
-div#productDialogBody.modal-body div.row-fluid div.span12 h3{font-family:MNBTitleBold;font-weight:300;font-size:1.5em;text-transform:uppercase;margin-bottom:-20px;}
+div#productDialogBody.modal-body div.row-fluid div.span12 h3{font-family:MNBTitleBold;font-weight:300;font-size:1.5em;text-transform:uppercase;}
 div#addAddressDialog div.modal-body div.row-fluid div.span12 h3{font-family:MNBTitleBold;font-weight:300;font-size:1.5em;text-transform:uppercase;text-align:center;}
 h4.product-detail-tag{font-family:MNBTitleBold;font-weight:300;font-size:1.2em;text-transform:uppercase;color:#666;}
 div.span6 div.well{min-height:100px;-webkit-border-radius:0 0 1px 1px;-moz-border-radius:0 0 1px 1px;-ms-border-radius:0 0 1px 1px;-o-border-radius:0 0 1px 1px;font-family:Arial;font-weight:400;}
@@ -286,3 +286,4 @@ div.progress_nav > ul li a:hover small,div.progress_nav> ul li a:hover strong,di
 @media screen and min-width 1500px {
 .productItem{width:15%;}
 }
+.fb-comments, .fb-comments iframe[style],.fb-comments span[style] {width: 100% !important;}
