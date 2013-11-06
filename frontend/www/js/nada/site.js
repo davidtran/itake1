@@ -4,6 +4,7 @@ var $container;
 var ms;
 var stopLoad=false;
 var page=0;
+var columns = null;
 
 $(document).ready(function() {
     if (canShowCityDialog){
@@ -18,19 +19,32 @@ $(document).ready(function() {
     $container.isotope({
         columnWidth: 30,
         itemSelector: '.productItem',
-        transformsEnabled:true,
+        transformsEnabled:true,        
         straightAcross: {
             rowHeight: 360
         }
     });
+        
     
-   $container.imagesLoaded(function(){
-        masoryCenterAlign();
-        $container.isotope('reLayout');
+   $container.imagesLoaded(function(){        
         $container.show('fade');
-        setInterval(function(){
-            $container.isotope('reLayout');
-        },500);
+         $(window).smartresize(function(){
+    // check if columns has changed
+    var currentColumns = Math.floor( (  $container.width()) / (250+0.02* $container.width()) );
+    if ( currentColumns !== columns ) {
+      // set new column count
+      columns = currentColumns;
+      // apply width to container manually, then trigger relayout
+        var fixWidth = columns * 250+(columns-1)*$container.width()*0.03;
+      $container.width(fixWidth)
+        .isotope('reLayout');   
+    }
+    
+  }).smartresize();
+       // $container.isotope('reLayout');
+//        setInterval(function(){
+//            $container.isotope('reLayout');
+//        },500);
     }); 
     $(window).scroll(function() {
         if( $(window).scrollTop()!=0)
@@ -79,11 +93,3 @@ $(document).ready(function() {
     });
     
 });
-
-
-$(document).ready(function(){
-    
-    
-    
-});
-
