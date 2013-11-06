@@ -16,9 +16,7 @@
  -->
     <fieldset>
 	<?php echo $form->errorSummary($model); ?>
-        <div class="control-group">
-		    <?php echo $form->textFieldRow($model,'email',array('disabled'=>true,'class'=>'controls','labelOptions'=>array('class'=>'control-label'))); ?>
-        </div>
+       
         <div class="control-group">
 		    <?php echo $form->textFieldRow($model,'username',array('class'=>'controls','labelOptions'=>array('class'=>'control-label'))); ?>
         </div>
@@ -46,9 +44,19 @@
         <div class="control-group">
 		    <?php echo $form->textAreaRow($model,'target',array('rows'=>3,'class'=>'controls','labelOptions'=>array('class'=>'control-label'))); ?>
          </div>
-
-	<div class="buttons">
-		<?php echo CHtml::submitButton(LanguageUtil::t('Update'),array('class' => 'btn btn-success')); ?>
+        <div class="control-group">
+            <label class="control-label"><?php LanguageUtil::echoT('Password') ?></label>    
+            <div class="controls"> 
+            <?php echo CHtml::link(LanguageUtil::t('Change password'),$this->createUrl('user/changePassword'),array(
+                        'class'=>'btn btn-primary',
+                    )); ?>
+            </div> 
+        </div>
+    <hr>
+	<div class="control-group margin-top-20">
+        <div class="controls">
+		<?php echo CHtml::submitButton(LanguageUtil::t('Update'),array('class' => 'btn btn-success btn-large')); ?>
+        </div>
 	</div>
     </fieldset>
 <?php $this->endWidget(); ?>
