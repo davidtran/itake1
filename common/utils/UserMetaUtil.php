@@ -3,7 +3,7 @@ class UserMetaUtil{
     const POST_LIMIT = 'PostLimit';
     
     public static $updatableMetaList = array(
-        self::POST_LIMIT=>'Post per day'
+       //self::POST_LIMIT=>'Post per day'
     );
     //get and set, delete
 	public static function setMeta($user_id,$key,$value,$subKey = null){

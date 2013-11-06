@@ -36,24 +36,13 @@ class UploadController extends Controller
         );
     } 
 
-    protected function renderImage(Product &$product, $filename, $extension)
-    {
-        $thumbnail = ImageUtil::resize($product->image, Yii::app()->params['image.minWidth'], Yii::app()->params['image.minHeight']);
-        $product->image_thumbnail = $thumbnail;
-
-
-        $processed = 'images/content/processed/' . $filename . '.' . $extension;
-        ProductImageUtil::drawImage($product, $product->image, $processed);
-        $product->processed_image = $processed;
-    }
-
     public function actionIndex($category)
     {
         $returnUrl = $this->createUrl('/upload/index');
         $this->checkLogin('Vui lòng đăng nhập được khi sử dụng tính năng này', $returnUrl);
         if (false == $this->isLessThanPostLimit()) {            
             $this->render('limited',array(
-                'limit'=>$this->getLimit(),
+                'limit'=>Yii::app()->user->model->post_limit,
                 'countToday'=>$this->countTodayPost()
             ));
             Yii::app()->end();
@@ -176,9 +165,9 @@ class UploadController extends Controller
                 {
                     
                     $titleCut = mb_strlen($product->title,'utf-8')>50?mb_substr($product->title,0,50,'utf-8'):$product->title;
-                    $filename = str_replace(' ', '-', StringUtil::utf8ToAscii(StringUtil::removeSpecialCharacter($titleCut))) .
+                    $filename = str_replace(' ', '-', StringUtil::removeSpecialCharacter(StringUtil::utf8ToAscii($titleCut))) .
                             '_'.
-                            $i.
+                            rand(0,9999).
                             '_' .
                             $product->id;
                     $fileNameArray = explode('.', $image['filename']);
@@ -345,7 +334,7 @@ class UploadController extends Controller
 
     protected function isLessThanPostLimit()
     {
-        $limit = $this->getLimit();
+        $limit = Yii::app()->user->model->post_limit;
         $countToday = $this->countTodayPost();        
         return $countToday < $limit;
     }
@@ -354,11 +343,6 @@ class UploadController extends Controller
         $sql = 'select count(*) from {{product}} where to_days(create_date) = to_days(now()) and user_id = :user_id';
         $countToday = Yii::app()->db->createCommand($sql)->bindValue('user_id',Yii::app()->user->getId())->queryScalar();        
         return $countToday;
-    }
-    
-    protected function getLimit(){
-        $limit = UserRegistry::getInstance()->getValue('PostLimit', Yii::app()->params['postLimitPerDay']);
-        return $limit;
-    }
+    }    
 
 }

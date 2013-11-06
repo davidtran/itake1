@@ -138,11 +138,16 @@ class FacebookUtil {
         if ($returnUrl == null) {
             $returnUrl = Yii::app()->controller->createAbsoluteUrl('/site/index');
         }
-        Yii::app()->controller->setReturnUrl($returnUrl);
-        return Yii::app()->facebook->getLoginUrl(array(
-                    'scope' => 'email,publish_stream,user_photos,manage_pages',
-                    'redirect_uri' => Yii::app()->controller->createAbsoluteUrl('/user/register')
+        
+        $facebookLoginUrl = Yii::app()->facebook->getLoginUrl(array(
+            'scope' => 'email,publish_stream,user_photos,manage_pages',
+            'redirect_uri' => Yii::app()->controller->createAbsoluteUrl('/register')
         ));
+        
+        Yii::app()->session->add('FacebookLoginUrl',$facebookLoginUrl);
+        Yii::app()->controller->setReturnUrl($returnUrl);
+        //Yii::app()->session->add('RedirectLinkAfterFacebookLoginUrl',$returnUrl);
+        return Yii::app()->createAbsoluteUrl('/user/clearFacebookSession');
     }
 
     public static function makeFacebookLoginUrlNew($returnUrl = null) {
@@ -318,6 +323,12 @@ class FacebookUtil {
             Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'facebook');
             return false;
         }
+    }
+    
+    public function clearSession(){
+        $fb_key = 'fbsr_'.Yii::app()->params['facebook.appId'];
+        setcookie(Yii::app()->params['facebook.secret'], '', time()-3600);        
+        Yii::app()->facebook->destroySession();
     }
 
 }

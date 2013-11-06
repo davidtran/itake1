@@ -105,4 +105,12 @@ class ProductImage extends CActiveRecord
         }
         return parent::beforeValidate();
     }
+    
+    public function afterDelete() {
+        $frontendPath = Yii::getPathOfAlias('frontend').'/www';
+        unlink($frontendPath.'/'.ltrim($this->image,'/'));
+        unlink($frontendPath.'/'.ltrim($this->thumbnail,'/'));
+        unlink($frontendPath.'/'.ltrim($this->facebook,'/'));
+        return parent::afterDelete();
+    }
 }

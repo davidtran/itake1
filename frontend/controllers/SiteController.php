@@ -88,10 +88,10 @@ class SiteController extends Controller {
         if (Yii::app()->user->isGuest && isset(Yii::app()->request->cookies['usercity_ck'])) {
             CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
         }
-         if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
-             Yii::app()->session['VisitLanding'] = true;
-             $this->redirect($this->createUrl('landing'));
-         }
+//         if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
+//             Yii::app()->session['VisitLanding'] = true;
+//             $this->redirect($this->createUrl('landing'));
+//         }
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber'] = $page;
         Yii::app()->session['LastCategory'] = $category;
@@ -301,11 +301,12 @@ class SiteController extends Controller {
     }
 
     public function actionLanding() {
-        $this->layout = '//layouts/noMenu';
+        $this->layout = '//layouts/noMenu';        
+        $listProducts = Product::model()->findAll(array('limit'=>28,'order'=>'create_date DESC'));
         if (Yii::app()->language == 'en')
             $this->render('landing');
         else
-            $this->render('landing_vi');
+            $this->render('landing_vi',array('listProducts'=>$listProducts));
     }
 
     public function actionFAQ() {
