@@ -1,11 +1,11 @@
 body.ostyle{background-color:#f6f6f6;}
 root{display:block;}
-.productItem,.productItemUpload{width:250px;margin-right:2%;margin-bottom:2%;background-color:#fff;-webkit-box-shadow:1px 1px 2px 0 #d0d0d0;-moz-box-shadow:1px 1px 2px 0 #d0d0d0;box-shadow:1px 1px 2px 0 #d0d0d0;overflow:hidden;font-family:Arial;cursor:pointer;min-width:250px;}
+.productItem,.productItemUpload{width:250px;margin-right:2%;margin-bottom:2%;background-color:#fff;-webkit-box-shadow:1px 1px 2px 0 #d0d0d0;-moz-box-shadow:1px 1px 2px 0 #d0d0d0;box-shadow:1px 1px 2px 0 #d0d0d0;overflow:hidden;font-family:Arial;cursor:pointer;min-width:250px;-webkit-border-radius: 3px;border-radius: 3px;}
 div.productItem div.product-user{overflow:hidden;display:inline-block;padding:10px;}
 div.productItem div.product-user img{margin-right:10px;}
 div.productItem div.product-user span{vertical-align:top;}
-div.productItem div.product-detail div.productDescription,div.productCreateDate{font-size:12px;color:rgba(0,0,0,0.6);word-wrap:break-word;margin-left:10px;margin-right:10px;padding:5px;}
-div.productItem div.product-detail div.productCreateDate{font-size:10px;color:rgba(255,255,255,0.9);margin-top:15px;}
+div.productItem div.product-detail div.productDescription,div.productCreateDate{font-size:12px;color:rgba(0,0,0,0.6);word-wrap:break-word;margin-left:10px;margin-right:10px;padding:5px;font-family:"Roboto";}
+div.productItem div.product-detail div.productCreateDate{font-size:10px;color:rgba(255,255,255,0.9);margin-top:5px;}
 .productUserImage{width:32px;}
 .grid-sizer{width:20%;}
 div.nd_logo a.logo img{height:37px;margin-top:3px;margin-left:20px;}
@@ -16,7 +16,7 @@ div.nav-bar-top.nav-landing a.btn{margin-top:7px;margin-right:7px;}
 div.nav-bar-top a.logo{display:block;overflow:hidden;width:100px;height:44px;float:left;cursor:pointer;}
 a.logo span{color:#53c740;}
 div.nav-bar-top h1{text-align:center;float:left;width:100px;font-family:MNBTitleBold;font-size:25px;margin-top:0;color:#194675;-webkit-font-smoothing:antialiased;font-weight:300;}
-div.productImagePrice{font-family:MNBTitleBold;font-weight:100;font-size:15px;float:right;position:relative;bottom:0;color:#000;}
+div.productImagePrice{font-family:MNBTitleBold;font-weight:100;font-size:15px;float:right;position:relative;bottom:0;color:#000;line-height: 35px;}
 div.productItemDistance{font-size:1.5em;font-family:MNBTitleBold;font-weight:300;}
 div.nav-bar-top small{padding-top:16px;float:left;font-family:"Segoe UI Light",Arial,Helvetica,sans-serif;margin-left:0;color:#bb0e16;}
 .container-fluid{padding-left:0;padding-right:0;}
@@ -40,7 +40,8 @@ div.nav-bar-top div.frmSearch button#ndsearch_btn{float:left;height:17px;width:1
 .productImage:hover{opacity:0.5;}
 #userProductContainer{overflow-y:scroll;}
 .productImageInfo{margin-bottom:-10px;color:rgba(0,0,0,0.6);padding:10px 5px 5px 10px;}
-.productImageTitle{font-size:1.3em;text-transform:uppercase;font-family:MNBTitleBold;font-weight:300;word-wrap:break-word;text-align:center;color:#fff;}
+.productImageTitle{font-size:1.2em;text-transform:uppercase;font-family:MNBTitleBold;font-weight:300;word-wrap:break-word;text-align:center;color:rgba(255,255,255,1);text-shadow: 0px 0px 1px #000;
+        filter: dropshadow(color=#000, offx=0, offy=0);}
 .productImageLink{position:relative;background:#fff;}
 #loadingProductBackground{color:#fff;text-align:center;line-height:100%;top:45%;position:absolute;height:50%;width:100%;left:0;bottom:0;right:0;}
 #special{overflow-y:scroll;display:none;z-index:1111;overflow:scroll;bottom:0;right:0;top:0;position:absolute;left:0;min-width:100%;}
@@ -235,7 +236,7 @@ div.sort-bar{position:fixed;left:180px;right:0;top:44px;color:#08c;z-index:10;-w
 div.productSoldBg{font-size:8em;width:100px;background:transparent;text-align:center;position:absolute;top:-25px;right:0;padding-top:10px;height:90px;color:rgba(255,255,255,0.7);}
 .main-notification{position:absolute;height:100px;z-index:99999999;bottom:20px;left:20px;right:0;text-align:center;float:none;}
 .main-notification p{text-align:center;width:250px;height:auto;color:#fff;background:rgba(0,0,0,.5);border-radius:10px;margin:0 auto;padding:10px;}
-#wrapper_productContainer{min-height:1000px;margin:70px auto 0;}
+#wrapper_productContainer{min-height:1000px;margin:70px auto 100px;}
 .product-detail:hover,.productImage:hover{cursor:0;}
 .btn{text-shadow:none;border:solid 1px rgba(0,0,0,0.05);background-image:none;text-decoration:none;}
 .pagination ul>li>a,.pagination ul>li>span{text-shadow:none;background-image:none;text-decoration:none;}

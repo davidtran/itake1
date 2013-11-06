@@ -51,7 +51,7 @@ $(document).ready(function() {
 HERE;
 Yii::app()->clientScript->registerScript('userProductList', $script, CClientScript::POS_END);
 ?>
-<div id="userProductBoard" class='productBoard margin-top-20'>
+<div id="userProductBoard" class='productBoard margin-top-20' style="display:none;">
     <?php foreach ($productList as $userProduct): ?>        
         <?php echo $userProduct->renderHtml("", true); ?>        
     <?php endforeach; ?>

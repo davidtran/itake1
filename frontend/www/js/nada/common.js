@@ -156,10 +156,6 @@ function alignDiv()
     $('.frmSearch_wrapper').css('width',$('.nav-bar-top').width());
     $('#categories-bar').css('width',$('#menuWidthBase').width());
     $('.selectedCategoryTab').css('left',$('#menuWidthBase').width());
-
-    $(function() {
-        
-    });
 }
 
 function getProductTitle(link){
