@@ -25,7 +25,9 @@
 			CẬP NHẬT THÔNG TIN TÀI KHOẢN ITAKE
 		</h1>
 	</div>
-	<div class="span8 offset2" id="profile"> 
+	<div class="span8 offset3" id="profile"> 
+    <hr>
+    <br>
   	<?php $this->renderPartial('_formProfile',array('model'=>$model)); ?>
 	</div>
 </div>

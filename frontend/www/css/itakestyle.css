@@ -47,7 +47,7 @@ div.nav-bar-top div.frmSearch button#ndsearch_btn{float:left;height:17px;width:1
 #special{overflow-y:scroll;display:none;z-index:1111;overflow:scroll;bottom:0;right:0;top:0;position:absolute;left:0;min-width:100%;}
 div.nd_profile div.top{background-color:#fff;position:relative;width:100%;-webkit-box-shadow:0 1px 4px rgba(0,0,0,0.14);-moz-box-shadow:0 1px 4px rgba(0,0,0,0.14);box-shadow:0 1px 4px rgba(0,0,0,0.14);overflow:hidden;height:100%;}
 div.nd_profile p{word-wrap:break-word;line-height:30px;margin:0;padding:5px;}
-div.nd_profile p.alert{width:90%;text-align:center;margin-left:5%;margin-bottom:5%;padding:0;}
+div.nd_profile p.alert{width:90%;text-align:center;margin-left:5%;margin-bottom:5%;padding:0;line-height: 25px;}
 div.nd_profile p strong{text-transform:uppercase;}
 div.nd_profile div.profile_detail button{-webkit-font-smoothing:antialiased;background-image:linear-gradient(#e3262e,#ab171e);-webkit-box-shadow:0 1px 0 0 rgba(255,255,255,0.34);-moz-box-shadow:0 1px 0 0 rgba(255,255,255,0.34);box-shadow:0 1px 0 0 rgba(255,255,255,0.34);background-color:#ab171e;border:1px solid;color:#fff;text-shadow:0 -1px rgba(0,0,0,0.11);float:left;margin-left:230px;margin-top:6px;font-family:Arial;font-weight:500;-webkit-border-radius:3px;-moz-border-radius:3px;-ms-border-radius:3px;-o-border-radius:3px;border-color:#af151b #9a1015 #820a0f;}
 div.nd_profile div.profile_detail ul{text-align:center;color:#333;line-height:44px;float:left;}
@@ -287,3 +287,18 @@ div.progress_nav > ul li a:hover small,div.progress_nav> ul li a:hover strong,di
 .productItem{width:15%;}
 }
 .fb-comments, .fb-comments iframe[style],.fb-comments span[style] {width: 100% !important;}
+form.itake-form textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input, input:focus {
+border: 0;
+box-shadow: none;
+background: #fff;
+border: 1px solid #ccc;
+border-radius: 1px;
+font-family:"Segoe UI Light",Arial,Helvetica,sans-serif;
+}
+form.itake-form input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"]
+{
+	height: 30px;
+}
+form.itake-form label{
+	font-family:"Segoe UI Light",Arial,Helvetica,sans-serif;
+}
