@@ -41,10 +41,10 @@ $(document).ready(function() {
     }
     
   }).smartresize();
-       // $container.isotope('reLayout');
-//        setInterval(function(){
-//            $container.isotope('reLayout');
-//        },500);
+    $container.isotope('reLayout');
+    setInterval(function(){
+        $container.isotope('reLayout');
+    },500);
     }); 
     $(window).scroll(function() {
         if( $(window).scrollTop()!=0)
