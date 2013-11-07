@@ -99,6 +99,14 @@
             <div class="row-fluid">                               
                 <div class="span12">
                     <div class="navigation" style="text-transform:uppercase;">
+                        <div class="span5">
+                            &nbsp;
+                         <?php $this->widget('common.extensions.yii-facebook-opengraph.plugins.LikeButton', array(
+                           'href' => 'http://www.facebook.com/itake.me',
+                           'show_faces'=>true,
+                        )); ?>
+                        </div>
+                        <div class="span7">
                         <ul>                                                        
                             <li class="first"><a href="<?php echo Yii::app()->createUrl('site/') ?>"><b style="color:#194675"><i class="icon-desktop"></i>   <?php LanguageUtil::echoT('Beta version') ?> </a></b></li>                                                        
                             <li class="first"><a href="<?php echo Yii::app()->createUrl('site/viLang') ?>">
@@ -109,6 +117,7 @@
                             <li ><a href="<?php echo Yii::app()->createUrl('site/terms') ?>"><?php LanguageUtil::echoT('Terms') ?></a></li>                                                                           
                             <li><a href="<?php echo Yii::app()->createUrl('welcome') ?>">© <?php echo date('Y') ?> ITAKE.ME</a></li>
                         </ul>
+                        </div>
                     </div>                   
                 </div>
             </div>
