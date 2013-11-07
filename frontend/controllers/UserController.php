@@ -171,7 +171,7 @@ class UserController extends Controller
                 $loginForm->password = $password;
                 $loginForm->validate();
                 $loginForm->login();
-                $siteUrl = $this->createUrl('/user/editProfile');
+                $siteUrl = $this->createUrl('/user/editProfile',array('newUser'=>true));
                 if($returnUrl!=null){
                     $this->redirect($returnUrl);
                 }else{

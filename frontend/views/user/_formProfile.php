@@ -72,10 +72,18 @@
     <hr>
 	<div class="control-group margin-top-20">
         <div class="controls">
-		<?php echo CHtml::submitButton(LanguageUtil::t('Update'),array('class' => 'btn btn-success btn-large')); ?>
+		  <?php echo CHtml::submitButton(LanguageUtil::t('Update'),array('class' => 'btn btn-success btn-large')); ?>
+          <?php if(isset($_GET['newUser']) && $_GET['newUser']) echo CHtml::link('Bỏ qua bước này',Yii::app()->createUrl('market/index'),array('class' => 'btn btn-large')); ?>
         </div>
 	</div>
     </fieldset>
 <?php $this->endWidget(); ?>
-
+<?php if(isset($_GET['newUser']) && $_GET['newUser']) : ?>
+    <script type="text/javascript">
+    $(document).on('ready',function(){
+         showMessage('Cảm ơn bạn đã đăng ký tài khoản iTake. Để phục vụ bạn tốt nhất xin vui lòng cập nhật thông tin tài khoản. Hoặc bạn có thể bỏ qua bước này.',4000);
+    });
+       
+    </script>
+<?php  endif; ?>
 <!-- form -->
