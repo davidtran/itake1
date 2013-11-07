@@ -12,7 +12,7 @@ $this->pageTitle = LanguageUtil::t('Participate in').' '.Yii::app()->name;
         <hr/>
         </div>
     </div>
-  <div class="row-fluid">
+  <div class="row-fluid margin-top-20">
    <div class="span4 login-panel offset2" style="border-right:dashed 1px #ccc;">
     <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
