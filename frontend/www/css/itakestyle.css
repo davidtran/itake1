@@ -35,7 +35,7 @@ div.nav-bar-top div.frmSearch button#ndsearch_btn{float:left;height:17px;width:1
 .p-edit{margin-right:10px;color:#000;text-decoration:none;}
 .p-delete{color:#fff;margin-right:5px;text-decoration:none;}
 #userProductList .imageProductItem{width:97%;margin-bottom:10px;}
-#userProductList{top:20px;margin:0 auto!important;}
+#userProductList{margin:0 auto!important;}
 #map{height:300px;}
 .productImage:hover{opacity:0.5;}
 #userProductContainer{overflow-y:scroll;}

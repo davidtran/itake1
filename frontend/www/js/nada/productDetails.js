@@ -161,7 +161,7 @@ function loadProduct(href, htmlProductId)
                         return false;
                     });
                     $userProductList.imagesLoaded(function() {
-                        masoryCenterAlign();
+                        isotopeAlignCenter($userProductList);
                         $userProductList.show('fade');
                         $userProductList.isotope('reLayout');
                         setTimeout(function() {

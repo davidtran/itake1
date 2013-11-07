@@ -28,19 +28,7 @@ $(document).ready(function() {
     
    $container.imagesLoaded(function(){        
         $container.show('fade');
-         $(window).smartresize(function(){
-    // check if columns has changed
-    var currentColumns = Math.floor( (  $container.width()) / (250+0.02* $container.width()) );
-    if ( currentColumns !== columns ) {
-      // set new column count
-      columns = currentColumns;
-      // apply width to container manually, then trigger relayout
-        var fixWidth = columns * 250+(columns-1)*$container.width()*0.03;
-      $container.width(fixWidth)
-        .isotope('reLayout');   
-    }
-    
-  }).smartresize();
+    isotopeAlignCenter($container);
     $container.isotope('reLayout');
     setInterval(function(){
         $container.isotope('reLayout');
