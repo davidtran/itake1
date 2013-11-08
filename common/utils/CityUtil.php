@@ -48,7 +48,7 @@ class CityUtil
         
         $city = City::model()->findByPk($id);
         if($city != null){
-            return LanguageUtil::t($city->name);
+            return $city->name;
         }
         return false;
         
@@ -58,12 +58,10 @@ class CityUtil
     {
         $name = self::getCityName($id);
         if ($name != false) {
-            return Yii::app()->controller->createUrl(
-                            '/site/city', array(
-                        'id' => $id,
-                        'name' => StringUtil::makeSlug($name)                    
-                            )
-            );
+            return Yii::app()->controller->createUrl('/site/city',array(
+                'city'=>$id,
+                'cityName'=>StringUtil::makeSlug($name)
+            ));
         }
         return false;
     }
@@ -72,10 +70,15 @@ class CityUtil
     {
         return UserRegistry::getInstance()->getValue('City',0);
     }
-            
+    
+    public static function getSelectedCityName(){
+        return self::getCityName(self::getSelectedCityId());
+    }
+
+
     public static function setSelectedCityId($cityId)
     {
         UserRegistry::getInstance()->setValue('City', $cityId);
     }
-
+      
 }

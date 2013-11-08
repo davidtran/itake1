@@ -79,6 +79,10 @@ $config = CMap::mergeArray(
                     'caseSensitive' => false,
                     'urlSuffix' => '.html',
                     'rules' => array(
+                        array(
+                            'class' => 'application.components.ProductUrlRule',
+                            'connectionID' => 'db',
+                        ),
                         'post/<id:\d+>/<title:.*?>' => '/product/details',
                         'register' => 'user/register',
                         'login' => 'user/login',
@@ -92,7 +96,9 @@ $config = CMap::mergeArray(
                         'market' => 'site',
                         'upload/<category:\d+>/<name:.*?>' => '/upload/index',
                         'connect-facebook' => '/user/facebookLogin',
-                        'profile/<id:\d+>/<name:.*?>'=>'/user/profile',                    
+                        'profile/<id:\d+>/<name:.*?>'=>'/user/profile',
+                        
+                        
                     ),
                     'hostInfo' => $params['urlManager.hostInfo'],
                     'secureHostInfo' => $params['urlManager.secureHostInfo'],

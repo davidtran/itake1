@@ -34,11 +34,11 @@ class SiteController extends Controller {
         );
     }
 
-    public function actionCity($id) {
+    public function actionCity($city) {
         //change city
         //redirect to index with selected category
-        Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $id);
-        CityUtil::setSelectedCityId($id);
+        Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $city);
+        CityUtil::setSelectedCityId($city);
         
         $this->actionIndex();
     }
@@ -84,8 +84,13 @@ class SiteController extends Controller {
         $this->redirect($url);
     }
     
-    public function actionCategory($id){        
-        $this->actionIndex(null,$id);
+    public function actionCategory($category,$city = null){                      
+        if($city){
+             Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $city);
+            CityUtil::setSelectedCityId($city);
+        }
+        
+        $this->actionIndex(null,$category);
     }
 
     public function actionIndex($keyword = null, $category = null, $facebook = 0, $page = 0, $status = Product::STATUS_ACTIVE) {              

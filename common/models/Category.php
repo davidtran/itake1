@@ -88,14 +88,13 @@ class Category extends CActiveRecord
 	}
     
     public function getUrl()
-    {
-        return Yii::app()->controller->createUrl(
-                '/site/category',
-                array(
-                    'id'=>$this->id,
-                    'name'=>StringUtil::makeSlug($this->name)
-                )
-            ); 
+    {     
+        return Yii::app()->controller->createUrl('/site/category',array(
+            'city'=>CityUtil::getSelectedCityId(),
+            'cityName'=>StringUtil::makeSlug(CityUtil::getSelectedCityName()),
+            'category'=>$this->id,
+            'categoryName'=>StringUtil::makeSlug($this->name)
+        )); 
     }
     
     public function getStyleName(){
