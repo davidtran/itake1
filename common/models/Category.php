@@ -90,9 +90,9 @@ class Category extends CActiveRecord
     public function getUrl()
     {
         return Yii::app()->controller->createUrl(
-                '/site/index',
+                '/site/category',
                 array(
-                    'category'=>$this->id,
+                    'id'=>$this->id,
                     'name'=>StringUtil::makeSlug($this->name)
                 )
             ); 

@@ -61,8 +61,7 @@ class CityUtil
             return Yii::app()->controller->createUrl(
                             '/site/city', array(
                         'id' => $id,
-                        'name' => StringUtil::makeSlug($name),
-                        'category'=>$categoryId
+                        'name' => StringUtil::makeSlug($name)                    
                             )
             );
         }
