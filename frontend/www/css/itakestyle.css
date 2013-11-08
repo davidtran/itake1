@@ -90,7 +90,7 @@ span.productUserName a{color:rgba(255,255,255,1);}
 div.locations{font-family:Arial;}
 div.productContainer_wrapper{width:100%;margin:0 auto;}
 div.btn-group.user-bar{margin-right:10px;margin-top:-4px;}
-.nav-text>>a{cursor:pointer;text-decoration:none;}
+.nav-text > a{cursor:pointer;text-decoration:none;}
 .nav-text{width:150px;white-space:nowrap;text-overflow:ellipsis;font-size:.8em;color:#3d3d3d;line-height:40px;overflow:hidden;float:left;text-transform:uppercase;}
 #categories-bar li a{display:block;height:100%;overflow:hidden;}
 a:hover .nav-text small{background-position:20px 50%;padding-left:15px;}

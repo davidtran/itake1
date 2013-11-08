@@ -150,8 +150,7 @@ class UserController extends Controller
                     }
                 }
             }
-            catch (FacebookApiException $e) {
-                throw $e;
+            catch (FacebookApiException $e) {               
                 Yii::app()->user->setFlash('error','Kết nối với Facebook bị lỗi, vui lòng thử lại sau.');
                 $this->redirect($this->createUrl('/user/login'));
             }
