@@ -47,8 +47,7 @@
                                                 'class' => 'img-circle',
                                             ));
                                             ?>
-                                            <?php echo $product->
-                                                user->getUserProfileLink(); ?>
+                                            <?php echo $product->user->getUserProfileLink(); ?>
                                             <br/>
 
                                         </div>

@@ -345,7 +345,7 @@ class User extends CActiveRecord
     public function getUserProfileLink()
     {
         return CHtml::link(
-                        $this->username, array('/user/profile', 'id' => $this->id, 'name' => $this->username), array('title' => $this->target)
+                        $this->username, $this->getUserProfileUrl(), array('title' => $this->target)
         );
     }
 
@@ -355,7 +355,7 @@ class User extends CActiveRecord
 
         return Yii::app()->createUrl('/user/profile', array(
                     'id' => $this->id,
-                    'name' => StringUtil::utf8ToAscii($this->username),
+                    'name' =>StringUtil::makeSlug($this->username)
                         )
         );
     }

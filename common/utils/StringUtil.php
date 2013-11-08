@@ -78,7 +78,7 @@
         
         public static function makeSlug($name)
         {
-            return str_replace(' ', '-', self::removeSpecialCharacter(trim(self::utf8ToAscii($name))));
+            return str_replace(' ', '-', self::removeSpecialCharacter((self::utf8ToAscii($name))));
         }
         
         public static function generateRandomString($length = 10)
