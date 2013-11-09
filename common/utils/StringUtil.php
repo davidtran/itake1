@@ -1,5 +1,5 @@
 <?php
-
+   
     class StringUtil
     {
 
@@ -78,7 +78,12 @@
         
         public static function makeSlug($name)
         {
-            return str_replace(' ', '-', self::removeSpecialCharacter((self::utf8ToAscii($name))));
+            return strtolower(
+                    self::replaceRepeatCharacter(
+                    str_replace(' ','-',
+                        self::removeSpecialCharacter(
+                            self::utf8ToAscii($name)
+                        )),'-',''));
         }
         
         public static function generateRandomString($length = 10)
@@ -140,8 +145,23 @@
             }
             return $needle;
         }
+        
+        public static function replaceRepeatCharacter($string,$char,$replace){
+            $last = null;
+            $result = '';
+            for($i=0;$i<strlen($string);$i++){
+                $current = substr($string,$i,1);                
+                if($current == $char && ($last == $current) && $last!=null){
+                    $current.=$replace;
+                }else{
+                    $result.=$current;
+                }
+                $last = $current;
+            }
+            return $result;
+        }
 
 
     }
-
+ 
 ?>

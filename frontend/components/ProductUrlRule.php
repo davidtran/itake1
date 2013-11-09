@@ -7,25 +7,24 @@ class ProductUrlRule extends CBaseUrlRule {
     public function createUrl($manager, $route, $params, $ampersand) {
         switch($route){
             case 'product/details':
-                if(isset($params['category'],$params['categoryName'],
+                if(isset($params['categorySlug'],
                         $params['id'],$params['title'],
-                        $params['city'],$params['cityName'])){
-                    return $params['city'].'_'.$params['cityName'].'/'.
-                            $params['category'].'_'.$params['categoryName'].'/'.
+                        $params['citySlug'])){
+                    return $params['citySlug'].'/'.
+                            $params['categorySlug'].'/'.
                             $params['id'].'_'.$params['title'];
                             
                 }                
             break;
             case 'site/category':
-                if(isset($params['category'],$params['categoryName'],
-                        $params['city'],$params['cityName'])){
-                    return $params['city'].'_'.$params['cityName'].'/'.
-                            $params['category'].'_'.$params['categoryName'];
+                if(isset($params['categorySlug'],
+                        $params['citySlug'])){
+                    return $params['citySlug'].'/'.$params['categorySlug'];
                 }
             break;
             CASE 'site/city':
-                if(isset($params['city'],$params['cityName'])){
-                    return $params['city'].'_'.$params['cityName'];
+                if(isset($params['citySlug'])){
+                    return $params['citySlug'];
                 }
             break;                                        
         }      
@@ -35,26 +34,26 @@ class ProductUrlRule extends CBaseUrlRule {
     public function parseUrl($manager, $request, $pathInfo, $rawPathInfo) {
         
         if (preg_match('%^((\S+)/(\S+)/(\S+))?$%', $pathInfo, $matches)) {
-
-            $cityName = $matches[2];
-            $categoryName = $matches[3];
-            $productName = $matches[4];
-            if ( (false !== $cityId = $this->searchCity($cityName))
-                    && (false !== $categoryId = $this->searchCategory($categoryName))
-                    && (false !== $productId = $this->searchProduct($productName))) {
-                $_GET['city'] = $cityId;
-                $_GET['category'] = $categoryId;
-                $_GET['id'] = $productId;
-                return 'product/details';
+            if(count($matches) == 5){
+                $citySlug = $matches[2];
+                $categorySlug = $matches[3];
+                $productName = $matches[4];
+                if ( (false !== $cityId = $this->searchCity($citySlug))
+                        && (false !== $categoryId = $this->searchCategory($categorySlug))
+                        && (false !== $productId = $this->searchProduct($productName))) {
+                    $_GET['city'] = $cityId;
+                    $_GET['category'] = $categoryId;
+                    $_GET['id'] = $productId;
+                    return 'product/details';
+                }
             }
-            return false;
             
             
         } else if (preg_match('%^((\S+)/(\S+))?$%', $pathInfo, $matches)) {
-            $cityName = $matches[2];
-            $categoryName = $matches[3];
-            if ((false !== $cityId = $this->searchCity($cityName))
-                    && (false !== $categoryId = $this->searchCategory($categoryName))) {               
+            $citySlug = $matches[2];
+            $categorySlug = $matches[3];
+            if ((false !== $cityId = $this->searchCity($citySlug))
+                    && (false !== $categoryId = $this->searchCategory($categorySlug))) {               
                 $_GET['city'] = $cityId;
                 $_GET['category'] = $categoryId;
                 return 'site/category';
@@ -89,37 +88,36 @@ class ProductUrlRule extends CBaseUrlRule {
         return false;
     }
 
-    protected function searchCategory($name) {
-        $nameArray = explode('_', $name);
-        if (count($nameArray) >= 2) {
-            $row = Yii::app()
-                    ->db
-                    ->createCommand('select id from {{category}} where id=:id')
-                    ->bindValues(array(
-                        'id' => $nameArray[0]
-                    ))
-                    ->queryRow();
-            if ($row !== false) {
-                return $row['id'];
-            }
+    protected function searchCategory($slug) {
+        
+        
+        $row = Yii::app()
+                ->db
+                ->createCommand('select id from {{category}} where slug=:slug')
+                ->bindValues(array(
+                    'slug' => $slug
+                ))
+                ->queryRow();
+        if ($row !== false) {
+            return $row['id'];
         }
+        
         return false;
     }
 
-    protected function searchCity($name) {
-        $nameArray = explode('_', $name);
-        if (count($nameArray) >= 2) {
-            $row = Yii::app()
-                    ->db
-                    ->createCommand('select id from {{city}} where id =:id')
-                    ->bindValues(array(
-                        'id' => $nameArray[0]
-                    ))
-                    ->queryRow();
-            if ($row!==false) {
-                return $row['id'];
-            }
+    protected function searchCity($slug) {
+        
+        $row = Yii::app()
+                ->db
+                ->createCommand('select id from {{city}} where slug =:slug')
+                ->bindValues(array(
+                    'slug' => $slug
+                ))
+                ->queryRow();
+        if ($row!==false) {
+            return $row['id'];
         }
+        
         return false;
     }
 

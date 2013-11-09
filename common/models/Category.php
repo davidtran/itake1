@@ -36,11 +36,11 @@ class Category extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, description', 'required'),
-			array('name', 'length', 'max'=>50),
+			array('name', 'required'),
+			array('name,slug', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, description', 'safe', 'on'=>'search'),
+			array('id, name, description,slug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -89,12 +89,18 @@ class Category extends CActiveRecord
     
     public function getUrl()
     {     
-        return Yii::app()->controller->createUrl('/site/category',array(
-            'city'=>CityUtil::getSelectedCityId(),
-            'cityName'=>StringUtil::makeSlug(CityUtil::getSelectedCityName()),
-            'category'=>$this->id,
-            'categoryName'=>StringUtil::makeSlug($this->name)
-        )); 
+        $citySlug = Yii::app()->db->createCommand('select slug from {{city}} where id=:id')
+                ->bindValues(array(
+                    'id'=>CityUtil::getSelectedCityId()
+                ))
+                ->queryScalar();
+        if($citySlug!==false){
+            return Yii::app()->controller->createUrl('/site/category',array(
+                'citySlug'=>$citySlug,
+                'categorySlug'=>$this->slug,
+            )); 
+        }
+        
     }
     
     public function getStyleName(){

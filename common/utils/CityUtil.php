@@ -56,11 +56,10 @@ class CityUtil
 
     public static function makeSelectCityUrl($id,$categoryId=NULL)
     {
-        $name = self::getCityName($id);
-        if ($name != false) {
+        $city = City::model()->findByPk($id);
+        if ($city != false) {
             return Yii::app()->controller->createUrl('/site/city',array(
-                'city'=>$id,
-                'cityName'=>StringUtil::makeSlug($name)
+                'citySlug'=>$city->slug,
             ));
         }
         return false;

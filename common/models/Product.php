@@ -231,10 +231,8 @@ class Product extends CActiveRecord
                             '/product/details', array(
                                 'id' => $this->id,
                                 'title' => StringUtil::makeSlug($this->title),
-                                'category'=>$this->category->id,
-                                'categoryName'=>StringUtil::makeSlug(Yii::t('Default',$this->category->name)),
-                                'city'=>$this->address->cityModel->id,
-                                'cityName'=>StringUtil::makeSlug($this->address->cityModel->name)
+                                'categorySlug'=>Yii::t('Default',$this->category->slug),                                
+                                'citySlug'=>$this->address->cityModel->slug
                             )
             );
         }
@@ -244,10 +242,8 @@ class Product extends CActiveRecord
                             '/product/details', array(
                                 'id' => $this->id,
                                 'title' => StringUtil::makeSlug($this->title),
-                                'category'=>$this->category->id,
-                                'categoryName'=>StringUtil::makeSlug(Yii::t('Default',$this->category->name)),
-                                'city'=>$this->address->cityModel->id,
-                                'cityName'=>StringUtil::makeSlug($this->address->cityModel->name)
+                                'categorySlug'=>Yii::t('Default',$this->category->slug),                                
+                                'citySlug'=>$this->address->cityModel->slug
                             )
             );
         }

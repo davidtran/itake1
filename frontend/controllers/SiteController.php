@@ -94,6 +94,7 @@ class SiteController extends Controller {
     }
 
     public function actionIndex($keyword = null, $category = null, $facebook = 0, $page = 0, $status = Product::STATUS_ACTIVE) {              
+        //echo StringUtil::replaceRepeatCharacter('baf---_---a', '-', '');exit;
         if (Yii::app()->user->isGuest && isset(Yii::app()->request->cookies['usercity_ck'])) {
             CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
         }
