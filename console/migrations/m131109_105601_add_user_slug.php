@@ -4,7 +4,7 @@ class m131109_105601_add_user_slug extends CDbMigration
 {
 	public function up()
 	{
-   //     $this->execute('alter table {{user}} add column slug varchar(100) null;');
+        $this->execute('alter table {{user}} add column slug varchar(100) null;');
         $userList = User::model()->findAll();   
         $slugMaker = new SlugMakerUtil();
         foreach($userList as $user){
