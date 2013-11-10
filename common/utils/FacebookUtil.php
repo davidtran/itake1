@@ -111,7 +111,7 @@ class FacebookUtil {
         if ($product->locationText != '') {
             $address = $product->locationText . ',';
         }
-        $address .= CityUtil::getCityName($product->city);
+        $address .= $product->address->cityModel->name;
         $html = "$product->description                                                
                " . $product->getDetailUrl(true);
         return $html;

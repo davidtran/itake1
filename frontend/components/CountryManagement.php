@@ -10,8 +10,7 @@ class CountryManagement extends CApplicationComponent
     public $isFixed = true;
 
     public function init()
-    {
-        Yii::beginProfile('getCity');
+    {      
         $this->currentCountry = $this->getCountry();
         if ($this->currentCountry != false) {
 
@@ -20,8 +19,7 @@ class CountryManagement extends CApplicationComponent
         else {
             $this->currentCountry = $this->defaultCountry;
             $this->setCountry($this->currentCountry);
-        }
-        Yii::endProfile('getCity');
+        }      
         return parent::init();
     }
 

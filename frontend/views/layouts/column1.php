@@ -2,8 +2,14 @@
 <?php $this->beginContent('//layouts/main'); ?>
 <div class="nav-bar-top">
     <div class="nd_logo ">
-            <a class="logo" href="<?php echo $this->
-                createUrl('/site'); ?>">
+            <a class="logo" href="<?php 
+            $selectCityId = CityUtil::getSelectedCityId();
+            if($selectCityId!=0){
+                echo CityUtil::makeSelectCityUrl($selectCityId);
+            }else{
+                echo $this->createUrl('/site'); 
+            }
+            ?>">
                 <img src="/images/logo.png"/>
             </a>
             <small class="visible-desktop"></small>
@@ -15,7 +21,7 @@
             <Button class="btn dropdown-toggle" data-toggle="dropdown">                                    <i class="icon-map-marker"></i>
                 <?php 
                 //$selectCityId = CityUtil::getSelectedCityId();
-                $selectCityId = UserRegistry::getInstance()->getValue('City',0);
+                $selectCityId = CityUtil::getSelectedCityId();
                 echo CityUtil::getCityName($selectCityId); ?>                            
                 <span class="caret"></span>
             </Button>

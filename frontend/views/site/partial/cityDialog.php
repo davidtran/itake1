@@ -11,7 +11,7 @@
                ?>
 
                 <div class="row-fluid margin-top-5">
-                    <a class="btn span6 offset3 btn-info"href="<?php echo Yii::app()->createUrl('site/city',array('id'=>$cityId,'category'=>''))?>"><?php echo LanguageUtil::t($city['name']); ?></a>
+                    <a class="btn span6 offset3 btn-info"href="<?php echo CityUtil::makeSelectCityUrl($cityId)?>"><?php echo LanguageUtil::t($city['name']); ?></a>
                 </div>       
                <?php
                //CityUtil::makeSelectCitychooseUrl($city),

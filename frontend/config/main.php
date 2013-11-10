@@ -83,6 +83,10 @@ $config = CMap::mergeArray(
                             'class' => 'application.components.ProductUrlRule',
                             'connectionID' => 'db',
                         ),
+                        array(
+                            'class' => 'application.components.UserUrlRule',
+                            'connectionID' => 'db',
+                        ),
                         'post/<id:\d+>/<title:.*?>' => '/product/details',
                         'register' => 'user/register',
                         'login' => 'user/login',

@@ -352,12 +352,18 @@ class User extends CActiveRecord
     public function getUserProfileUrl()
     {
 
-
-        return Yii::app()->createUrl('/user/profile', array(
-                    'id' => $this->id,
-                    'name' =>StringUtil::makeSlug($this->username)
-                        )
-        );
+        if(trim($this->slug)!=''){
+            return Yii::app()->createUrl('/user/profile',array(
+                'slug'=>$this->slug
+            ));
+        }else{
+            return Yii::app()->createUrl('/user/profile', array(
+                'id' => $this->id,
+                'name' =>StringUtil::makeSlug($this->username)
+                    )
+            );
+        }
+        
     }
 
     public function getProfileImageUrl($absolute = false)
