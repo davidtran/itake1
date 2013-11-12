@@ -97,7 +97,7 @@ class Category extends CActiveRecord
         if($citySlug!==false){
             return Yii::app()->controller->createUrl('/site/category',array(
                 'citySlug'=>$citySlug,
-                'categorySlug'=>$this->slug,
+                'categorySlug'=>Yii::t('slug',$this->slug),
             )); 
         }
         
