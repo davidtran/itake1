@@ -231,7 +231,7 @@ class Product extends CActiveRecord
                             '/product/details', array(
                                 'id' => $this->id,
                                 'title' => StringUtil::makeSlug($this->title),
-                                'categorySlug'=>Yii::t('Default',$this->category->slug),                                
+                                'categorySlug'=>Yii::t('slug',$this->category->slug),                                
                                 'citySlug'=>$this->address->cityModel->slug
                             )
             );
@@ -242,7 +242,7 @@ class Product extends CActiveRecord
                             '/product/details', array(
                                 'id' => $this->id,
                                 'title' => StringUtil::makeSlug($this->title),
-                                'categorySlug'=>Yii::t('Default',$this->category->slug),                                
+                                'categorySlug'=>Yii::t('slug',$this->category->slug),                                
                                 'citySlug'=>$this->address->cityModel->slug
                             )
             );
