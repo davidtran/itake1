@@ -138,5 +138,17 @@ class UserController extends MobileController {
         }
         $this->renderAjaxResult(false,'Invalid parameter');
     }
-
+    public function actionProfile($id){
+        $user = User::model()->findByPK($id);
+        $productdata = $user->searchProduct(null, 20, 0);
+        $productlist = $productdata->getData();
+        $list = array();
+        foreach ($productlist as $product) {
+            array_push($list, JsonRenderAdapter::renderProduct($product));
+        }
+        $this->renderAjaxResult(true,array(
+                'list'=>$list,
+                'user'=> JsonRenderAdapter::renderUser($user) 
+                ));
+    }
 }
