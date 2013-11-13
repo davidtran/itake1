@@ -7,6 +7,7 @@ class SolrSearchAdapter {
     const TYPE_CREATE_DATE = 0;
     const TYPE_TREND = 1;
     const TYPE_LOCATION = 2;
+    const TYPE_PRICE = 3;
 
     protected $result;
     public $page;
@@ -85,8 +86,10 @@ class SolrSearchAdapter {
                 }
                 $params['sort'] = 'score desc';
                 break;
+            case self::TYPE_PRICE:
+                $params['sort'] = 'price asc';
+                break;
         }
-
         return $params;
     }
 

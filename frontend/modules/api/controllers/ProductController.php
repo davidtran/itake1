@@ -41,7 +41,8 @@ class ProductController extends MobileController
             $country = null, 
             $facebook = 0, 
             $page = 0,
-            $status = Product::STATUS_ACTIVE)
+            $status = Product::STATUS_ACTIVE ,
+            $type = SolrSearchAdapter::TYPE_PRICE)
     {
         $this->logRequest();
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
@@ -58,7 +59,7 @@ class ProductController extends MobileController
         $solrAdapter->longitude = $longitude;
         $solrAdapter->status = $status;
         $solrAdapter->facebookFriend = $facebook;
-        $solrAdapter->setSortType(SolrSearchAdapter::TYPE_CREATE_DATE);
+        $solrAdapter->setSortType($type);
         $resultSet = $solrAdapter->search();        
         $productList = $resultSet->productList;
         $empty = $page * $solrAdapter->pageSize + $solrAdapter->pageSize > $resultSet->numFound;
