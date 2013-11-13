@@ -238,7 +238,7 @@ HERE
             join {{product_image}} i on i.product_id = p.id
             where u.id=:id';
         return Yii::app()->db->createCommand($sql)->bindValue('id',$user->id)->queryScalar();        
-    }
+    }        
     
     
 }

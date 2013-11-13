@@ -129,6 +129,7 @@ return array(
     'Product sold'=>'Đã bán',
     'Facebook friend'=>'Bạn bè Facebook',
     'Buying instruction'=>'Hướng dẫn mua hàng',
-    'Date'=>'Ngày'
+    'Date'=>'Ngày',
+    'Update information'=>'Cập nhật thông tin',
 
 );

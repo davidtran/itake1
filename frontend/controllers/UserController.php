@@ -142,7 +142,7 @@ class UserController extends Controller
                     $loginForm->validate();
                     $loginForm->login();
                     Yii::app()->user->setFlash('success','Kết nối với Facebook thành công.');
-                    $siteUrl = $this->createUrl('/site/index');                    
+                    $siteUrl = $this->createUrl('/user/editProfile');                    
                     if($returnUrl!=null){
                         $this->redirect($returnUrl);
                     }else if($this->hasReturnUrl()){
@@ -152,8 +152,7 @@ class UserController extends Controller
                     }
                 }
             }
-            catch (FacebookApiException $e) {
-                throw $e;
+            catch (FacebookApiException $e) {               
                 Yii::app()->user->setFlash('error','Kết nối với Facebook bị lỗi, vui lòng thử lại sau.');
                 $this->redirect($this->createUrl('/user/login'));
             }
@@ -173,7 +172,7 @@ class UserController extends Controller
                 $loginForm->password = $password;
                 $loginForm->validate();
                 $loginForm->login();
-                $siteUrl = $this->createUrl('/site/index');
+                $siteUrl = $this->createUrl('/user/editProfile',array('newUser'=>true));
                 if($returnUrl!=null){
                     $this->redirect($returnUrl);
                 }else{

@@ -44,9 +44,9 @@ $(document).ready(function() {
     loadImageSlider();
     loadImageSlideShow();
 });
-$(document).live("facebook:ready", function() {
-    setCommentFullWidth();
-});
+// $(document).live("facebook:ready", function() {
+//     setCommentFullWidth();
+// });
 
 function productClick() {
 
@@ -152,7 +152,7 @@ function loadProduct(href, htmlProductId)
                         });
                     });
                     loadImageSlideShow();
-                    addthis.toolbox('.addthis_toolbox');
+                    //addthis.toolbox('.addthis_toolbox'); //bug js here Uncaught ReferenceError: addthis is not defined 
                     $('#btnShowMap').live('click', function(e) {
                         e.preventDefault();
                         if (loadedMap == false) {
@@ -163,7 +163,7 @@ function loadProduct(href, htmlProductId)
                         return false;
                     });
                     $userProductList.imagesLoaded(function() {
-                        masoryCenterAlign();
+                        isotopeAlignCenter($userProductList);
                         $userProductList.show('fade');
                         $userProductList.isotope('reLayout');
                         setTimeout(function() {

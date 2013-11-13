@@ -44,6 +44,12 @@
 		<?php echo $form->textField($model,'image',array('size'=>60,'maxlength'=>200)); ?>
 		<?php echo $form->error($model,'image'); ?>
 	</div>
+    
+    <div class="row">
+		<?php echo $form->labelEx($model,'slug'); ?>
+		<?php echo $form->textField($model,'slug',array('size'=>60,'maxlength'=>200)); ?>
+		<?php echo $form->error($model,'slug'); ?>
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

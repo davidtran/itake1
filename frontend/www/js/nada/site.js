@@ -4,6 +4,7 @@ var $container;
 var ms;
 var stopLoad=false;
 var page=0;
+var columns = null;
 
 $(document).ready(function() {
     if (canShowCityDialog){
@@ -18,19 +19,20 @@ $(document).ready(function() {
     $container.isotope({
         columnWidth: 30,
         itemSelector: '.productItem',
-        transformsEnabled:true,
+        transformsEnabled:true,        
         straightAcross: {
             rowHeight: 360
         }
     });
+        
     
-   $container.imagesLoaded(function(){
-        masoryCenterAlign();
-        $container.isotope('reLayout');
+   $container.imagesLoaded(function(){        
         $container.show('fade');
-        setInterval(function(){
-            $container.isotope('reLayout');
-        },500);
+    isotopeAlignCenter($container);
+    $container.isotope('reLayout');
+    setInterval(function(){
+        $container.isotope('reLayout');
+    },500);
     }); 
     $(window).scroll(function() {
         if( $(window).scrollTop()!=0)
@@ -79,11 +81,3 @@ $(document).ready(function() {
     });
     
 });
-
-
-$(document).ready(function(){
-    
-    
-    
-});
-

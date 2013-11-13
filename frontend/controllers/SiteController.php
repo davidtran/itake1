@@ -17,7 +17,9 @@ class SiteController extends Controller {
             ),
         );
     }
-
+    public function init() {        
+        return parent::init();
+    }
     public function filters() {
         return array(
             array(
@@ -32,15 +34,13 @@ class SiteController extends Controller {
         );
     }
 
-    public function actionCity($id, $category) {
+    public function actionCity($city) {
         //change city
         //redirect to index with selected category
-        Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $id);
-        CityUtil::setSelectedCityId($id);
+        Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $city);
+        CityUtil::setSelectedCityId($city);
         
-        //$redirectUrl = Yii::app()->controller->createAbsoluteUrl('/site/list');
-        $redirectUrl = $this->createAbsoluteUrl('/site/index');
-        $this->redirect($redirectUrl);
+        $this->actionIndex();
     }
 
     public function actionSuggest($term) {
@@ -83,8 +83,18 @@ class SiteController extends Controller {
         ));
         $this->redirect($url);
     }
+    
+    public function actionCategory($category,$city = null){                      
+        if($city){
+             Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $city);
+            CityUtil::setSelectedCityId($city);
+        }
+        
+        $this->actionIndex(null,$category);
+    }
 
     public function actionIndex($keyword = null, $category = null, $facebook = 0, $page = 0, $status = Product::STATUS_ACTIVE) {              
+        //echo StringUtil::replaceRepeatCharacter('baf---_---a', '-', '');exit;
         if (Yii::app()->user->isGuest && isset(Yii::app()->request->cookies['usercity_ck'])) {
             CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
         }

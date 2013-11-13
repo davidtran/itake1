@@ -79,6 +79,14 @@ $config = CMap::mergeArray(
                     'caseSensitive' => false,
                     'urlSuffix' => '.html',
                     'rules' => array(
+                        array(
+                            'class' => 'application.components.ProductUrlRule',
+                            'connectionID' => 'db',
+                        ),
+                        array(
+                            'class' => 'application.components.UserUrlRule',
+                            'connectionID' => 'db',
+                        ),
                         'post/<id:\d+>/<title:.*?>' => '/product/details',
                         'register' => 'user/register',
                         'login' => 'user/login',
@@ -87,11 +95,14 @@ $config = CMap::mergeArray(
                         'post-ad/<category:\d+>/<name:.*?>' => '/upload/uploadNew',
                         'forgot-password' => 'user/forgetPassword',
                         'change-password' => 'user/changePassword',
-                        'welcome' => 'site/landing',
-                        'market/<action>' => 'site/<action>',
+                        'welcome' => 'site/landing',                        
+                        'catalog/<id:\d+>/<name:.*?>'=>'/site/category',
                         'market' => 'site',
                         'upload/<category:\d+>/<name:.*?>' => '/upload/index',
                         'connect-facebook' => '/user/facebookLogin',
+                        'profile/<id:\d+>/<name:.*?>'=>'/user/profile',
+                        
+                        
                     ),
                     'hostInfo' => $params['urlManager.hostInfo'],
                     'secureHostInfo' => $params['urlManager.secureHostInfo'],

@@ -49,8 +49,7 @@ $(document).ready(function() {
         );
     }
     $container = $('#userProductBoard');
-    $container.imagesLoaded(function(){
-        console.log('loaded image');
+    $container.imagesLoaded(function(){        
         masoryCenterAlign();
         $container.show('fade');
         //have to call 2 times for relayout correctly

@@ -28,7 +28,7 @@ class User extends CActiveRecord
     const GENDER_NOT_SPECIFY = 0;
     const TYPE_NORMAL = 0;
     const TYPE_ADMIN = 1;
-
+    const DEFAULT_POST_LIMIT = 3;
     public $sendRegisterEmail = true;
     public $uploadImage;
     public $registerFromMobile = false;
@@ -71,7 +71,7 @@ class User extends CActiveRecord
             array('password', 'length', 'max' => 50),
             array('salt', 'length', 'max' => 50),
             array('email ', 'length', 'max' => 200),
-            array('target', 'length', 'max' => 500),
+            array('target', 'length', 'max' => 100),
             array('locationText', 'length', 'max' => 500),
              array('birthday', 'length', 'max' => 100),
             array('email', 'email'),
@@ -209,6 +209,7 @@ class User extends CActiveRecord
         $this->username = filter_var($this->username, FILTER_SANITIZE_STRIPPED);
         $this->email = filter_var($this->email, FILTER_SANITIZE_EMAIL);
         if ($this->isNewRecord) {
+            $this->post_limit = self::DEFAULT_POST_LIMIT;
             $this->status = self::STATUS_ACTIVE;
             $this->salt = $this->generateSalt();
             $this->create_date = DateUtil::getCurrentDateTime();
@@ -344,19 +345,25 @@ class User extends CActiveRecord
     public function getUserProfileLink()
     {
         return CHtml::link(
-                        $this->username, array('/user/profile', 'id' => $this->id, 'name' => $this->username), array('title' => $this->target)
+                        $this->username, $this->getUserProfileUrl(), array('title' => $this->target)
         );
     }
 
     public function getUserProfileUrl()
     {
 
-
-        return Yii::app()->createUrl('/user/profile', array(
-                    'id' => $this->id,
-                    'name' => StringUtil::utf8ToAscii($this->username),
-                        )
-        );
+        if(trim($this->slug)!=''){
+            return Yii::app()->createUrl('/user/profile',array(
+                'slug'=>$this->slug
+            ));
+        }else{
+            return Yii::app()->createUrl('/user/profile', array(
+                'id' => $this->id,
+                'name' =>StringUtil::makeSlug($this->username)
+                    )
+            );
+        }
+        
     }
 
     public function getProfileImageUrl($absolute = false)

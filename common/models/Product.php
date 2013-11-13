@@ -233,8 +233,10 @@ class Product extends CActiveRecord
         {
             return Yii::app()->controller->createAbsoluteUrl(
                             '/product/details', array(
-                        'id' => $this->id,
-                        'title' => StringUtil::makeSlug($this->title)
+                                'id' => $this->id,
+                                'title' => StringUtil::makeSlug($this->title),
+                                'categorySlug'=>Yii::t('slug',$this->category->slug),                                
+                                'citySlug'=>$this->address->cityModel->slug
                             )
             );
         }
@@ -242,8 +244,10 @@ class Product extends CActiveRecord
         {
             return Yii::app()->controller->createUrl(
                             '/product/details', array(
-                        'id' => $this->id,
-                        'title' => StringUtil::makeSlug($this->title)
+                                'id' => $this->id,
+                                'title' => StringUtil::makeSlug($this->title),
+                                'categorySlug'=>$this->category->slug,                                
+                                'citySlug'=>$this->address->cityModel->slug
                             )
             );
         }

@@ -39,10 +39,10 @@ class Category extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, description, sort', 'required'),
+			array('slug,name', 'required'),
 			array('sort', 'numerical', 'integerOnly'=>true),
 			array('name, icon', 'length', 'max'=>50),
-			array('image', 'length', 'max'=>200),
+			array('image,description', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, description, icon, sort, image', 'safe', 'on'=>'search'),

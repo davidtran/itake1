@@ -19,15 +19,15 @@
             <div class="productCreateDate">
 
                 <div class="row-fluid">
-                    <div class="span8">                                               
+                    <div class="span7">                                               
                         <div class="row-fluid">
+                          
                             <?php echo $product->displayDateTime(); ?>  
-
                         </div>
 
 
                     </div>    
-                    <div class="span4">
+                    <div class="span5">
                         <div class="productImagePrice"><?php echo number_format($product->price, 0); ?> đ</div>
                     </div>
                 </div>
@@ -49,12 +49,14 @@
                         }
                         ?>
                     </div>
+
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
                         <i class="icon-comments"></i> <?php echo $product->commentCount; ?>
                     </div>
                 </div>
+
             </div>
             
 

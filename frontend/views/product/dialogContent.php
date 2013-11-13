@@ -47,8 +47,7 @@
                                                 'class' => 'img-circle',
                                             ));
                                             ?>
-                                            <?php echo $product->
-                                                user->getUserProfileLink(); ?>
+                                            <?php echo $product->user->getUserProfileLink(); ?>
                                             <br/>
 
                                         </div>
@@ -199,7 +198,7 @@
                 <h3 class="title_font" style="text-transform:uppercase;">
                     <?php LanguageUtil::echoT('More like this') ?></h3>
             </div>
-            <div class="row-fluid">
+            <div class="row-fluid" style="margin-left:1%;">
                 <div id="userProductList">
                     <?php foreach ($relateProductList as $relateProduct): ?>
                         <?php echo $relateProduct->

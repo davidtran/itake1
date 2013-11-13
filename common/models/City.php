@@ -44,10 +44,10 @@ class City extends CActiveRecord
 			array('name, latitude, longitude, country', 'required'),
 			array('country', 'numerical', 'integerOnly'=>true),
 			array('latitude, longitude', 'numerical'),
-			array('name', 'length', 'max'=>50),
+			array('slug,name', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, latitude, longitude, country', 'safe', 'on'=>'search'),
+			array('id, name, latitude, longitude, slug,country', 'safe', 'on'=>'search'),
 		);
 	}
 

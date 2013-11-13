@@ -112,7 +112,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
             <div class="row-fluid">     
 
                 <ul>
-                    <li><a href="<?php echo Yii::app()->createUrl('/site/index') ?>" title="<?php echo LanguageUtil::t('All')?>"><span class="nav-text all-cat-wrap selected mark"><small class="all-cat"></small><em></em>     &nbsp&nbsp<?php LanguageUtil::echoT('All') ?></span></a></li>                                                      
+                    <li><a href="<?php echo CityUtil::makeSelectCityUrl($cityId) ?>" title="<?php echo LanguageUtil::t('All')?>"><span class="nav-text all-cat-wrap selected mark"><small class="all-cat"></small><em></em>     &nbsp&nbsp<?php LanguageUtil::echoT('All') ?></span></a></li>                                                      
                     <?php foreach (CategoryUtil::getCategoryList() as $category): ?>
                         <li><a href="<?php echo $category->getUrl(); ?>" data-toggle="tooltip" title='<?php echo LanguageUtil::t($category->name)?>'><span class="nav-text <?php echo $category->getStyleName(); ?>"><small><i class="<?php echo $category->icon; ?> icon-large"></i> <em></em></small>      &nbsp&nbsp<?php LanguageUtil::echoT( $category->name);  ?></span></a></li>
                     <?php endforeach; ?>                    
@@ -122,63 +122,67 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
         <div class="row-fluid" id="fixWidthMasory" class="visible-desktop"></div>
         <div class="row-fluid">
         <div class="span2 visible-desktop" id="menuWidthBase" style="height: 1000px;" class=""><p></p></div>
-        <div class="span10">
-            <div class="row-fluid" id="wrapper_productContainer">
-                <div class="hidden-desktop">
-                    <center><?php echo CHtml::dropDownList('selectCategory', $category,  CHtml::listData(CategoryUtil::getCategoryList(),'id','name'));?></center>
-                </div>                
-                <?php if (trim($keyword) != ''): ?>
-                    <div class="alert alert-info">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        <b>Có <?php echo $numFound; ?> kết quả với từ khóa <?php echo $keyword; ?></b></div>                
-                <?php endif; ?>
-                <?php if($locationAddress !=null):?>
-                    <div class="alert alert-info">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        Đang hiển thị các sản phẩm gần địa điểm <?php echo $locationAddress; ?>, <?php echo $locationCity; ?> | 
-                        <?php echo CHtml::link('<i class="icon-remove"></i> Xóa vị trí',array('/site/removeLocation'));?>
-                    </div>
-                <?php endif; ?>
-                <?php if($facebook && count($productList)==0):?>
-                <div class="row-fluid">
-                    <div class="span6 offset3">
-                        <?php if(FacebookUtil::getInstance()->doUserHaveEnoughUploadPermission() ==false):?>
-                            <p class="alert alert-info center">
-                                <span class="icon-stack icon-2x">
-                                  <i class="icon-circle icon-stack-base"></i>
-                                  <i class="icon-facebook icon-light"></i>
-                                </span>
-                                <br>
-                                Bạn cần kết nối tài khoản của bạn với Facebook để sử dụng chức năng này.
-                            </p>
-                            <div class="row-fluid center">
-                            <?php echo FacebookUtil::getInstance()->makeFacebookLoginLink('Click để kết nối iTake với Facebook',  Yii::app()->createUrl("site/facebook")); ?>
+            <div class="span10">
+                <div class="row-fluid" >
+                     <div class="span12">
+                        <div  id="wrapper_productContainer">
+                            <div class="hidden-desktop">
+                                <center><?php echo CHtml::dropDownList('selectCategory', $category,  CHtml::listData(CategoryUtil::getCategoryList(),'id','name'));?></center>
+                            </div>                
+                            <?php if (trim($keyword) != ''): ?>
+                                <div class="alert alert-info">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <b>Có <?php echo $numFound; ?> kết quả với từ khóa <?php echo $keyword; ?></b></div>                
+                            <?php endif; ?>
+                            <?php if($locationAddress !=null):?>
+                                <div class="alert alert-info">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    Đang hiển thị các sản phẩm gần địa điểm <?php echo $locationAddress; ?>, <?php echo $locationCity; ?> | 
+                                    <?php echo CHtml::link('<i class="icon-remove"></i> Xóa vị trí',array('/site/removeLocation'));?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if($facebook && count($productList)==0):?>
+                            <div class="row-fluid">
+                                <div class="span6 offset3">
+                                    <?php if(FacebookUtil::getInstance()->doUserHaveEnoughUploadPermission() ==false):?>
+                                        <p class="alert alert-info center">
+                                            <span class="icon-stack icon-2x">
+                                              <i class="icon-circle icon-stack-base"></i>
+                                              <i class="icon-facebook icon-light"></i>
+                                            </span>
+                                            <br>
+                                            Bạn cần kết nối tài khoản của bạn với Facebook để sử dụng chức năng này.
+                                        </p>
+                                        <div class="row-fluid center">
+                                        <?php echo FacebookUtil::getInstance()->makeFacebookLoginLink('Click để kết nối iTake với Facebook',  Yii::app()->createUrl("site/facebook")); ?>
+                                        </div>
+                                    <?php else:?>
+                                    <p class="alert alert-info center">
+                                         <span class="icon-stack icon-2x">
+                                              <i class="icon-circle icon-stack-base"></i>
+                                              <i class="icon-smile icon-light"></i>
+                                            </span>
+                                        <br>
+                                        Hiện tại chưa có sản phẩm nào được bán từ bạn bè của bạn, hãy mời họ sử dụng itake.
+                                    </p>
+                                    <?php endif; ?>
+                                    <hr class="margin-top-10"/>
+                                    <div class="fb-like center margin-top-10" data-href="<?php echo Yii::app()->getBaseUrl(true); ?>" data-width="auto" data-show-faces="true" data-send="true"></div>
+                                </div>
                             </div>
-                        <?php else:?>
-                        <p class="alert alert-info center">
-                             <span class="icon-stack icon-2x">
-                                  <i class="icon-circle icon-stack-base"></i>
-                                  <i class="icon-smile icon-light"></i>
-                                </span>
-                            <br>
-                            Hiện tại chưa có sản phẩm nào được bán từ bạn bè của bạn, hãy mời họ sử dụng itake.
-                        </p>
-                        <?php endif; ?>
-                        <hr class="margin-top-10"/>
-                        <div class="fb-like center margin-top-10" data-href="<?php echo Yii::app()->getBaseUrl(true); ?>" data-width="auto" data-show-faces="true" data-send="true"></div>
+                            <?php endif; ?>
+                            <?php
+                            Yii::beginProfile('RenderProductList'); 
+                            $this->renderPartial('/site/_board', array(
+                                'productList' => $productList,
+                                'nextPageLink' => $nextPageLink
+                            ));
+                            Yii::endProfile('RenderProductList');
+                            ?>
+                            <div id="loadingText"></div>
+                        </div>
                     </div>
                 </div>
-                <?php endif; ?>
-                <?php
-                Yii::beginProfile('RenderProductList'); 
-                $this->renderPartial('/site/_board', array(
-                    'productList' => $productList,
-                    'nextPageLink' => $nextPageLink
-                ));
-                Yii::endProfile('RenderProductList');
-                ?>
-                <div id="loadingText"></div>
-            </div>
             </div>
         </div>
     </div>

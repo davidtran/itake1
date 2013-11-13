@@ -146,9 +146,11 @@ class ProductController extends Controller
         
     }
     public function actionDetails($id)
-    {   
+    {      
+        
         ProductViewCounterUtil::getInstance($id)->increaseView();
         $product = $this->loadProduct($id);
+        CityUtil::setSelectedCityId($product->address->city);
         $canonicalUrl = $this->createAbsoluteUrl('/product/details', array('id' => $id));
         $relateProductList = $this->relatedProduct($product);
         if (Yii::app()->request->isAjaxRequest) {

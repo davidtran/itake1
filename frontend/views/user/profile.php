@@ -14,7 +14,7 @@ clientScript->registerScriptFile('http://maps.google.com/maps/api/js?sensor=true
 ?>
 <div class="row-fluid profile-page">
     <div class="span2">
-        <div class='nd_profile'>
+        <div class='nd_profile' style="display:none;">
             <div class="top">
                 <div class="row-fluid">
                     <div class="span12 profile-name">
@@ -68,8 +68,8 @@ clientScript->registerScriptFile('http://maps.google.com/maps/api/js?sensor=true
 </div>
 <div class="span10" id="userProductWrapper">
 <div class="row-fluid">
-    <div class="span8">
-        <h1 class="title_font">
+    <div class="span12">
+        <h1 class="title_font center">
             Danh sách sản phẩm của
             <?php echo $user->username ?></h1>
     </div>
@@ -115,6 +115,7 @@ renderPartial('/site/_productDialog',array(),true,false); ?>
 <?php Yii::app()->
 clientScript->registerScript('layout-customize',
     "
+     $('div.nd_profile').show('fade');
     $('div.nd_profile').css('height',($(window).height() - 60)+'px');
     var div_parent = $('div.nd_profile').parent();
     $('div.nd_profile').css('width',($(div_parent).width())+'px');
