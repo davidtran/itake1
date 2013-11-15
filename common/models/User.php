@@ -65,7 +65,7 @@ class User extends CActiveRecord
 
         
         return array(
-            array('email,username,password', 'required'),
+            array('email,city,locationText,phone,username,password', 'required'),
             array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
             array('post_limit,status,type,isFbUser,gender,role', 'numerical', 'integerOnly' => true),
             array('password', 'length', 'max' => 50),
@@ -73,9 +73,9 @@ class User extends CActiveRecord
             array('email ', 'length', 'max' => 200),
             array('target', 'length', 'max' => 100),
             array('locationText', 'length', 'max' => 500),
-             array('birthday', 'length', 'max' => 100),
+            array('birthday', 'length', 'max' => 100),
             array('email', 'email'),
-            array('phone', 'length', 'max' => 12),
+            array('phone', 'length', 'max' => 12),          
             array('captcha','captcha','on'=>'register'),
             array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
             array('image,banner', 'length', 'max' => 100),
@@ -84,7 +84,7 @@ class User extends CActiveRecord
             array('post_limit,id,username, create_date, update_date, type, email, image', 'safe', 'on' => 'search'),
         );
       
-    }
+    }        
 
     /**
      * @return array relational rules.
@@ -142,6 +142,7 @@ class User extends CActiveRecord
             'locationText' => 'Địa chỉ',
             'phone' => LanguageUtil::t('Phone'),
             'post_limit'=>Yii::t('Default','Post limit'),
+            'city'=>Yii::t('Default','City'),        
         );
     }
 
@@ -230,7 +231,7 @@ class User extends CActiveRecord
             }
         }
 
-        $this->update_date = date('Y-m-d H:i:s');
+        $this->update_date = date('Y-m-d H:i:s');        
         return parent::beforeValidate();
     }
 
@@ -240,6 +241,9 @@ class User extends CActiveRecord
             //No need to save image;
             //$this->image = $this->getProfileImageUrl(); 
         }
+//        if($this->city !=null && $this->locationText !=null && $this->phone!=''){
+//            $address = new Address();
+//        }
 
         return parent::beforeSave();
     }
@@ -393,6 +397,24 @@ class User extends CActiveRecord
         else {
             return $this->banner;
         }
+    }
+    
+    public function canChangeSlug(){
+        return empty($this->slug) || trim($this->slug) == '';
+    }
+        
+    public function changeSlug($newSlug){
+        $slugUtil = new SlugMakerUtil();
+        if($this->canChangeSlug()){
+            $this->slug = $newSlug;
+            if($slugUtil->checkSlugAvailable($newSlug)){
+                $rs= $this->saveAttributes(array(
+                    'slug'=>$newSlug
+                ));
+                return $rs;
+            }            
+        }        
+        return false;
     }
 
 }
