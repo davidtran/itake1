@@ -29,7 +29,7 @@
                   <i class="icon-flag icon-light"></i>
             </span>
             <div class="span12">
-                <span class="center;">Đã bán</span>
+                <span class="center">Đã bán</span>
             </div>
         </div>
     </div>

@@ -57,7 +57,7 @@ clientScript->registerScriptFile('http://maps.google.com/maps/api/js?sensor=true
                  <?php if(UserUtil::canEdit($user)):?>               
                 <div class="row-fluid">
                     <?php echo CHtml::link('<i class="icon-cogs"></i>
-                Cập nhật thông tin',$this->createUrl('user/editProfile'),array(
+                Cập nhật thông tin',$this->createUrl('user/editProfile',array('id'=>$user->id)),array(
                         'class'=>'btn btn-success center',
                     )); ?>                      
                 </div>

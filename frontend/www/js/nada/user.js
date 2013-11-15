@@ -1,4 +1,39 @@
 $(document).ready(function() {    
+    if(typeof(canChangeSlug)!='undefined' && canChangeSlug){
+        $('#slugDialog').modal({
+            show:true,
+            backdrop:'static'
+        });
+        
+        $('input[name="slug"]').bind('keyup keydown keypress change',function(){
+            value = $(this).val();
+            $('#newSlug').html(value);
+        });
+        
+        $('#btnSaveSlug').click(function(e){
+            e.preventDefault();            
+            $.ajax({
+                url:BASE_URL + '/user/changeSlug',
+                type:'post',
+                data:{
+                    slug:$('input[name="slug"]').val()
+                },
+                success:function(json){
+                    var data = $.parseJSON(json);
+                    if(data.success){
+                        bootbox.alert(data.msg,function(){
+                            window.location.reload();
+                        });
+                        $('#slugDialog').modal('hide');
+                    }else{
+                        bootbox.alert(data.msg);
+                    }
+                    
+                }
+            })
+            return false;
+        });
+    }
     var avatarChanger = document.getElementById('avatarChanger');
     if (avatarChanger != undefined) {
         upclick(

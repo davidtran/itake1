@@ -96,13 +96,15 @@ class UserController extends Controller
         }
     }
 
-    public function actionRegister($returnUrl = null)
+    public function actionRegister()
     {       
         if (isset($_GET['code'])) {
             try {
                 $accessToken = Yii::app()->facebook->getAccessToken();
-                $profile = Yii::app()->facebook->api('/me');                               
+                $profile = Yii::app()->facebook->api('/me'); 
+                
                 if (isset($profile['email'])) {
+                    $newFacebookuser = false;
                     if (Yii::app()->user->isGuest == false) {
                         $user = Yii::app()->user->getModel();                        
                     }
@@ -126,7 +128,7 @@ class UserController extends Controller
                         $user->isFbUser = 1;
                     }
                     else {
-
+                        $newFacebookuser = true;
                         $user->fbId = $profile['id'];
                         $user->isFbUser = 1;
                     }
@@ -140,14 +142,14 @@ class UserController extends Controller
                     $loginForm->validate();
                     $loginForm->login();
                     Yii::app()->user->setFlash('success','Kết nối với Facebook thành công.');
-                    $siteUrl = $this->createUrl('/user/editProfile');                    
-                    if($returnUrl!=null){
-                        $this->redirect($returnUrl);
-                    }else if($this->hasReturnUrl()){
-                        $this->redirectToReturnUrl();                        
-                    }else{
+                    $siteUrl = $this->createUrl('/user/editProfile',array('newUser'=>true));                    
+                    if($newFacebookuser){
                         $this->redirect($siteUrl);
-                    }
+                    }else{
+                        if($this->hasReturnUrl()){
+                            $this->redirectToReturnUrl();                        
+                        }
+                    }                    
                 }
             }
             catch (FacebookApiException $e) {               
@@ -171,11 +173,7 @@ class UserController extends Controller
                 $loginForm->validate();
                 $loginForm->login();
                 $siteUrl = $this->createUrl('/user/editProfile',array('newUser'=>true));
-                if($returnUrl!=null){
-                    $this->redirect($returnUrl);
-                }else{
-                    $this->redirect($siteUrl);
-                }
+                $this->redirect($siteUrl);
             }
         }
         $user->password = '';
@@ -356,24 +354,61 @@ class UserController extends Controller
         $es = new TbEditableSaver('User');
         $es->update();
     }
-    public function actionEditProfile(){
-        $model = Yii::app()->user->model;
-        if(isset($_POST['User']))
-        {
-            $model->allowUpdateWithoutCaptcha = true;
-            $model->attributes=$_POST['User'];
-            if($model->save()){
-                $this->redirect($this->createUrl('profile',array('id' => $model->id,'username'=>$model->username)));
+    
+    public function actionChangeSlug(){
+        $slug = Yii::app()->request->getPost("slug");
+        if(trim($slug)!='' && Yii::app()->user->isGuest == false){
+            $rs = Yii::app()->user->model->changeSlug($slug);
+            if($rs){
+                $this->renderAjaxResult(true,'Thay đổi địa chỉ thành công');
+            }else{
+                $this->renderAjaxResult(false,'Địa chỉ này đã được sử dụng');
             }
-             else
+        }
+        $this->renderAjaxResult(false,'Không thể thay đổi địa chỉ');
+    }
+    
+    public function actionEditProfile($id,$newUser = false){
+        if( Yii::app()->user->isGuest == false && Yii::app()->user->getId() == $id){
+            $model = Yii::app()->user->model;
+            if(isset($_POST['User']))
             {
-                $this->render('editProfile', array('model'=>$model));
+                $model->allowUpdateWithoutCaptcha = true;
+                $model->attributes=$_POST['User'];
+                if($model->save()){
+                    if($this->hasReturnUrl()){
+                        $this->redirectToReturnUrl();                        
+                    }else{
+                        $this->redirect($this->createUrl('profile',array('id' => $model->id,'username'=>$model->username)));
+                    }
+                    
+                }
+                 else
+                {
+                    $this->render('editProfile', array('model'=>$model));
+                }
             }
+            else
+            {
+                $canChangeSlug = $model->canChangeSlug();
+                $defaultSlug = null;
+                if($canChangeSlug){
+                    $slugMaker = new SlugMakerUtil();
+                    $defaultSlug = $slugMaker->makeDefaultSlug($model->username);
+                }
+                $this->render('editProfile', array(''
+                    . 'model' => $model,
+                      'canChangeSlug' => $canChangeSlug,
+                      'defaultSlug' => $defaultSlug,
+                      'newUser'=>$newUser
+
+                ));
+            }
+        }else{
+            $this->redirect($this->createUrl('/site'));
         }
-        else
-        {
-            $this->render('editProfile', array('model'=>$model));
-        }
+        
+        
     }
     
     public function actionClearFacebookSession(){

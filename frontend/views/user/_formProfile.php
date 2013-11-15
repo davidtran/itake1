@@ -20,7 +20,7 @@
         <div class="span6">
             <div class="control-group">
     		    <?php echo $form->textFieldRow($model,'username',array('class'=>'controls','labelOptions'=>array('class'=>'control-label'))); ?>
-            </div>
+            </div>            
             <div class="control-group">
                     <?php echo $form->labelEx($model,'birthday',array('class'=>'control-label')); ?>
                     <?php
@@ -46,7 +46,9 @@
 
              ?>
             </div>
-
+            <div class="control-group">
+    		    <?php echo $form->dropDownListRow($model,'city',  CityUtil::getCityListData(true),array('class'=>'controls','labelOptions'=>array('class'=>'control-label'))); ?>
+            </div>
             <div class="control-group">
     		    <?php echo $form->textFieldRow($model,'locationText',array('class'=>'controls','labelOptions'=>array('class'=>'control-label'))); ?>
             </div>
@@ -58,7 +60,7 @@
 
             <div class="control-group">
     		    <?php echo $form->textAreaRow($model,'target',array('rows'=>3,'class'=>'controls','labelOptions'=>array('class'=>'control-label'))); ?>
-             </div>
+            </div>
             <div class="control-group">
                 <label class="control-label"><?php LanguageUtil::echoT('Password') ?></label>    
                 <div class="controls"> 
@@ -73,7 +75,7 @@
 	<div class="control-group margin-top-20">
         <div class="controls">
 		  <?php echo CHtml::submitButton(LanguageUtil::t('Update'),array('class' => 'btn btn-success btn-large')); ?>
-          <?php if(isset($_GET['newUser']) && $_GET['newUser']) echo CHtml::link('Bỏ qua bước này',Yii::app()->createUrl('market/index'),array('class' => 'btn btn-large')); ?>
+          <?php if(isset($_GET['newUser']) && $_GET['newUser']) echo CHtml::link('Bỏ qua bước này',Yii::app()->createUrl('/site'),array('class' => 'btn btn-large')); ?>
         </div>
 	</div>
     </fieldset>
