@@ -126,9 +126,10 @@ class UserController extends Controller
                         Yii::app()->session['LastFbId'] = $profile['id'];
                         $user->fbId = $profile['id'];
                         $user->isFbUser = 1;
+                        $newFacebookuser = true;
                     }
                     else {
-                        $newFacebookuser = true;
+                        
                         $user->fbId = $profile['id'];
                         $user->isFbUser = 1;
                     }
@@ -142,7 +143,7 @@ class UserController extends Controller
                     $loginForm->validate();
                     $loginForm->login();
                     Yii::app()->user->setFlash('success','Kết nối với Facebook thành công.');
-                    $siteUrl = $this->createUrl('/user/editProfile',array('newUser'=>true));                    
+                    $siteUrl = $this->createUrl('/user/editProfile',array('id'=>$user->id,'newUser'=>true));                    
                     if($newFacebookuser){
                         $this->redirect($siteUrl);
                     }else{
@@ -172,7 +173,7 @@ class UserController extends Controller
                 $loginForm->password = $password;
                 $loginForm->validate();
                 $loginForm->login();
-                $siteUrl = $this->createUrl('/user/editProfile',array('newUser'=>true));
+                $siteUrl = $this->createUrl('/user/editProfile',array('id'=>$user->id,'newUser'=>1));
                 $this->redirect($siteUrl);
             }
         }
@@ -370,7 +371,9 @@ class UserController extends Controller
     
     public function actionEditProfile($id,$newUser = false){
         if( Yii::app()->user->isGuest == false && Yii::app()->user->getId() == $id){
+            $canChangeSlug = false;
             $model = Yii::app()->user->model;
+            $model->scenario = 'editProfile';
             if(isset($_POST['User']))
             {
                 $model->allowUpdateWithoutCaptcha = true;
@@ -385,7 +388,11 @@ class UserController extends Controller
                 }
                  else
                 {
-                    $this->render('editProfile', array('model'=>$model));
+                    $this->render('editProfile', array(
+                        'model'=>$model,
+                        'canChangeSlug'=>false,
+                        'newUser'=>$newUser
+                    ));
                 }
             }
             else

@@ -73,7 +73,7 @@
         
         public static function removeSpecialCharacter($str)
         {
-            return preg_replace('/[^a-zA-Z0-9\s]/s', '', $str);
+            return preg_replace('/[^a-zA-Z0-9\-\s]/s', '', $str);
         }
         
         public static function makeSlug($name)

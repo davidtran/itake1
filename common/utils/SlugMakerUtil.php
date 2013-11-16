@@ -80,11 +80,11 @@ class SlugMakerUtil{
     
     public static function makeSlug($name)
     {
-        return strtolower(
+        return trim(strtolower(
                 StringUtil::replaceRepeatCharacter(
                 str_replace(' ','-',
                     StringUtil::removeSpecialCharacter(
                         StringUtil::utf8ToAscii($name)
-                    )),'-',''));
+                    )),'-','')),'-');
     }
 }

@@ -65,7 +65,7 @@ class User extends CActiveRecord
 
         
         return array(
-            array('email,city,locationText,phone,username,password', 'required'),
+            array('email,username,password', 'required'),
             array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
             array('post_limit,status,type,isFbUser,gender,role', 'numerical', 'integerOnly' => true),
             array('password', 'length', 'max' => 50),
@@ -75,6 +75,7 @@ class User extends CActiveRecord
             array('locationText', 'length', 'max' => 500),
             array('birthday', 'length', 'max' => 100),
             array('email', 'email'),
+            array('city,locationText,phone','required','on'=>'editProfile'),
             array('phone', 'length', 'max' => 12),          
             array('captcha','captcha','on'=>'register'),
             array('email', 'unique', 'className' => 'User', 'attributeName' => 'email'),
@@ -405,6 +406,7 @@ class User extends CActiveRecord
         
     public function changeSlug($newSlug){
         $slugUtil = new SlugMakerUtil();
+        $newSlug = SlugMakerUtil::makeSlug($newSlug);
         if($this->canChangeSlug()){
             $this->slug = $newSlug;
             if($slugUtil->checkSlugAvailable($newSlug)){

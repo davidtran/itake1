@@ -80,12 +80,5 @@
 	</div>
     </fieldset>
 <?php $this->endWidget(); ?>
-<?php if(isset($_GET['newUser']) && $_GET['newUser']) : ?>
-    <script type="text/javascript">
-    $(document).on('ready',function(){
-         showMessage('Cảm ơn bạn đã đăng ký tài khoản iTake. Để phục vụ bạn tốt nhất xin vui lòng cập nhật thông tin tài khoản. Hoặc bạn có thể bỏ qua bước này.',4000);
-    });
-       
-    </script>
-<?php  endif; ?>
+
 <!-- form -->

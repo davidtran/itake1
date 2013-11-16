@@ -101,7 +101,7 @@ $config = CMap::mergeArray(
                         'upload/<category:\d+>/<name:.*?>' => '/upload/index',
                         'connect-facebook' => '/user/facebookLogin',
                         'profile/<id:\d+>/<name:.*?>'=>'/user/profile',
-                        
+                        'edit-profile/<id:\d+>/<newUser:\d+>'=>'/user/editProfile'
                         
                     ),
                     'hostInfo' => $params['urlManager.hostInfo'],

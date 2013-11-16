@@ -21,12 +21,15 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/user.
 			CẬP NHẬT THÔNG TIN TÀI KHOẢN ITAKE
 		</h1>
         <?php if($newUser):?>
-        <p>
-            Chúc mừng bạn đã đến với itake.me, hãy dành ít phút để cập nhật thông tin của bạn
-        </p>
+        
         <?php endif; ?>
 	</div>
 	<div class="span8 offset3" id="profile"> 
+        <center>
+        <p class="alert-success alert">
+            Chúc mừng bạn đã đến với itake.me, hãy dành ít phút để cập nhật thông tin của bạn
+        </p>
+        </center>
     <hr>
     <br>
   	<?php $this->renderPartial('_formProfile',array('model'=>$model)); ?>
