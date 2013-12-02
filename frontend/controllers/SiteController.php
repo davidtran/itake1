@@ -313,7 +313,7 @@ class SiteController extends Controller {
         $this->layout = '//layouts/noMenu';        
         $listProducts = Product::model()->findAll(array('limit'=>28,'order'=>'create_date DESC'));
         if (Yii::app()->language == 'en')
-            $this->render('landing');
+            $this->render('landing',array('listProducts'=>$listProducts));
         else
             $this->render('landing_vi',array('listProducts'=>$listProducts));
     }
