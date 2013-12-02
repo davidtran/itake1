@@ -80,6 +80,7 @@ return array(
     'Services'=>'Dịch vụ',
     'Real Estate'=>'Bất động sản',
     'Car & Motobike'=>'Ô tô, xe máy',
+    'Cosmetic'=>'Mỹ phẫm',
     'Others'=>'Khác',
     'All'=>'Tất cả',
     /////CITIES
