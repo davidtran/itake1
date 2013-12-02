@@ -74,7 +74,7 @@ return array(
     ////Category
     'Fashion'=>'Thời trang',
     'Mobile & Tablet'=>'Điện thoại, máy tính bảng',
-    'Desktop & Latop'=>'Máy tính bàn, laptop',
+    'Desktop & Laptop'=>'Máy tính bàn, laptop',
     'Camera & Electrical Devices'=>'Máy ảnh, thiết bị điện tử',
     'Handmade & Art'=>'Thủ công mỹ nghệ',
     'Services'=>'Dịch vụ',
