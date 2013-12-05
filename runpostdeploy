@@ -1,3 +1,8 @@
 #!/usr/bin/env php
 <?php
+
 require_once(dirname(__FILE__)."/common/lib/postdeploy.php");
+exec('
+	kill $(ps aux | grep start.jar | tr -s " " | grep "java" | cut -d" " -f2) &
+	cd solr &&
+	nohup java -jar start.jar > null && cd .. && print "Solr restarted"');
