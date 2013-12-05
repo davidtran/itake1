@@ -272,6 +272,12 @@ class ProductController extends Controller
         ));
     }
 
+    public function actionUpProduct($id){
+        $product = $this->loadProduct($id);
+        $product->refreshUpdateDate();
+        $this->renderAjaxResult(true);
+    }
+
 }
 
 ?>

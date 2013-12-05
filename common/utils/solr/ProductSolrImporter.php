@@ -30,7 +30,7 @@ abstract class ProductSolrImporter
             return true;
         }
         catch (Exception $e)
-        {
+        {         
             throw new CException('Solr error: ' . $e->getMessage());
         }
         return false;

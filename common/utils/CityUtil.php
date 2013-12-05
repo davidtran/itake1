@@ -78,6 +78,9 @@ class CityUtil
     public static function setSelectedCityId($cityId)
     {
         UserRegistry::getInstance()->setValue('City', $cityId);
+        Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $cityId,array(
+            'expire'=>60 * 60 * 24 * 60 + time()
+        ));
     }
       
 }

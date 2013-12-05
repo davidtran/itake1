@@ -171,6 +171,7 @@ class Product extends CActiveRecord
     
     public function beforeSave()
     {
+        $this->update_date = date('Y-m-d H:i:s');
         if($this->isNewRecord){
             $this->country = Yii::app()->country->getId();
             $this->view = 1;
@@ -325,6 +326,21 @@ class Product extends CActiveRecord
                         '{time}' => $dateFormatter->format('HH:mm', strtotime($this->create_date))
             ));
         }
+    }
+
+    public function refreshUpdateDate(){
+        if(DateUtil::convertDate($this->update_date,'Y-m-d') != date('Y-m-d')){
+            return Yii::app()
+                ->db
+                ->createCommand('update {{product}} set update_date=:date and id=:id')
+                ->bindValues(array(
+                    'date'=>date('Y-m-d H:i:s'),
+                    'id'=>$this->id
+                ))
+                ->query();    
+        }
+        return false;
+        
     }
 
 }

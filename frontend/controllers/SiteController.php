@@ -33,12 +33,8 @@ class SiteController extends Controller {
         );
     }
 
-    public function actionCity($city) {
-        //change city
-        //redirect to index with selected category
-        Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $city);
-        CityUtil::setSelectedCityId($city);
-        
+    public function actionCity($city) {    
+        CityUtil::setSelectedCityId($city);        
         $this->actionIndex();
     }
 
@@ -84,8 +80,7 @@ class SiteController extends Controller {
     }
     
     public function actionCategory($category,$city = null){                      
-        if($city){
-             Yii::app()->request->cookies['usercity_ck'] = new CHttpCookie('usercity_ck', $city);
+        if($city){            
             CityUtil::setSelectedCityId($city);
         }
         
@@ -97,10 +92,6 @@ class SiteController extends Controller {
         if (Yii::app()->user->isGuest && isset(Yii::app()->request->cookies['usercity_ck'])) {
             CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
         }
-//         if (Yii::app()->user->isGuest == true && !isset(Yii::app()->session['VisitLanding'])) {
-//             Yii::app()->session['VisitLanding'] = true;
-//             $this->redirect($this->createUrl('landing'));
-//         }
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber'] = $page;
         Yii::app()->session['LastCategory'] = $category;

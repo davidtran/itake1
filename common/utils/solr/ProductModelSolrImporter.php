@@ -30,14 +30,14 @@ class ProductModelSolrImporter extends ProductSolrImporter
             'create_date' => $this->formatSolrDate($product->create_date),
             'lat' => $product->lat,
             'lon' => $product->lon,
-            'price' => $product->price,
-            'phone' => $product->phone,
+            'price' => $product->price,    
             'view'=>$product->view,
             'country'=>$product->country,
             'latlng_0_coordinate'=>$product->lat,
             'latlng_1_coordinate'=>$product->lon,
             'status'=>$product->status,
-            'user_id'=>$product->user_id
+            'user_id'=>$product->user_id,
+            'update_date'=>$this->formatSolrDate($product->update_date),
         );
         
         if ($product->category != null)
@@ -51,7 +51,7 @@ class ProductModelSolrImporter extends ProductSolrImporter
         }else{
             $data['city_name'] = '';
         }
-        
+      
         return $data;
     }
 

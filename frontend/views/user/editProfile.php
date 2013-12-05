@@ -1,6 +1,7 @@
 <?php
 Yii::app()->clientScript->registerScript('changeslug','var canChangeSlug = '.CJavaScript::encode($canChangeSlug),  CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/nada/user.js',CClientScript::POS_BEGIN);
+$this->pageTitle = 'Chỉnh sửa thông tin cá nhân';
 ?>
 <div class='container-fluid'>
 	<div class="row-fluid">

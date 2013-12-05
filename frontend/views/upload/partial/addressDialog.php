@@ -36,13 +36,7 @@
                             'placeholder'=>'Điện thoại liên hệ',
                             'style' => 'min-width:260px;',
                             'pattern'=>'\d{10}',
-                            )); ?>
-                            
-                         
-                        
-                        
-                            
-                            
+                            )); ?>                                                                                                                                                    
                             </div>
                             <?php echo $form->hiddenField($address,'lat'); ?>
                             <?php echo $form->hiddenField($address,'lon'); ?>
