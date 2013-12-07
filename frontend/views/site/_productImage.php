@@ -1,7 +1,7 @@
 <div class="productImageContainer">
     <div class="productImageLink">
     
-        <a target="_blank" href="<?php echo $product->getDetailUrl(); ?>" class="productLink"  title="<?php echo $product->description; ?>">
+        <a target="_blank" href="<?php echo $product->getDetailUrl(); ?>" class="productLink"  title="<?php echo filter_var(strip_tags($product->description),FILTER_SANITIZE_STRING); ?>">
             <?php if (isset($product->firstImage)): ?>
                 <?php
                 echo CHtml::image(
