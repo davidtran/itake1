@@ -1,7 +1,7 @@
 <div class="productItem <?php echo $product->category->getStyleName(); ?>" 
      id="<?php echo $prefix ?>product-<?php echo $product->id; ?>" 
      data-product-id="<?php echo $product->id; ?>"
-     data-title="<?php echo strip_tags($product->title); ?>">
+     data-title="<?php echo filter_var(strip_tags($product->title),FILTER_SANITIZE_MAGIC_QUOTES); ?>">
     <div class="row-fluid">
         
             <?php echo Yii::app()->controller->renderPartial('/site/_productImage', array(
