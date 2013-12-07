@@ -99,7 +99,7 @@ class ProductImageUtil
             
             
             imagefilledrectangle($gd_canvas,0, $newImageHeight-$titleFontSize*0.2, $newImageWidth, $newImageHeight, $bgColor);    
-            imagepng($gd_canvas, $dest);            
+            imagepng($gd_canvas, $dest,9);            
             imagedestroy($gd_canvas);
             imagedestroy($icon2);
             imagedestroy($icon1);

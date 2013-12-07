@@ -7,7 +7,7 @@
                     <a class="image-popup-no-margins" href="<?php echo Yii::app()->baseUrl . '/' . $image->facebook; ?>">
                         <img class="img-rounded" 
                              alt='<?php echo $product->title; ?>' 
-                             src="<?php echo Yii::app()->baseUrl . '/' . $image->facebook; ?>" 
+                             src="<?php echo Yii::app()->baseUrl . '/' . $image->image; ?>" 
                              onError="this.onerror=null;this.src='http://www.placehold.it/400x400/EFEFEF/AAAAAA&text=<?php echo Yii::t('Default', 'Missing image'); ?>';"
                              />
                     </a>

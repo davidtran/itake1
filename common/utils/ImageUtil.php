@@ -54,7 +54,7 @@
             $image = WideImage::load($url);
             if ($image)
             {              
-                $image->resizeDown($width, $height,'inside')->saveToFile($resizedUrl, 80);
+                $image->resizeDown($width, $height,'inside')->saveToFile($resizedUrl, 60);
                 return true;
             }
             return false;
