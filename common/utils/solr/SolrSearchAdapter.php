@@ -73,7 +73,7 @@ class SolrSearchAdapter {
 
         switch ($this->sortType) {
             case self::TYPE_CREATE_DATE:
-                $params['sort'] = 'update_date desc';
+                $params['sort'] = 'create_date desc';
                 break;
             case self::TYPE_TREND:
                 $params['bf'][] = 'product(1.1,view)';
