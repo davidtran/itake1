@@ -56,11 +56,11 @@ pageTitle = Yii::app()->name . ' - '. LanguageUtil::t("Easy to post to everywher
                         <h1 class="title_font">Đăng tin rao vặt miễn phí, mua hàng thỏa thích <br>
                             <small class="center" style="text-align:center;">Với các sản phẩm cập nhật liên tục từ điện thoại thông minh, facebook và iTake web</small></h1>
                     </div>
-                    <div class="row-fluid">
-                        <a class="btn-xem-hang">Xem hàng</a>                        
+                     <div class="row-fluid">
+                        <a class="btn-xem-hang" href="<?php echo $this->createUrl('/site'); ?>">Xem hàng</a>  
                     </div>
                     <div class="row-fluid margin-top-10">
-                        <a class="btn-fb-login">Đăng ký</a>
+                        <a class="btn-fb-login" href="<?php echo $this->createUrl('/user/login'); ?>">Đăng ký</a>
                     </div>
                 </div>                
             </div>
