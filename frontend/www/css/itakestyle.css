@@ -1897,7 +1897,7 @@ a.btn-fb-login:hover {
 
 .intro-item-product a img {
     height: 250px;
-    width: 209px;
+    width: auto;
 }
 
 div.nav-bar-top div.frmSearch div.locations,#FacebookPage input {
