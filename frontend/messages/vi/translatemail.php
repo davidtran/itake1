@@ -20,7 +20,11 @@ return array(
     
     //Analysis
     'This email is sumary of result social share,view and like report. It will help you get better in your business' => 'Đây là mail thống kê số lượt xem, chia sẻ, và yêu thích sản phẩm của bạn. Chức năng này sẽ giúp các bạn định hướng tốt cho việc kinh doanh của bạn',
-    'If your have any query, feel free to ask via' => 'Nếu có bất kỳ yêu cầu nào, vui lòng liên lạc với chúng tôi thống qua'
+    'If your have any query, feel free to ask via' => 'Nếu có bất kỳ yêu cầu nào, vui lòng liên lạc với chúng tôi thống qua',
     
+    //register
+    'Thank you for becoming a iTake member.'=>'Cám ơn bạn đã trở thành thành viên của iTake',
+    'Now you just need to click the link below and verify your email'=>'Bây giờ bạn chỉ cần click vào link dưới để chúng tôi xác thực địa chỉ email của bạn',
+    'Congratulations! You are officially a iTake member!'=>'Chúc mừng bạn đã trở thành thành viên của iTake !',
 
 );

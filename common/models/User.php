@@ -251,6 +251,23 @@ class User extends CActiveRecord
 
     public function afterSave()
     {
+        if($this->isNewRecord){
+            $code = UserEmail::generateVerifyCode($this->email);
+            $verifyUrl = UserEmail::createVerifyUrl($this->email,$code);
+            EmailUtil::queue(
+                Yii::app()->params['email.adminEmail'],
+                $this->email,
+                'register',
+                array(
+                    'username'=>$this->username,
+                    'email'=>$this->email,
+                    'code'=>$code,
+                    'verifyUrl'=>$verifyUrl
+                ),
+                Yii::t('translatemail','Congratulations! You are officially a iTake member!'),
+                false
+            );
+        }
         
         return parent::afterSave();
     }

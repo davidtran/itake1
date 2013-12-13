@@ -70,7 +70,7 @@ class SolrSearchAdapter {
         $params['qf'] = 'title^60 description^20';
         $params['q.alt'] = '*:*';
         $params['mm'] = $this->mm;
-
+   
         switch ($this->sortType) {
             case self::TYPE_CREATE_DATE:
                 $params['sort'] = 'create_date desc';

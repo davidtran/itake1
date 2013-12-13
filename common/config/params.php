@@ -46,5 +46,6 @@ return CMap::mergeArray(array(
 		'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 	),
 	'php.exePath' => '/usr/bin/php',
+	'solr.group.limit'=>3,
    
 ), CMap::mergeArray($commonEnvParams, $commonParamsLocal));

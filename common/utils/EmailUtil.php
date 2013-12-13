@@ -46,7 +46,7 @@ class EmailUtil extends CWidget
         }
     }
 
-    protected static function createEmailQueue($from, $to, $view, $params, $subject)
+    protected static function createEmailQueue($from, $to, $view, $params, $subject,$requireVerify)
     {
         $model = new EmailQueue();
         $model->from_email = $from;
@@ -54,14 +54,13 @@ class EmailUtil extends CWidget
         $model->view = $view;
         $model->params = serialize($params);
         $model->subject = $subject;   
+        $model->require_verify = $requireVerify;
         return $model;
     }
 
-    public static function queue($from, $to, $view, $params, $subject, $checkUnique = false, $uniqueParams = null)
-    {
-        $model = self::createEmailQueue($from, $to, $view, $params, $subject);
-
-
+    public static function queue($from, $to, $view, $params, $subject, $requireVerify = true, $checkUnique = false, $uniqueParams = null)
+    {        
+        $model = self::createEmailQueue($from, $to, $view, $params, $subject,$requireVerify);
         $model->unique_hash = self::queueUniqueHash($model, $uniqueParams);
 
         $isUnique = true;
@@ -74,7 +73,8 @@ class EmailUtil extends CWidget
         if (($checkUnique && $isUnique) || !$checkUnique)
         {
             
-            return $model->save();
+            $rs = $model->save();
+            return $rs;
             
         }
         return false;

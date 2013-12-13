@@ -89,8 +89,12 @@ class SiteController extends Controller {
 
     public function actionIndex($keyword = null, $category = null, $facebook = 0, $page = 0, $status = Product::STATUS_ACTIVE) {              
         //echo StringUtil::replaceRepeatCharacter('baf---_---a', '-', '');exit;
+        $user = null;
         if (Yii::app()->user->isGuest && isset(Yii::app()->request->cookies['usercity_ck'])) {
             CityUtil::setSelectedCityId(Yii::app()->request->cookies['usercity_ck']->value);
+        }
+        if(Yii::app()->user->isGuest == false){
+            $user = Yii::app()->user->model;
         }
         $keyword = trim(filter_var($keyword, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
         Yii::app()->session['LastPageNumber'] = $page;
@@ -161,7 +165,11 @@ class SiteController extends Controller {
                         'class' => 'nextPageLink',
             ));
         }
-
+        $isEmailVerified = true;
+        if(Yii::app()->user->isGuest ==false){
+            $isEmailVerified = UserEmail::isEmailVerified($user->email);    
+        }
+        
         if (!Yii::app()->request->isAjaxRequest) {
             $this->render('index', array(
                 'numFound' => $numFound,
@@ -176,7 +184,8 @@ class SiteController extends Controller {
                 'locationAddress' => $locationAddress,
                 'locationCity' => $locationCity,
                 'city' => $city,
-                'requiredFacebookLogin' => $requiredFacebookLogin
+                'requiredFacebookLogin' => $requiredFacebookLogin,
+                'isEmailVerified' => $isEmailVerified
             ));
         } else {
             $html = '';

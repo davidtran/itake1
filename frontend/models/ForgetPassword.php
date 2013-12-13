@@ -43,7 +43,8 @@
                     'email'=>$this->_user->email,
                     'newPassword'=>$newPassword
                 ),
-                'Bạn có yêu cầu mật khẩu mới tại '.Yii::app()->name
+                'Bạn có yêu cầu mật khẩu mới tại '.Yii::app()->name,
+                false
             );
         }
     }

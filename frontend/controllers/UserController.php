@@ -143,7 +143,7 @@ class UserController extends Controller
                     $loginForm->validate();
                     $loginForm->login();
                     Yii::app()->user->setFlash('success','Kết nối với Facebook thành công.');
-                    $siteUrl = $this->createUrl('/user/editProfile',array('id'=>$user->id,'newUser'=>true));                    
+                    $siteUrl = $this->createUrl('/user/changePassword');                    
                     if($newFacebookuser){
                         $this->redirect($siteUrl);
                     }else{
@@ -173,7 +173,7 @@ class UserController extends Controller
                 $loginForm->password = $password;
                 $loginForm->validate();
                 $loginForm->login();
-                $siteUrl = $this->createUrl('/user/editProfile',array('id'=>$user->id,'newUser'=>1));
+                $siteUrl = $this->createUrl('/site');
                 $this->redirect($siteUrl);
             }
         }
@@ -422,5 +422,34 @@ class UserController extends Controller
         $nextUrl = Yii::app()->session->get('FacebookLoginUrl');
         $this->redirect($nextUrl);
         Yii::app()->end();
+    }
+
+    public function actionSendVerifyEmail(){
+        if(Yii::app()->user->isGuest){            
+            $this->redirect($this->createUrl('/site'));
+        }else{
+            $user = Yii::app()->user->getModel();
+            UserEmail::sendVerifyEmail($user);
+            $this->render('sendVerifyEmail',array(
+                'user'=>$user
+            )); 
+        }
+    }
+    public function actionVerifyEmail($email,$code){     
+        $user = User::model()->find('email=:email',array(
+            'email'=>$email
+        ));
+        if($user!=null){
+            $result = UserEmail::verifyEmailAndCode($email,$code);
+
+            $this->render('verifyEmail',array(
+                'email'=>$email,
+                'code'=>$code,
+                'result'=>$result
+            ));    
+        }else{
+            Yii::app()->user->setFlash('error','Tài khoản này chưa được đăng ký tại '.Yii::app()->params['baseUrl']);
+            $this->redirect($this->createUrl('/user/register'));
+        }                    
     }
 }

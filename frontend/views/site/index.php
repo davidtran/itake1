@@ -32,8 +32,10 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
 ?>
 <div class="container-fluid">
     <div class="row-fluid">
-
+        
+        
         <div class="sort-bar visible-desktop">
+
             <div class="selectedCategoryTab"> 
             <?php if (isset($categoryModel) && $categoryModel != null): ?>
                 <?php $this->pageTitle = LanguageUtil::t($categoryModel->name) . " ".LanguageUtil::t('on')." ITAKE.ME" ?>
@@ -124,7 +126,18 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
             <div class="span10">
                 <div class="row-fluid" >
                      <div class="span12">
+                        
                         <div  id="wrapper_productContainer">
+                            <?php if( ! $isEmailVerified):?>
+                                <p class='alert alert-info'>
+                                    Vui lòng kiểm tra hộp thư để xác thực email của bạn. Nếu bạn không tìm thấy email xác thực. Click vào đây để gửi lại.
+                                    <?php echo CHtml::link('Gửi email xác thực',array(
+                                        '/user/sendVerifyEmail'
+                                    ),array(
+                                        'class'=>'btn btn-success'
+                                    )); ?>
+                                </p>
+                            <?php endif;?>
                             <div class="hidden-desktop">
                                 <center><?php echo CHtml::dropDownList('selectCategory', $category,  CHtml::listData(CategoryUtil::getCategoryList(),'id','name'));?></center>
                             </div>                

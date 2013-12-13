@@ -251,14 +251,21 @@ class Product extends CActiveRecord
     }
 
     public function renderHtml($prefix = "",$showControl = false)
-    {
-        //like, comment
-        $html = Yii::app()->controller->renderPartial('/site/_productItem', array(
+    {        
+        try{
+            return Yii::app()->controller->renderPartial('/site/_productItem', array(
             'product' => $this,
             'prefix' => $prefix,
             'showControl'=>$showControl
                 ), true, false);
-        return $html;
+        }
+        catch(Exception $e){
+            if(YII_DEBUG){
+                throw $e;
+            }else{
+                return '';
+            }
+        }        
     }
 
     public function renderImageLink()
