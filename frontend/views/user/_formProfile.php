@@ -20,32 +20,7 @@
         <div class="span6">
             <div class="control-group">
     		    <?php echo $form->textFieldRow($model,'username',array('class'=>'controls','labelOptions'=>array('class'=>'control-label'))); ?>
-            </div>            
-            <div class="control-group">
-                    <?php echo $form->labelEx($model,'birthday',array('class'=>'control-label')); ?>
-                    <?php
-
-            $this->widget('zii.widgets.jui.CJuiDatePicker',array(
-                'model'=>$model,
-                'attribute'=>'birthday',
-                'language'=>'vi',
-                // additional javascript options for the date picker plugin
-                'options'=>array(
-                    'showAnim'=>'slide',
-                    'changeMonth'=>true,
-                    'changeYear'=>true,
-                    'yearRange'=> '1980:+30',
-                    'dateFormat' => 'dd-mm-yy',
-                ),
-                'htmlOptions'=>array(
-                    'style'=>'height:20px;',
-                    'class'=>'controls',
-                    'value' => ($model->birthday) ? date('d-m-Y', strtotime($model->birthday)) : null,
-                ),
-            ));
-
-             ?>
-            </div>
+            </div>                     
             <div class="control-group">
     		    <?php echo $form->dropDownListRow($model,'city',  CityUtil::getCityListData(true),array('class'=>'controls','labelOptions'=>array('class'=>'control-label'))); ?>
             </div>
