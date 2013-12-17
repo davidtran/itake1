@@ -115,43 +115,43 @@ class Comment extends CActiveRecord {
     }
     
     public function afterSave() {
-        $this->sendEmail();
+        // $this->sendEmail();
         return parent::afterSave();
     }
 
-    public function sendEmail() {
-        $list = $this->getEmailReceiverUserList();
-        $title = $this->user->username. ' vừa bình luận vào sản phẩm '.$this->product->title;
-        foreach($list as $item){
-            EmailUtil::queue(
-                    Yii::app()->params['email.adminEmail'], 
-                    $item['email'], 
-                    'notifyComment', 
-                    array(
-                        'username'=>$item['username'],
-                        'content'=>$this->content,
-                        'time'=>$this->create_date
-                    ), 
-                    $title,
-                    false
-            );
-        }
-    }
+    // public function sendEmail() {
+    //     $list = $this->getEmailReceiverUserList();
+    //     $title = $this->user->username. ' vừa bình luận vào sản phẩm '.$this->product->title;
+    //     foreach($list as $item){
+    //         EmailUtil::queue(
+    //                 Yii::app()->params['email.adminEmail'], 
+    //                 $item['email'], 
+    //                 'notifyComment', 
+    //                 array(
+    //                     'username'=>$item['username'],
+    //                     'content'=>$this->content,
+    //                     'time'=>$this->create_date
+    //                 ), 
+    //                 $title,
+    //                 false
+    //         );
+    //     }
+    // }
 
-    protected function getEmailReceiverUserList() {
-        $seller = $this->product->user;
-        $commentor = array();
-        $childIdList = Yii::app()->db->createCommand('select * from {{comment}} where parent_id=:id and user_id !=:seller_id and user_id !=owner_id')->bindValues(array(
-            'id'=>$this->id,
-            'seller_id'=>$seller->id,
-            'owner_id'=>$this->user_id
-        ))->queryAll();
+    // protected function getEmailReceiverUserList() {
+    //     $seller = $this->product->user;
+    //     $commentor = array();
+    //     $childIdList = Yii::app()->db->createCommand('select * from {{comment}} where parent_id=:id and user_id !=:seller_id and user_id !=owner_id')->bindValues(array(
+    //         'id'=>$this->id,
+    //         'seller_id'=>$seller->id,
+    //         'owner_id'=>$this->user_id
+    //     ))->queryAll();
         
-        if($childIdList!=false && count($childIdList)>0){
-            $commentor = $childIdList;
-        }
-        $commentor[] = $seller->getData();
-        return $commentor;
-    }
+    //     if($childIdList!=false && count($childIdList)>0){
+    //         $commentor = $childIdList;
+    //     }
+    //     $commentor[] = $seller->getData();
+    //     return $commentor;
+    // }
 
 }

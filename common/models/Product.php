@@ -73,7 +73,7 @@ class Product extends CActiveRecord
             $this->addError('price', 'Price can not be zeno.');
         }
     }
-
+    
     /**
      * @return array relational rules.
      */
@@ -91,8 +91,8 @@ class Product extends CActiveRecord
             'firstImage'=>array(self::HAS_ONE,'ProductImage','product_id','order'=>'number'),
             'images'=>array(self::HAS_MANY,'ProductImage','product_id','order'=>'number'),  
             'imageCount'=>array(self::STAT,'ProductImage','product_id'),
-            'comments' => array(self::HAS_MANY, 'Comment', 'product_id', 'condition'=>'comments.status='.Comment::STATUS_APPROVED, 'order'=>'comments.create_date DESC','limit'=>5),
-            'rootComments' => array(self::HAS_MANY, 'Comment', 'product_id', 'condition'=>'rootComments.status='.Comment::STATUS_APPROVED.' and rootComments.parent_id = 0', 'order'=>'rootComments.create_date DESC','limit'=>5),
+            'comments' => array(self::HAS_MANY, 'Comment', 'product_id', 'condition'=>'comments.status='.Comment::STATUS_APPROVED, 'order'=>'comments.create_date DESC','limit'=>Comment::INITIAL_COMMENT_NUMBER),
+            'rootComments' => array(self::HAS_MANY, 'Comment', 'product_id', 'condition'=>'rootComments.status='.Comment::STATUS_APPROVED.' and rootComments.parent_id = 0', 'order'=>'rootComments.create_date DESC','limit'=>Comment::INITIAL_COMMENT_NUMBER),
             'commentCount' => array(self::STAT, 'Comment', 'product_id', 'condition'=>'status='.Comment::STATUS_APPROVED),
         );
     }
