@@ -85,10 +85,12 @@ class ChangePasswordForm extends CFormModel
     {
         EmailUtil::queue(
                 Yii::app()->params['email.adminEmail'], $this->_user->email, 'changePassword', array(
-            'username' => $this->_user->username,
-            'email' => $this->_user->email,
-            'newPassword' => $newPassword
-                ), 'Bạn vừa đổi mật khẩu tại ' . Yii::app()->name
+                    'username' => $this->_user->username,
+                    'email' => $this->_user->email,
+                    'newPassword' => $newPassword
+                ), 
+                'Bạn vừa đổi mật khẩu tại ' . Yii::app()->name,
+                false
         );
     }
 

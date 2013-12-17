@@ -251,7 +251,19 @@ class User extends CActiveRecord
 
     public function afterSave()
     {
-        
+        if($this->isNewRecord){
+            $code = UserEmail::generateVerifyCode($this->email);
+            $verifyUrl = UserEmail::createVerifyUrl($this->email,$code);
+            EmailUtil::queue(
+                Yii::app()->params['email.adminEmail'],
+                $this->email,
+                'registerUser',
+                array(
+                    'username'=>$this->username,
+                    'verifyUrl'=>$verifyUrl
+                )
+            )
+        }
         return parent::afterSave();
     }
 

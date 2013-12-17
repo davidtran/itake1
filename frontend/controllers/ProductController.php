@@ -278,6 +278,27 @@ class ProductController extends Controller
         $this->renderAjaxResult(true);
     }
 
+    public function actionRating(){
+        if(Yii::app()->user->isGuest == false){
+            $score = Yii::app()->request->getPost('score');
+            $productId = Yii::app()->request->getPost('productId');
+            $userId = Yii::app()->user->getId();
+            if( false === Rating::isUserRatedProduct($userId,$productId)){
+                if(Rating::addRatingScore($userId,$productId,$score)){                    
+                    $this->renderAjaxResult(true,array(
+                        'averageScore'=>Rating::getAverageScoreForProduct($productId),
+                        'userCount'=>Rating::getTotalUserCountForProduct($productId),
+                    ));
+                }
+            }else{
+                $this->renderAjaxResult(false,'You already rated this product.');
+            }            
+        }else{
+            $this->renderAjaxResult(false,'Please login before rating this product.');
+        }
+        
+    }
+
 }
 
 ?>

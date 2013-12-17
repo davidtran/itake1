@@ -143,7 +143,7 @@ class UserController extends Controller
                     $loginForm->validate();
                     $loginForm->login();
                     Yii::app()->user->setFlash('success','Kết nối với Facebook thành công.');
-                    $siteUrl = $this->createUrl('/user/editProfile',array('id'=>$user->id,'newUser'=>true));                    
+                    $siteUrl = $this->createUrl('/site',array('id'=>$user->id,'newUser'=>true));                    
                     if($newFacebookuser){
                         $this->redirect($siteUrl);
                     }else{
@@ -173,7 +173,7 @@ class UserController extends Controller
                 $loginForm->password = $password;
                 $loginForm->validate();
                 $loginForm->login();
-                $siteUrl = $this->createUrl('/user/editProfile',array('id'=>$user->id,'newUser'=>1));
+                $siteUrl = $this->createUrl('/site');
                 $this->redirect($siteUrl);
             }
         }
@@ -422,5 +422,43 @@ class UserController extends Controller
         $nextUrl = Yii::app()->session->get('FacebookLoginUrl');
         $this->redirect($nextUrl);
         Yii::app()->end();
+    }
+
+    public function actionVerifyEmail($email,$code){
+        $verifyResult = UserEmail::verifyEmailAndCode($email, $code);        
+        //if user is login: redirect to homepage
+        //if not: redirect to login page
+        //set flash message
+        $this->render('verifyEmail',array(
+            'verifyResult'=>$verifyResult
+        ));
+        
+     
+        
+    }
+    
+    public function actionSendVerifyEmail(){
+        if(Yii::app()->user->isGuest ){
+            throw new CHttpException(500,'Vui lòng đăng nhập trước khi sử dụng tính năng này');
+        }
+        $user = Yii::app()->user->model;
+        if(true == UserEmail::isEmailVerified($user->email)){
+            Yii::app()->user->setFlash('danger','Địa chỉ email của bạn đã được xác thực.');
+            $this->redirect($this->createUrl('/site'));
+        }
+        
+        $model = new ConfirmEmailForm();
+        $model->user_id = $user->id;
+        $success = false;
+        if(isset($_POST['ConfirmEmailForm'])){
+            $model->attributes = $_POST['ConfirmEmailForm'];
+            $success = $model->sendConfirmEmail();
+        }        
+                
+        $this->render('sendVerifyEmail',array(
+            'success'=>$success,
+            'user'=>$user,
+            'model'=>$model
+        ));
     }
 }

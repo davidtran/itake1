@@ -1,3 +1,4 @@
+
 <div class="row-fluid">            
     <div class="productInfo">
         <div class='span12 custom customtop' id="mainProductInfo">
@@ -16,7 +17,7 @@
             <div class="row-fluid">                            
                 <div class="span6">
                     <div class="row-fluid">
-
+                        
                         <?php $this->renderPartial('partial/images',array(
                             'product'=>$product
                         )); ?>

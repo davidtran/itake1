@@ -46,7 +46,7 @@ class EmailQueue extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('from_email, to_email, subject, params, unique_hash', 'required'),
-			array('max_attempts, attempts, success', 'numerical', 'integerOnly'=>true),
+			array(' max_attempts, attempts, success', 'numerical', 'integerOnly'=>true),
 			array('from_email, to_email', 'length', 'max'=>128),
 			array('subject', 'length', 'max'=>255),
 			array('unique_hash', 'length', 'max'=>32),

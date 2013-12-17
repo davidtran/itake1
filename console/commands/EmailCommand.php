@@ -17,26 +17,31 @@ class EmailCommand extends ConsoleCommand
         /* @var $queueItem EmailQueue */
         foreach ($queueList as $queueItem)
         {
-           
-            $rs = EmailUtil::sendEmail(
-                        $queueItem->from_email, 
-                        $queueItem->to_email, 
-                        $queueItem->view, 
-                        unserialize($queueItem->params), 
-                        $queueItem->subject
-                    );
-            
-            if($rs){
-                $queueItem->attempts = $queueItem->attempts + 1;
-                $queueItem->success = 1;
-                $queueItem->last_attempt = new CDbExpression('NOW()');
-                $queueItem->send_date = new CDbExpression('NOW()'); 
-                $queueItem->save();
+            if( ! $queueItem->require_verify || ($queueItem->require_verify && true == UserEmail::isEmailVerified($queueItem->to_email))){
+                $rs = EmailUtil::sendEmail(
+                    $queueItem->from_email, 
+                    $queueItem->to_email, 
+                    $queueItem->view, 
+                    unserialize($queueItem->params), 
+                    $queueItem->subject
+                );
+        
+                if($rs){
+                    $queueItem->attempts = $queueItem->attempts + 1;
+                    $queueItem->success = 1;
+                    $queueItem->last_attempt = new CDbExpression('NOW()');
+                    $queueItem->send_date = new CDbExpression('NOW()'); 
+                    $queueItem->save();
+                }else{
+                    $queueItem->attempts = $queueItem->attempts + 1;
+                    $queueItem->last_attempt = new CDbExpression('NOW()'); 
+                    $queueItem->save();
+                }  
             }else{
-                $queueItem->attempts = $queueItem->attempts + 1;
+                $queueItem->attempts = $queueItem->max_attempts;
                 $queueItem->last_attempt = new CDbExpression('NOW()'); 
                 $queueItem->save();
-            }   
+            }              
         }
     }
     
