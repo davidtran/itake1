@@ -161,10 +161,14 @@ class SiteController extends Controller {
                         'class' => 'nextPageLink',
             ));
         }
-
+        $canShowRequireVerifyEmail = false;
+        if(Yii::app()->user->isGuest == false && false == UserEmail::isEmailVerified(Yii::app()->user->model->email)){
+            $canShowRequireVerifyEmail = true;
+        }
         if (!Yii::app()->request->isAjaxRequest) {
             $this->render('index', array(
                 'numFound' => $numFound,
+                'canShowRequireVerifyEmail'=>$canShowRequireVerifyEmail,
                 'productList' => $productList,
                 'nextPageLink' => $nextPageLink,
                 'keyword' => $keyword,

@@ -126,6 +126,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                      <div class="span12">
                         
                         <div  id="wrapper_productContainer">
+                            <?php if($canShowRequireVerifyEmail):?>
                             <div id='requireConfirmEmail' class='alert alert-info'>
                                 <p>
                                     Email của bạn chưa được xác thực, hãy xác thực email để nhận được thông báo mới nhất từ iTake.vn.
@@ -138,6 +139,7 @@ Yii::app()->clientScript->registerScript('showcity',"var canShowCityDialog = $ca
                                 </p>
                                 <br/>                       
                             </div>
+                            <?php endif; ?>
                             <div class="hidden-desktop">
                                 <center><?php echo CHtml::dropDownList('selectCategory', $category,  CHtml::listData(CategoryUtil::getCategoryList(),'id','name'));?></center>
                             </div>                

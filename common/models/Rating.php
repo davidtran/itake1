@@ -62,7 +62,7 @@ class Rating extends CActiveRecord
 	
 	public static function getAverageScoreForProduct($productId) {
 		return Yii::app()->db
-				->createCommand('select average(score) from {{rating}} where product_id=:product_id')
+				->createCommand('select avg(score) from {{rating}} where product_id=:product_id')
 				->queryScalar(array(
 					'product_id'=>$productId
 				));
@@ -96,14 +96,12 @@ class Rating extends CActiveRecord
 	}
 
 
-	public static function addRatingScore($userId,$productId,$score) {
-		if( false === self::isUserRatedProduct($userId,$productId)){
-			return Yii::app()->db->createCommand()->insert('{{rating}}',array(
-				'user_id' => $userId,
-				'product_id' => $productId,
-				'score' => $score
-			));			
-		}
-		return false;
+	public static function addRatingScore($userId,$productId,$score) {	
+		$insertSql = 'insert into {{rating}}(user_id,product_id,score) values(:user_id,:product_id,:score) on duplicate key update score=:score';
+		return Yii::app()->db->createCommand($insertSql)->query(array(
+			'user_id' => $userId,
+			'product_id' => $productId,
+			'score' => $score
+		));		
 	}
 }

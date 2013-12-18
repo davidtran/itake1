@@ -14,15 +14,17 @@
             ));
             ?>
             <h1> <?php echo strtoupper($product->title); ?></h1>
+            
+            
             <div class="row-fluid">                            
                 <div class="span6">
                     <div class="row-fluid">
-                        
+                        <?php $this->renderPartial('/product/starRating',array(
+                            'product'=>$product,
+                        )); ?>
                         <?php $this->renderPartial('partial/images',array(
                             'product'=>$product
                         )); ?>
-
-
 
                     </div>
                 </div>

@@ -261,8 +261,10 @@ class User extends CActiveRecord
                 array(
                     'username'=>$this->username,
                     'verifyUrl'=>$verifyUrl
-                )
-            )
+                ),
+                'Chúc mừng bạn trở thành thành viên tại iTake.me',
+                false
+            );
         }
         return parent::afterSave();
     }
