@@ -43,6 +43,9 @@ $(document).ready(function(){
 ";
 Yii::app()->clientScript->registerScript($id,$script,CClientScript::POS_END);
 ?>
+<script type='text/javascript'>
+	<?php echo $script; ?>
+</script>
 <div class='productRatingContainer row-fluid'>
 	<div class='span4'>
 		
