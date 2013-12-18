@@ -9,7 +9,7 @@ $this->pageTitle = 'Xác thực địa chỉ email';
 				<p class='alert alert-success'>
 					Email xác thực đã được gử đến địa chỉ <?php echo $model->email; ?>. Vui lòng kiểm tra hộp thư của bạn.
 					<br/>
-					<?php echo CHtml::link('Quay về trang chủ',array('/site/home')); ?>
+					<?php echo CHtml::link('Quay về trang chủ',array('/site')); ?>
 				</p>
 			<?php endif; ?>
 			<p>Hãy nhập địa chỉ email bạn muốn gửi email xác thực. Thay đổi email nếu bạn nhập sai email.</p>
