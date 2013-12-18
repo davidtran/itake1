@@ -59,7 +59,7 @@ Yii::app()->clientScript->registerScript($id,$script,CClientScript::POS_END);
 		 		
 		 	
 	 		<div class='nonEmptyStar' style='display:<?php echo $display; ?>'>
-	 			<span class='starCount'><?php echo $userCount;?></span> người đánh giá
+	 			<span class='starCount'><?php echo $userCount;?></span> người đã đánh giá sản phẩm này
 	 		</div>	 		
 	 		<?php if($userCount == 0):?>
 		 		<div class='emptyStar'>
