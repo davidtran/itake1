@@ -23,5 +23,5 @@ var user_username = '<?php echo User::model()->findByPk(Yii::app()->user->id)->u
 var user_userid = '<?php echo Yii::app()->user->id;?>';
 var baseUrl = '<?php echo Yii::app()->getBaseUrl(true);?>';
 </script>
-<script type="text/javascript" src="<?php echo Yii::app()->getBaseUrl(true)?>:7777/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->getBaseUrl(true)?>:1111/socket.io/socket.io.js"></script>
 </div>

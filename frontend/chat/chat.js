@@ -2,7 +2,7 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : '123456',
+  password : '123',
   database: 'itake'
 });
 
@@ -20,7 +20,7 @@ connection.query(query, function(err, results, fields){
 });
 
 
-var io = require('socket.io').listen(7777, {
+var io = require('socket.io').listen(1111, {
     transports: ['websocket', 'flashsocket', 'htmlfile', 'jsonp-polling', 'xhr-polling']
 }),
 users = [];
