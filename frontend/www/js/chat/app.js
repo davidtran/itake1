@@ -16,7 +16,7 @@ if(!String.prototype.trim) {
         userList = $('.userList');
 
         try {
-            socket = io.connect(baseUrl + ':7777', {
+            socket = io.connect(baseUrl + ':1111', {
                 'sync disconnect on unload': false
             });
             
