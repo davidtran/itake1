@@ -17,6 +17,7 @@ $model->product_id = (int)$product->id;
 		<?php echo $form->textArea($model,'content',array(
                 'rows'=>3, 
                 'class'=>'span12',
+                'id'=>'fb_message',
                 'placeholder'=>Yii::t('Default','Login to comment')
             )
         ); ?>
@@ -25,9 +26,12 @@ $model->product_id = (int)$product->id;
                 $this->createUrl('/user/login',array('returnUrl'=>$model->product->getDetailUrl())),
                 array('class'=>'commentLoginUrl')); ?>
 	</div>
+	<label class="checkbox">
+      <input type="checkbox" id="post2facebook" checked="checked"> Post to Facebook
+    </label>
 	<div class="row-fluid buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Bình luận' : 'Cập nhật',array('class'=>'pull-right btn btn-success')); ?>
 	</div>
+	<div id="fb-root"></div>
 <?php $this->endWidget(); ?>
-
 </div>

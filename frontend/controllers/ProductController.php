@@ -150,6 +150,13 @@ class ProductController extends Controller
         
         ProductViewCounterUtil::getInstance($id)->increaseView();
         $product = $this->loadProduct($id);
+        $image_product='';
+        $i = 0 ;
+        foreach ($product->images as $image){
+            if($i<1)
+                $image_product = $image->thumbnail;
+            $i++;
+        }
         CityUtil::setSelectedCityId($product->address->city);
         $canonicalUrl = $this->createAbsoluteUrl('/product/details', array('id' => $id));
         $relateProductList = $this->relatedProduct($product);
@@ -168,6 +175,7 @@ class ProductController extends Controller
                 'html' => $html,
                 'product' => $productAttributes,
                 'canonicalUrl' => $canonicalUrl,
+                'image'=> $image_product,
             ));
         }
         else {

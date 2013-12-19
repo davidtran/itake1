@@ -22,9 +22,11 @@
         <?php
         $baseUrl = Yii::app()->baseUrl;
         $absoluteUrl = Yii::app()->getBaseUrl(true);
+        $facebookappid = Yii::app()->facebook->appId;
         Yii::app()->clientScript->registerScript('site info', "
             var BASE_URL = '$baseUrl';
-            var ABSOLUTE_URL = '$absoluteUrl';", CClientScript::POS_HEAD);
+            var ABSOLUTE_URL = '$absoluteUrl';
+            var FACEBOOKAPPID = '$facebookappid';", CClientScript::POS_HEAD);
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/imagesloaded.pkgd.min.js', CClientScript::POS_HEAD);
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.imageloader.js', CClientScript::POS_HEAD);        
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.isotope.min.js', CClientScript::POS_HEAD);

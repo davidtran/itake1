@@ -12,7 +12,8 @@ var currentHref;
 var currentProduct;
 var loadedMap = false;
 var product;
-
+var imagefbcommnet;
+var fbcommentlink;
 $(document).ready(function() {
     $('#special').hide();
     $dialog = $('#productDialog');
@@ -74,9 +75,9 @@ function scrollToTopDialog()
 }
 function loadProduct(href, htmlProductId)
 {
-
     //$('#scrollUp').hide();
     // $('#btnShowFeedbackDialog').hide();
+    fbcommentlink = href;
     $('#scrollUp').hide();
 
     //where 1: home 2: user product 3:relateProduct    
@@ -112,7 +113,8 @@ function loadProduct(href, htmlProductId)
                 $userProductList = $('#userProductList');
                 product = json.msg.product;
                 currentProduct = product;
-
+                imagefb = json.msg.image;
+                imagefbcommnet = imagefb;
                 loadUserProduct(product);
                 loadImageSlideShow();
                 commentRegisterEventSubmit();
@@ -312,9 +314,10 @@ function commentRegisterEventSubmit(){
     var CurrentChildPage =2 ;
 		$( "#comment-form" ).submit(function( event ) {
 		  // alert( "Handler for .submit() called." );
-		  event.preventDefault();
-		  var datos = $(this).serialize();
-       	 $.post(BASE_URL + "/product/postComment", datos, function(data) {
+		    event.preventDefault();
+            var msgcomment = $("#fb_message").val();
+		    var datos = $(this).serialize();
+       	$.post(BASE_URL + "/product/postComment", datos, function(data) {
             $( "#comment-form" )[0].reset();
             var _result = $.parseJSON(data);
             if (_result.error_code == 1) {
@@ -322,8 +325,11 @@ function commentRegisterEventSubmit(){
             } else {
                 console.log('error')
             }
-            
         });
+        imagefbcommnet = ABSOLUTE_URL+'/'+imagefbcommnet;
+        if ($('#post2facebook').attr('checked')){
+            post_on_wall(msgcomment,currentProduct.title,fbcommentlink,currentProduct.description,imagefbcommnet);
+        }  
         return false;
 
 	});
@@ -421,4 +427,39 @@ function commentRegisterEventSubmit(){
             return false;
         });
 
+}
+
+function post_on_wall(message,name,link,description,picture )
+{
+        FB.login(function(response)
+        {
+    
+            if (response.authResponse)
+            {
+                // console.log('Welcome!  Fetching your information.... ');
+                var opts = {
+                    message : message,
+                    name : name,
+                    link : link,
+                    description :description,
+                    picture : picture
+                };
+                // console.log(opts);
+                FB.api('/me/feed', 'post', opts, function(response)
+                {
+                    if (!response || response.error)
+                    {
+                        console.log('Posting error occured');
+                    }
+                    else
+                    {
+                        console.log('Success');
+                    }
+                });
+            }
+            else
+            {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        }, { scope : 'publish_stream' });
 }

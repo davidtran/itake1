@@ -247,7 +247,7 @@ Number.prototype.formatMoney = function(c, d, t) {
 $(document).ready(function() {
     function facebookReady() {
         FB.init({
-            appId: '620447237967845',
+            appId: FACEBOOKAPPID,
             status: true,
             cookie: true,
             xfbml: true,
