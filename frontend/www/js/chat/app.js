@@ -94,6 +94,10 @@ if(!String.prototype.trim) {
                 
                 
             });
+
+            socket.on("msgReceive", function(data){
+                $('#chat_' + data.id + ' .chat').append(data.content).scrollTop(1000);
+            });
             socket.emit('login', {nickname: user_username, id: user_userid});
             $(document).on('keyup', '.msg', function(ev) {
                 var k = ev.which || ev.keyCode;
@@ -131,6 +135,7 @@ if(!String.prototype.trim) {
     
     $('.userList').on('click', '.startChat', function() {
         buildChatWindow($(this).data('id'), this.innerHTML);
+        socket.emit('loadmsg', {id: $(this).data('id')});
         $('#chat_' + $(this).data('id') + ' .msg').focus();
     });
     

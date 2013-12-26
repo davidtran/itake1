@@ -1,24 +1,49 @@
+var config = {host:'localhost',
+              user: 'root',
+              password: '123456',
+              database: 'itake'};
 var mysql      = require('mysql');
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '123',
-  database: 'itake'
-});
 
-connection.connect(function(err) {
-  // connected! (unless `err` is set)
-});
-query = "SELECT * FROM `mp_user`";
-connection.query(query, function(err, results, fields){
+var connection = mysql.createConnection(config);
+    connection.connect(function(err) {
+      // connected! (unless `err` is set)
+    });
+
+function closeConnection(){
+  connection.end();
+}
+
+function insert(data){
+  connection.query('INSERT IGNORE INTO `mp_chat` SET ?', data, function(err, results){
     if (err) {
-        throw err;
-    }
-    for (var index in fields) {
-        
-    }
-});
+      console.log(err);
+    } else{
+      return results;
+    };    
+  });
+}
 
+function get(sender_id, user_id, callback){
+  select1 = "SELECT * FROM mp_chat WHERE sender_id = " + sender_id + " AND receiver_id = " + user_id ;
+  select2 = "SELECT * FROM mp_chat WHERE sender_id = " + user_id + " AND receiver_id = " + sender_id ;
+  select = select1 + " UNION " + select2 + " ORDER BY id ASC LIMIT 10";
+  connection.query(select, function(err, results, fields){
+        if (err) {
+            throw err;
+        }
+        for (var i = 0; i < results.length; i++) {
+          callback(results[i], sender_id);
+        };
+    });
+}
+
+function update(){
+  query = "UPDATE `mp_chat` SET ";
+
+}
+
+
+/*==========================================================================================*/
 
 var io = require('socket.io').listen(1111, {
     transports: ['websocket', 'flashsocket', 'htmlfile', 'jsonp-polling', 'xhr-polling']
@@ -44,6 +69,7 @@ function bindEvents(socket) {
     socket.on('login', onLogin);
     socket.on('talkTo', onTalkTo);
     socket.on('confRequest', onConfRequest);
+    socket.on('loadmsg', onLoadmsg);
 }
 
 function onDisconnect(data) {
@@ -120,6 +146,12 @@ function onTalkTo(data) {
     if(sessId && data.msg) {
         receiver = loggedUsers[sessId].socket;
         msg = noTag(data.msg);
+        post = {'sender_id' : getVar(socket, 'dbId'),
+            "body" : msg,
+            "receiver_id": data.id,
+            "date": new Date()
+          };
+        insert(post);
         socket.emit('loopback', {msg: msg, from: data.id});
         receiver.emit('msg', {msg: msg, nickname: getVar(socket, 'nickname'), from: getVar(socket, 'dbId')});
     }
@@ -138,4 +170,20 @@ function onConfRequest(data) {
 
 function noTag(msg) {
     return msg.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function onLoadmsg(data){
+    var socket = this;
+    console.log(data.id);
+    console.log(getVar(socket, 'dbId'));
+    get(data.id, getVar(socket, 'dbId'), function(row, user_id){
+        resultHtml = "<div class='";
+        if (row.sender_id == user_id) {
+            resultHtml += "userMessage'>";
+        } else{
+            resultHtml += "myMessage'>";
+        };
+        resultHtml += row.body + "</div>";
+        socket.emit('msgReceive',{content: resultHtml, id: user_id});
+    });
 }
