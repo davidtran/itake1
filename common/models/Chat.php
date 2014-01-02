@@ -33,4 +33,21 @@ class Chat extends CActiveRecord
     {
         return '{{chat}}';
     }
+
+
+    public static function getUnreadMsg($userId)
+    {
+        # code...
+        $count = Yii::app()
+            ->db
+            ->createCommand('select count(*) from {{chat}} where receiver_id =:user_id and is_read = 0')
+            ->queryScalar(array(
+                'user_id'=>$userId,
+            ));   
+
+        if(is_numeric($count) && $count > 0){
+            return $count;
+        }           
+        return false;
+    }
 }

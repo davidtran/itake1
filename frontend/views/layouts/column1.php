@@ -72,10 +72,13 @@
                             </div>   
                             <div class="user-controls hidden-phone">
                                 <?php if( Yii::app()->user->isGuest == false ) :?>       
-                                <!--                            <a style="margin-top:-5px;" href="<?php echo $this->createUrl('/upload'); ?>" class="btn btn-info" ><i class="icon-upload icon-white"></i>  Đăng bán</a>-->
                                 <?php
-                                $cates = CategoryUtil::getCategoryList();                                                                           
-                                ?>       
+                                $cates = CategoryUtil::getCategoryList();
+                                $unreadMsg = Chat::getUnreadMsg(Yii::app()->user->id);
+                                ?>
+                                <a style="margin-top:-5px; margin-right: 15px" href="<?php echo $this->createUrl('/message'); ?>" class="btn btn-info message" >
+                                    <?php echo ($unreadMsg) ? '<i class="new-msg">'.$unreadMsg.'</i>' : '';?><?php echo Yii::t('app','Message')?>
+                                </a>
                                 <div id="listCategory" class="btn-group" style ="margin-top: -5px;">
                                     <a data-toggle="dropdown" class="btn btn-info dropdown-toggle" id="yw0" href="#"><i class="icon-upload"></i>  <?php echo LanguageUtil::echoT('Post Ad') ?> <span class="caret"></span></a>
                                     <ul id="yw1" class="dropdown-menu">
