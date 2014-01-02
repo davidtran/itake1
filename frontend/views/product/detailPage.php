@@ -2,7 +2,6 @@
 $this->pageTitle = $product->title;
 $cs = Yii::app()->clientScript;
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.elevateZoom-2.5.5.min.js', CClientScript::POS_HEAD);
-$cs->registerScriptFile(Yii::app()->baseUrl . '/js/chat/app.js', CClientScript::POS_HEAD);
 ?>
 
 <div class="row-fluid">

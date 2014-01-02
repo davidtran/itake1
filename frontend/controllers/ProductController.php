@@ -224,7 +224,15 @@ class ProductController extends Controller
         $message->productId = $product->id;
         if (isset($_POST['SendMessageForm'])) {
             $message->attributes = $_POST['SendMessageForm'];
-            if ($message->validate() && $message->send()) {
+            $message->senderName = "Sender Name";
+            /*if ($message->validate() && $message->send()) {*/
+            if ($message->validate()) {  
+                $chat = new Chat;
+                $chat->body = $message->message;
+                $chat->receiver_id = $message->receiverId;
+                $chat->sender_id = Yii::app()->user->id;
+                $chat->date = date('Y-m-d H:i:s');
+                $chat->save();
                 $this->renderAjaxResult(true, 'Gửi tin nhắn thành công.');
             }
             else {

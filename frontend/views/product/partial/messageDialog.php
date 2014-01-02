@@ -18,7 +18,6 @@
                         'class'=>'span11'
                     )
                 )); ?>                
-                <?php echo $form->textFieldRow($message,'senderName',array('class'=>'span12')); ?>
                 <?php echo $form->textAreaRow($message,'message',array('class'=>'span12')); ?>
                 <?php echo $form->textFieldRow($message,'captcha',array('class'=>'span12')); ?>
                 <?php $this->widget('Captcha',array(                      
