@@ -424,41 +424,41 @@ class UserController extends Controller
         Yii::app()->end();
     }
 
-    public function actionVerifyEmail($email,$code){
-        $verifyResult = UserEmail::verifyEmailAndCode($email, $code);        
-        //if user is login: redirect to homepage
-        //if not: redirect to login page
-        //set flash message
-        $this->render('verifyEmail',array(
-            'verifyResult'=>$verifyResult
-        ));
+    // public function actionVerifyEmail($email,$code){
+    //     $verifyResult = UserEmail::verifyEmailAndCode($email, $code);        
+    //     //if user is login: redirect to homepage
+    //     //if not: redirect to login page
+    //     //set flash message
+    //     $this->render('verifyEmail',array(
+    //         'verifyResult'=>$verifyResult
+    //     ));
         
      
         
-    }
+    // }
     
-    public function actionSendVerifyEmail(){
-        if(Yii::app()->user->isGuest ){
-            throw new CHttpException(500,'Vui lòng đăng nhập trước khi sử dụng tính năng này');
-        }
-        $user = Yii::app()->user->model;
-        if(true == UserEmail::isEmailVerified($user->email)){
-            Yii::app()->user->setFlash('danger','Địa chỉ email của bạn đã được xác thực.');
-            $this->redirect($this->createUrl('/site'));
-        }
+    // public function actionSendVerifyEmail(){
+    //     if(Yii::app()->user->isGuest ){
+    //         throw new CHttpException(500,'Vui lòng đăng nhập trước khi sử dụng tính năng này');
+    //     }
+    //     $user = Yii::app()->user->model;
+    //     if(true == UserEmail::isEmailVerified($user->email)){
+    //         Yii::app()->user->setFlash('danger','Địa chỉ email của bạn đã được xác thực.');
+    //         $this->redirect($this->createUrl('/site'));
+    //     }
         
-        $model = new ConfirmEmailForm();
-        $model->user_id = $user->id;
-        $success = false;
-        if(isset($_POST['ConfirmEmailForm'])){
-            $model->attributes = $_POST['ConfirmEmailForm'];
-            $success = $model->sendConfirmEmail();
-        }        
+    //     $model = new ConfirmEmailForm();
+    //     $model->user_id = $user->id;
+    //     $success = false;
+    //     if(isset($_POST['ConfirmEmailForm'])){
+    //         $model->attributes = $_POST['ConfirmEmailForm'];
+    //         $success = $model->sendConfirmEmail();
+    //     }        
                 
-        $this->render('sendVerifyEmail',array(
-            'success'=>$success,
-            'user'=>$user,
-            'model'=>$model
-        ));
-    }
+    //     $this->render('sendVerifyEmail',array(
+    //         'success'=>$success,
+    //         'user'=>$user,
+    //         'model'=>$model
+    //     ));
+    // }
 }

@@ -130,14 +130,14 @@ class UserEmail extends CActiveRecord {
     }
 
     public static function isEmailVerified($email) {
-        $sql = 'select is_verified from {{user_email}} where email like :email';
-        $isVerified = Yii::app()->db->createCommand($sql)->bindValues(array(
-                    'email' => $email
-                ))->queryScalar();
-        if ($isVerified == self::IS_VERIFIED_YES) {
+        // $sql = 'select is_verified from {{user_email}} where email like :email';
+        // $isVerified = Yii::app()->db->createCommand($sql)->bindValues(array(
+        //             'email' => $email
+        //         ))->queryScalar();
+        // if ($isVerified == self::IS_VERIFIED_YES) {
             return true;
-        }
-        return false;
+        // }
+        // return false;
     }
 
     public static function verifyEmailAndCode($email, $code) {
